@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/aura-hero.jpg";
 import { Heart, Brain, Users } from "lucide-react";
+import { useLanguage } from "@/hooks/useLanguage";
 
 const Hero = () => {
+  const { t } = useLanguage();
+  
   return (
     <section className="relative min-h-screen bg-gradient-hero flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -23,7 +26,7 @@ const Hero = () => {
             Aura
           </h1>
           <p className="text-xl md:text-2xl text-foreground/80 font-light">
-            Din digitala följeslagare för emotionell och relationell hälsa
+            {t('home.subtitle')}
           </p>
         </div>
 
@@ -52,7 +55,7 @@ const Hero = () => {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button variant="wellness" size="hero" className="min-w-[200px]">
-            Börja din resa
+            {t('home.getStarted')}
           </Button>
           <Button variant="outline" size="hero" className="min-w-[200px] border-foreground/20 hover:bg-foreground/10">
             Lär dig mer
@@ -61,7 +64,7 @@ const Hero = () => {
 
         {/* Subtitle */}
         <p className="mt-8 text-foreground/60 max-w-2xl mx-auto leading-relaxed">
-          Kombinera daglig mental uppföljning med AI-stödd coaching för att förbättra ditt välbefinnande och stärka dina relationer.
+          {t('home.description')}
         </p>
       </div>
     </section>

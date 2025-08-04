@@ -11,18 +11,22 @@ import {
   BarChart3
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useLanguage } from "@/hooks/useLanguage";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
 
+  const { t } = useLanguage();
+  
   const navigationItems = [
-    { icon: Home, label: "Hem", path: "/" },
-    { icon: BarChart3, label: "Incheckning", path: "/checkin" },
-    { icon: MessageCircle, label: "AI-Coach", path: "/coach" },
-    { icon: Heart, label: "Rollspel", path: "/roleplay" },
-    { icon: BookOpen, label: "Resurser", path: "/resources" },
-    { icon: AlertTriangle, label: "Akutläge", path: "/emergency" }
+    { icon: Home, label: t('nav.home'), path: "/" },
+    { icon: BarChart3, label: t('nav.checkin'), path: "/checkin" },
+    { icon: MessageCircle, label: t('nav.coach'), path: "/coach" },
+    { icon: Heart, label: t('nav.roleplay'), path: "/roleplay" },
+    { icon: BookOpen, label: t('nav.resources'), path: "/resources" },
+    { icon: AlertTriangle, label: t('nav.emergency'), path: "/emergency" }
   ];
 
   const NavContent = () => (
@@ -64,6 +68,9 @@ const Navigation = () => {
           <p className="text-sm text-muted-foreground">Din personliga guide</p>
         </div>
         <NavContent />
+        <div className="mt-auto">
+          <LanguageSelector />
+        </div>
       </aside>
 
       {/* Mobile Navigation */}
@@ -72,7 +79,9 @@ const Navigation = () => {
           Aura
         </h1>
         
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <div className="flex items-center gap-2">
+          <LanguageSelector />
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
               <Menu className="w-5 h-5" />
@@ -88,6 +97,7 @@ const Navigation = () => {
             </div>
           </SheetContent>
         </Sheet>
+        </div>
       </header>
 
       {/* Mobile spacing */}
