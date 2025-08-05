@@ -14,7 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      user_preferences: {
+        Row: {
+          ai_tone: string | null
+          auri_enabled: boolean | null
+          auri_tone: string | null
+          created_at: string
+          id: string
+          intention: string | null
+          onboarding_completed: boolean | null
+          theme_preference: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_tone?: string | null
+          auri_enabled?: boolean | null
+          auri_tone?: string | null
+          created_at?: string
+          id?: string
+          intention?: string | null
+          onboarding_completed?: boolean | null
+          theme_preference?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_tone?: string | null
+          auri_enabled?: boolean | null
+          auri_tone?: string | null
+          created_at?: string
+          id?: string
+          intention?: string | null
+          onboarding_completed?: boolean | null
+          theme_preference?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
