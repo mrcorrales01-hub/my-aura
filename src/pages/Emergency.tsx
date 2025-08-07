@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/hooks/useLanguage";
 import { AlertTriangle, Phone, MessageCircle, Heart, Smartphone, Globe } from "lucide-react";
 
 const Emergency = () => {
+  const { t } = useLanguage();
   const [showAISupport, setShowAISupport] = useState(false);
 
   const emergencyContacts = [
@@ -61,20 +63,20 @@ const Emergency = () => {
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
           <AlertTriangle className="w-8 h-8 text-destructive animate-pulse" />
-          <h1 className="text-3xl font-bold text-foreground">Akutläge</h1>
+          <h1 className="text-3xl font-bold text-foreground">{t('emergency.title')}</h1>
         </div>
         <p className="text-lg text-foreground/70">
-          Du är inte ensam. Här finns omedelbar hjälp och stöd.
+          {t('emergency.subtitle')}
         </p>
       </div>
 
       {/* Crisis Assessment */}
       <Card className="p-6 mb-8 border-destructive/20 bg-destructive/5">
         <h2 className="text-xl font-semibold text-destructive mb-4">
-          Akut fara?
+          {t('emergency.crisisTitle')}
         </h2>
         <p className="text-foreground/80 mb-4">
-          Om du har tankar på att skada dig själv eller andra, eller om du befinner dig i omedelbar fara:
+          {t('emergency.crisisDesc')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4">
           <Button 
@@ -84,7 +86,7 @@ const Emergency = () => {
             onClick={() => window.open("tel:112")}
           >
             <Phone className="w-5 h-5 mr-2" />
-            Ring 112 (Akut)
+            {t('emergency.callEmergency')}
           </Button>
           <Button 
             variant="outline" 
@@ -93,7 +95,7 @@ const Emergency = () => {
             onClick={() => window.open("tel:1177")}
           >
             <Phone className="w-5 h-5 mr-2" />
-            Ring 1177 (Vårdguiden)
+            {t('emergency.callHealthcare')}
           </Button>
         </div>
       </Card>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLanguage } from "@/hooks/useLanguage";
 import { 
   BookOpen, 
   Play, 
@@ -18,14 +19,15 @@ import {
 } from "lucide-react";
 
 const Resources = () => {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState("");
 
   const categories = [
-    { id: 'anxiety', name: 'Ångest', icon: Brain, color: 'bg-calm' },
-    { id: 'selfesteem', name: 'Självkänsla', icon: Zap, color: 'bg-coral' },
-    { id: 'communication', name: 'Kommunikation', icon: MessageCircle, color: 'bg-wellness-primary' },
-    { id: 'trust', name: 'Tillit', icon: Shield, color: 'bg-lavender' },
-    { id: 'conflict', name: 'Konflikter', icon: Users, color: 'bg-wellness-secondary' }
+    { id: 'anxiety', name: t('resources.anxiety'), icon: Brain, color: 'bg-calm' },
+    { id: 'selfesteem', name: t('resources.selfesteem'), icon: Zap, color: 'bg-coral' },
+    { id: 'communication', name: t('resources.communication'), icon: MessageCircle, color: 'bg-wellness-primary' },
+    { id: 'trust', name: t('resources.trust'), icon: Shield, color: 'bg-lavender' },
+    { id: 'conflict', name: t('resources.conflict'), icon: Users, color: 'bg-wellness-secondary' }
   ];
 
   const resources = [
@@ -173,10 +175,10 @@ const Resources = () => {
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
           <BookOpen className="w-8 h-8 text-wellness-primary" />
-          <h1 className="text-3xl font-bold text-foreground">Självhjälpsresurser</h1>
+          <h1 className="text-3xl font-bold text-foreground">{t('resources.title')}</h1>
         </div>
         <p className="text-lg text-foreground/70">
-          Praktiska verktyg och övningar för ditt välbefinnande
+          {t('resources.subtitle')}
         </p>
       </div>
 
@@ -185,7 +187,7 @@ const Resources = () => {
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
-            placeholder="Sök efter ämne, teknik eller känslor..."
+            placeholder={t('resources.search')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -199,7 +201,7 @@ const Resources = () => {
             value="all" 
             onClick={() => setSelectedCategory("all")}
           >
-            Alla
+            {t('resources.all')}
           </TabsTrigger>
           {categories.map((category) => {
             const IconComponent = category.icon;
