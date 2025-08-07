@@ -27,6 +27,7 @@ import GlobalWelcome from "./pages/GlobalWelcome";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import NotFound from "./pages/NotFound";
+import Dashboard from "./pages/Dashboard";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +60,7 @@ const App = () => (
                         <Route path="/settings" element={<ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper>} />
                         <Route path="/success" element={<ErrorBoundaryWrapper><PaymentSuccess /></ErrorBoundaryWrapper>} />
                         <Route path="/cancel" element={<ErrorBoundaryWrapper><PaymentCancel /></ErrorBoundaryWrapper>} />
+                        <Route path="/dashboard" element={<ErrorBoundaryWrapper><Dashboard /></ErrorBoundaryWrapper>} />
                         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                         <Route path="*" element={<ErrorBoundaryWrapper><NotFound /></ErrorBoundaryWrapper>} />
                       </Routes>

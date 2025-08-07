@@ -22,7 +22,7 @@ const getNavigationItems = (t: (key: string) => string) => [
   { icon: BarChart2, label: t("nav.dashboard"), path: "/dashboard", requiresAuth: true },
   { icon: Heart, label: t("nav.checkin"), path: "/checkin", requiresAuth: true },
   { icon: MessageCircle, label: t("nav.coach"), path: "/coach", requiresAuth: true },
-  { icon: Video, label: "Therapy", path: "/therapy", requiresAuth: true },
+  { icon: Video, label: t("nav.therapy"), path: "/therapy", requiresAuth: true },
   { icon: Users, label: t("nav.roleplay"), path: "/roleplay", requiresAuth: true },
   { icon: BookOpen, label: t("nav.resources"), path: "/resources" },
   { icon: AlertTriangle, label: t("nav.emergency"), path: "/emergency", destructive: true },
@@ -88,7 +88,7 @@ const UserMenu = () => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end" forceMount>
+      <DropdownMenuContent className="w-56 bg-popover z-50 shadow-md" align="end" forceMount>
         <div className="flex flex-col space-y-1 p-2">
           <p className="text-sm font-medium leading-none">{user.email}</p>
           <p className="text-xs leading-none text-muted-foreground">
