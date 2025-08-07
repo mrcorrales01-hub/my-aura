@@ -4,19 +4,23 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Smile, Meh, Frown, Heart, Zap, Cloud, Calendar, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/hooks/useLanguage";
+import { useMoodTracking } from "@/hooks/useMoodTracking";
 
 const Checkin = () => {
   const [selectedMood, setSelectedMood] = useState<string | null>(null);
   const [reflection, setReflection] = useState("");
   const [showTrends, setShowTrends] = useState(false);
   const { toast } = useToast();
+  const { t } = useLanguage();
+  const { saveMood, loading, hasMoodToday } = useMoodTracking();
   
   const moods = [
-    { id: 'amazing', label: 'Fantastisk', icon: Zap, color: 'bg-coral', description: 'Jag känner mig energisk och lycklig!' },
-    { id: 'good', label: 'Bra', icon: Smile, color: 'bg-wellness-primary', description: 'En bra dag med positiva känslor' },
-    { id: 'neutral', label: 'Okej', icon: Meh, color: 'bg-calm', description: 'Känner mig ganska neutral idag' },
-    { id: 'low', label: 'Låg', icon: Cloud, color: 'bg-lavender', description: 'Lite nedstämd, men det är okej' },
-    { id: 'difficult', label: 'Svår', icon: Frown, color: 'bg-muted', description: 'En utmanande dag, behöver extra omsorg' }
+    { id: 'amazing', label: t('checkin.moods.amazing'), icon: Zap, color: 'bg-coral', description: t('checkin.moods.amazingDesc'), value: 5 },
+    { id: 'good', label: t('checkin.moods.good'), icon: Smile, color: 'bg-wellness-primary', description: t('checkin.moods.goodDesc'), value: 4 },
+    { id: 'neutral', label: t('checkin.moods.neutral'), icon: Meh, color: 'bg-calm', description: t('checkin.moods.neutralDesc'), value: 3 },
+    { id: 'low', label: t('checkin.moods.low'), icon: Cloud, color: 'bg-lavender', description: t('checkin.moods.lowDesc'), value: 2 },
+    { id: 'difficult', label: t('checkin.moods.difficult'), icon: Frown, color: 'bg-muted', description: t('checkin.moods.difficultDesc'), value: 1 }
   ];
 
   // Mock data för trends
@@ -30,18 +34,32 @@ const Checkin = () => {
     { day: 'Sön', mood: 'neutral', level: 3 }
   ];
 
-  const handleSaveMood = () => {
+  const handleSaveMood = async () => {
     if (!selectedMood) return;
     
-    // Här skulle vi spara till databas
-    toast({
-      title: "Tack för din incheckning! 💙",
-      description: "Din känsla har sparats. Kom ihåg att du är värdefull precis som du är.",
-    });
+    const selectedMoodData = moods.find(m => m.id === selectedMood);
+    if (!selectedMoodData) return;
+
+    const moodForSaving = {
+      id: selectedMoodData.id,
+      label: selectedMoodData.label,
+      icon: selectedMoodData.id, // Use id as icon string
+      color: selectedMoodData.color,
+      description: selectedMoodData.description,
+      value: selectedMoodData.value
+    };
+    const success = await saveMood(moodForSaving, reflection || undefined);
     
-    // Reset form
-    setSelectedMood(null);
-    setReflection("");
+    if (success) {
+      toast({
+        title: t('checkin.thanks'),
+        description: t('checkin.thanksDesc'),
+      });
+      
+      // Reset form
+      setSelectedMood(null);
+      setReflection("");
+    }
   };
 
   return (
@@ -50,17 +68,17 @@ const Checkin = () => {
         <div className="flex items-center justify-center gap-3 mb-4">
           <Calendar className="w-8 h-8 text-wellness-primary" />
           <h1 className="text-3xl font-bold text-foreground">
-            Daglig Incheckning
+            {t('checkin.title')}
           </h1>
         </div>
         <p className="text-xl text-foreground/70">
-          Hur mår du idag? Ta en stund att checka in med dig själv.
+          {t('checkin.subtitle')}
         </p>
       </div>
 
       {/* Mood Selection */}
       <Card className="p-8 bg-card/90 backdrop-blur-sm">
-        <h2 className="text-2xl font-semibold mb-6 text-center">Välj ditt humör</h2>
+        <h2 className="text-2xl font-semibold mb-6 text-center">{t('checkin.selectMood')}</h2>
         
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           {moods.map((mood) => {
@@ -101,7 +119,7 @@ const Checkin = () => {
             </p>
             <div className="flex items-center justify-center gap-2 text-wellness-primary">
               <Heart className="w-4 h-4 fill-current" />
-              <span className="text-sm font-medium">Tack för att du delar med dig</span>
+              <span className="text-sm font-medium">{t('checkin.shareDesc')}</span>
             </div>
           </div>
         )}
@@ -109,10 +127,10 @@ const Checkin = () => {
         {/* Reflection */}
         <div className="space-y-4">
           <label className="block text-sm font-medium text-foreground">
-            Reflektion (valfritt)
+            {t('checkin.reflection')}
           </label>
           <Textarea
-            placeholder="Berätta kort om din dag... Vad är du tacksam för? Vad känns utmanande?"
+            placeholder={t('checkin.reflectionPlaceholder')}
             value={reflection}
             onChange={(e) => setReflection(e.target.value)}
             className="min-h-[100px] resize-none"
@@ -124,10 +142,10 @@ const Checkin = () => {
             variant="wellness" 
             size="lg" 
             onClick={handleSaveMood}
-            disabled={!selectedMood}
+            disabled={!selectedMood || loading || hasMoodToday}
             className="disabled:opacity-50"
           >
-            Spara min känsla
+            {loading ? "..." : hasMoodToday ? t('checkin.alreadyCheckedIn') : t('checkin.saveMood')}
           </Button>
           <Button 
             variant="outline" 
@@ -135,7 +153,7 @@ const Checkin = () => {
             onClick={() => setShowTrends(!showTrends)}
           >
             <TrendingUp className="w-4 h-4 mr-2" />
-            {showTrends ? 'Dölj' : 'Visa'} trends
+            {showTrends ? t('checkin.hideTrends') : t('checkin.showTrends')}
           </Button>
         </div>
       </Card>
@@ -145,7 +163,7 @@ const Checkin = () => {
         <Card className="p-8 bg-card/90 backdrop-blur-sm">
           <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
             <TrendingUp className="w-5 h-5 text-wellness-primary" />
-            Din vecka i översikt
+            {t('checkin.weekOverview')}
           </h3>
           
           <div className="grid grid-cols-7 gap-4 mb-6">
@@ -172,8 +190,7 @@ const Checkin = () => {
 
           <div className="bg-wellness-primary/5 rounded-xl p-4">
             <p className="text-sm text-foreground/80">
-              <strong>AI-insikt:</strong> Du verkar må bättre under vardagar. Kanske helger kräver extra omsorg om dig själv? 
-              Prova att planera in något roligt redan på fredagen!
+              <strong>{t('common.aiInsight')}:</strong> {t('checkin.aiInsight')}
             </p>
           </div>
         </Card>

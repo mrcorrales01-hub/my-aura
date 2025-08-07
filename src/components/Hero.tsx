@@ -36,19 +36,19 @@ const Hero = () => {
             <div className="p-4 bg-wellness-primary/20 rounded-full">
               <Brain className="w-8 h-8 text-wellness-primary" />
             </div>
-            <span className="text-sm font-medium">Mental Hälsa</span>
+            <span className="text-sm font-medium">{t('hero.mentalHealth')}</span>
           </div>
           <div className="flex flex-col items-center gap-2 animate-wellness-glow" style={{ animationDelay: '1s' }}>
             <div className="p-4 bg-coral/20 rounded-full">
               <Heart className="w-8 h-8 text-coral" />
             </div>
-            <span className="text-sm font-medium">Emotionell Balans</span>
+            <span className="text-sm font-medium">{t('hero.emotionalBalance')}</span>
           </div>
           <div className="flex flex-col items-center gap-2 animate-wellness-glow" style={{ animationDelay: '2s' }}>
             <div className="p-4 bg-calm/20 rounded-full">
               <Users className="w-8 h-8 text-calm" />
             </div>
-            <span className="text-sm font-medium">Relationscoaching</span>
+            <span className="text-sm font-medium">{t('hero.relationshipCoaching')}</span>
           </div>
         </div>
 
@@ -58,7 +58,7 @@ const Hero = () => {
             {t('home.getStarted')}
           </Button>
           <Button variant="outline" size="hero" className="min-w-[200px] border-foreground/20 hover:bg-foreground/10">
-            Lär dig mer
+            {t('hero.learnMore')}
           </Button>
         </div>
 
