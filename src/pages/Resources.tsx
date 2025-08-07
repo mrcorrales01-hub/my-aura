@@ -33,57 +33,57 @@ const Resources = () => {
   const resources = [
     {
       id: 1,
-      title: "Andningsteknik för ångest",
-      description: "Lär dig 4-7-8 andningen som lugnar nervsystemet på bara 2 minuter",
+      title: t('resources.breathing.title') || "Breathing Technique for Anxiety",
+      description: t('resources.breathing.desc') || "Learn 4-7-8 breathing that calms the nervous system in just 2 minutes",
       type: "video",
       duration: "2 min",
       category: "anxiety",
-      content: "Deep breathing exercise that helps calm anxiety..."
+      content: t('resources.breathing.content') || "Deep breathing exercise that helps calm anxiety..."
     },
     {
       id: 2,
-      title: "Sätta gränser utan skuld",
-      description: "Praktiska fraser för att säga nej på ett vänligt men bestämt sätt",
+      title: t('resources.boundaries.title') || "Setting Boundaries Without Guilt",
+      description: t('resources.boundaries.desc') || "Practical phrases for saying no in a friendly but firm way",
       type: "article",
-      duration: "3 min läsning",
+      duration: "3 min reading",
       category: "communication",
-      content: "Learning to set boundaries is crucial for healthy relationships..."
+      content: t('resources.boundaries.content') || "Learning to set boundaries is crucial for healthy relationships..."
     },
     {
       id: 3,
-      title: "Självkänsla-övning: Tacksamhetsdagbok",
-      description: "En enkel daglig övning för att bygga upp din självkänsla steg för steg",
+      title: t('resources.gratitude.title') || "Self-esteem Exercise: Gratitude Journal",
+      description: t('resources.gratitude.desc') || "A simple daily exercise to build your self-esteem step by step",
       type: "exercise",
-      duration: "5 min/dag",
+      duration: "5 min/day",
       category: "selfesteem",
-      content: "Write down three things you're grateful for each day..."
+      content: t('resources.gratitude.content') || "Write down three things you're grateful for each day..."
     },
     {
       id: 4,
-      title: "Hantera gräl konstruktivt",
-      description: "Tekniker för att förvandla konflikter till möjligheter för närhet",
+      title: t('resources.conflict.title') || "Managing Arguments Constructively",
+      description: t('resources.conflict.desc') || "Techniques to transform conflicts into opportunities for closeness",
       type: "article",
-      duration: "4 min läsning",
+      duration: "4 min reading",
       category: "conflict",
-      content: "Conflicts are normal in relationships. Here's how to handle them..."
+      content: t('resources.conflict.content') || "Conflicts are normal in relationships. Here's how to handle them..."
     },
     {
       id: 5,
-      title: "Återbygga tillit efter svek",
-      description: "Steg-för-steg guide för att reparera skadad tillit i relationer",
+      title: t('resources.trust.title') || "Rebuilding Trust After Betrayal",
+      description: t('resources.trust.desc') || "Step-by-step guide to repair damaged trust in relationships",
       type: "video",
       duration: "6 min",
       category: "trust",
-      content: "Trust can be rebuilt with patience and consistent actions..."
+      content: t('resources.trust.content') || "Trust can be rebuilt with patience and consistent actions..."
     },
     {
       id: 6,
-      title: "Aktivt lyssnande",
-      description: "Lär dig att lyssna på ett sätt som får andra att känna sig hörda och förstådda",
+      title: t('resources.listening.title') || "Active Listening",
+      description: t('resources.listening.desc') || "Learn to listen in a way that makes others feel heard and understood",
       type: "exercise",
-      duration: "Praktisk övning",
+      duration: t('resources.practicalExercise') || "Practical exercise",
       category: "communication",
-      content: "Active listening involves more than just hearing words..."
+      content: t('resources.listening.content') || "Active listening involves more than just hearing words..."
     }
   ];
 
@@ -123,7 +123,7 @@ const Resources = () => {
           onClick={() => setSelectedResource(null)}
           className="mb-6"
         >
-          ← Tillbaka till resurser
+          {t('resources.backToResources')}
         </Button>
         
         <Card className="p-8 bg-card/90 backdrop-blur-sm">
@@ -151,7 +151,7 @@ const Resources = () => {
           </div>
 
           <div className="bg-wellness-primary/5 rounded-xl p-6 mb-6">
-            <h2 className="text-xl font-semibold mb-4">Innehåll</h2>
+            <h2 className="text-xl font-semibold mb-4">{t('resources.content')}</h2>
             <p className="text-foreground/80 leading-relaxed">
               {selectedResource.content}
             </p>
@@ -159,10 +159,10 @@ const Resources = () => {
 
           <div className="flex gap-4">
             <Button variant="wellness" size="lg">
-              Markera som klar
+              {t('resources.markComplete')}
             </Button>
             <Button variant="outline" size="lg">
-              Spara för senare
+              {t('resources.saveForLater')}
             </Button>
           </div>
         </Card>
@@ -251,7 +251,7 @@ const Resources = () => {
                     {resource.duration}
                   </div>
                   <Button variant="ghost" size="sm" className="text-wellness-primary hover:text-wellness-primary/80">
-                    Läs mer →
+                    {t('resources.readMore')}
                   </Button>
                 </div>
               </Card>
@@ -262,10 +262,10 @@ const Resources = () => {
             <Card className="p-8 text-center">
               <BookOpen className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-semibold text-foreground mb-2">
-                Inga resurser hittades
+                {t('resources.noResourcesFound')}
               </h3>
               <p className="text-foreground/70">
-                Prova att söka på andra termer eller välj en annan kategori.
+                {t('resources.noResourcesDesc')}
               </p>
             </Card>
           )}
@@ -302,7 +302,7 @@ const Resources = () => {
                       {resource.duration}
                     </div>
                     <Button variant="ghost" size="sm" className="text-wellness-primary">
-                      Läs mer →
+                      {t('resources.readMore')}
                     </Button>
                   </div>
                 </Card>

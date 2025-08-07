@@ -51,6 +51,7 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
 
   const setLanguage = (language: Language) => {
     setCurrentLanguage(language);
+    localStorage.setItem('aura-language', language);
   };
 
   const t = (key: string, replacements?: Record<string, string>): string => {
