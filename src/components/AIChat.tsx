@@ -4,7 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Loader2, Send, Bot, User } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Loader2, Send, Bot, User, AlertCircle } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useToast } from '@/hooks/use-toast';
@@ -36,6 +37,7 @@ export const AIChat = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [needsApiKey, setNeedsApiKey] = useState(false);
 
   const sendMessage = async () => {
     if (!input.trim() || !user) return;
@@ -59,7 +61,13 @@ export const AIChat = ({
         }
       });
 
-      if (error) throw error;
+      if (error) {
+        if (error.message?.includes('OPENAI_API_KEY')) {
+          setNeedsApiKey(true);
+          return;
+        }
+        throw error;
+      }
 
       const aiMessage: Message = {
         id: crypto.randomUUID(),
@@ -93,6 +101,27 @@ export const AIChat = ({
       <Card>
         <CardContent className="p-6 text-center">
           <p className="text-muted-foreground">Please sign in to chat with your AI coach.</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (needsApiKey) {
+    return (
+      <Card className="h-[600px] flex flex-col">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Bot className="w-5 h-5 text-wellness-primary" />
+            {title || t('coach.title')}
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="flex-1 flex items-center justify-center">
+          <Alert>
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription className="text-center">
+              OpenAI API key is required for AI functionality. Please add your OpenAI API key in the Supabase edge function secrets.
+            </AlertDescription>
+          </Alert>
         </CardContent>
       </Card>
     );

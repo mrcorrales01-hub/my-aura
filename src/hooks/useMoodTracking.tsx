@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface Mood {
   id: string;
@@ -21,7 +22,6 @@ export interface MoodEntry {
   updated_at: string;
 }
 
-// Simple localStorage-based mood tracking until types are updated
 export const useMoodTracking = () => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -40,22 +40,47 @@ export const useMoodTracking = () => {
 
     setLoading(true);
     try {
-      // For now, save to localStorage until database types are available
-      const moodEntry: MoodEntry = {
-        id: crypto.randomUUID(),
-        user_id: user.id,
-        mood_id: mood.id,
-        mood_value: mood.value,
-        notes: notes || undefined,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
-      };
-
+      // Check if mood already exists for today
       const today = new Date().toISOString().split('T')[0];
-      const storageKey = `mood_${user.id}_${today}`;
-      localStorage.setItem(storageKey, JSON.stringify(moodEntry));
+      const { data: existingMood } = await supabase
+        .from('mood_entries')
+        .select('*')
+        .eq('user_id', user.id)
+        .gte('created_at', today)
+        .lt('created_at', new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0])
+        .single();
+
+      let result;
+      if (existingMood) {
+        // Update existing mood
+        result = await supabase
+          .from('mood_entries')
+          .update({
+            mood_id: mood.id,
+            mood_value: mood.value,
+            notes: notes || null,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', existingMood.id)
+          .select()
+          .single();
+      } else {
+        // Create new mood entry
+        result = await supabase
+          .from('mood_entries')
+          .insert({
+            user_id: user.id,
+            mood_id: mood.id,
+            mood_value: mood.value,
+            notes: notes || null
+          })
+          .select()
+          .single();
+      }
+
+      if (result.error) throw result.error;
       
-      setTodaysMood(moodEntry);
+      setTodaysMood(result.data);
       toast({
         title: "Mood saved",
         description: "Your mood has been recorded successfully"
@@ -78,34 +103,41 @@ export const useMoodTracking = () => {
     if (!user) return [];
 
     try {
-      const moods: MoodEntry[] = [];
-      for (let i = 0; i < days; i++) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        const dateStr = date.toISOString().split('T')[0];
-        const storageKey = `mood_${user.id}_${dateStr}`;
-        const stored = localStorage.getItem(storageKey);
-        if (stored) {
-          moods.push(JSON.parse(stored));
-        }
-      }
-      return moods.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - days);
+      
+      const { data, error } = await supabase
+        .from('mood_entries')
+        .select('*')
+        .eq('user_id', user.id)
+        .gte('created_at', startDate.toISOString())
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data || [];
     } catch (error) {
       console.error('Error fetching mood history:', error);
       return [];
     }
   };
 
-  const checkTodaysMood = () => {
+  const checkTodaysMood = async () => {
     if (!user) return;
 
     try {
       const today = new Date().toISOString().split('T')[0];
-      const storageKey = `mood_${user.id}_${today}`;
-      const stored = localStorage.getItem(storageKey);
-      if (stored) {
-        setTodaysMood(JSON.parse(stored));
-      }
+      const { data, error } = await supabase
+        .from('mood_entries')
+        .select('*')
+        .eq('user_id', user.id)
+        .gte('created_at', today)
+        .lt('created_at', new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0])
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (error && error.code !== 'PGRST116') throw error;
+      setTodaysMood(data);
     } catch (error) {
       console.error('Error checking today\'s mood:', error);
     }
