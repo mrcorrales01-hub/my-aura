@@ -5,58 +5,158 @@ import { useLanguage } from "@/hooks/useLanguage";
 import { AlertTriangle, Phone, MessageCircle, Heart, Smartphone, Globe } from "lucide-react";
 
 const Emergency = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [showAISupport, setShowAISupport] = useState(false);
 
-  const emergencyContacts = [
-    {
-      name: "1177 Vårdguiden",
-      description: "Sjukvårdsrådgivning dygnet runt",
-      phone: "1177",
-      available: "24/7"
-    },
-    {
-      name: "Mind Självmordslinjen",
-      description: "För dig som har självmordstankar",
-      phone: "90101",
-      available: "Vardagar 12-24, Helger 16-24"
-    },
-    {
-      name: "Kvinnojouren",
-      description: "Stöd för kvinnor som utsatts för våld",
-      phone: "020-50 50 50",
-      available: "24/7"
-    },
-    {
-      name: "Mansjouren",
-      description: "Stöd för män i kris",
-      phone: "020-39 50 39",
-      available: "Vardagar 18-22"
-    },
-    {
-      name: "BRIS",
-      description: "För barn och unga upp till 25 år",
-      phone: "116 111",
-      available: "24/7"
-    }
-  ];
+  // Dynamic emergency contacts based on language/region
+  const getEmergencyContacts = () => {
+    const contacts = {
+      en: [
+        {
+          name: t('emergency.contacts.healthcare.name'),
+          description: t('emergency.contacts.healthcare.description'),
+          phone: "1177",
+          available: t('emergency.contacts.healthcare.available')
+        },
+        {
+          name: t('emergency.contacts.suicide.name'),
+          description: t('emergency.contacts.suicide.description'),
+          phone: "90101",
+          available: t('emergency.contacts.suicide.available')
+        },
+        {
+          name: t('emergency.contacts.women.name'),
+          description: t('emergency.contacts.women.description'),
+          phone: "020-50 50 50",
+          available: t('emergency.contacts.women.available')
+        },
+        {
+          name: t('emergency.contacts.men.name'),
+          description: t('emergency.contacts.men.description'),
+          phone: "020-39 50 39",
+          available: t('emergency.contacts.men.available')
+        },
+        {
+          name: t('emergency.contacts.youth.name'),
+          description: t('emergency.contacts.youth.description'),
+          phone: "116 111",
+          available: t('emergency.contacts.youth.available')
+        }
+      ],
+      es: [
+        {
+          name: t('emergency.contacts.healthcare.name'),
+          description: t('emergency.contacts.healthcare.description'),
+          phone: "061",
+          available: t('emergency.contacts.healthcare.available')
+        },
+        {
+          name: t('emergency.contacts.suicide.name'),
+          description: t('emergency.contacts.suicide.description'),
+          phone: "717 003 717",
+          available: t('emergency.contacts.suicide.available')
+        },
+        {
+          name: t('emergency.contacts.women.name'),
+          description: t('emergency.contacts.women.description'),
+          phone: "016",
+          available: t('emergency.contacts.women.available')
+        },
+        {
+          name: t('emergency.contacts.men.name'),
+          description: t('emergency.contacts.men.description'),
+          phone: "900 100 036",
+          available: t('emergency.contacts.men.available')
+        },
+        {
+          name: t('emergency.contacts.youth.name'),
+          description: t('emergency.contacts.youth.description'),
+          phone: "900 20 20 10",
+          available: t('emergency.contacts.youth.available')
+        }
+      ],
+      zh: [
+        {
+          name: t('emergency.contacts.healthcare.name'),
+          description: t('emergency.contacts.healthcare.description'),
+          phone: "12320",
+          available: t('emergency.contacts.healthcare.available')
+        },
+        {
+          name: t('emergency.contacts.suicide.name'),
+          description: t('emergency.contacts.suicide.description'),
+          phone: "400-161-9995",
+          available: t('emergency.contacts.suicide.available')
+        },
+        {
+          name: t('emergency.contacts.women.name'),
+          description: t('emergency.contacts.women.description'),
+          phone: "12338",
+          available: t('emergency.contacts.women.available')
+        },
+        {
+          name: t('emergency.contacts.men.name'),
+          description: t('emergency.contacts.men.description'),
+          phone: "400-000-0000",
+          available: t('emergency.contacts.men.available')
+        },
+        {
+          name: t('emergency.contacts.youth.name'),
+          description: t('emergency.contacts.youth.description'),
+          phone: "400-1616-161",
+          available: t('emergency.contacts.youth.available')
+        }
+      ],
+      sv: [
+        {
+          name: t('emergency.contacts.healthcare.name'),
+          description: t('emergency.contacts.healthcare.description'),
+          phone: "1177",
+          available: t('emergency.contacts.healthcare.available')
+        },
+        {
+          name: t('emergency.contacts.suicide.name'),
+          description: t('emergency.contacts.suicide.description'),
+          phone: "90101",
+          available: t('emergency.contacts.suicide.available')
+        },
+        {
+          name: t('emergency.contacts.women.name'),
+          description: t('emergency.contacts.women.description'),
+          phone: "020-50 50 50",
+          available: t('emergency.contacts.women.available')
+        },
+        {
+          name: t('emergency.contacts.men.name'),
+          description: t('emergency.contacts.men.description'),
+          phone: "020-39 50 39",
+          available: t('emergency.contacts.men.available')
+        },
+        {
+          name: t('emergency.contacts.youth.name'),
+          description: t('emergency.contacts.youth.description'),
+          phone: "116 111",
+          available: t('emergency.contacts.youth.available')
+        }
+      ]
+    };
+    return contacts[language as keyof typeof contacts] || contacts.en;
+  };
 
-  const aiSupportMessages = [
-    "Jag märker att du behöver extra stöd just nu. Det var modigt av dig att söka hjälp.",
-    "Dina känslor är viktiga och giltiga. Du förtjänar att må bra.",
-    "Kom ihåg att andas djupt. In genom näsan, håll kvar i 4 sekunder, ut genom munnen.",
-    "Du är inte ensam i det här. Det finns människor som bryr sig om dig.",
-    "Denna känsla kommer att passera. Du har kommit igenom svåra stunder förut."
-  ];
-
-  const breathingExercise = [
-    "Sätt dig bekvämt med fötterna i golvet",
-    "Lägg en hand på bröstet, en på magen",
-    "Andas in sakta genom näsan i 4 sekunder",
-    "Håll andan i 4 sekunder",
-    "Andas ut genom munnen i 6 sekunder",
-    "Upprepa tills du känner dig lugnare"
-  ];
+  const emergencyContacts = getEmergencyContacts();
+  
+  // Get emergency data with proper fallbacks
+  const getEmergencyData = () => {
+    const messages = t('emergency.aiMessages');
+    const steps = t('emergency.breathingSteps');
+    
+    return {
+      aiSupportMessages: Array.isArray(messages) ? messages : [messages],
+      breathingSteps: Array.isArray(steps) ? steps : [steps]
+    };
+  };
+  
+  const { aiSupportMessages, breathingSteps } = getEmergencyData();
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -92,7 +192,7 @@ const Emergency = () => {
             variant="outline" 
             size="lg"
             className="flex-1 border-destructive text-destructive hover:bg-destructive/10"
-            onClick={() => window.open("tel:1177")}
+            onClick={() => window.open(`tel:${emergencyContacts[0]?.phone || '1177'}`)}
           >
             <Phone className="w-5 h-5 mr-2" />
             {t('emergency.callHealthcare')}
@@ -105,14 +205,14 @@ const Emergency = () => {
         <div className="flex items-center gap-3 mb-4">
           <Heart className="w-6 h-6 text-wellness-primary" />
           <h2 className="text-xl font-semibold text-foreground">
-            Omedelbart AI-stöd
+            {t('emergency.aiSupportTitle')}
           </h2>
         </div>
         
         {!showAISupport ? (
           <div>
             <p className="text-foreground/80 mb-4">
-              Behöver du någon att prata med just nu? Vår AI-coach kan ge dig omedelbart stöd och lugnande tekniker.
+              {t('emergency.aiSupportDesc')}
             </p>
             <Button 
               variant="wellness" 
@@ -120,7 +220,7 @@ const Emergency = () => {
               className="w-full sm:w-auto"
             >
               <MessageCircle className="w-4 h-4 mr-2" />
-              Börja prata med AI-coach
+              {t('emergency.aiSupportButton')}
             </Button>
           </div>
         ) : (
@@ -135,7 +235,7 @@ const Emergency = () => {
               onClick={() => setShowAISupport(false)}
               className="mt-4"
             >
-              Stäng AI-stöd
+              {t('emergency.aiSupportClose')}
             </Button>
           </div>
         )}
@@ -146,14 +246,14 @@ const Emergency = () => {
         <div className="flex items-center gap-3 mb-4">
           <div className="w-6 h-6 bg-calm rounded-full animate-pulse" />
           <h2 className="text-xl font-semibold text-foreground">
-            Andningsövning för ångest
+            {t('emergency.breathingTitle')}
           </h2>
         </div>
         <p className="text-foreground/80 mb-4">
-          När du känner dig överväldigad, kan denna enkla andningsövning hjälpa dig att återfå kontrollen:
+          {t('emergency.breathingDesc')}
         </p>
         <div className="grid md:grid-cols-2 gap-4">
-          {breathingExercise.map((step, index) => (
+          {breathingSteps.map((step, index) => (
             <div key={index} className="flex items-start gap-3 p-3 bg-calm/10 rounded-lg">
               <div className="w-6 h-6 bg-calm text-white rounded-full flex items-center justify-center text-sm font-semibold">
                 {index + 1}
@@ -169,7 +269,7 @@ const Emergency = () => {
         <div className="flex items-center gap-3 mb-6">
           <Phone className="w-6 h-6 text-wellness-primary" />
           <h2 className="text-xl font-semibold text-foreground">
-            Professionell hjälp
+            {t('emergency.professionalTitle')}
           </h2>
         </div>
         
@@ -179,7 +279,9 @@ const Emergency = () => {
               <div className="flex-1">
                 <h3 className="font-semibold text-foreground">{contact.name}</h3>
                 <p className="text-sm text-foreground/70 mb-1">{contact.description}</p>
-                <p className="text-xs text-muted-foreground">Tillgänglig: {contact.available}</p>
+                <p className="text-xs text-muted-foreground">
+                  {language === 'zh' ? '可用时间' : language === 'es' ? 'Disponible' : language === 'sv' ? 'Tillgänglig' : 'Available'}: {contact.available}
+                </p>
               </div>
               <Button
                 variant="outline"
@@ -198,9 +300,9 @@ const Emergency = () => {
           <div className="flex items-start gap-3">
             <Globe className="w-5 h-5 text-wellness-primary mt-0.5" />
             <div>
-              <h4 className="font-medium text-foreground mb-2">Fler resurser online</h4>
+              <h4 className="font-medium text-foreground mb-2">{t('emergency.onlineResourcesTitle')}</h4>
               <p className="text-sm text-foreground/70">
-                Besök <strong>1177.se</strong> för mer information om mental hälsa och var du kan få hjälp i din region.
+                {t('emergency.onlineResourcesDesc')}
               </p>
             </div>
           </div>
@@ -211,11 +313,10 @@ const Emergency = () => {
       <div className="text-center mt-8 p-6 bg-wellness-primary/5 rounded-xl">
         <Heart className="w-8 h-8 text-wellness-primary mx-auto mb-3" />
         <h3 className="text-lg font-semibold text-foreground mb-2">
-          Du är värdefull
+          {t('emergency.bottomTitle')}
         </h3>
         <p className="text-foreground/70 max-w-2xl mx-auto">
-          Oavsett vad du går igenom just nu, kom ihåg att du förtjänar kärlek, stöd och att må bra. 
-          Det är okej att be om hjälp - det visar styrka, inte svaghet.
+          {t('emergency.bottomDesc')}
         </p>
       </div>
     </div>

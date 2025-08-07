@@ -16,25 +16,31 @@ export type Database = {
     Tables: {
       conversations: {
         Row: {
+          ai_tone: string | null
           context: string | null
           created_at: string
           id: string
+          language_preference: string | null
           message: string
           response: string
           user_id: string
         }
         Insert: {
+          ai_tone?: string | null
           context?: string | null
           created_at?: string
           id?: string
+          language_preference?: string | null
           message: string
           response: string
           user_id: string
         }
         Update: {
+          ai_tone?: string | null
           context?: string | null
           created_at?: string
           id?: string
+          language_preference?: string | null
           message?: string
           response?: string
           user_id?: string
@@ -154,7 +160,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      cleanup_old_conversations: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
