@@ -7,6 +7,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/contexts/AuthContext';
 import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { User, Bell, Palette, Brain, Sparkles, LogOut } from 'lucide-react';
@@ -14,6 +16,8 @@ import { User, Bell, Palette, Brain, Sparkles, LogOut } from 'lucide-react';
 const Settings = () => {
   const { user, signOut } = useAuth();
   const { openCustomerPortal, subscribed, subscription_tier } = useSubscription();
+  const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
   const { toast } = useToast();
 
   const [preferences, setPreferences] = useState({
@@ -155,16 +159,19 @@ const Settings = () => {
             <div className="space-y-2">
               <Label>Theme</Label>
               <Select
-                value={preferences.theme_preference}
-                onValueChange={(value) => updatePreferences({ theme_preference: value })}
+                value={theme}
+                onValueChange={(value) => {
+                  setTheme(value as "light" | "dark" | "auto");
+                  updatePreferences({ theme_preference: value });
+                }}
               >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="light">Light</SelectItem>
-                  <SelectItem value="dark">Dark</SelectItem>
-                  <SelectItem value="auto">Auto</SelectItem>
+                  <SelectItem value="light">{t("settings.light")}</SelectItem>
+                  <SelectItem value="dark">{t("settings.dark")}</SelectItem>
+                  <SelectItem value="auto">{t("settings.auto")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>

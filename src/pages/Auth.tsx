@@ -7,13 +7,17 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/hooks/useLanguage';
+import { PasswordStrength } from '@/components/auth/PasswordStrength';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,19 +51,40 @@ const Auth = () => {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
+    
+    // Password validation
+    if (password.length < 8) {
+      toast({
+        title: t("auth.error"),
+        description: t("auth.passwordTooShort"),
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      toast({
+        title: t("auth.error"),
+        description: t("auth.passwordsDontMatch"),
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+    
     const { error } = await signUp(email, password);
     
     if (error) {
       toast({
-        title: "Error creating account",
+        title: t("auth.error"),
         description: error.message,
-        variant: "destructive"
+        variant: "destructive",
       });
     } else {
       toast({
-        title: "Account created!",
-        description: "Please check your email to verify your account."
+        title: t("auth.success"),
+        description: t("auth.checkEmail"),
       });
     }
     
@@ -130,7 +155,18 @@ const Auth = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    minLength={6}
+                    minLength={8}
+                  />
+                  <PasswordStrength password={password} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="confirmPassword">Confirm Password</Label>
+                  <Input
+                    id="confirmPassword"
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>

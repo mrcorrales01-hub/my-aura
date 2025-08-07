@@ -5,7 +5,7 @@ export type Language = 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'pt' | 'bn' | 'ru' | '
 interface LanguageContextType {
   currentLanguage: Language;
   setLanguage: (language: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, replacements?: Record<string, string>) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -53,8 +53,33 @@ export const LanguageProvider = ({ children }: LanguageProviderProps) => {
     setCurrentLanguage(language);
   };
 
-  const t = (key: string): string => {
-    return translations[currentLanguage]?.[key] || translations.en[key] || key;
+  const t = (key: string, replacements?: Record<string, string>): string => {
+    const keys = key.split('.');
+    let value: any = translations[currentLanguage];
+    
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    
+    // Fallback to English if translation not found
+    if (!value && currentLanguage !== 'en') {
+      let fallback: any = translations.en;
+      for (const k of keys) {
+        fallback = fallback?.[k];
+      }
+      value = fallback;
+    }
+    
+    let result = value || key;
+    
+    // Replace placeholders if replacements provided
+    if (replacements) {
+      Object.entries(replacements).forEach(([placeholder, replacement]) => {
+        result = result.replace(new RegExp(`{${placeholder}}`, 'g'), replacement);
+      });
+    }
+    
+    return result;
   };
 
   return (
@@ -73,7 +98,7 @@ export const useLanguage = () => {
 };
 
 // Translations object
-const translations: Record<Language, Record<string, string>> = {
+const translations: Record<Language, Record<string, any>> = {
   en: {
     // Navigation
     'nav.home': 'Home',
@@ -211,7 +236,61 @@ const translations: Record<Language, Record<string, string>> = {
     // Language
     'language.welcome': 'Welcome to Aura',
     'language.selectPreferred': 'Please select your preferred language to continue',
-    'language.selectLanguage': 'Select Language'
+    'language.selectLanguage': 'Select Language',
+    
+    // Navigation
+    nav: {
+      home: "Home",
+      checkin: "Check-in",
+      coach: "Coach",
+      roleplay: "Roleplay",
+      resources: "Resources",
+      emergency: "Emergency",
+      settings: "Settings",
+      subscription: "Subscription",
+      signIn: "Sign In",
+      signOut: "Sign out",
+      loginRequired: "Login required",
+      plan: "Plan",
+      freePlan: "Free Plan"
+    },
+    
+    // Auth
+    auth: {
+      passwordStrength: "Password Strength",
+      passwordWeak: "Weak",
+      passwordFair: "Fair", 
+      passwordGood: "Good",
+      passwordStrong: "Strong",
+      passwordTooShort: "At least 8 characters",
+      passwordNeedsCases: "Upper and lowercase letters",
+      passwordNeedsNumber: "At least one number",
+      passwordNeedsSpecial: "At least one special character",
+      error: "Error",
+      success: "Success",
+      passwordsDontMatch: "Passwords do not match",
+      checkEmail: "Please check your email to verify your account"
+    },
+    
+    // Upgrade prompts
+    upgrade: {
+      premiumFeature: "Premium Feature",
+      unlockFeature: "Unlock {feature} with Premium",
+      upgradeToPremium: "Upgrade to Premium",
+      upgrade: "Upgrade",
+      pro: "PRO",
+      premiumBenefits: "Get unlimited access to all features",
+      benefit1: "Unlimited AI conversations",
+      benefit2: "Advanced mood tracking",
+      benefit3: "Priority support"
+    },
+    
+    // Settings
+    settings: {
+      light: "Light",
+      dark: "Dark",
+      auto: "Auto"
+    }
   },
   es: {
     // Navigation

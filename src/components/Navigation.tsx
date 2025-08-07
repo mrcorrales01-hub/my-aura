@@ -6,6 +6,7 @@ import { LanguageSelector } from "./LanguageSelector";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useSubscription } from "@/contexts/SubscriptionContext";
+import { useLanguage } from "@/hooks/useLanguage";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,19 +17,22 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 // Navigation items configuration
-const navigationItems = [
-  { icon: Home, label: "Home", path: "/" },
-  { icon: Heart, label: "Check-in", path: "/checkin", requiresAuth: true },
-  { icon: MessageCircle, label: "Coach", path: "/coach", requiresAuth: true },
-  { icon: Users, label: "Roleplay", path: "/roleplay", requiresAuth: true },
-  { icon: BookOpen, label: "Resources", path: "/resources" },
-  { icon: AlertTriangle, label: "Emergency", path: "/emergency", destructive: true },
+const getNavigationItems = (t: (key: string) => string) => [
+  { icon: Home, label: t("nav.home"), path: "/" },
+  { icon: Heart, label: t("nav.checkin"), path: "/checkin", requiresAuth: true },
+  { icon: MessageCircle, label: t("nav.coach"), path: "/coach", requiresAuth: true },
+  { icon: Users, label: t("nav.roleplay"), path: "/roleplay", requiresAuth: true },
+  { icon: BookOpen, label: t("nav.resources"), path: "/resources" },
+  { icon: AlertTriangle, label: t("nav.emergency"), path: "/emergency", destructive: true },
 ];
 
 // Navigation content component
 const NavContent = () => {
   const location = useLocation();
   const { user } = useAuth();
+  const { t } = useLanguage();
+  
+  const navigationItems = getNavigationItems(t);
   
   return (
     <nav className="flex-1 space-y-2">
@@ -48,7 +52,7 @@ const NavContent = () => {
             >
               <Icon className="h-4 w-4 mr-3" />
               {item.label}
-              {isDisabled && <span className="ml-auto text-xs">Login required</span>}
+              {isDisabled && <span className="ml-auto text-xs">{t("nav.loginRequired")}</span>}
             </Button>
           </Link>
         );
@@ -60,12 +64,13 @@ const NavContent = () => {
 const UserMenu = () => {
   const { user, signOut } = useAuth();
   const { subscribed, subscription_tier } = useSubscription();
+  const { t } = useLanguage();
   const navigate = useNavigate();
 
   if (!user) {
     return (
       <Button onClick={() => navigate('/auth')} size="sm">
-        Sign In
+        {t("nav.signIn")}
       </Button>
     );
   }
@@ -85,22 +90,22 @@ const UserMenu = () => {
         <div className="flex flex-col space-y-1 p-2">
           <p className="text-sm font-medium leading-none">{user.email}</p>
           <p className="text-xs leading-none text-muted-foreground">
-            {subscribed ? `${subscription_tier} Plan` : 'Free Plan'}
+            {subscribed ? `${subscription_tier} ${t("nav.plan")}` : t("nav.freePlan")}
           </p>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => navigate('/settings')}>
           <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
+          <span>{t("nav.settings")}</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => navigate('/pricing')}>
           <CreditCard className="mr-2 h-4 w-4" />
-          <span>Subscription</span>
+          <span>{t("nav.subscription")}</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={signOut}>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Sign out</span>
+          <span>{t("nav.signOut")}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
