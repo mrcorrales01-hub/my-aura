@@ -86,6 +86,7 @@ const Index = () => {
       {auriMessage && (
         <Auri 
           message={auriMessage}
+          context="welcome"
           onDismiss={() => setAuriMessage(null)}
           showSettings={true}
         />

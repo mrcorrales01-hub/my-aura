@@ -39,7 +39,7 @@ serve(async (req) => {
     const user = userData.user;
     if (!user) throw new Error("User not authenticated");
 
-    const { message, context = 'general' } = await req.json();
+    const { message, context = 'general', language = 'en' } = await req.json();
 
     // Get user preferences for personalized responses
     const { data: preferences } = await supabaseClient
@@ -48,28 +48,52 @@ serve(async (req) => {
       .eq('user_id', user.id)
       .single();
 
+    // Map auri_tone to ai_tone for backward compatibility
+    const aiTone = preferences?.ai_tone || 
+      (preferences?.auri_tone === 'soothing' ? 'empathetic' : 
+       preferences?.auri_tone === 'professional' ? 'direct' : 
+       preferences?.auri_tone === 'playful' ? 'encouraging' : 'empathetic');
+
     // Build system prompt based on user preferences and context
-    let systemPrompt = `You are Aura, a compassionate AI wellness companion focused on emotional and relationship health. `;
+    let systemPrompt = `You are Auri, a compassionate AI wellness companion focused on emotional and relationship health. `;
     
-    if (preferences?.ai_tone === 'empathetic') {
-      systemPrompt += `Respond with deep empathy, understanding, and emotional warmth. Use gentle, supportive language.`;
-    } else if (preferences?.ai_tone === 'direct') {
-      systemPrompt += `Provide clear, direct, and actionable advice while remaining supportive and understanding.`;
-    } else if (preferences?.ai_tone === 'encouraging') {
-      systemPrompt += `Be uplifting, motivational, and encouraging while providing practical guidance.`;
+    // Add language instruction
+    const languageMap: Record<string, string> = {
+      'en': 'English',
+      'es': 'Spanish', 
+      'zh': 'Chinese',
+      'sv': 'Swedish',
+      'hi': 'Hindi',
+      'ar': 'Arabic',
+      'pt': 'Portuguese'
+    };
+    
+    const languageName = languageMap[language] || 'English';
+    systemPrompt += `Respond in ${languageName}. `;
+    
+    // Add personality based on tone
+    if (aiTone === 'empathetic') {
+      systemPrompt += `Embody a soothing, gentle personality. Respond with deep empathy, understanding, and emotional warmth. Use gentle, supportive language like a caring friend.`;
+    } else if (aiTone === 'direct') {
+      systemPrompt += `Embody a professional, clear personality. Provide clear, direct, and actionable advice while remaining supportive and understanding. Be structured and goal-oriented.`;
+    } else if (aiTone === 'encouraging') {
+      systemPrompt += `Embody a playful, uplifting personality. Be energetic, motivational, and encouraging while providing practical guidance. Use positive, energizing language.`;
     } else {
-      systemPrompt += `Be supportive, understanding, and helpful with a balanced tone.`;
+      systemPrompt += `Be supportive, understanding, and helpful with a balanced, warm tone.`;
     }
 
+    // Add context-specific guidance
     if (context === 'mood') {
-      systemPrompt += ` The user is sharing their current mood or emotional state. Provide validation, understanding, and gentle guidance.`;
+      systemPrompt += ` The user is sharing their current mood or emotional state. Provide validation, understanding, and gentle guidance for their emotional wellbeing.`;
     } else if (context === 'relationship') {
       systemPrompt += ` The user is discussing relationship challenges. Offer practical relationship advice and communication strategies.`;
     } else if (context === 'emergency') {
       systemPrompt += ` This may be a crisis situation. Prioritize safety, provide immediate support resources, and encourage professional help.`;
+    } else if (context === 'welcome') {
+      systemPrompt += ` This is a welcome interaction. Be warm, inviting, and set a positive tone for the conversation.`;
     }
 
-    systemPrompt += ` Keep responses concise (2-3 sentences max), warm, and actionable. Always prioritize the user's wellbeing.`;
+    systemPrompt += ` Keep responses concise (2-3 sentences max), culturally appropriate for ${languageName} speakers, warm, and actionable. Always prioritize the user's wellbeing and respect cultural sensitivities.`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -96,12 +120,17 @@ serve(async (req) => {
 
     const aiResponse = data.choices[0].message.content;
 
-    // Save conversation to database (optional)
+    // Save conversation to database with language and personality context
     await supabaseClient.from('conversations').insert({
       user_id: user.id,
       user_message: message,
       ai_response: aiResponse,
       context: context,
+      metadata: {
+        language: language,
+        auri_tone: preferences?.auri_tone || 'soothing',
+        ai_tone: aiTone
+      },
       created_at: new Date().toISOString()
     }).catch(console.error); // Don't fail if conversation saving fails
 

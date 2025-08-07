@@ -4,17 +4,21 @@ import { Button } from '@/components/ui/button';
 import { Settings, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface AuriProps {
   message?: string;
   onDismiss?: () => void;
   showSettings?: boolean;
+  context?: 'mood' | 'relationship' | 'general' | 'welcome';
 }
 
-const Auri = ({ message, onDismiss, showSettings = false }: AuriProps) => {
+const Auri = ({ message, onDismiss, showSettings = false, context = 'general' }: AuriProps) => {
   const [auriEnabled, setAuriEnabled] = useState(true);
   const [auriTone, setAuriTone] = useState('soothing');
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (user) {
@@ -67,24 +71,27 @@ const Auri = ({ message, onDismiss, showSettings = false }: AuriProps) => {
   };
 
   const getAuriPersonality = () => {
+    const personalities = t('auri.personalities') as any;
+    const personality = personalities?.[auriTone] || personalities?.soothing || {};
+    
     switch (auriTone) {
       case 'playful':
         return {
-          emoji: '😊',
+          ...personality,
           color: 'text-coral',
           bgColor: 'bg-gradient-to-br from-coral/20 to-wellness-secondary/20',
           animation: 'animate-bounce'
         };
       case 'professional':
         return {
-          emoji: '🎯',
+          ...personality,
           color: 'text-calm',
           bgColor: 'bg-gradient-to-br from-calm/20 to-wellness-primary/20',
           animation: 'animate-pulse'
         };
       default: // soothing
         return {
-          emoji: '🌸',
+          ...personality,
           color: 'text-wellness-primary',
           bgColor: 'bg-gradient-wellness',
           animation: 'animate-float'
@@ -92,9 +99,22 @@ const Auri = ({ message, onDismiss, showSettings = false }: AuriProps) => {
     }
   };
 
-  if (!auriEnabled || !message) return null;
+  const getContextualMessage = () => {
+    if (message) return message;
+    
+    const welcomeMessages = t('auri.welcome') as any;
+    const personality = getAuriPersonality();
+    
+    // Return context-specific welcome message or personality-specific message
+    return welcomeMessages?.[context] || personality?.welcome || welcomeMessages?.default || t('auri.welcome.default');
+  };
+
+  if (!auriEnabled) return null;
 
   const personality = getAuriPersonality();
+  const displayMessage = getContextualMessage();
+
+  if (!displayMessage) return null;
 
   return (
     <Card className={`fixed bottom-6 right-6 max-w-sm p-4 shadow-wellness ${personality.bgColor} border-2 border-wellness-primary/20 z-50`}>
@@ -104,7 +124,7 @@ const Auri = ({ message, onDismiss, showSettings = false }: AuriProps) => {
         </div>
         <div className="flex-1">
           <div className="flex items-center justify-between mb-2">
-            <h4 className={`font-medium ${personality.color}`}>Auri</h4>
+            <h4 className={`font-medium ${personality.color}`}>{t('auri.name')}</h4>
             <div className="flex space-x-1">
               {showSettings && (
                 <Button
@@ -112,6 +132,7 @@ const Auri = ({ message, onDismiss, showSettings = false }: AuriProps) => {
                   size="sm"
                   onClick={toggleAuri}
                   className="h-6 w-6 p-0"
+                  title={t('auri.settings.title')}
                 >
                   <Settings className="h-3 w-3" />
                 </Button>
@@ -122,13 +143,18 @@ const Auri = ({ message, onDismiss, showSettings = false }: AuriProps) => {
                   size="sm"
                   onClick={onDismiss}
                   className="h-6 w-6 p-0"
+                  title={t('common.close')}
                 >
                   <X className="h-3 w-3" />
                 </Button>
               )}
             </div>
           </div>
-          <p className="text-sm text-foreground/80">{message}</p>
+          {isLoading ? (
+            <p className="text-sm text-foreground/60 italic">{t('auri.messages.loading')}</p>
+          ) : (
+            <p className="text-sm text-foreground/80">{displayMessage}</p>
+          )}
         </div>
       </div>
     </Card>

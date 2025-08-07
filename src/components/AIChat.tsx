@@ -32,7 +32,7 @@ export const AIChat = ({
   description 
 }: AIChatProps) => {
   const { user } = useAuth();
-  const { t } = useLanguage();
+  const { t, currentLanguage } = useLanguage();
   const { toast } = useToast();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
@@ -57,7 +57,8 @@ export const AIChat = ({
       const { data, error } = await supabase.functions.invoke('ai-coach', {
         body: {
           message: userMessage.content,
-          context: context
+          context: context,
+          language: currentLanguage
         }
       });
 

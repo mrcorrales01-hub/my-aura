@@ -312,6 +312,54 @@ const translations: Record<Language, Record<string, any>> = {
       light: "Light",
       dark: "Dark",
       auto: "Auto"
+    },
+    
+    // Auri
+    auri: {
+      name: "Auri",
+      welcome: {
+        default: "Hello! I'm Auri, your wellness companion. How are you feeling today?",
+        mood: "I'm here to support your emotional journey. Would you like to share how you're feeling?",
+        relationship: "I'm here to help with relationship guidance. What's on your mind?",
+        general: "Welcome back! I'm here to support your wellness journey."
+      },
+      personalities: {
+        soothing: {
+          name: "Soothing",
+          description: "Gentle, calming, and nurturing companion",
+          emoji: "🌸",
+          welcome: "I'm here to provide gentle support and comfort. Take a deep breath with me.",
+          encouragement: "You're doing beautifully. Every step forward matters."
+        },
+        playful: {
+          name: "Playful",
+          description: "Energetic, fun, and uplifting companion",
+          emoji: "😊", 
+          welcome: "Hey there! Ready to brighten your day together?",
+          encouragement: "You've got this! Let's tackle challenges with positivity!"
+        },
+        professional: {
+          name: "Professional",
+          description: "Clear, direct, and goal-focused companion",
+          emoji: "🎯",
+          welcome: "I'm here to provide structured guidance for your wellness goals.",
+          encouragement: "You're making measurable progress. Let's continue building momentum."
+        }
+      },
+      messages: {
+        thinking: "Let me think about that...",
+        typing: "I'm here with you...",
+        error: "I'm having trouble right now. Please try again in a moment.",
+        offline: "I'm currently offline. Please check your connection.",
+        loading: "Just a moment while I gather my thoughts..."
+      },
+      settings: {
+        title: "Auri Settings",
+        enable: "Enable Auri",
+        disable: "Disable Auri", 
+        personality: "Choose Personality",
+        tone: "Communication Style"
+      }
     }
   },
   es: {
@@ -383,7 +431,55 @@ const translations: Record<Language, Record<string, any>> = {
     'common.error': 'Ocurrió un error',
     'common.success': '¡Éxito!',
     'common.language': 'Idioma',
-    'common.selectLanguage': 'Seleccionar Idioma'
+    'common.selectLanguage': 'Seleccionar Idioma',
+    
+    // Auri
+    auri: {
+      name: "Auri",
+      welcome: {
+        default: "¡Hola! Soy Auri, tu compañera de bienestar. ¿Cómo te sientes hoy?",
+        mood: "Estoy aquí para apoyar tu viaje emocional. ¿Te gustaría compartir cómo te sientes?",
+        relationship: "Estoy aquí para ayudar con orientación en relaciones. ¿Qué tienes en mente?",
+        general: "¡Bienvenido de vuelta! Estoy aquí para apoyar tu viaje de bienestar."
+      },
+      personalities: {
+        soothing: {
+          name: "Tranquilizante",
+          description: "Compañera gentil, calmante y nutritiva",
+          emoji: "🌸",
+          welcome: "Estoy aquí para brindarte apoyo gentil y consuelo. Respira profundo conmigo.",
+          encouragement: "Lo estás haciendo hermosamente. Cada paso adelante importa."
+        },
+        playful: {
+          name: "Juguetona",
+          description: "Compañera energética, divertida y animada",
+          emoji: "😊",
+          welcome: "¡Hola! ¿Lista para alegrar tu día juntas?",
+          encouragement: "¡Tú puedes! ¡Enfrentemos los desafíos con positividad!"
+        },
+        professional: {
+          name: "Profesional", 
+          description: "Compañera clara, directa y enfocada en objetivos",
+          emoji: "🎯",
+          welcome: "Estoy aquí para proporcionar orientación estructurada para tus metas de bienestar.",
+          encouragement: "Estás haciendo progreso medible. Sigamos construyendo impulso."
+        }
+      },
+      messages: {
+        thinking: "Déjame pensar en eso...",
+        typing: "Estoy aquí contigo...",
+        error: "Tengo problemas ahora. Por favor intenta de nuevo en un momento.",
+        offline: "Actualmente estoy desconectada. Por favor verifica tu conexión.",
+        loading: "Solo un momento mientras reúno mis pensamientos..."
+      },
+      settings: {
+        title: "Configuración de Auri",
+        enable: "Habilitar Auri",
+        disable: "Deshabilitar Auri",
+        personality: "Elegir Personalidad", 
+        tone: "Estilo de Comunicación"
+      }
+    }
   },
   zh: {
     // Navigation
@@ -420,7 +516,55 @@ const translations: Record<Language, Record<string, any>> = {
     'common.error': '发生错误',
     'common.success': '成功！',
     'common.language': '语言',
-    'common.selectLanguage': '选择语言'
+    'common.selectLanguage': '选择语言',
+    
+    // Auri
+    auri: {
+      name: "Auri",
+      welcome: {
+        default: "你好！我是Auri，你的健康伙伴。你今天感觉怎么样？",
+        mood: "我在这里支持你的情感之旅。你愿意分享你的感受吗？",
+        relationship: "我在这里帮助你解决关系问题。你在想什么？",
+        general: "欢迎回来！我在这里支持你的健康之旅。"
+      },
+      personalities: {
+        soothing: {
+          name: "舒缓",
+          description: "温和、平静、关怀的伙伴",
+          emoji: "🌸",
+          welcome: "我在这里提供温和的支持和安慰。和我一起深呼吸。",
+          encouragement: "你做得很好。每一步前进都很重要。"
+        },
+        playful: {
+          name: "活泼",
+          description: "精力充沛、有趣、振奋的伙伴",
+          emoji: "😊",
+          welcome: "嗨！准备好一起让你的一天更美好吗？",
+          encouragement: "你能做到！让我们积极地面对挑战！"
+        },
+        professional: {
+          name: "专业",
+          description: "清晰、直接、目标导向的伙伴",
+          emoji: "🎯",
+          welcome: "我在这里为你的健康目标提供结构化指导。",
+          encouragement: "你正在取得可衡量的进步。让我们继续保持势头。"
+        }
+      },
+      messages: {
+        thinking: "让我想想...",
+        typing: "我和你在一起...",
+        error: "我现在遇到了问题。请稍后再试。",
+        offline: "我目前离线。请检查你的连接。",
+        loading: "请稍等，我正在整理思路..."
+      },
+      settings: {
+        title: "Auri设置",
+        enable: "启用Auri",
+        disable: "禁用Auri",
+        personality: "选择个性",
+        tone: "沟通风格"
+      }
+    }
   },
   sv: {
     // Navigation
@@ -597,7 +741,55 @@ const translations: Record<Language, Record<string, any>> = {
     'hero.mentalHealth': 'Mental Hälsa',
     'hero.emotionalBalance': 'Emotionell Balans', 
     'hero.relationshipCoaching': 'Relationscoaching',
-    'hero.learnMore': 'Lär dig mer'
+    'hero.learnMore': 'Lär dig mer',
+    
+    // Auri
+    auri: {
+      name: "Auri",
+      welcome: {
+        default: "Hej! Jag är Auri, din välbefinnandecompanion. Hur mår du idag?",
+        mood: "Jag är här för att stödja din emotionella resa. Vill du dela hur du känner dig?",
+        relationship: "Jag är här för att hjälpa med relationsvägledning. Vad tänker du på?",
+        general: "Välkommen tillbaka! Jag är här för att stödja din välbefinnanderesa."
+      },
+      personalities: {
+        soothing: {
+          name: "Lugnande",
+          description: "Mild, lugnande och omvårdande companion",
+          emoji: "🌸",
+          welcome: "Jag är här för att ge mild support och tröst. Ta ett djupt andetag med mig.",
+          encouragement: "Du gör det vackert. Varje steg framåt betyder något."
+        },
+        playful: {
+          name: "Lekfull",
+          description: "Energisk, rolig och upplyftande companion",
+          emoji: "😊",
+          welcome: "Hej där! Redo att ljusa upp din dag tillsammans?",
+          encouragement: "Du klarar det! Låt oss ta itu med utmaningar med positivitet!"
+        },
+        professional: {
+          name: "Professionell",
+          description: "Tydlig, direkt och målfokuserad companion",
+          emoji: "🎯",
+          welcome: "Jag är här för att ge strukturerad vägledning för dina välbefinnandemål.",
+          encouragement: "Du gör mätbara framsteg. Låt oss fortsätta bygga momentum."
+        }
+      },
+      messages: {
+        thinking: "Låt mig tänka på det...",
+        typing: "Jag är här med dig...",
+        error: "Jag har problem just nu. Försök igen om ett ögonblick.",
+        offline: "Jag är för närvarande offline. Kontrollera din anslutning.",
+        loading: "Bara ett ögonblick medan jag samlar mina tankar..."
+      },
+      settings: {
+        title: "Auri-inställningar",
+        enable: "Aktivera Auri",
+        disable: "Inaktivera Auri",
+        personality: "Välj Personlighet",
+        tone: "Kommunikationsstil"
+      }
+    }
   },
   // Placeholder translations for other languages
   hi: {
