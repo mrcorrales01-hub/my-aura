@@ -58,9 +58,9 @@ export default {
 					primary: 'hsl(var(--wellness-primary))',
 					secondary: 'hsl(var(--wellness-secondary))',
 				},
-				calm: 'hsl(var(--calm-blue))',
-				coral: 'hsl(var(--warm-coral))',
-				lavender: 'hsl(var(--soft-lavender))',
+				calm: 'hsl(var(--calm))',
+				coral: 'hsl(var(--coral))',
+				lavender: 'hsl(var(--lavender))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',

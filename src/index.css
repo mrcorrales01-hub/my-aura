@@ -80,6 +80,11 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Additional color tokens for component consistency */
+    --calm: 210 60% 65%;
+    --coral: 15 75% 75%;
+    --lavender: 270 40% 85%;
   }
 
   .dark {
@@ -118,6 +123,15 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dark mode wellness colors */
+    --wellness-primary: 300 65% 65%;
+    --wellness-secondary: 320 50% 65%;
+    
+    /* Dark mode for additional colors */
+    --calm: 210 50% 45%;
+    --coral: 15 65% 55%;
+    --lavender: 270 30% 65%;
   }
 }
 

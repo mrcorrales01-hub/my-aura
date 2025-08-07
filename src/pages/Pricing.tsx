@@ -146,7 +146,7 @@ const Pricing = () => {
 
                   <Button
                     className="w-full"
-                    variant={plan.popular ? 'default' : 'outline'}
+                    variant={plan.popular ? 'wellness' : 'outline'}
                     onClick={() => handleSelectPlan(plan.id)}
                     disabled={isCurrentPlan && subscribed}
                   >

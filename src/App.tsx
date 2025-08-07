@@ -20,6 +20,8 @@ import Emergency from "./pages/Emergency";
 import Pricing from "./pages/Pricing";
 import Settings from "./pages/Settings";
 import LanguageWelcome from "./pages/LanguageWelcome";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancel from "./pages/PaymentCancel";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +50,8 @@ const App = () => (
                       <Route path="/emergency" element={<ErrorBoundaryWrapper><Emergency /></ErrorBoundaryWrapper>} />
                       <Route path="/pricing" element={<ErrorBoundaryWrapper><Pricing /></ErrorBoundaryWrapper>} />
                       <Route path="/settings" element={<ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper>} />
+                      <Route path="/success" element={<ErrorBoundaryWrapper><PaymentSuccess /></ErrorBoundaryWrapper>} />
+                      <Route path="/cancel" element={<ErrorBoundaryWrapper><PaymentCancel /></ErrorBoundaryWrapper>} />
                       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                       <Route path="*" element={<ErrorBoundaryWrapper><NotFound /></ErrorBoundaryWrapper>} />
                     </Routes>
