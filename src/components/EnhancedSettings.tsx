@@ -12,111 +12,58 @@ import { useLanguage } from '@/hooks/useLanguage';
 import { supabase } from '@/integrations/supabase/client';
 import { LoadingButton } from '@/components/ui/loading-button';
 import { UserCircle, Settings, Shield, Bell, Moon, Sun } from 'lucide-react';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/contexts/ThemeContext';
+import { useUserPreferences } from '@/hooks/useUserPreferences';
+import { languages } from '@/hooks/useLanguage';
 
-interface UserPreferences {
-  user_id: string;
-  display_name?: string;
-  theme_preference?: string;
-  notification_enabled?: boolean;
-  language_preference?: string;
-  communication_style?: string;
-  relationship_status?: string;
-  main_concerns?: string[];
-  privacy_level?: string;
-  updated_at?: string;
-}
+// Remove interface - using the one from useUserPreferences hook
 
 export const EnhancedSettings = () => {
   const { user, signOut } = useAuth();
   const { toast } = useToast();
   const { currentLanguage, setLanguage, t } = useLanguage();
   const { theme, setTheme } = useTheme();
+  const { preferences, loading, updatePreferences } = useUserPreferences();
   
-  const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [preferences, setPreferences] = useState<UserPreferences>({
-    user_id: user?.id || '',
-    display_name: '',
-    theme_preference: 'system',
-    notification_enabled: true,
+  const [localPreferences, setLocalPreferences] = useState({
+    theme_preference: 'auto' as 'light' | 'dark' | 'auto',
     language_preference: currentLanguage,
-    communication_style: 'supportive',
-    relationship_status: 'single',
-    main_concerns: [],
-    privacy_level: 'normal'
+    ai_tone: 'supportive',
+    auri_tone: 'soothing',
+    auri_enabled: true,
+    notification_enabled: true
   });
 
   // Load user preferences
   useEffect(() => {
-    const loadPreferences = async () => {
-      if (!user) return;
-      
-      setLoading(true);
-      try {
-        const { data, error } = await supabase
-          .from('user_preferences')
-          .select('*')
-          .eq('user_id', user.id)
-          .maybeSingle();
-
-        if (error && error.code !== 'PGRST116') {
-          throw error;
-        }
-
-        if (data) {
-          setPreferences({
-            ...preferences,
-            ...data
-          });
-        }
-      } catch (error: any) {
-        toast({
-          title: 'Error loading preferences',
-          description: error.message,
-          variant: 'destructive'
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadPreferences();
-  }, [user]);
+    if (preferences) {
+      setLocalPreferences({
+        theme_preference: (preferences.theme_preference || theme) as 'light' | 'dark' | 'auto',
+        language_preference: preferences.language_preference || currentLanguage,
+        ai_tone: preferences.ai_tone || 'supportive',
+        auri_tone: preferences.auri_tone || 'soothing',
+        auri_enabled: preferences.auri_enabled ?? true,
+        notification_enabled: true
+      });
+    }
+  }, [preferences, theme, currentLanguage]);
 
   const savePreferences = async () => {
     if (!user) return;
 
     setSaving(true);
     try {
-      const { error } = await supabase
-        .from('user_preferences')
-        .upsert({
-          ...preferences,
-          user_id: user.id,
-          updated_at: new Date().toISOString()
-        });
-
-      if (error) throw error;
-
-      // Update language if changed
-      if (preferences.language_preference && preferences.language_preference !== currentLanguage) {
-        await setLanguage(preferences.language_preference as any);
-      }
-
-      // Update theme if changed
-      if (preferences.theme_preference && preferences.theme_preference !== theme) {
-        setTheme(preferences.theme_preference);
-      }
-
+      await updatePreferences(localPreferences);
+      
       toast({
-        title: 'Settings saved',
-        description: 'Your preferences have been updated successfully'
+        title: t('common.success'),
+        description: t('settings.changesSaved')
       });
     } catch (error: any) {
       toast({
-        title: 'Error saving settings',
-        description: error.message,
+        title: t('common.error'),
+        description: 'Failed to save preferences',
         variant: 'destructive'
       });
     } finally {
@@ -178,46 +125,91 @@ export const EnhancedSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="displayName">Display Name</Label>
+            <Label htmlFor="email">Email</Label>
             <Input
-              id="displayName"
-              value={preferences.display_name || ''}
-              onChange={(e) => setPreferences(prev => ({ ...prev, display_name: e.target.value }))}
-              placeholder="How you'd like to be addressed"
+              id="email"
+              type="email"
+              value={user?.email || ''}
+              disabled
+              className="bg-muted"
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="relationshipStatus">Relationship Status</Label>
+            <Label htmlFor="displayName">Display Name</Label>
+            <Input
+              id="displayName"
+              value={user?.email?.split('@')[0] || ''}
+              disabled
+              className="bg-muted"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="aiTone">{t('settings.aiTone')}</Label>
             <Select 
-              value={preferences.relationship_status} 
-              onValueChange={(value) => setPreferences(prev => ({ ...prev, relationship_status: value }))}
+              value={localPreferences.ai_tone} 
+              onValueChange={(value) => setLocalPreferences(prev => ({ ...prev, ai_tone: value }))}
             >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="single">Single</SelectItem>
-                <SelectItem value="dating">Dating</SelectItem>
-                <SelectItem value="relationship">In a relationship</SelectItem>
-                <SelectItem value="married">Married</SelectItem>
-                <SelectItem value="complicated">It's complicated</SelectItem>
+                <SelectItem value="supportive">
+                  <div>
+                    <div className="font-medium">{t('onboarding.tones.supportive')}</div>
+                    <div className="text-sm text-muted-foreground">{t('onboarding.tones.supportiveDesc')}</div>
+                  </div>
+                </SelectItem>
+                <SelectItem value="direct">
+                  <div>
+                    <div className="font-medium">{t('onboarding.tones.direct')}</div>
+                    <div className="text-sm text-muted-foreground">{t('onboarding.tones.directDesc')}</div>
+                  </div>
+                </SelectItem>
+                <SelectItem value="gentle">
+                  <div>
+                    <div className="font-medium">{t('onboarding.tones.gentle')}</div>
+                    <div className="text-sm text-muted-foreground">{t('onboarding.tones.gentleDesc')}</div>
+                  </div>
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="concerns">Main Areas of Focus</Label>
-            <Textarea
-              id="concerns"
-              value={preferences.main_concerns?.join(', ') || ''}
-              onChange={(e) => setPreferences(prev => ({ 
-                ...prev, 
-                main_concerns: e.target.value.split(',').map(s => s.trim()).filter(s => s) 
-              }))}
-              placeholder="e.g., anxiety, communication, self-esteem"
-              rows={3}
-            />
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="space-y-0.5">
+                <Label>Enable Auri Companion</Label>
+                <p className="text-sm text-muted-foreground">
+                  Your AI companion for emotional support
+                </p>
+              </div>
+              <Switch
+                checked={localPreferences.auri_enabled}
+                onCheckedChange={(checked) => setLocalPreferences(prev => ({ ...prev, auri_enabled: checked }))}
+              />
+            </div>
+
+            {localPreferences.auri_enabled && (
+              <div className="space-y-2">
+                <Label>Auri Personality</Label>
+                <Select 
+                  value={localPreferences.auri_tone} 
+                  onValueChange={(value) => setLocalPreferences(prev => ({ ...prev, auri_tone: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="soothing">Soothing & Calming</SelectItem>
+                    <SelectItem value="energetic">Energetic & Motivating</SelectItem>
+                    <SelectItem value="wise">Wise & Philosophical</SelectItem>
+                    <SelectItem value="playful">Playful & Lighthearted</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>
@@ -235,58 +227,40 @@ export const EnhancedSettings = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="theme">Theme</Label>
+            <Label htmlFor="theme">{t('settings.theme')}</Label>
             <Select 
-              value={preferences.theme_preference} 
-              onValueChange={(value) => setPreferences(prev => ({ ...prev, theme_preference: value }))}
+              value={localPreferences.theme_preference} 
+              onValueChange={(value) => setLocalPreferences(prev => ({ ...prev, theme_preference: value as 'light' | 'dark' | 'auto' }))}
             >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="light">{t('nav.light')}</SelectItem>
+                <SelectItem value="dark">{t('nav.dark')}</SelectItem>
+                <SelectItem value="auto">{t('nav.system')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="language">Language</Label>
+            <Label htmlFor="language">{t('settings.language')}</Label>
             <Select 
-              value={preferences.language_preference} 
-              onValueChange={(value) => setPreferences(prev => ({ ...prev, language_preference: value }))}
+              value={localPreferences.language_preference} 
+              onValueChange={(value) => setLocalPreferences(prev => ({ ...prev, language_preference: value as any }))}
             >
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="en">🇺🇸 English</SelectItem>
-                <SelectItem value="es">🇪🇸 Español</SelectItem>
-                <SelectItem value="sv">🇸🇪 Svenska</SelectItem>
-                <SelectItem value="fr">🇫🇷 Français</SelectItem>
-                <SelectItem value="de">🇩🇪 Deutsch</SelectItem>
-                <SelectItem value="pt">🇧🇷 Português</SelectItem>
-                <SelectItem value="zh">🇨🇳 简体中文</SelectItem>
-                <SelectItem value="ja">🇯🇵 日本語</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="communicationStyle">Communication Style</Label>
-            <Select 
-              value={preferences.communication_style} 
-              onValueChange={(value) => setPreferences(prev => ({ ...prev, communication_style: value }))}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="supportive">Supportive & Warm</SelectItem>
-                <SelectItem value="direct">Direct & Clear</SelectItem>
-                <SelectItem value="gentle">Gentle & Patient</SelectItem>
-                <SelectItem value="motivational">Motivational & Energetic</SelectItem>
+                {languages.map((lang) => (
+                  <SelectItem key={lang.code} value={lang.code}>
+                    <span className="flex items-center gap-2">
+                      <span>{lang.flag}</span>
+                      <span>{lang.name}</span>
+                    </span>
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
@@ -313,46 +287,31 @@ export const EnhancedSettings = () => {
               </p>
             </div>
             <Switch
-              checked={preferences.notification_enabled}
-              onCheckedChange={(checked) => setPreferences(prev => ({ ...prev, notification_enabled: checked }))}
+              checked={localPreferences.notification_enabled}
+              onCheckedChange={(checked) => setLocalPreferences(prev => ({ ...prev, notification_enabled: checked }))}
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="privacy">Privacy Level</Label>
-            <Select 
-              value={preferences.privacy_level} 
-              onValueChange={(value) => setPreferences(prev => ({ ...prev, privacy_level: value }))}
-            >
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="minimal">Minimal - Essential data only</SelectItem>
-                <SelectItem value="normal">Normal - Standard experience</SelectItem>
-                <SelectItem value="enhanced">Enhanced - Personalized features</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
         </CardContent>
       </Card>
 
       {/* Action Buttons */}
       <div className="flex gap-4">
-        <LoadingButton 
+        <Button 
           onClick={savePreferences} 
-          loading={saving}
+          disabled={saving}
           className="flex-1"
-          variant="wellness"
         >
-          Save All Changes
-        </LoadingButton>
+          {saving ? 'Saving...' : t('settings.saveChanges')}
+        </Button>
         
         <Button 
           onClick={handleSignOut} 
           variant="outline"
+          className="flex items-center gap-2"
         >
-          Sign Out
+          <Shield className="h-4 w-4" />
+          {t('settings.logout')}
         </Button>
       </div>
     </div>
