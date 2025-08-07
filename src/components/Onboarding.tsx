@@ -147,8 +147,8 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
   const progress = ((currentStep + 1) / 3) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
-      <Card className="w-full max-w-2xl shadow-wellness">
+    <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-4 md:p-6">
+      <Card className="w-full max-w-2xl shadow-wellness backdrop-blur-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl text-wellness-primary">{t('onboarding.title')}</CardTitle>
           <CardDescription>
@@ -236,14 +236,24 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
             </div>
           )}
 
-          <div className="flex justify-between">
+          <div className="flex flex-col sm:flex-row justify-between gap-3">
             <Button
               variant="outline"
               onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
               disabled={currentStep === 0}
+              className="order-2 sm:order-1"
             >
               {t('onboarding.previous')}
             </Button>
+            {currentStep < 2 && (
+              <Button
+                variant="ghost"
+                onClick={onComplete}
+                className="order-3 sm:order-2 text-muted-foreground"
+              >
+                Skip for now
+              </Button>
+            )}
             <Button
               onClick={nextStep}
               disabled={
@@ -251,6 +261,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
                 (currentStep === 1 && !aiTone) ||
                 loading
               }
+              className="order-1 sm:order-3"
             >
               {currentStep === 2 ? (loading ? t('onboarding.saving') : t('onboarding.complete')) : t('onboarding.next')}
             </Button>
