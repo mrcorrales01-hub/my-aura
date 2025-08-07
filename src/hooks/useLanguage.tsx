@@ -7,8 +7,9 @@ export type Language = 'en' | 'es' | 'zh' | 'sv';
 
 interface LanguageContextType {
   language: Language;
+  currentLanguage: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, params?: Record<string, string>) => string;
 }
 
 export const languages = [
@@ -82,27 +83,60 @@ const translations = {
     'common.no': 'No',
     
     // Onboarding
-    'onboarding.welcome': 'Welcome to Your Wellness Journey',
-    'onboarding.subtitle': 'Let\'s personalize your experience',
+    'onboarding.title': 'Let\'s Personalize Your Aura Experience',
+    'onboarding.subtitle': 'Help us understand how to best support your wellness journey',
+    'onboarding.step': 'Step {current} of {total}',
+    'onboarding.next': 'Next',
+    'onboarding.previous': 'Previous',
+    'onboarding.complete': 'Complete Setup',
+    'onboarding.saving': 'Saving...',
+    'onboarding.welcome': 'Welcome to Aura!',
+    'onboarding.preferencesSaved': 'Your preferences have been saved',
+    'onboarding.errorSaving': 'Failed to save preferences. Please try again.',
+    'onboarding.focusQuestion': 'What would you like to focus on?',
+    'onboarding.communicationQuestion': 'How would you like me to communicate?',
+    'onboarding.auriQuestion': 'Choose your Auri companion style',
     'onboarding.step1Title': 'Choose Your AI Coach Tone',
     'onboarding.step1Subtitle': 'How would you like your AI coach to communicate with you?',
     'onboarding.step2Title': 'Set Your Intention',
     'onboarding.step2Subtitle': 'What brings you here today?',
     'onboarding.step3Title': 'You\'re All Set!',
     'onboarding.step3Subtitle': 'Your personalized wellness experience is ready',
-    'onboarding.complete': 'Complete Setup',
+    
+    // Onboarding intentions
+    'onboarding.intentions.stress': 'Manage stress and anxiety',
+    'onboarding.intentions.stressDesc': 'Learn healthy coping strategies and relaxation techniques',
+    'onboarding.intentions.relationships': 'Improve relationships', 
+    'onboarding.intentions.relationshipsDesc': 'Build stronger connections with family, friends, and partners',
+    'onboarding.intentions.selfcare': 'Develop better self-care habits',
+    'onboarding.intentions.selfcareDesc': 'Create sustainable routines for your physical and mental wellbeing',
+    'onboarding.intentions.communication': 'Enhance communication skills',
+    'onboarding.intentions.communicationDesc': 'Express yourself more clearly and listen more effectively',
+    'onboarding.intentions.general': 'General emotional wellness',
+    
+    // Onboarding tones
+    'onboarding.tones.empathetic': 'Soft & Empathetic',
+    'onboarding.tones.empatheticDesc': 'Gentle, understanding, and supportive approach',
+    'onboarding.tones.professional': 'Clear & Professional',
+    'onboarding.tones.professionalDesc': 'Straightforward, practical, and focused guidance',
+    'onboarding.tones.gentle': 'Warm & Gentle',
+    'onboarding.tones.gentleDesc': 'Soft, calming, and nurturing communication style',
     'onboarding.tones.supportive': 'Supportive',
     'onboarding.tones.supportiveDesc': 'Warm, encouraging, and empathetic',
     'onboarding.tones.direct': 'Direct',
     'onboarding.tones.directDesc': 'Clear, straightforward, and solution-focused',
-    'onboarding.tones.gentle': 'Gentle',
-    'onboarding.tones.gentleDesc': 'Soft, calming, and nurturing',
-    'onboarding.intentions.stress': 'Manage stress and anxiety',
-    'onboarding.intentions.relationships': 'Improve relationships',
-    'onboarding.intentions.selfcare': 'Develop better self-care habits',
-    'onboarding.intentions.communication': 'Enhance communication skills',
-    'onboarding.intentions.general': 'General emotional wellness',
     
+    // Upgrade prompts
+    'upgrade.unlockFeature': 'Unlock {feature} with Premium',
+    'upgrade.premiumBenefits': 'Get unlimited access to all premium features',
+    'upgrade.upgrade': 'Upgrade',
+    'upgrade.premiumFeature': 'Premium Feature',
+    'upgrade.upgradeToPremium': 'Upgrade to Premium',
+    'upgrade.pro': 'PRO',
+    'upgrade.benefit1': 'Unlimited AI coaching sessions',
+    'upgrade.benefit2': 'Advanced mood analytics',
+    'upgrade.benefit3': 'Priority customer support',
+
     // Settings
     'settings.title': 'Settings',
     'settings.profile': 'Profile',
@@ -1546,7 +1580,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, [language, user]);
 
-  const t = (key: string): string => {
+  const t = (key: string, params?: Record<string, string>): string => {
     const keys = key.split('.');
     let value: any = translations[language];
     
@@ -1562,11 +1596,25 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       }
     }
     
-    return value || key;
+    let result = value || key;
+    
+    // Replace parameters if provided
+    if (params) {
+      Object.entries(params).forEach(([paramKey, paramValue]) => {
+        result = result.replace(new RegExp(`\\{${paramKey}\\}`, 'g'), paramValue);
+      });
+    }
+    
+    return result;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ 
+      language, 
+      currentLanguage: language, 
+      setLanguage, 
+      t 
+    }}>
       {children}
     </LanguageContext.Provider>
   );

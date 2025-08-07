@@ -6,6 +6,7 @@ import { Heart, Users, Sparkles, Smile, Brain, MessageCircle } from 'lucide-reac
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/hooks/useLanguage';
 
 interface OnboardingProps {
   onComplete: () => void;
@@ -19,59 +20,84 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const intentions = [
     {
-      id: 'emotional_wellbeing',
-      title: 'Feel Better Emotionally',
-      description: 'Work on mood, stress, and emotional balance',
+      id: 'stress',
+      title: t('onboarding.intentions.stress'),
+      description: t('onboarding.intentions.stressDesc'),
       icon: Heart,
       color: 'text-wellness-primary'
     },
     {
       id: 'relationships',
-      title: 'Improve Relationships',
-      description: 'Build stronger connections with others',
+      title: t('onboarding.intentions.relationships'),
+      description: t('onboarding.intentions.relationshipsDesc'),
       icon: Users,
       color: 'text-calm'
     },
     {
-      id: 'confidence',
-      title: 'Build Confidence',
-      description: 'Develop self-esteem and personal growth',
+      id: 'selfcare',
+      title: t('onboarding.intentions.selfcare'),
+      description: t('onboarding.intentions.selfcareDesc'),
       icon: Sparkles,
       color: 'text-coral'
+    },
+    {
+      id: 'communication',
+      title: t('onboarding.intentions.communication'),
+      description: t('onboarding.intentions.communicationDesc'),
+      icon: MessageCircle,
+      color: 'text-wellness-secondary'
     }
   ];
 
   const aiTones = [
     {
       id: 'empathetic',
-      title: 'Soft & Empathetic',
-      description: 'Gentle, understanding, and supportive',
+      title: t('onboarding.tones.empathetic'),
+      description: t('onboarding.tones.empatheticDesc'),
       icon: Smile,
       color: 'text-wellness-secondary'
     },
     {
-      id: 'direct',
-      title: 'Clear & Direct',
-      description: 'Straightforward, practical, and focused',
+      id: 'professional',
+      title: t('onboarding.tones.professional'),
+      description: t('onboarding.tones.professionalDesc'),
       icon: Brain,
       color: 'text-calm'
     },
     {
-      id: 'conversational',
-      title: 'Warm & Conversational',
-      description: 'Friendly, casual, and encouraging',
+      id: 'gentle',
+      title: t('onboarding.tones.gentle'),
+      description: t('onboarding.tones.gentleDesc'),
       icon: MessageCircle,
       color: 'text-coral'
     }
   ];
 
   const auriTones = [
-    { id: 'soothing', title: 'Soothing', description: 'Calm and peaceful presence' },
-    { id: 'playful', title: 'Playful', description: 'Light-hearted and fun' },
-    { id: 'professional', title: 'Professional', description: 'Focused and goal-oriented' }
+    { 
+      id: 'soothing', 
+      title: t('auri.personality.soothing'), 
+      description: t('auri.personality.soothingDesc') 
+    },
+    { 
+      id: 'playful', 
+      title: t('auri.personality.playful'), 
+      description: t('auri.personality.playfulDesc') 
+    },
+    { 
+      id: 'wise', 
+      title: t('auri.personality.wise'), 
+      description: t('auri.personality.wiseDesc') 
+    },
+    { 
+      id: 'energetic', 
+      title: t('auri.personality.energetic'), 
+      description: t('auri.personality.energeticDesc') 
+    }
   ];
 
   const savePreferences = async () => {
@@ -93,16 +119,16 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
       if (error) throw error;
 
       toast({
-        title: "Welcome to Aura!",
-        description: "Your preferences have been saved."
+        title: t('onboarding.welcome'),
+        description: t('onboarding.preferencesSaved')
       });
 
       onComplete();
     } catch (error) {
       console.error('Error saving preferences:', error);
       toast({
-        title: "Error",
-        description: "Failed to save preferences. Please try again.",
+        title: t('common.error'),
+        description: t('onboarding.errorSaving'),
         variant: "destructive"
       });
     } finally {
@@ -124,17 +150,17 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
       <Card className="w-full max-w-2xl shadow-wellness">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl text-wellness-primary">Let's Personalize Your Aura Experience</CardTitle>
+          <CardTitle className="text-2xl text-wellness-primary">{t('onboarding.title')}</CardTitle>
           <CardDescription>
-            Help us understand how to best support your wellness journey
+            {t('onboarding.subtitle')}
           </CardDescription>
           <Progress value={progress} className="mt-4" />
-          <p className="text-sm text-muted-foreground mt-2">Step {currentStep + 1} of 3</p>
+          <p className="text-sm text-muted-foreground mt-2">{t('onboarding.step', { current: (currentStep + 1).toString(), total: '3' })}</p>
         </CardHeader>
         <CardContent className="space-y-6">
           {currentStep === 0 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-center">What would you like to focus on?</h3>
+              <h3 className="text-lg font-semibold text-center">{t('onboarding.focusQuestion')}</h3>
               <div className="grid gap-4">
                 {intentions.map((item) => {
                   const Icon = item.icon;
@@ -162,7 +188,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
 
           {currentStep === 1 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-center">How would you like me to communicate?</h3>
+              <h3 className="text-lg font-semibold text-center">{t('onboarding.communicationQuestion')}</h3>
               <div className="grid gap-4">
                 {aiTones.map((tone) => {
                   const Icon = tone.icon;
@@ -190,7 +216,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
 
           {currentStep === 2 && (
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-center">Choose your Auri companion style</h3>
+              <h3 className="text-lg font-semibold text-center">{t('onboarding.auriQuestion')}</h3>
               <div className="grid gap-4">
                 {auriTones.map((tone) => (
                   <Card
@@ -216,7 +242,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
               onClick={() => setCurrentStep(Math.max(0, currentStep - 1))}
               disabled={currentStep === 0}
             >
-              Previous
+              {t('onboarding.previous')}
             </Button>
             <Button
               onClick={nextStep}
@@ -226,7 +252,7 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
                 loading
               }
             >
-              {currentStep === 2 ? (loading ? "Saving..." : "Complete Setup") : "Next"}
+              {currentStep === 2 ? (loading ? t('onboarding.saving') : t('onboarding.complete')) : t('onboarding.next')}
             </Button>
           </div>
         </CardContent>
