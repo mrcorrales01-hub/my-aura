@@ -14,6 +14,65 @@ export type Database = {
   }
   public: {
     Tables: {
+      appointments: {
+        Row: {
+          client_id: string
+          client_rating: number | null
+          created_at: string
+          duration_minutes: number | null
+          id: string
+          scheduled_at: string
+          session_notes: string | null
+          session_type: string | null
+          session_url: string | null
+          status: string | null
+          therapist_id: string
+          therapist_notes: string | null
+          total_cost: number | null
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          client_rating?: number | null
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          scheduled_at: string
+          session_notes?: string | null
+          session_type?: string | null
+          session_url?: string | null
+          status?: string | null
+          therapist_id: string
+          therapist_notes?: string | null
+          total_cost?: number | null
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          client_rating?: number | null
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          scheduled_at?: string
+          session_notes?: string | null
+          session_type?: string | null
+          session_url?: string | null
+          status?: string | null
+          therapist_id?: string
+          therapist_notes?: string | null
+          total_cost?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "appointments_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversations: {
         Row: {
           ai_tone: string | null
@@ -110,6 +169,123 @@ export type Database = {
           subscription_tier?: string | null
           updated_at?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      therapist_reviews: {
+        Row: {
+          appointment_id: string
+          client_id: string
+          created_at: string
+          id: string
+          is_anonymous: boolean | null
+          rating: number
+          review_text: string | null
+          therapist_id: string
+        }
+        Insert: {
+          appointment_id: string
+          client_id: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean | null
+          rating: number
+          review_text?: string | null
+          therapist_id: string
+        }
+        Update: {
+          appointment_id?: string
+          client_id?: string
+          created_at?: string
+          id?: string
+          is_anonymous?: boolean | null
+          rating?: number
+          review_text?: string | null
+          therapist_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "therapist_reviews_appointment_id_fkey"
+            columns: ["appointment_id"]
+            isOneToOne: false
+            referencedRelation: "appointments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "therapist_reviews_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
+            referencedRelation: "therapists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      therapists: {
+        Row: {
+          availability: Json | null
+          bio: string | null
+          created_at: string
+          education: string | null
+          email: string
+          full_name: string
+          hourly_rate: number
+          id: string
+          is_active: boolean | null
+          is_verified: boolean | null
+          languages: string[]
+          license_number: string
+          license_state: string
+          phone: string | null
+          profile_image_url: string | null
+          specializations: string[]
+          timezone: string
+          updated_at: string
+          user_id: string
+          years_experience: number | null
+        }
+        Insert: {
+          availability?: Json | null
+          bio?: string | null
+          created_at?: string
+          education?: string | null
+          email: string
+          full_name: string
+          hourly_rate: number
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          languages?: string[]
+          license_number: string
+          license_state: string
+          phone?: string | null
+          profile_image_url?: string | null
+          specializations?: string[]
+          timezone?: string
+          updated_at?: string
+          user_id: string
+          years_experience?: number | null
+        }
+        Update: {
+          availability?: Json | null
+          bio?: string | null
+          created_at?: string
+          education?: string | null
+          email?: string
+          full_name?: string
+          hourly_rate?: number
+          id?: string
+          is_active?: boolean | null
+          is_verified?: boolean | null
+          languages?: string[]
+          license_number?: string
+          license_state?: string
+          phone?: string | null
+          profile_image_url?: string | null
+          specializations?: string[]
+          timezone?: string
+          updated_at?: string
+          user_id?: string
+          years_experience?: number | null
         }
         Relationships: []
       }

@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Home, Heart, MessageCircle, Users, BookOpen, AlertTriangle, User, CreditCard, Settings, LogOut } from "lucide-react";
+import { Menu, Home, Heart, MessageCircle, Users, BookOpen, AlertTriangle, User, CreditCard, Settings, LogOut, Video } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LanguageSelector } from "./LanguageSelector";
 import { useState } from "react";
@@ -21,6 +21,7 @@ const getNavigationItems = (t: (key: string) => string) => [
   { icon: Home, label: t("nav.home"), path: "/" },
   { icon: Heart, label: t("nav.checkin"), path: "/checkin", requiresAuth: true },
   { icon: MessageCircle, label: t("nav.coach"), path: "/coach", requiresAuth: true },
+  { icon: Video, label: "Therapy", path: "/therapy", requiresAuth: true },
   { icon: Users, label: t("nav.roleplay"), path: "/roleplay", requiresAuth: true },
   { icon: BookOpen, label: t("nav.resources"), path: "/resources" },
   { icon: AlertTriangle, label: t("nav.emergency"), path: "/emergency", destructive: true },

@@ -16,6 +16,7 @@ import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Checkin from "./pages/Checkin";
 import Coach from "./pages/Coach";
+import Therapy from "./pages/Therapy";
 import Roleplay from "./pages/Roleplay";
 import Resources from "./pages/Resources";
 import Emergency from "./pages/Emergency";
@@ -50,6 +51,7 @@ const App = () => (
                         <Route path="/auth" element={<ErrorBoundaryWrapper><Auth /></ErrorBoundaryWrapper>} />
                         <Route path="/checkin" element={<ErrorBoundaryWrapper><Checkin /></ErrorBoundaryWrapper>} />
                         <Route path="/coach" element={<ErrorBoundaryWrapper><Coach /></ErrorBoundaryWrapper>} />
+                        <Route path="/therapy" element={<ErrorBoundaryWrapper><Therapy /></ErrorBoundaryWrapper>} />
                         <Route path="/roleplay" element={<ErrorBoundaryWrapper><Roleplay /></ErrorBoundaryWrapper>} />
                         <Route path="/resources" element={<ErrorBoundaryWrapper><Resources /></ErrorBoundaryWrapper>} />
                         <Route path="/emergency" element={<ErrorBoundaryWrapper><Emergency /></ErrorBoundaryWrapper>} />
