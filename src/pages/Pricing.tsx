@@ -176,10 +176,7 @@ const Pricing = () => {
           {user && subscribed && (
             <Button
               variant="link"
-              onClick={() => {
-                // This would typically open the customer portal
-                console.log('Manage subscription');
-              }}
+              onClick={openCustomerPortal}
             >
               Manage Subscription
             </Button>

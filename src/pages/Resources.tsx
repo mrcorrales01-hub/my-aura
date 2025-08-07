@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLanguage } from "@/hooks/useLanguage";
+import { ResourcesSkeleton } from "@/components/ResourcesSkeleton";
 import { 
   BookOpen, 
   Play, 
@@ -171,7 +172,8 @@ const Resources = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <Suspense fallback={<ResourcesSkeleton />}>
+      <div className="max-w-6xl mx-auto p-6">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
           <BookOpen className="w-8 h-8 text-wellness-primary" />
@@ -311,7 +313,8 @@ const Resources = () => {
           </TabsContent>
         ))}
       </Tabs>
-    </div>
+      </div>
+    </Suspense>
   );
 };
 

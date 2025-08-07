@@ -8,6 +8,7 @@ import { SubscriptionProvider } from "./contexts/SubscriptionContext";
 import { LanguageProvider } from "./hooks/useLanguage";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ErrorBoundary } from "./components/ErrorBoundary";
+import { ErrorBoundaryWrapper } from "./components/ErrorBoundaryWrapper";
 import Navigation from "./components/Navigation";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
@@ -37,18 +38,18 @@ const App = () => (
                   <Navigation />
                   <main className="lg:pl-0">
                     <Routes>
-                      <Route path="/welcome" element={<LanguageWelcome />} />
-                      <Route path="/" element={<Index />} />
-                      <Route path="/auth" element={<Auth />} />
-                      <Route path="/checkin" element={<Checkin />} />
-                      <Route path="/coach" element={<Coach />} />
-                      <Route path="/roleplay" element={<Roleplay />} />
-                      <Route path="/resources" element={<Resources />} />
-                      <Route path="/emergency" element={<Emergency />} />
-                      <Route path="/pricing" element={<Pricing />} />
-                      <Route path="/settings" element={<Settings />} />
+                      <Route path="/welcome" element={<ErrorBoundaryWrapper><LanguageWelcome /></ErrorBoundaryWrapper>} />
+                      <Route path="/" element={<ErrorBoundaryWrapper><Index /></ErrorBoundaryWrapper>} />
+                      <Route path="/auth" element={<ErrorBoundaryWrapper><Auth /></ErrorBoundaryWrapper>} />
+                      <Route path="/checkin" element={<ErrorBoundaryWrapper><Checkin /></ErrorBoundaryWrapper>} />
+                      <Route path="/coach" element={<ErrorBoundaryWrapper><Coach /></ErrorBoundaryWrapper>} />
+                      <Route path="/roleplay" element={<ErrorBoundaryWrapper><Roleplay /></ErrorBoundaryWrapper>} />
+                      <Route path="/resources" element={<ErrorBoundaryWrapper><Resources /></ErrorBoundaryWrapper>} />
+                      <Route path="/emergency" element={<ErrorBoundaryWrapper><Emergency /></ErrorBoundaryWrapper>} />
+                      <Route path="/pricing" element={<ErrorBoundaryWrapper><Pricing /></ErrorBoundaryWrapper>} />
+                      <Route path="/settings" element={<ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper>} />
                       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                      <Route path="*" element={<NotFound />} />
+                      <Route path="*" element={<ErrorBoundaryWrapper><NotFound /></ErrorBoundaryWrapper>} />
                     </Routes>
                   </main>
                 </BrowserRouter>
