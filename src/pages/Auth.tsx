@@ -9,12 +9,14 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PasswordStrength } from '@/components/auth/PasswordStrength';
+import { ForgotPassword } from '@/components/ForgotPassword';
 
 const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
   const { t } = useLanguage();
@@ -91,6 +93,14 @@ const Auth = () => {
     setLoading(false);
   };
 
+  if (showForgotPassword) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-hero">
+        <ForgotPassword onBack={() => setShowForgotPassword(false)} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
       <Card className="w-full max-w-md shadow-wellness">
@@ -131,6 +141,14 @@ const Auth = () => {
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading ? "Signing in..." : "Sign In"}
+                </Button>
+                <Button 
+                  type="button" 
+                  variant="link" 
+                  onClick={() => setShowForgotPassword(true)}
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Forgot your password?
                 </Button>
               </form>
             </TabsContent>

@@ -115,6 +115,7 @@ export type Database = {
           created_at: string
           id: string
           intention: string | null
+          language_preference: string | null
           onboarding_completed: boolean | null
           theme_preference: string | null
           updated_at: string
@@ -127,6 +128,7 @@ export type Database = {
           created_at?: string
           id?: string
           intention?: string | null
+          language_preference?: string | null
           onboarding_completed?: boolean | null
           theme_preference?: string | null
           updated_at?: string
@@ -139,6 +141,7 @@ export type Database = {
           created_at?: string
           id?: string
           intention?: string | null
+          language_preference?: string | null
           onboarding_completed?: boolean | null
           theme_preference?: string | null
           updated_at?: string
