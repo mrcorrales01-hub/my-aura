@@ -27,11 +27,11 @@ const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <ThemeProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <AuthProvider>
+        <AuthProvider>
+          <ThemeProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
               <SubscriptionProvider>
                 <BrowserRouter>
                   <Navigation />
@@ -53,9 +53,9 @@ const App = () => (
                   </main>
                 </BrowserRouter>
               </SubscriptionProvider>
-            </AuthProvider>
-          </TooltipProvider>
-        </ThemeProvider>
+            </TooltipProvider>
+          </ThemeProvider>
+        </AuthProvider>
       </LanguageProvider>
     </QueryClientProvider>
   </ErrorBoundary>
