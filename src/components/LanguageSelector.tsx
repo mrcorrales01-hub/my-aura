@@ -13,7 +13,7 @@ interface LanguageSelectorProps {
 
 export const LanguageSelector = ({ variant = "button" }: LanguageSelectorProps) => {
   const { currentLanguage, setLanguage, t } = useLanguage();
-  const currentLang = languages.find(lang => lang.code === currentLanguage);
+  const currentLang = languages.find(lang => lang.code === currentLanguage) || languages[0];
   const [open, setOpen] = useState(false);
 
   const handleLanguageSelect = (lang: Language) => {
@@ -60,8 +60,8 @@ export const LanguageSelector = ({ variant = "button" }: LanguageSelectorProps) 
         <DialogTrigger asChild>
           <Button variant="outline" className="flex items-center gap-2">
             <Globe className="w-4 h-4" />
-            <span className="text-lg">{currentLang?.flag}</span>
-            <span className="hidden sm:inline">{currentLang?.name}</span>
+            <span className="text-lg">{currentLang.flag}</span>
+            <span className="hidden sm:inline">{currentLang.name}</span>
           </Button>
         </DialogTrigger>
         <DialogContent className="max-w-2xl">
@@ -83,8 +83,8 @@ export const LanguageSelector = ({ variant = "button" }: LanguageSelectorProps) 
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm" className="flex items-center gap-2">
-          <span className="text-sm">{currentLang?.flag}</span>
-          <span className="hidden sm:inline text-xs">{currentLang?.name}</span>
+          <span className="text-sm">{currentLang.flag}</span>
+          <span className="hidden sm:inline text-xs">{currentLang.name}</span>
           <Languages className="w-3 h-3" />
         </Button>
       </DialogTrigger>
