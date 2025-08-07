@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
@@ -1517,68 +1516,15 @@ const translations = {
 };
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('en');
-  const { user } = useAuth();
-  const { toast } = useToast();
+  const [language, setLanguage] = useState<Language>(() => {
+    const saved = localStorage.getItem('aura-language');
+    return (saved as Language) || 'en';
+  });
 
-  // Load language preference from user preferences on auth
+  // Save language preference to localStorage when changed
   useEffect(() => {
-    const loadLanguagePreference = async () => {
-      if (user) {
-        try {
-          const { data, error } = await supabase
-            .from('user_preferences')
-            .select('language_preference')
-            .eq('user_id', user.id)
-            .single();
-
-          if (error) {
-            console.log('No language preference found, using default');
-            return;
-          }
-
-          if (data?.language_preference) {
-            setLanguage(data.language_preference as Language);
-          }
-        } catch (error) {
-          console.error('Error loading language preference:', error);
-        }
-      }
-    };
-
-    loadLanguagePreference();
-  }, [user]);
-
-  // Save language preference when changed
-  useEffect(() => {
-    const saveLanguagePreference = async () => {
-      if (user) {
-        try {
-          const { error } = await supabase
-            .from('user_preferences')
-            .upsert(
-              { 
-                user_id: user.id, 
-                language_preference: language,
-                updated_at: new Date().toISOString()
-              },
-              { onConflict: 'user_id' }
-            );
-
-          if (error) {
-            console.error('Error saving language preference:', error);
-          }
-        } catch (error) {
-          console.error('Error saving language preference:', error);
-        }
-      }
-    };
-
-    // Only save if we have a user and it's not the initial load
-    if (user && language) {
-      saveLanguagePreference();
-    }
-  }, [language, user]);
+    localStorage.setItem('aura-language', language);
+  }, [language]);
 
   const t = (key: string, params?: Record<string, string>): string => {
     const keys = key.split('.');
