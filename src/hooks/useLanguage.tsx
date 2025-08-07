@@ -32,6 +32,7 @@ const translations = {
   en: {
     // Navigation
     'nav.home': 'Home',
+    'nav.dashboard': 'Dashboard',
     'nav.checkin': 'Mood Check-in',
     'nav.mood': 'Mood Check-in',
     'nav.coach': 'AI Coach',

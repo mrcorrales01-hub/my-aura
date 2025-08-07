@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Home, Heart, MessageCircle, Users, BookOpen, AlertTriangle, User, CreditCard, Settings, LogOut, Video } from "lucide-react";
+import { Menu, Home, Heart, MessageCircle, Users, BookOpen, AlertTriangle, User, CreditCard, Settings, LogOut, Video, BarChart2 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { LanguageSelector } from "./LanguageSelector";
 import { useState } from "react";
@@ -19,6 +19,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 // Navigation items configuration
 const getNavigationItems = (t: (key: string) => string) => [
   { icon: Home, label: t("nav.home"), path: "/" },
+  { icon: BarChart2, label: t("nav.dashboard"), path: "/dashboard", requiresAuth: true },
   { icon: Heart, label: t("nav.checkin"), path: "/checkin", requiresAuth: true },
   { icon: MessageCircle, label: t("nav.coach"), path: "/coach", requiresAuth: true },
   { icon: Video, label: "Therapy", path: "/therapy", requiresAuth: true },
