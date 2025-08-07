@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 const Pricing = () => {
-  const { createCheckoutSession, subscribed, subscription_tier } = useSubscription();
+  const { createCheckoutSession, subscribed, subscription_tier, openCustomerPortal } = useSubscription();
   const { user } = useAuth();
   const navigate = useNavigate();
 
