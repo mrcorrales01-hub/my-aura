@@ -1,17 +1,28 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Hero from "@/components/Hero";
 import Features from "@/components/Features";
 import MoodTracker from "@/components/MoodTracker";
 import Onboarding from "@/components/Onboarding";
 import Auri from "@/components/Auri";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/hooks/useLanguage";
 import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const { user, loading: authLoading } = useAuth();
+  const { currentLanguage } = useLanguage();
+  const navigate = useNavigate();
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [auriMessage, setAuriMessage] = useState<string | null>(null);
   const [checkingOnboarding, setCheckingOnboarding] = useState(true);
+
+  // Redirect new users to language selection if they haven't chosen
+  useEffect(() => {
+    if (!user && currentLanguage === 'en' && !localStorage.getItem('aura-language-selected')) {
+      navigate('/welcome');
+    }
+  }, [user, currentLanguage, navigate]);
 
   useEffect(() => {
     if (user && !authLoading) {

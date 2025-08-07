@@ -15,13 +15,18 @@ const LanguageWelcome = () => {
     }
   }, [navigate]);
 
+  const handleLanguageSelect = () => {
+    localStorage.setItem('aura-language-selected', 'true');
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
       <div className="max-w-2xl w-full">
         <LanguageSelector variant="card" />
         <div className="text-center mt-6">
           <button 
-            onClick={() => navigate('/')}
+            onClick={handleLanguageSelect}
             className="text-foreground/60 hover:text-foreground transition-colors text-sm"
           >
             Continue with English →

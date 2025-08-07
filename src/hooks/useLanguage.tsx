@@ -99,6 +99,8 @@ const translations: Record<Language, Record<string, string>> = {
     'features.roleplayDesc': 'Safe space to practice difficult conversations and scenarios',
     'features.resources': 'Self-Help Resources',
     'features.resourcesDesc': 'Access articles, exercises, and tools for personal growth',
+    'features.emergency': 'Emergency Support',
+    'features.emergencyDesc': '24/7 access to crisis resources and professional help',
     
     // Check-in page
     'checkin.title': 'Daily Check-in',
@@ -109,16 +111,43 @@ const translations: Record<Language, Record<string, string>> = {
     'checkin.submit': 'Submit Check-in',
     'checkin.success': 'Check-in saved successfully!',
     
+    // Mood Tracking
+    'mood.title': 'How are you feeling',
+    'mood.today': 'today?',
+    'mood.subtitle': 'Take a moment to check in with yourself. Your feelings matter.',
+    'mood.amazing': 'Amazing',
+    'mood.amazingDesc': 'I feel energetic and happy!',
+    'mood.good': 'Good',
+    'mood.goodDesc': 'A good day with positive feelings',
+    'mood.neutral': 'Okay',
+    'mood.neutralDesc': 'Feeling pretty neutral today',
+    'mood.low': 'Low',
+    'mood.lowDesc': 'A bit down, but that\'s okay',
+    'mood.difficult': 'Difficult',
+    'mood.difficultDesc': 'A challenging day, need extra care',
+    'mood.supportMessage': 'We\'re here for you',
+    'mood.saveMood': 'Save my feeling',
+    'mood.viewHistory': 'View my history',
+    'mood.dailyTip': 'Daily check-ins help you understand your emotional patterns better',
+    'mood.alreadyRecorded': 'You\'ve already recorded your mood today!',
+    
     // Coach page
-    'coach.title': 'AI-Coach',
-    'coach.subtitle': 'Your personal coach for relationships and emotions',
-    'coach.relationshipStatus': 'Your relationship status:',
-    'coach.single': 'Single',
-    'coach.relationship': 'In relationship',
-    'coach.separated': 'Separated',
-    'coach.online': 'Online',
-    'coach.inputPlaceholder': 'Type your message here...',
-    'coach.quickTopics': 'Common topics to discuss:',
+    'coach.title': 'Your Personal',
+    'coach.aiCoach': 'AI Coach',
+    'coach.subtitle': 'Get personalized guidance and support for your emotional and relationship health',
+    'coach.chatTitle': 'Chat with Aura',
+    'coach.chatDescription': 'Your compassionate AI wellness companion',
+    'coach.placeholder': 'Share what\'s on your mind...',
+    'coach.welcomeMessage': 'Hi! I\'m here to support you. What would you like to talk about today?',
+    'coach.specializations': 'Specializations',
+    'coach.emotional': 'Emotional Health',
+    'coach.emotionalDesc': 'Manage stress, anxiety, and emotions',
+    'coach.relationships': 'Relationships',
+    'coach.relationshipsDesc': 'Improve communication and intimacy',
+    'coach.communication': 'Communication',
+    'coach.communicationDesc': 'Learn to express your needs clearly',
+    'coach.mindfulness': 'Mindfulness',
+    'coach.mindfulnessDesc': 'Develop awareness and presence',
     
     // Emergency page
     'emergency.title': 'Emergency Support',
@@ -142,7 +171,23 @@ const translations: Record<Language, Record<string, string>> = {
     'common.error': 'An error occurred',
     'common.success': 'Success!',
     'common.language': 'Language',
-    'common.selectLanguage': 'Select Language'
+    'common.selectLanguage': 'Select Language',
+    'common.continue': 'Continue',
+    'common.back': 'Back',
+    'common.next': 'Next',
+    'common.previous': 'Previous',
+    'common.complete': 'Complete',
+    'common.skip': 'Skip',
+    'common.warning': 'Warning',
+    'common.info': 'Information',
+    'common.confirm': 'Confirm',
+    'common.saving': 'Saving...',
+    'common.tip': 'Tip',
+    
+    // Language
+    'language.welcome': 'Welcome to Aura',
+    'language.selectPreferred': 'Please select your preferred language to continue',
+    'language.selectLanguage': 'Select Language'
   },
   es: {
     // Navigation
