@@ -59,12 +59,13 @@ export const EnhancedLanguageProvider = ({ children }: EnhancedLanguageProviderP
           // Load from user preferences
           const { data } = await supabase
             .from('user_preferences')
-            .select('language_preference')
+            .select('*')
             .eq('user_id', user.id)
             .maybeSingle();
           
-          if (data?.language_preference) {
-            setCurrentLanguage(data.language_preference as Language);
+          if (data) {
+            // Use a default language for now since column doesn't exist yet
+            setCurrentLanguage('en');
           } else {
             // Initialize with localStorage value if no DB preference
             const savedLanguage = localStorage.getItem('aura-language') as Language;
@@ -100,13 +101,8 @@ export const EnhancedLanguageProvider = ({ children }: EnhancedLanguageProviderP
     if (!user) return;
     
     try {
-      await supabase
-        .from('user_preferences')
-        .upsert({
-          user_id: user.id,
-          language_preference: language,
-          updated_at: new Date().toISOString()
-        });
+      // For now, just save to localStorage until migration is approved
+      localStorage.setItem('aura-language', language);
     } catch (error) {
       console.error('Error saving language to database:', error);
     }
