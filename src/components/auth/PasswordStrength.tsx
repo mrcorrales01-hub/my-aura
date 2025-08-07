@@ -13,31 +13,47 @@ export const PasswordStrength: React.FC<PasswordStrengthProps> = ({ password }) 
     const feedback: string[] = [];
     let score = 0;
 
+    // Length check (minimum 8 characters)
     if (password.length >= 8) {
-      score += 25;
+      score += 20;
     } else {
       feedback.push(t("auth.passwordTooShort"));
     }
 
+    // Uppercase and lowercase
     if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
-      score += 25;
+      score += 20;
     } else {
       feedback.push(t("auth.passwordNeedsCases"));
     }
 
+    // Numbers
     if (/\d/.test(password)) {
-      score += 25;
+      score += 20;
     } else {
       feedback.push(t("auth.passwordNeedsNumber"));
     }
 
+    // Special characters
     if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-      score += 25;
+      score += 20;
     } else {
       feedback.push(t("auth.passwordNeedsSpecial"));
     }
 
-    return { score, feedback };
+    // Length bonus for longer passwords
+    if (password.length >= 12) {
+      score += 10;
+    }
+
+    // Complexity bonus - no repeated characters
+    if (!/(.)\1{2,}/.test(password)) {
+      score += 10;
+    } else {
+      feedback.push("Avoid repeating characters");
+    }
+
+    return { score: Math.min(score, 100), feedback };
   };
 
   const { score, feedback } = calculateStrength(password);
