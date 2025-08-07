@@ -54,10 +54,25 @@ const Hero = () => {
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button variant="wellness" size="hero" className="min-w-[200px]">
+          <Button 
+            variant="wellness" 
+            size="hero" 
+            className="min-w-[200px]"
+            onClick={() => window.location.href = '/auth'}
+          >
             {t('home.getStarted')}
           </Button>
-          <Button variant="outline" size="hero" className="min-w-[200px] border-foreground/20 hover:bg-foreground/10">
+          <Button 
+            variant="outline" 
+            size="hero" 
+            className="min-w-[200px] border-foreground/20 hover:bg-foreground/10"
+            onClick={() => {
+              const featuresSection = document.getElementById('features-section');
+              if (featuresSection) {
+                featuresSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+          >
             {t('hero.learnMore')}
           </Button>
         </div>

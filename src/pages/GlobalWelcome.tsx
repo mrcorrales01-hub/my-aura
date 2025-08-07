@@ -62,7 +62,13 @@ const GlobalWelcome = () => {
 
   const handleContinue = () => {
     localStorage.setItem('aura-global-welcome-seen', 'true');
-    navigate('/');
+    // Check if user needs language selection or can go to home
+    const selectedLanguage = localStorage.getItem('aura-language');
+    if (!selectedLanguage || selectedLanguage === 'en') {
+      navigate('/welcome');
+    } else {
+      navigate('/');
+    }
   };
 
   const handleInstallFirst = async () => {

@@ -17,9 +17,11 @@ const Index = () => {
   const [auriMessage, setAuriMessage] = useState<string | null>(null);
   const [checkingOnboarding, setCheckingOnboarding] = useState(true);
 
-  // Redirect new users to language selection if they haven't chosen
+  // Redirect new users to global welcome if they haven't seen it
   useEffect(() => {
-    if (!user && currentLanguage === 'en' && !localStorage.getItem('aura-language-selected')) {
+    if (!user && !localStorage.getItem('aura-global-welcome-seen')) {
+      navigate('/global-welcome');
+    } else if (!user && currentLanguage === 'en' && !localStorage.getItem('aura-language-selected')) {
       navigate('/welcome');
     }
   }, [user, currentLanguage, navigate]);
