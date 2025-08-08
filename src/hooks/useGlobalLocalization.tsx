@@ -205,9 +205,26 @@ export const GlobalLanguageProvider = ({ children }: { children: React.ReactNode
     try {
       setLanguageState(lang);
       localStorage.setItem('aura-global-language', lang);
+
+      // Map to local app language set
+      const mapToLocal = (g: GlobalLanguage): 'en' | 'es' | 'zh' | 'sv' => {
+        switch (g) {
+          case 'en':
+          case 'es':
+          case 'zh':
+          case 'sv':
+            return g;
+          default:
+            return 'en';
+        }
+      };
+      const localLang = mapToLocal(lang);
+      localStorage.setItem('aura-language', localLang);
+      window.dispatchEvent(new CustomEvent('aura-language-changed', { detail: localLang }));
       
-      // Update document direction for RTL languages
-      document.dir = currentLangData.rtl ? 'rtl' : 'ltr';
+      // Update document direction for RTL languages (use selected lang, not previous state)
+      const selected = globalLanguages.find(l => l.code === lang) || globalLanguages[0];
+      document.dir = selected.rtl ? 'rtl' : 'ltr';
       document.documentElement.lang = lang;
       
       toast({

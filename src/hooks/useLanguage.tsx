@@ -1600,6 +1600,43 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   // Save language preference to localStorage when changed
   useEffect(() => {
     localStorage.setItem('aura-language', language);
+    // Broadcast to other contexts/providers
+    window.dispatchEvent(new CustomEvent('aura-language-changed', { detail: language }));
+  }, [language]);
+
+  // Listen for global language changes and storage sync
+  useEffect(() => {
+    const mapGlobalToLocal = (g: string): Language => {
+      switch (g) {
+        case 'en':
+        case 'es':
+        case 'zh':
+        case 'sv':
+          return g as Language;
+        default:
+          return 'en';
+      }
+    };
+
+    const onCustom = (e: Event) => {
+      const detail = (e as CustomEvent).detail as string;
+      const next = mapGlobalToLocal(detail);
+      if (next && next !== language) setLanguage(next);
+    };
+    window.addEventListener('aura-language-changed', onCustom as EventListener);
+
+    const onStorage = (e: StorageEvent) => {
+      if ((e.key === 'aura-language' || e.key === 'aura-global-language') && e.newValue) {
+        const next = mapGlobalToLocal(e.newValue);
+        if (next !== language) setLanguage(next);
+      }
+    };
+    window.addEventListener('storage', onStorage);
+
+    return () => {
+      window.removeEventListener('aura-language-changed', onCustom as EventListener);
+      window.removeEventListener('storage', onStorage);
+    };
   }, [language]);
 
   const t = (key: string, params?: Record<string, string>): string => {
