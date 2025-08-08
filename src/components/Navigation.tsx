@@ -172,9 +172,7 @@ const Navigation = () => {
         </div>
       </header>
 
-      {/* Spacing for fixed navigation */}
-      <div className="lg:hidden h-16" />
-      <div className="hidden lg:block lg:w-64" />
+      
     </>
   );
 };

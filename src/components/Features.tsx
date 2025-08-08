@@ -12,42 +12,42 @@ const Features = () => {
       title: t('features.moodTracking'),
       description: t('features.moodTrackingDesc'),
       color: "wellness-primary",
-      gradient: "gradient-primary"
+      gradientClass: "bg-gradient-primary"
     },
     {
       icon: MessageCircle,
       title: t('features.aiCoaching'),
       description: t('features.aiCoachingDesc'),
       color: "calm",
-      gradient: "gradient-calm"
+      gradientClass: "bg-gradient-calm"
     },
     {
       icon: Users2,
       title: t('features.relationships'),
       description: t('features.relationshipsDesc'),
       color: "coral",
-      gradient: "gradient-wellness"
+      gradientClass: "bg-gradient-wellness"
     },
     {
       icon: Smartphone,
       title: t('features.design'),
       description: t('features.designDesc'),
       color: "wellness-secondary",
-      gradient: "gradient-primary"
+      gradientClass: "bg-gradient-primary"
     },
     {
       icon: Globe,
       title: t('features.multilingual'),
       description: t('features.multilingualDesc'),
       color: "lavender",
-      gradient: "gradient-calm"
+      gradientClass: "bg-gradient-calm"
     },
     {
       icon: Shield,
       title: t('features.security'),
       description: t('features.securityDesc'),
       color: "calm",
-      gradient: "gradient-wellness"
+      gradientClass: "bg-gradient-wellness"
     }
   ];
 
@@ -72,7 +72,7 @@ const Features = () => {
                 key={index} 
                 className="p-8 bg-card/80 backdrop-blur-sm border-border/50 hover:shadow-wellness transition-all duration-300 hover:scale-105 group"
               >
-                <div className={`w-16 h-16 bg-${feature.gradient} rounded-2xl flex items-center justify-center mb-6 group-hover:animate-wellness-glow`}>
+                <div className={`${feature.gradientClass} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 group-hover:animate-wellness-glow`}>
                   <IconComponent className={`w-8 h-8 text-white`} />
                 </div>
                 

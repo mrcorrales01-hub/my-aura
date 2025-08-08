@@ -44,7 +44,7 @@ const App = () => (
                 <SubscriptionProvider>
                   <BrowserRouter>
                     <Navigation />
-                    <main className="lg:pl-0">
+                    <main className="pt-16 lg:pt-0 lg:pl-64">
                       <Routes>
                         <Route path="/global-welcome" element={<ErrorBoundaryWrapper><GlobalWelcome /></ErrorBoundaryWrapper>} />
                         <Route path="/welcome" element={<ErrorBoundaryWrapper><LanguageWelcome /></ErrorBoundaryWrapper>} />

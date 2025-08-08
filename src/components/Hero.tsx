@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/aura-hero.jpg";
 import { Heart, Brain, Users } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
   const { t } = useLanguage();
-  
+  const navigate = useNavigate();
+
   return (
     <section className="relative min-h-screen bg-gradient-hero flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -58,7 +60,7 @@ const Hero = () => {
             variant="wellness" 
             size="hero" 
             className="min-w-[200px]"
-            onClick={() => window.location.href = '/auth'}
+            onClick={() => navigate('/auth')}
           >
             {t('home.getStarted')}
           </Button>
