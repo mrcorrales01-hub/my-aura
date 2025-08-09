@@ -28,6 +28,8 @@ import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
+import SkipLink from "./components/SkipLink";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -42,9 +44,11 @@ const App = () => (
                 <Toaster />
                 <Sonner />
                 <SubscriptionProvider>
-                  <BrowserRouter>
-                    <Navigation />
-                    <main className="pt-16 lg:pt-0 lg:pl-64">
+                    <BrowserRouter>
+                      <SkipLink href="#site-main" />
+                      <Navigation />
+                      <ScrollToTop />
+                      <main id="site-main" className="pt-16 lg:pt-0 lg:pl-64" role="main">
                       <Routes>
                         <Route path="/global-welcome" element={<ErrorBoundaryWrapper><GlobalWelcome /></ErrorBoundaryWrapper>} />
                         <Route path="/welcome" element={<ErrorBoundaryWrapper><LanguageWelcome /></ErrorBoundaryWrapper>} />

@@ -237,8 +237,9 @@ export const GlobalLanguageProvider = ({ children }: { children: React.ReactNode
   };
 
   const t = (key: string, params?: Record<string, string>) => {
-    const translations = globalTranslations[language] || globalTranslations.en;
-    let translation = translations[key] || key;
+    const translationsForCurrent = (globalTranslations as any)[language] || {};
+    const defaultTranslations = (globalTranslations as any).en || {};
+    let translation = (translationsForCurrent[key] ?? defaultTranslations[key] ?? key) as string;
 
     if (params) {
       Object.entries(params).forEach(([paramKey, value]) => {

@@ -37,7 +37,7 @@ const NavContent = ({ onNavigate }: { onNavigate?: () => void }) => {
   const navigationItems = getNavigationItems(t);
   
   return (
-    <nav className="flex-1 space-y-2">
+    <nav className="flex-1 space-y-2" role="navigation" aria-label="Primary navigation">
       {navigationItems.map((item) => {
         const Icon = item.icon;
         const isActive = item.path === "/" ? location.pathname === "/" : location.pathname.startsWith(item.path);
@@ -48,12 +48,14 @@ const NavContent = ({ onNavigate }: { onNavigate?: () => void }) => {
             key={item.path}
             to={item.path}
             className={isDisabled ? "pointer-events-none" : ""}
+            aria-disabled={isDisabled}
             onClick={() => { if (onNavigate) onNavigate(); }}
           >
             <Button
               variant={isActive ? "secondary" : "ghost"}
               className={`w-full justify-start ${item.destructive ? "text-destructive hover:text-destructive" : ""} ${isDisabled ? "opacity-50" : ""}`}
               disabled={isDisabled}
+              aria-current={isActive ? "page" : undefined}
             >
               <Icon className="h-4 w-4 mr-3" />
               {item.label}
