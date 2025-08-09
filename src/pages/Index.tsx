@@ -34,6 +34,13 @@ const Index = () => {
     }
   }, [user, authLoading]);
 
+  // SEO for homepage
+  useEffect(() => {
+    document.title = 'Aura Wellness — Mental Health & Relationship Coaching';
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) meta.setAttribute('content', 'Personalized mental wellness, mood tracking, AI coaching, and therapy tools to help you feel better every day.');
+  }, []);
+
   const checkOnboardingStatus = async () => {
     if (!user) return;
 

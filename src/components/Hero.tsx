@@ -21,11 +21,11 @@ const Hero = () => {
       <div className="absolute top-40 right-20 w-16 h-16 bg-coral/30 rounded-full animate-float" style={{ animationDelay: '2s' }} />
       <div className="absolute bottom-32 left-20 w-12 h-12 bg-lavender/40 rounded-full animate-float" style={{ animationDelay: '4s' }} />
       
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        {/* Logo/Brand */}
+      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto animate-fade-in">
+        {/* Brand + SEO H1 */}
         <div className="mb-8">
-          <h1 className="text-6xl md:text-7xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-            Aura
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
+            Aura Wellness — Mental Health & Relationship Coaching
           </h1>
           <p className="text-xl md:text-2xl text-foreground/80 font-light">
             {t('home.subtitle')}
@@ -59,7 +59,7 @@ const Hero = () => {
           <Button 
             variant="wellness" 
             size="hero" 
-            className="min-w-[200px]"
+            className="min-w-[200px] hover-scale"
             onClick={() => navigate('/auth')}
           >
             {t('home.getStarted')}
@@ -67,7 +67,7 @@ const Hero = () => {
           <Button 
             variant="outline" 
             size="hero" 
-            className="min-w-[200px] border-foreground/20 hover:bg-foreground/10"
+            className="min-w-[200px] border-foreground/20 hover:bg-foreground/10 hover-scale"
             onClick={() => {
               const featuresSection = document.getElementById('features-section');
               if (featuresSection) {

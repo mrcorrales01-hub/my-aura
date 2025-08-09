@@ -73,7 +73,10 @@ const globalTranslations = {
     'mobile.biometric.auth': 'Biometric Authentication',
     'mobile.notifications.smart': 'Smart Notifications',
     'mobile.offline.mode': 'Offline Mode Available',
-    'mobile.health.integration': 'Health App Integration'
+    'mobile.health.integration': 'Health App Integration',
+
+    // Common
+    'common.selectLanguage': 'Select language'
   },
   // Add other language translations here...
   es: {
@@ -84,7 +87,8 @@ const globalTranslations = {
     'culture.wellness.concept': 'El bienestar mental es equilibrio y autocuidado',
     'emergency.cultural.note': 'Apoyo de salud mental disponible 24/7',
     'payment.currency.symbol': '€',
-    'time.format': '24h'
+    'time.format': '24h',
+    'common.selectLanguage': 'Seleccionar idioma'
   },
   fr: {
     'app.name': 'Aura Bien-être',
@@ -94,7 +98,8 @@ const globalTranslations = {
     'culture.wellness.concept': 'Le bien-être mental, c\'est l\'équilibre et les soins personnels',
     'emergency.cultural.note': 'Soutien en santé mentale disponible 24h/24',
     'payment.currency.symbol': '€',
-    'time.format': '24h'
+    'time.format': '24h',
+    'common.selectLanguage': 'Choisir la langue'
   },
   de: {
     'app.name': 'Aura Wellness',
@@ -104,7 +109,8 @@ const globalTranslations = {
     'culture.wellness.concept': 'Mentales Wohlbefinden bedeutet Balance und Selbstfürsorge',
     'emergency.cultural.note': 'Unterstützung für psychische Gesundheit rund um die Uhr verfügbar',
     'payment.currency.symbol': '€',
-    'time.format': '24h'
+    'time.format': '24h',
+    'common.selectLanguage': 'Sprache auswählen'
   },
   ar: {
     'app.name': 'أورا للعافية',

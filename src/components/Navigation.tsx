@@ -53,7 +53,7 @@ const NavContent = ({ onNavigate }: { onNavigate?: () => void }) => {
           >
             <Button
               variant={isActive ? "secondary" : "ghost"}
-              className={`w-full justify-start ${item.destructive ? "text-destructive hover:text-destructive" : ""} ${isDisabled ? "opacity-50" : ""}`}
+              className={`w-full justify-start hover-scale ${item.destructive ? "text-destructive hover:text-destructive" : ""} ${isDisabled ? "opacity-50" : ""}`}
               disabled={isDisabled}
               aria-current={isActive ? "page" : undefined}
             >
@@ -93,7 +93,7 @@ const UserMenu = () => {
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 bg-popover z-50 shadow-md" align="end" forceMount>
+      <DropdownMenuContent className="w-56 bg-popover text-popover-foreground border border-border z-[60] shadow-md" align="end" forceMount>
         <div className="flex flex-col space-y-1 p-2">
           <p className="text-sm font-medium leading-none">{user.email}</p>
           <p className="text-xs leading-none text-muted-foreground">
@@ -126,7 +126,7 @@ const Navigation = () => {
     <>
       {/* Desktop Navigation - Sidebar */}
       <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:fixed lg:inset-y-0 lg:z-50 lg:bg-sidebar lg:border-r lg:border-sidebar-border">
-        <div className="flex flex-col h-full p-6">
+        <div className="flex flex-col h-full p-6 animate-fade-in">
           {/* Logo */}
           <div className="flex items-center mb-8">
             <div className="w-8 h-8 bg-gradient-primary rounded-lg mr-3" />
@@ -163,7 +163,7 @@ const Navigation = () => {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-64 p-6 bg-background z-50">
+              <SheetContent side="right" className="w-64 p-6 bg-background z-50 animate-slide-in-right">
                 <div className="flex flex-col h-full">
                   <div className="flex items-center mb-8">
                     <div className="w-6 h-6 bg-gradient-primary rounded mr-2" />
