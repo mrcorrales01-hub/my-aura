@@ -6,9 +6,24 @@
     @apply transition-transform duration-200 hover:scale-105;
   }
 
-  /* Animated underline link using pseudo-element */
+  /* Animated underline link using pseudo-element - robust CSS version (avoid PostCSS parsing issues) */
   .story-link {
     @apply relative inline-block;
-    @apply after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-current after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+  .story-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 0.125rem; /* ~h-0.5 */
+    bottom: 0;
+    left: 0;
+    background-color: currentColor;
+    transform-origin: bottom right;
+    transition: transform 300ms;
+  }
+  .story-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
   }
 }
