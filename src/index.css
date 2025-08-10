@@ -10,46 +10,46 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Aura Design System - Wellness & Relationship Health */
-    --background: 318, 100%, 99%;
-    --foreground: 264, 15%, 20%;
+    --background: 318 100% 99%;
+    --foreground: 264 15% 20%;
 
-    --card: 320, 60%, 98%;
-    --card-foreground: 264, 15%, 20%;
+    --card: 320 60% 98%;
+    --card-foreground: 264 15% 20%;
 
-    --popover: 320, 60%, 98%;
-    --popover-foreground: 264, 15%, 20%;
+    --popover: 320 60% 98%;
+    --popover-foreground: 264 15% 20%;
 
     /* Primary - Warm Purple/Pink for wellness */
-    --primary: 300, 65%, 55%;
-    --primary-foreground: 320, 60%, 98%;
-    --primary-glow: 310, 70%, 70%;
+    --primary: 300 65% 55%;
+    --primary-foreground: 320 60% 98%;
+    --primary-glow: 310 70% 70%;
 
     /* Secondary - Soft Blue for trust & calm */
-    --secondary: 210, 60%, 85%;
-    --secondary-foreground: 264, 15%, 20%;
+    --secondary: 210 60% 85%;
+    --secondary-foreground: 264 15% 20%;
 
-    --muted: 318, 30%, 95%;
-    --muted-foreground: 264, 10%, 45%;
+    --muted: 318 30% 95%;
+    --muted-foreground: 264 10% 45%;
 
     /* Accent - Gentle coral for warmth */
-    --accent: 15, 75%, 75%;
-    --accent-foreground: 264, 15%, 20%;
+    --accent: 15 75% 75%;
+    --accent-foreground: 264 15% 20%;
 
-    --destructive: 0, 75%, 60%;
-    --destructive-foreground: 320, 60%, 98%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 320 60% 98%;
 
-    --border: 318, 25%, 90%;
-    --input: 318, 25%, 92%;
-    --ring: 300, 65%, 55%;
+    --border: 318 25% 90%;
+    --input: 318 25% 92%;
+    --ring: 300 65% 55%;
 
     --radius: 1rem;
 
     /* Aura Custom Design Tokens */
-    --wellness-primary: 300, 65%, 55%;
-    --wellness-secondary: 320, 50%, 75%;
-    --calm-blue: 210, 60%, 65%;
-    --warm-coral: 15, 75%, 75%;
-    --soft-lavender: 270, 40%, 85%;
+    --wellness-primary: 300 65% 55%;
+    --wellness-secondary: 320 50% 75%;
+    --calm-blue: 210 60% 65%;
+    --warm-coral: 15 75% 75%;
+    --soft-lavender: 270 40% 85%;
 
     /* Beautiful Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--wellness-primary)), hsl(var(--primary-glow)));
@@ -67,66 +67,66 @@ All colors MUST be HSL.
     --transition-wellness: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-gentle: all 0.3s ease-out;
 
-    --sidebar-background: 0, 0%, 98%;
-    --sidebar-foreground: 240, 5.3%, 26.1%;
-    --sidebar-primary: 240, 5.9%, 10%;
-    --sidebar-primary-foreground: 0, 0%, 98%;
-    --sidebar-accent: 240, 4.8%, 95.9%;
-    --sidebar-accent-foreground: 240, 5.9%, 10%;
-    --sidebar-border: 220, 13%, 91%;
-    --sidebar-ring: 217.2, 91.2%, 59.8%;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
 
     /* Additional color tokens for component consistency */
-    --calm: 210, 60%, 65%;
-    --coral: 15, 75%, 75%;
-    --lavender: 270, 40%, 85%;
+    --calm: 210 60% 65%;
+    --coral: 15 75% 75%;
+    --lavender: 270 40% 85%;
   }
 
   .dark {
-    --background: 222.2, 84%, 4.9%;
-    --foreground: 210, 40%, 98%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 222.2, 84%, 4.9%;
-    --card-foreground: 210, 40%, 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 222.2, 84%, 4.9%;
-    --popover-foreground: 210, 40%, 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 210, 40%, 98%;
-    --primary-foreground: 222.2, 47.4%, 11.2%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2, 32.6%, 17.5%;
-    --secondary-foreground: 210, 40%, 98%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2, 32.6%, 17.5%;
-    --muted-foreground: 215, 20.2%, 65.1%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2, 32.6%, 17.5%;
-    --accent-foreground: 210, 40%, 98%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0, 62.8%, 30.6%;
-    --destructive-foreground: 210, 40%, 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2, 32.6%, 17.5%;
-    --input: 217.2, 32.6%, 17.5%;
-    --ring: 212.7, 26.8%, 83.9%;
-    --sidebar-background: 240, 5.9%, 10%;
-    --sidebar-foreground: 240, 4.8%, 95.9%;
-    --sidebar-primary: 224.3, 76.3%, 48%;
-    --sidebar-primary-foreground: 0, 0%, 100%;
-    --sidebar-accent: 240, 3.7%, 15.9%;
-    --sidebar-accent-foreground: 240, 4.8%, 95.9%;
-    --sidebar-border: 240, 3.7%, 15.9%;
-    --sidebar-ring: 217.2, 91.2%, 59.8%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
 
     /* Dark mode wellness colors */
-    --wellness-primary: 300, 65%, 65%;
-    --wellness-secondary: 320, 50%, 65%;
+    --wellness-primary: 300 65% 65%;
+    --wellness-secondary: 320 50% 65%;
     
     /* Dark mode for additional colors */
-    --calm: 210, 50%, 45%;
-    --coral: 15, 65%, 55%;
-    --lavender: 270, 30%, 65%;
+    --calm: 210 50% 45%;
+    --coral: 15 65% 55%;
+    --lavender: 270 30% 65%;
   }
 }
 
