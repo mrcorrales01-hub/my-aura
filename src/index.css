@@ -7,8 +7,7 @@
 All colors MUST be HSL.
 */
 
-@layer base {
-  :root {
+:root {
     /* Aura Design System - Wellness & Relationship Health */
     --background: 318 100% 99%;
     --foreground: 264 15% 20%;
@@ -128,7 +127,6 @@ All colors MUST be HSL.
     --coral: 15 65% 55%;
     --lavender: 270 30% 65%;
   }
-}
 
 @layer base {
   * {
