@@ -1,3 +1,5 @@
+@tailwind utilities;
+
 @layer utilities {
   /* Hover Scale Animation Utility */
   .hover-scale {
