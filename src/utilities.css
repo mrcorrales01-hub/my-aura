@@ -1,11 +1,15 @@
 
 
 .hover-scale {
-  @apply transition-transform duration-200 hover:scale-105;
+  transition: transform 200ms ease;
+}
+.hover-scale:hover {
+  transform: scale(1.05);
 }
 
 .story-link {
-  @apply relative inline-block;
+  position: relative;
+  display: inline-block;
 }
 .story-link::after {
   content: "";
