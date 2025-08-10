@@ -50,16 +50,11 @@ All colors MUST be HSL.
   --warm-coral: 15, 75%, 75%;
   --soft-lavender: 270, 40%, 85%;
 
-  /* Beautiful Gradients */
-  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
-  --gradient-wellness: linear-gradient(180deg, hsl(var(--wellness-secondary)) 0%, hsl(var(--soft-lavender)) 100%);
-  --gradient-calm: linear-gradient(135deg, hsl(var(--calm-blue)), hsl(var(--wellness-secondary)));
-  --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--calm-blue)) 50%, hsl(var(--warm-coral)) 100%);
-
+  /* Gradients are defined in Tailwind config (backgroundImage) for maximum compatibility */
   /* Elegant Shadows */
-  --shadow-wellness: 0 10px 30px -10px hsl(var(--primary), 0.3);
-  --shadow-soft: 0 4px 20px -4px hsl(var(--primary), 0.15);
-  --shadow-glow: 0 0 40px hsl(var(--primary-glow), 0.4);
+  --shadow-wellness: 0 10px 30px -10px hsl(var(--primary) / 0.3);
+  --shadow-soft: 0 4px 20px -4px hsl(var(--primary) / 0.15);
+  --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
 
   /* Smooth Animations */
   --transition-wellness: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
