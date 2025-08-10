@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -57,9 +58,10 @@ All colors MUST be HSL.
     --gradient-hero: linear-gradient(135deg, hsl(var(--wellness-primary)) 0%, hsl(var(--calm-blue)) 50%, hsl(var(--warm-coral)) 100%);
 
     /* Elegant Shadows */
-    --shadow-wellness: 0 10px 30px -10px hsl(var(--wellness-primary) / 0.3);
-    --shadow-soft: 0 4px 20px -4px hsl(var(--wellness-primary) / 0.15);
-    --shadow-glow: 0 0 40px hsl(var(--primary-glow) / 0.4);
+    /* Replace modern hsl(var(--token) / alpha) with hsla() for wider PostCSS compatibility */
+    --shadow-wellness: 0 10px 30px -10px hsla(300, 65%, 55%, 0.3);
+    --shadow-soft: 0 4px 20px -4px hsla(300, 65%, 55%, 0.15);
+    --shadow-glow: 0 0 40px hsla(310, 70%, 70%, 0.4);
 
     /* Smooth Animations */
     --transition-wellness: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
