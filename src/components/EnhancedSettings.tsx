@@ -202,10 +202,10 @@ export const EnhancedSettings = () => {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="soothing">Soothing & Calming</SelectItem>
-                    <SelectItem value="energetic">Energetic & Motivating</SelectItem>
-                    <SelectItem value="wise">Wise & Philosophical</SelectItem>
-                    <SelectItem value="playful">Playful & Lighthearted</SelectItem>
+                    <SelectItem value="soothing">{t('auri.personalities.soothing.name')}</SelectItem>
+                    <SelectItem value="energetic">{t('auri.personalities.encouraging.name')}</SelectItem>
+                    <SelectItem value="wise">{t('auri.personalities.wise.name')}</SelectItem>
+                    <SelectItem value="playful">{t('auri.personalities.playful.name')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

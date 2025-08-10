@@ -17,6 +17,14 @@ const Index = () => {
   const [auriMessage, setAuriMessage] = useState<string | null>(null);
   const [checkingOnboarding, setCheckingOnboarding] = useState(true);
 
+  // Force-show Auri for testing via ?auri=1
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('auri') === '1') {
+      setAuriMessage("Hi, I'm Auri! This is a test message so you can verify my UI.");
+    }
+  }, []);
+
   // Redirect new users to global welcome if they haven't seen it
   useEffect(() => {
     if (!user && !localStorage.getItem('aura-global-welcome-seen')) {

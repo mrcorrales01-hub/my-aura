@@ -80,23 +80,23 @@ const Onboarding = ({ onComplete }: OnboardingProps) => {
   const auriTones = [
     { 
       id: 'soothing', 
-      title: t('auri.personality.soothing'), 
-      description: t('auri.personality.soothingDesc') 
+      title: t('auri.personalities.soothing.name'), 
+      description: t('auri.personalities.soothing.description') 
     },
     { 
       id: 'playful', 
-      title: t('auri.personality.playful'), 
-      description: t('auri.personality.playfulDesc') 
+      title: t('auri.personalities.playful.name'), 
+      description: t('auri.personalities.playful.description') 
     },
     { 
       id: 'wise', 
-      title: t('auri.personality.wise'), 
-      description: t('auri.personality.wiseDesc') 
+      title: t('auri.personalities.wise.name'), 
+      description: t('auri.personalities.wise.description') 
     },
     { 
       id: 'energetic', 
-      title: t('auri.personality.energetic'), 
-      description: t('auri.personality.energeticDesc') 
+      title: t('auri.personalities.encouraging.name'), 
+      description: t('auri.personalities.encouraging.description') 
     }
   ];
 

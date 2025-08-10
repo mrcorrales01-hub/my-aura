@@ -102,11 +102,15 @@ const Auri = ({ message, onDismiss, showSettings = false, context = 'general' }:
   const getContextualMessage = () => {
     if (message) return message;
     
-    const welcomeMessages = t('auri.welcome') as any;
-    const personality = getAuriPersonality();
+    const contextMessages = t('auri.contextMessages') as any;
+    const personalities = t('auri.personalities') as any;
+    const basePersonality = personalities?.[auriTone] || personalities?.soothing;
     
-    // Return context-specific welcome message or personality-specific message
-    return welcomeMessages?.[context] || personality?.welcome || welcomeMessages?.default || t('auri.welcome.default');
+    // Return context-specific message (first option) or personality-specific welcome (first), with a safe fallback
+    const contextArray = contextMessages?.[context];
+    return (Array.isArray(contextArray) && contextArray[0])
+      ? contextArray[0]
+      : (basePersonality?.welcomeMessages?.[0] || t('common.hello'));
   };
 
   if (!auriEnabled) return null;

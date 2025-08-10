@@ -333,6 +333,8 @@ const translations = {
     
     // Auri translations
     auri: {
+      name: 'Auri',
+      messages: { loading: 'Loading message...' },
       personalities: {
         soothing: {
           name: "Soothing",
@@ -696,6 +698,8 @@ const translations = {
     
     // Auri translations
     auri: {
+      name: 'Auri',
+      messages: { loading: 'Cargando mensaje...' },
       personalities: {
         soothing: {
           name: "Tranquilizador",
@@ -1117,6 +1121,8 @@ const translations = {
     
     // Auri translations
     auri: {
+      name: 'Auri',
+      messages: { loading: '正在加载消息...' },
       personalities: {
         soothing: {
           name: "舒缓",
@@ -1480,6 +1486,8 @@ const translations = {
     
     // Auri translations
     auri: {
+      name: 'Auri',
+      messages: { loading: 'Laddar meddelande...' },
       personalities: {
         soothing: {
           name: "Lugnande",
