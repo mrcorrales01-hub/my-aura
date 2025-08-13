@@ -20,7 +20,7 @@
     left: 0;
     background-color: currentColor;
     transform-origin: bottom right;
-    transition: transform 300ms;
+    transition: transform 300ms ease;
   }
   .story-link:hover::after {
     transform: scaleX(1);
