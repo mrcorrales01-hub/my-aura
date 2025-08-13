@@ -77,10 +77,10 @@ export default {
 					'exit': 'fade-out 0.3s ease-out, scale-out 0.2s ease-out'
 				},
 				backgroundImage: {
-					'gradient-wellness': 'linear-gradient(180deg, hsl(var(--wellness-secondary)) 0%, hsl(var(--soft-lavender)) 100%)',
-					'gradient-primary': 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)))',
-					'gradient-calm': 'linear-gradient(135deg, hsl(var(--calm-blue)), hsl(var(--wellness-secondary)))',
-					'gradient-hero': 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--calm-blue)) 50%, hsl(var(--warm-coral)) 100%)'
+					'gradient-wellness': 'linear-gradient(135deg, hsl(var(--wellness-primary)), hsl(var(--warm-coral)))',
+					'gradient-calm': 'linear-gradient(135deg, hsl(var(--calm-blue)), hsl(var(--soft-lavender)))',
+					'gradient-hero': 'linear-gradient(135deg, hsl(var(--wellness-primary)) 0%, hsl(var(--calm-blue)) 50%, hsl(var(--warm-coral)) 100%)',
+					'gradient-primary': 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--wellness-primary)))'
 				},
 			boxShadow: {
 				'wellness': 'var(--shadow-wellness)',

@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LanguageSelector } from '@/components/LanguageSelector';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useI18n } from '@/hooks/useI18n';
 
 const LanguageWelcome = () => {
   const navigate = useNavigate();
-  const { currentLanguage } = useLanguage();
+  const { currentLanguage } = useI18n();
 
   useEffect(() => {
     // If user has already selected a language, redirect to home
@@ -23,7 +23,7 @@ const LanguageWelcome = () => {
   return (
     <div className="min-h-screen bg-gradient-hero flex items-center justify-center p-6">
       <div className="max-w-2xl w-full">
-        <LanguageSelector variant="card" />
+        <LanguageSelector variant="button" />
         <div className="text-center mt-6">
           <button 
             onClick={handleLanguageSelect}
