@@ -1,129 +1,158 @@
-import { useState } from "react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Smile, Meh, Frown, Heart, Zap, Cloud } from "lucide-react";
-import { useLanguage } from "@/hooks/useLanguage";
-import { useMoodTracking, type Mood } from "@/hooks/useMoodTracking";
+import { useState, useEffect } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Slider } from '@/components/ui/slider';
+import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { supabase } from '@/integrations/supabase/client';
+import { 
+  Smile, 
+  Meh, 
+  Frown, 
+  Heart, 
+  Zap, 
+  Moon,
+  Sun,
+  Cloud,
+  Sparkles
+} from 'lucide-react';
 
-const MoodTracker = () => {
-  const { t } = useLanguage();
-  const { saveMood, loading, hasMoodToday } = useMoodTracking();
-  const [selectedMood, setSelectedMood] = useState<Mood | null>(null);
-  
-  const moods: Mood[] = [
-    { id: 'amazing', label: t('mood.amazing'), icon: 'Zap', color: 'coral', description: t('mood.amazingDesc'), value: 5 },
-    { id: 'good', label: t('mood.good'), icon: 'Smile', color: 'wellness-primary', description: t('mood.goodDesc'), value: 4 },
-    { id: 'neutral', label: t('mood.neutral'), icon: 'Meh', color: 'calm', description: t('mood.neutralDesc'), value: 3 },
-    { id: 'low', label: t('mood.low'), icon: 'Cloud', color: 'lavender', description: t('mood.lowDesc'), value: 2 },
-    { id: 'difficult', label: t('mood.difficult'), icon: 'Frown', color: 'muted-foreground', description: t('mood.difficultDesc'), value: 1 }
-  ];
+const moodOptions = [
+  { id: 'joyful', icon: Sparkles, label: 'Joyful', color: 'text-yellow-500' },
+  { id: 'happy', icon: Smile, label: 'Happy', color: 'text-green-500' },
+  { id: 'content', icon: Sun, label: 'Content', color: 'text-blue-400' },
+  { id: 'neutral', icon: Meh, label: 'Neutral', color: 'text-gray-500' },
+  { id: 'tired', icon: Moon, label: 'Tired', color: 'text-purple-400' },
+  { id: 'sad', icon: Cloud, label: 'Sad', color: 'text-blue-600' },
+  { id: 'anxious', icon: Zap, label: 'Anxious', color: 'text-orange-500' },
+  { id: 'overwhelmed', icon: Frown, label: 'Overwhelmed', color: 'text-red-500' },
+];
 
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Zap': return Zap;
-      case 'Smile': return Smile;
-      case 'Meh': return Meh;
-      case 'Cloud': return Cloud;
-      case 'Frown': return Frown;
-      default: return Heart;
+export const MoodTracker = () => {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [selectedMood, setSelectedMood] = useState<string | null>(null);
+  const [moodValue, setMoodValue] = useState([5]);
+  const [notes, setNotes] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async () => {
+    if (!user || !selectedMood) {
+      toast({
+        title: 'Please select a mood',
+        description: 'Choose how you\'re feeling right now.',
+        variant: 'destructive',
+      });
+      return;
     }
-  };
 
-  const handleSaveMood = async () => {
-    if (selectedMood) {
-      const success = await saveMood(selectedMood);
-      if (success) {
-        setSelectedMood(null);
-      }
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase
+        .from('mood_entries')
+        .insert({
+          user_id: user.id,
+          mood_id: selectedMood,
+          mood_value: moodValue[0],
+          notes: notes.trim() || null,
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: 'Mood logged!',
+        description: 'Thank you for checking in.',
+      });
+
+      // Reset form
+      setSelectedMood(null);
+      setMoodValue([5]);
+      setNotes('');
+
+    } catch (error) {
+      console.error('Error saving mood:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to save your mood. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <section className="py-20 px-6">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-foreground mb-4">
-            {t('mood.title')} <span className="bg-gradient-primary bg-clip-text text-transparent">{t('mood.today')}</span>
-          </h2>
-          <p className="text-xl text-foreground/70">
-            {t('mood.subtitle')}
-          </p>
-          {hasMoodToday && (
-            <div className="mt-4 text-wellness-primary font-medium">
-              {t('mood.alreadyRecorded')}
-            </div>
-          )}
-        </div>
-
-        <Card className="p-8 bg-card/90 backdrop-blur-sm shadow-soft">
-          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-            {moods.map((mood) => {
-              const IconComponent = getIcon(mood.icon);
-              const isSelected = selectedMood?.id === mood.id;
-              
+    <Card className="w-full max-w-2xl mx-auto">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Heart className="h-5 w-5 text-primary" />
+          Daily Mood Check-in
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        <div>
+          <h3 className="text-sm font-medium mb-3">How are you feeling?</h3>
+          <div className="grid grid-cols-4 gap-3">
+            {moodOptions.map((mood) => {
+              const Icon = mood.icon;
               return (
-                <button
+                <Button
                   key={mood.id}
-                  onClick={() => setSelectedMood(mood)}
-                  className={`p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 ${
-                    isSelected 
-                      ? 'border-wellness-primary bg-wellness-primary/10 shadow-wellness' 
-                      : 'border-border hover:border-wellness-primary/50 hover:bg-wellness-primary/5'
-                  }`}
+                  variant={selectedMood === mood.id ? "default" : "outline"}
+                  className="h-20 flex-col gap-2"
+                  onClick={() => setSelectedMood(mood.id)}
                 >
-                  <div className={`w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center ${
-                    isSelected ? 'bg-wellness-primary' : 'bg-muted'
-                  }`}>
-                    <IconComponent className={`w-6 h-6 ${
-                      isSelected ? 'text-white' : 'text-muted-foreground'
-                    }`} />
-                  </div>
-                  <p className={`font-medium ${
-                    isSelected ? 'text-wellness-primary' : 'text-foreground'
-                  }`}>
-                    {mood.label}
-                  </p>
-                </button>
+                  <Icon className={`h-6 w-6 ${selectedMood === mood.id ? '' : mood.color}`} />
+                  <span className="text-xs">{mood.label}</span>
+                </Button>
               );
             })}
           </div>
-
-          {selectedMood && (
-            <div className="text-center bg-wellness-primary/5 rounded-xl p-6 mb-6 animate-in slide-in-from-bottom-4">
-              <p className="text-foreground/80 mb-4">
-                {selectedMood.description}
-              </p>
-              <div className="flex items-center justify-center gap-2 text-wellness-primary">
-                <Heart className="w-4 h-4 fill-current" />
-                <span className="text-sm font-medium">{t('mood.supportMessage')}</span>
-              </div>
-            </div>
-          )}
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              variant="wellness" 
-              size="lg" 
-              disabled={!selectedMood || loading}
-              onClick={handleSaveMood}
-              className="disabled:opacity-50"
-            >
-              {loading ? t('common.saving') : t('mood.saveMood')}
-            </Button>
-            <Button variant="outline" size="lg">
-              {t('mood.viewHistory')}
-            </Button>
-          </div>
-        </Card>
-
-        <div className="text-center mt-8">
-          <p className="text-sm text-foreground/60">
-            💡 <strong>{t('common.tip')}:</strong> {t('mood.dailyTip')}
-          </p>
         </div>
-      </div>
-    </section>
+
+        <div>
+          <h3 className="text-sm font-medium mb-3">
+            Rate your overall mood (1-10)
+          </h3>
+          <div className="space-y-3">
+            <Slider
+              value={moodValue}
+              onValueChange={setMoodValue}
+              max={10}
+              min={1}
+              step={1}
+              className="w-full"
+            />
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>1 - Very Low</span>
+              <span className="font-medium">Current: {moodValue[0]}</span>
+              <span>10 - Excellent</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-sm font-medium mb-3">
+            Notes (optional)
+          </h3>
+          <Textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="What's on your mind? Any thoughts about your mood today..."
+            className="min-h-20"
+          />
+        </div>
+
+        <Button 
+          onClick={handleSubmit} 
+          disabled={isSubmitting || !selectedMood}
+          className="w-full"
+        >
+          {isSubmitting ? 'Saving...' : 'Log Mood'}
+        </Button>
+      </CardContent>
+    </Card>
   );
 };
-
-export default MoodTracker;

@@ -2,9 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* My Aura Design System - Mental Health & Relationships */
 :root {
-  /* Core Colors - HSL format for maximum compatibility */
   --background: 318 100% 99%;
   --foreground: 264 15% 20%;
   --card: 320 60% 98%;
@@ -12,15 +10,12 @@
   --popover: 320 60% 98%;
   --popover-foreground: 264 15% 20%;
   
-  /* Primary - Wellness Purple */
   --primary: 300 65% 55%;
   --primary-foreground: 320 60% 98%;
   
-  /* Secondary - Calm Blue */
   --secondary: 210 60% 85%;
   --secondary-foreground: 264 15% 20%;
   
-  /* Accent - Warm Coral */
   --accent: 15 75% 75%;
   --accent-foreground: 264 15% 20%;
   

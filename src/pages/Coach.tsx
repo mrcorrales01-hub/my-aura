@@ -1,90 +1,108 @@
+import { useAuth } from '@/contexts/AuthContext';
 import { AIChat } from '@/components/AIChat';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Brain, Heart, MessageCircle, Users } from 'lucide-react';
-import { useLanguage } from '@/hooks/useLanguage';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { MessageCircle, Brain, Heart, Target, Users } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
-const Coach = () => {
-  const { t } = useLanguage();
+export default function Coach() {
+  const { user } = useAuth();
+  const { t } = useI18n();
 
-  const coachingAreas = [
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardContent className="p-6 text-center">
+            <h2 className="text-xl font-semibold mb-2">Please sign in</h2>
+            <p className="text-muted-foreground">
+              Sign in to access your AI coach and continue your wellness journey.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  const quickActions = [
+    {
+      icon: Brain,
+      title: 'Reframe Thoughts',
+      description: 'Challenge negative thinking patterns',
+      action: 'reframe'
+    },
     {
       icon: Heart,
-      title: t('coach.emotional'),
-      description: t('coach.emotionalDesc'),
-      context: 'mood' as const
+      title: 'Emotional Support',
+      description: 'Get comfort and validation',
+      action: 'support'
+    },
+    {
+      icon: Target,
+      title: 'Make a Plan',
+      description: 'Break down goals into steps',
+      action: 'plan'
     },
     {
       icon: Users,
-      title: t('coach.relationships'),
-      description: t('coach.relationshipsDesc'),
-      context: 'relationship' as const
-    },
-    {
-      icon: MessageCircle,
-      title: t('coach.communication'),
-      description: t('coach.communicationDesc'),
-      context: 'general' as const
-    },
-    {
-      icon: Brain,
-      title: t('coach.mindfulness'),
-      description: t('coach.mindfulnessDesc'),
-      context: 'general' as const
+      title: 'Role-play',
+      description: 'Practice difficult conversations',
+      action: 'roleplay'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-hero py-20 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            {t('coach.title')} <span className="bg-gradient-primary bg-clip-text text-transparent">{t('coach.aiCoach')}</span>
-          </h1>
-          <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
-            {t('coach.subtitle')}
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Coaching Areas */}
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid lg:grid-cols-4 gap-6 h-[calc(100vh-8rem)]">
+          {/* Quick Actions Sidebar */}
           <div className="lg:col-span-1 space-y-4">
-            <h3 className="text-lg font-semibold text-foreground mb-4">
-              {t('coach.specializations')}
-            </h3>
-            {coachingAreas.map((area, index) => {
-              const IconComponent = area.icon;
-              return (
-                <Card key={index} className="hover:shadow-wellness transition-all duration-300">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="flex items-center gap-3 text-lg">
-                      <div className="w-10 h-10 rounded-lg bg-wellness-primary/10 flex items-center justify-center">
-                        <IconComponent className="w-5 h-5 text-wellness-primary" />
-                      </div>
-                      {area.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription>{area.description}</CardDescription>
-                  </CardContent>
-                </Card>
-              );
-            })}
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Quick Actions</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {quickActions.map((action) => (
+                  <Button
+                    key={action.action}
+                    variant="outline"
+                    className="w-full h-auto p-4 flex flex-col items-start gap-2"
+                  >
+                    <div className="flex items-center gap-2">
+                      <action.icon className="h-4 w-4 text-primary" />
+                      <span className="font-medium text-sm">{action.title}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground text-left">
+                      {action.description}
+                    </p>
+                  </Button>
+                ))}
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-lg">Crisis Support</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-xs text-muted-foreground mb-3">
+                  If you're in crisis or having thoughts of self-harm:
+                </p>
+                <Button variant="destructive" size="sm" className="w-full">
+                  Get Help Now
+                </Button>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* AI Chat Interface */}
-          <div className="lg:col-span-2">
-            <AIChat
-              context="general"
-              title={t('coach.chatTitle')}
-              description={t('coach.chatDescription')}
-              placeholder={t('coach.placeholder')}
-            />
+          {/* Main Chat Area */}
+          <div className="lg:col-span-3">
+            <Card className="h-full">
+              <AIChat />
+            </Card>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default Coach;
+}
