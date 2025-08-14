@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Smile, Meh, Frown, Heart, Zap, Cloud, Calendar, TrendingUp } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { useLanguage } from "@/hooks/useLanguage";
+import { useI18n } from "@/hooks/useI18n";
 import { useMoodTracking } from "@/hooks/useMoodTracking";
 
 const Checkin = () => {
@@ -12,15 +12,15 @@ const Checkin = () => {
   const [reflection, setReflection] = useState("");
   const [showTrends, setShowTrends] = useState(false);
   const { toast } = useToast();
-  const { t } = useLanguage();
-  const { saveMood, loading, hasMoodToday } = useMoodTracking();
+  const { t } = useI18n();
+  const { saveMoodEntry, isLoading } = useMoodTracking();
   
   const moods = [
-    { id: 'amazing', label: t('checkin.moods.amazing'), icon: Zap, color: 'bg-coral', description: t('checkin.moods.amazingDesc'), value: 5 },
-    { id: 'good', label: t('checkin.moods.good'), icon: Smile, color: 'bg-wellness-primary', description: t('checkin.moods.goodDesc'), value: 4 },
-    { id: 'neutral', label: t('checkin.moods.neutral'), icon: Meh, color: 'bg-calm', description: t('checkin.moods.neutralDesc'), value: 3 },
-    { id: 'low', label: t('checkin.moods.low'), icon: Cloud, color: 'bg-lavender', description: t('checkin.moods.lowDesc'), value: 2 },
-    { id: 'difficult', label: t('checkin.moods.difficult'), icon: Frown, color: 'bg-muted', description: t('checkin.moods.difficultDesc'), value: 1 }
+    { id: 'amazing', label: 'Amazing', icon: Zap, color: 'bg-yellow-500', description: 'Feeling fantastic and energized', value: 5 },
+    { id: 'good', label: 'Good', icon: Smile, color: 'bg-green-500', description: 'Feeling positive and optimistic', value: 4 },
+    { id: 'neutral', label: 'Neutral', icon: Meh, color: 'bg-blue-500', description: 'Feeling balanced and calm', value: 3 },
+    { id: 'low', label: 'Low', icon: Cloud, color: 'bg-purple-500', description: 'Feeling down or tired', value: 2 },
+    { id: 'difficult', label: 'Difficult', icon: Frown, color: 'bg-red-500', description: 'Having a challenging time', value: 1 }
   ];
 
   // Mock data för trends
@@ -40,20 +40,12 @@ const Checkin = () => {
     const selectedMoodData = moods.find(m => m.id === selectedMood);
     if (!selectedMoodData) return;
 
-    const moodForSaving = {
-      id: selectedMoodData.id,
-      label: selectedMoodData.label,
-      icon: selectedMoodData.id, // Use id as icon string
-      color: selectedMoodData.color,
-      description: selectedMoodData.description,
-      value: selectedMoodData.value
-    };
-    const success = await saveMood(moodForSaving, reflection || undefined);
+    const success = await saveMoodEntry(selectedMoodData.id, selectedMoodData.value, reflection || undefined);
     
     if (success) {
       toast({
-        title: t('checkin.thanks'),
-        description: t('checkin.thanksDesc'),
+        title: 'Mood saved!',
+        description: 'Thank you for checking in.',
       });
       
       // Reset form
@@ -139,13 +131,13 @@ const Checkin = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
           <Button 
-            variant="wellness" 
+            variant="default" 
             size="lg" 
             onClick={handleSaveMood}
-            disabled={!selectedMood || loading || hasMoodToday}
+            disabled={!selectedMood || isLoading}
             className="disabled:opacity-50"
           >
-            {loading ? "..." : hasMoodToday ? t('checkin.alreadyCheckedIn') : t('checkin.saveMood')}
+            {isLoading ? "Saving..." : "Save Mood"}
           </Button>
           <Button 
             variant="outline" 

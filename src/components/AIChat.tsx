@@ -39,26 +39,25 @@ export const AIChat = () => {
     setIsLoading(true);
 
     try {
-      // Simulate AI response for now
-      const responses = [
-        "I understand how you're feeling. It's completely normal to have these thoughts sometimes.",
-        "That sounds challenging. Let's explore some coping strategies that might help.",
-        "Thank you for sharing. How would you like to work through this together?",
-        "I'm here to support you. What would be most helpful right now?"
-      ];
-      
-      const response = responses[Math.floor(Math.random() * responses.length)];
-      
-      setTimeout(() => {
-        const assistantMessage: Message = {
-          id: (Date.now() + 1).toString(),
-          role: 'assistant',
-          content: response,
-          timestamp: new Date(),
-        };
-        setMessages(prev => [...prev, assistantMessage]);
-        setIsLoading(false);
-      }, 1000);
+      const { data, error } = await supabase.functions.invoke('ai-coach', {
+        body: {
+          message: content,
+          language: currentLanguage,
+          context: 'general',
+          tone: 'supportive'
+        }
+      });
+
+      if (error) throw error;
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        content: data.response,
+        timestamp: new Date(),
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
 
     } catch (error) {
       console.error('Error sending message:', error);
@@ -67,6 +66,7 @@ export const AIChat = () => {
         description: 'Failed to send message. Please try again.',
         variant: 'destructive',
       });
+    } finally {
       setIsLoading(false);
     }
   };

@@ -7,6 +7,12 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// Helper logging function for enhanced debugging
+const logStep = (step: string, details?: any) => {
+  const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
+  console.log(`[AI-COACH] ${step}${detailsStr}`);
+};
+
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
@@ -14,12 +20,15 @@ serve(async (req) => {
   }
 
   try {
+    logStep("Function started");
+
     const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
     if (!openAIApiKey) {
       throw new Error('OPENAI_API_KEY is not set');
     }
+    logStep("OpenAI API key verified");
 
-    // Initialize Supabase client
+    // Create Supabase client
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
@@ -38,63 +47,16 @@ serve(async (req) => {
     
     const user = userData.user;
     if (!user) throw new Error("User not authenticated");
+    logStep("User authenticated", { userId: user.id });
 
-    const { message, context = 'general', language = 'en' } = await req.json();
-
-    // Get user preferences for personalized responses
-    const { data: preferences } = await supabaseClient
-      .from('user_preferences')
-      .select('*')
-      .eq('user_id', user.id)
-      .single();
-
-    // Map auri_tone to ai_tone for backward compatibility
-    const aiTone = preferences?.ai_tone || 
-      (preferences?.auri_tone === 'soothing' ? 'empathetic' : 
-       preferences?.auri_tone === 'professional' ? 'direct' : 
-       preferences?.auri_tone === 'playful' ? 'encouraging' : 'empathetic');
-
-    // Build system prompt based on user preferences and context
-    let systemPrompt = `You are Auri, a compassionate AI wellness companion focused on emotional and relationship health. `;
-    
-    // Add language instruction
-    const languageMap: Record<string, string> = {
-      'en': 'English',
-      'es': 'Spanish', 
-      'zh': 'Chinese',
-      'sv': 'Swedish',
-      'hi': 'Hindi',
-      'ar': 'Arabic',
-      'pt': 'Portuguese'
-    };
-    
-    const languageName = languageMap[language] || 'English';
-    systemPrompt += `Respond in ${languageName}. `;
-    
-    // Add personality based on tone
-    if (aiTone === 'empathetic') {
-      systemPrompt += `Embody a soothing, gentle personality. Respond with deep empathy, understanding, and emotional warmth. Use gentle, supportive language like a caring friend.`;
-    } else if (aiTone === 'direct') {
-      systemPrompt += `Embody a professional, clear personality. Provide clear, direct, and actionable advice while remaining supportive and understanding. Be structured and goal-oriented.`;
-    } else if (aiTone === 'encouraging') {
-      systemPrompt += `Embody a playful, uplifting personality. Be energetic, motivational, and encouraging while providing practical guidance. Use positive, energizing language.`;
-    } else {
-      systemPrompt += `Be supportive, understanding, and helpful with a balanced, warm tone.`;
+    // Parse request body
+    const { message, language = 'en', context = 'general', tone = 'supportive' } = await req.json();
+    if (!message) {
+      throw new Error("Message is required");
     }
+    logStep("Request parsed", { message: message.substring(0, 50), language, context, tone });
 
-    // Add context-specific guidance
-    if (context === 'mood') {
-      systemPrompt += ` The user is sharing their current mood or emotional state. Provide validation, understanding, and gentle guidance for their emotional wellbeing.`;
-    } else if (context === 'relationship') {
-      systemPrompt += ` The user is discussing relationship challenges. Offer practical relationship advice and communication strategies.`;
-    } else if (context === 'emergency') {
-      systemPrompt += ` This may be a crisis situation. Prioritize safety, provide immediate support resources, and encourage professional help.`;
-    } else if (context === 'welcome') {
-      systemPrompt += ` This is a welcome interaction. Be warm, inviting, and set a positive tone for the conversation.`;
-    }
-
-    systemPrompt += ` Keep responses concise (2-3 sentences max), culturally appropriate for ${languageName} speakers, warm, and actionable. Always prioritize the user's wellbeing and respect cultural sensitivities.`;
-
+    // Call OpenAI API
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -104,48 +66,76 @@ serve(async (req) => {
       body: JSON.stringify({
         model: 'gpt-4o-mini',
         messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: message }
+          {
+            role: 'system',
+            content: `You are Auri, a compassionate AI wellness coach specializing in mental health and relationships. 
+            
+Your approach:
+- Be warm, empathetic, and non-judgmental
+- Use evidence-based techniques from CBT, DBT, and ACT
+- Offer practical tools and coping strategies
+- Validate emotions while gently challenging negative thought patterns
+- Never diagnose or provide medical advice
+- If someone expresses thoughts of self-harm, provide supportive resources and encourage professional help
+- Respond in ${language} language
+- Maintain a ${tone} tone
+- Context: ${context}
+
+Remember: You're here to support, not replace professional therapy. Guide users toward professional help when appropriate.`
+          },
+          {
+            role: 'user',
+            content: message
+          }
         ],
-        max_tokens: 200,
+        max_tokens: 800,
         temperature: 0.7,
       }),
     });
 
-    const data = await response.json();
-    
-    if (data.error) {
-      throw new Error(data.error.message);
+    if (!response.ok) {
+      const errorData = await response.text();
+      throw new Error(`OpenAI API error: ${response.status} ${errorData}`);
     }
 
+    const data = await response.json();
     const aiResponse = data.choices[0].message.content;
+    logStep("OpenAI response received", { length: aiResponse.length });
 
-    // Save conversation to database with language and personality context
-    await supabaseClient.from('conversations').insert({
-      user_id: user.id,
-      user_message: message,
-      ai_response: aiResponse,
-      context: context,
-      metadata: {
-        language: language,
-        auri_tone: preferences?.auri_tone || 'soothing',
-        ai_tone: aiTone
-      },
-      created_at: new Date().toISOString()
-    }).catch(console.error); // Don't fail if conversation saving fails
+    // Log conversation to database
+    const { error: dbError } = await supabaseClient
+      .from('conversations')
+      .insert({
+        user_id: user.id,
+        message,
+        response: aiResponse,
+        language_preference: language,
+        context,
+        ai_tone: tone
+      });
+
+    if (dbError) {
+      console.error('Database logging error:', dbError);
+      // Don't fail the request for logging errors
+    } else {
+      logStep("Conversation logged to database");
+    }
 
     return new Response(JSON.stringify({ 
       response: aiResponse,
-      context: context 
+      context,
+      language 
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
-    console.error('Error in ai-coach function:', error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    logStep("ERROR in ai-coach function", { message: errorMessage });
+    
     return new Response(JSON.stringify({ 
-      error: error.message,
-      response: "I'm sorry, I'm having trouble right now. Please try again in a moment, or contact support if this continues." 
+      error: errorMessage,
+      fallback: "I'm having trouble connecting right now. Please try again in a moment, or reach out if you need immediate support."
     }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
