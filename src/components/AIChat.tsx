@@ -1,5 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
-import { Send, Mic, MicOff, Volume2, VolumeX } from 'lucide-react';
+import { useState } from 'react';
+import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
@@ -18,23 +18,24 @@ interface Message {
 
 export const AIChat = () => {
   const { t, currentLanguage } = useI18n();
-  const { user } = useAuth();
+  const { user, session } = useAuth();
   const { toast } = useToast();
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const sendMessage = async (content: string) => {
-    if (!content.trim() || !user) return;
+    if (!content.trim() || !user || !session) return;
 
     const userMessage: Message = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       role: 'user',
       content: content.trim(),
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
 
@@ -44,26 +45,29 @@ export const AIChat = () => {
           message: content,
           language: currentLanguage,
           context: 'general',
-          tone: 'supportive'
-        }
+          tone: 'supportive',
+        },
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
       });
 
       if (error) throw error;
 
       const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+        id: crypto.randomUUID(),
         role: 'assistant',
-        content: data.response,
+        content: data?.response ?? t('genericError'),
         timestamp: new Date(),
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
 
-    } catch (error) {
-      console.error('Error sending message:', error);
+    } catch (err) {
+      console.error('Error sending message:', err);
       toast({
-        title: 'Error',
-        description: 'Failed to send message. Please try again.',
+        title: t('error'),
+        description: t('sendMessageError'),
         variant: 'destructive',
       });
     } finally {
@@ -73,6 +77,7 @@ export const AIChat = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!input.trim()) return;
     sendMessage(input);
   };
 
@@ -99,11 +104,20 @@ export const AIChat = () => {
             )}
             
             {messages.map((message) => (
-              <Card key={message.id} className={message.role === 'user' ? 'ml-12' : 'mr-12'}>
-                <CardContent className={`p-4 ${message.role === 'user' ? 'bg-primary text-primary-foreground' : ''}`}>
+              <Card
+                key={message.id}
+                className={message.role === 'user' ? 'ml-12' : 'mr-12'}
+              >
+                <CardContent
+                  className={`p-4 ${
+                    message.role === 'user' ? 'bg-primary text-primary-foreground' : ''
+                  }`}
+                >
                   <p>{message.content}</p>
                   <p className="text-xs mt-2 opacity-70">
-                    {message.timestamp.toLocaleTimeString()}
+                    {message.timestamp instanceof Date
+                      ? message.timestamp.toLocaleTimeString()
+                      : new Date(message.timestamp).toLocaleTimeString()}
                   </p>
                 </CardContent>
               </Card>
