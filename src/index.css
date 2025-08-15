@@ -1,37 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --background: 318 100% 99%;
-  --foreground: 264 15% 20%;
-  --primary: 300 65% 55%;
-  --primary-foreground: 320 60% 98%;
-  --secondary: 210 60% 85%;
-  --secondary-foreground: 264 15% 20%;
-  --border: 318 25% 90%;
-  --input: 318 25% 92%;
-  --ring: 300 65% 55%;
-  --radius: 1rem;
-}
-
-.dark {
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --primary: 300 65% 65%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 212.7 26.8% 83.9%;
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
