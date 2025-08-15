@@ -4,26 +4,4 @@
   .hover-scale {
     @apply transition-transform duration-200 hover:scale-105;
   }
-
-  .story-link {
-    @apply relative inline-block;
-  }
-  
-  .story-link::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 0.125rem;
-    bottom: 0;
-    left: 0;
-    background-color: currentColor;
-    transform-origin: bottom right;
-    transition: transform 300ms ease;
-  }
-  
-  .story-link:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
 }
