@@ -15,7 +15,7 @@
     position: absolute;
     width: 100%;
     transform: scaleX(0);
-    height: 0.125rem; /* ~h-0.5 */
+    height: 0.125rem;
     bottom: 0;
     left: 0;
     background-color: currentColor;
