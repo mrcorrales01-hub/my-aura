@@ -1,15 +1,14 @@
 @tailwind utilities;
 
 @layer utilities {
-  /* Hover Scale Animation Utility */
   .hover-scale {
     @apply transition-transform duration-200 hover:scale-105;
   }
 
-  /* Animated underline link using pseudo-element - robust CSS version (avoid PostCSS parsing issues) */
   .story-link {
     @apply relative inline-block;
   }
+  
   .story-link::after {
     content: "";
     position: absolute;
@@ -22,6 +21,7 @@
     transform-origin: bottom right;
     transition: transform 300ms ease;
   }
+  
   .story-link:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
