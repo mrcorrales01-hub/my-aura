@@ -53,6 +53,39 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_avatars: {
+        Row: {
+          appearance_data: Json
+          avatar_type: string
+          created_at: string
+          id: string
+          name: string
+          personality_traits: Json
+          updated_at: string
+          voice_settings: Json | null
+        }
+        Insert: {
+          appearance_data?: Json
+          avatar_type: string
+          created_at?: string
+          id?: string
+          name: string
+          personality_traits?: Json
+          updated_at?: string
+          voice_settings?: Json | null
+        }
+        Update: {
+          appearance_data?: Json
+          avatar_type?: string
+          created_at?: string
+          id?: string
+          name?: string
+          personality_traits?: Json
+          updated_at?: string
+          voice_settings?: Json | null
+        }
+        Relationships: []
+      }
       ai_predictions: {
         Row: {
           based_on_data: Json | null
@@ -184,6 +217,48 @@ export type Database = {
           table_name?: string
           user_agent?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      biofeedback_sessions: {
+        Row: {
+          ai_feedback: Json | null
+          biometric_source: string | null
+          created_at: string
+          effectiveness_score: number | null
+          ended_at: string | null
+          id: string
+          real_time_data: Json
+          session_duration: number | null
+          session_type: string
+          started_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_feedback?: Json | null
+          biometric_source?: string | null
+          created_at?: string
+          effectiveness_score?: number | null
+          ended_at?: string | null
+          id?: string
+          real_time_data?: Json
+          session_duration?: number | null
+          session_type: string
+          started_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_feedback?: Json | null
+          biometric_source?: string | null
+          created_at?: string
+          effectiveness_score?: number | null
+          ended_at?: string | null
+          id?: string
+          real_time_data?: Json
+          session_duration?: number | null
+          session_type?: string
+          started_at?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -692,6 +767,45 @@ export type Database = {
           },
         ]
       }
+      family_supporter_sessions: {
+        Row: {
+          ai_guidance: Json | null
+          completed_at: string | null
+          created_at: string
+          duration_minutes: number | null
+          family_account_id: string
+          id: string
+          session_notes: string | null
+          session_type: string
+          supported_user_id: string
+          supporter_user_id: string
+        }
+        Insert: {
+          ai_guidance?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          family_account_id: string
+          id?: string
+          session_notes?: string | null
+          session_type: string
+          supported_user_id: string
+          supporter_user_id: string
+        }
+        Update: {
+          ai_guidance?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          family_account_id?: string
+          id?: string
+          session_notes?: string | null
+          session_type?: string
+          supported_user_id?: string
+          supporter_user_id?: string
+        }
+        Relationships: []
+      }
       group_members: {
         Row: {
           group_id: string
@@ -723,6 +837,137 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      group_vr_participants: {
+        Row: {
+          avatar_id: string | null
+          id: string
+          joined_at: string | null
+          left_at: string | null
+          participation_data: Json | null
+          session_id: string
+          user_id: string
+        }
+        Insert: {
+          avatar_id?: string | null
+          id?: string
+          joined_at?: string | null
+          left_at?: string | null
+          participation_data?: Json | null
+          session_id: string
+          user_id: string
+        }
+        Update: {
+          avatar_id?: string | null
+          id?: string
+          joined_at?: string | null
+          left_at?: string | null
+          participation_data?: Json | null
+          session_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_vr_participants_avatar_id_fkey"
+            columns: ["avatar_id"]
+            isOneToOne: false
+            referencedRelation: "ai_avatars"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "group_vr_participants_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "group_vr_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      group_vr_sessions: {
+        Row: {
+          created_at: string
+          current_participants: number | null
+          ended_at: string | null
+          facilitator_id: string | null
+          facilitator_type: string | null
+          id: string
+          max_participants: number | null
+          scheduled_at: string | null
+          session_data: Json | null
+          session_name: string
+          started_at: string | null
+          world_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          current_participants?: number | null
+          ended_at?: string | null
+          facilitator_id?: string | null
+          facilitator_type?: string | null
+          id?: string
+          max_participants?: number | null
+          scheduled_at?: string | null
+          session_data?: Json | null
+          session_name: string
+          started_at?: string | null
+          world_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          current_participants?: number | null
+          ended_at?: string | null
+          facilitator_id?: string | null
+          facilitator_type?: string | null
+          id?: string
+          max_participants?: number | null
+          scheduled_at?: string | null
+          session_data?: Json | null
+          session_name?: string
+          started_at?: string | null
+          world_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_vr_sessions_world_id_fkey"
+            columns: ["world_id"]
+            isOneToOne: false
+            referencedRelation: "vr_therapy_worlds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      mental_health_coins: {
+        Row: {
+          amount: number
+          coin_type: string
+          created_at: string
+          description: string | null
+          id: string
+          source_activity: string
+          source_id: string | null
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          coin_type: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          source_activity: string
+          source_id?: string | null
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          coin_type?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          source_activity?: string
+          source_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
       }
       mental_health_timeline: {
         Row: {
@@ -766,6 +1011,51 @@ export type Database = {
           updated_at?: string
           user_id?: string
           wearable_contributions?: Json | null
+        }
+        Relationships: []
+      }
+      micro_challenges: {
+        Row: {
+          challenge_date: string
+          challenge_type: string
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          duration_seconds: number | null
+          effectiveness_rating: number | null
+          id: string
+          instructions: Json | null
+          reward_coins: number | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          challenge_date?: string
+          challenge_type: string
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          effectiveness_rating?: number | null
+          id?: string
+          instructions?: Json | null
+          reward_coins?: number | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          challenge_date?: string
+          challenge_type?: string
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          effectiveness_rating?: number | null
+          id?: string
+          instructions?: Json | null
+          reward_coins?: number | null
+          title?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -955,6 +1245,36 @@ export type Database = {
           relationship_type?: string | null
           timezone?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      research_contributions: {
+        Row: {
+          anonymized_data: Json
+          consent_given: boolean
+          contributed_at: string
+          contribution_type: string
+          id: string
+          research_study_id: string | null
+          user_id: string
+        }
+        Insert: {
+          anonymized_data: Json
+          consent_given?: boolean
+          contributed_at?: string
+          contribution_type: string
+          id?: string
+          research_study_id?: string | null
+          user_id: string
+        }
+        Update: {
+          anonymized_data?: Json
+          consent_given?: boolean
+          contributed_at?: string
+          contribution_type?: string
+          id?: string
+          research_study_id?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -1177,6 +1497,42 @@ export type Database = {
           target_language?: string
           translated_text?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      ultra_personalizations: {
+        Row: {
+          auri_personality: Json
+          created_at: string
+          id: string
+          interaction_style: Json | null
+          mood_adaptations: Json | null
+          updated_at: string
+          user_id: string
+          visual_preferences: Json | null
+          voice_preferences: Json | null
+        }
+        Insert: {
+          auri_personality?: Json
+          created_at?: string
+          id?: string
+          interaction_style?: Json | null
+          mood_adaptations?: Json | null
+          updated_at?: string
+          user_id: string
+          visual_preferences?: Json | null
+          voice_preferences?: Json | null
+        }
+        Update: {
+          auri_personality?: Json
+          created_at?: string
+          id?: string
+          interaction_style?: Json | null
+          mood_adaptations?: Json | null
+          updated_at?: string
+          user_id?: string
+          visual_preferences?: Json | null
+          voice_preferences?: Json | null
         }
         Relationships: []
       }
@@ -1421,6 +1777,66 @@ export type Database = {
           },
         ]
       }
+      user_vr_sessions: {
+        Row: {
+          avatar_id: string | null
+          biometric_data: Json | null
+          completed_at: string | null
+          created_at: string
+          duration_minutes: number | null
+          effectiveness_rating: number | null
+          id: string
+          session_notes: string | null
+          session_type: string
+          started_at: string
+          user_id: string
+          world_id: string | null
+        }
+        Insert: {
+          avatar_id?: string | null
+          biometric_data?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          effectiveness_rating?: number | null
+          id?: string
+          session_notes?: string | null
+          session_type: string
+          started_at?: string
+          user_id: string
+          world_id?: string | null
+        }
+        Update: {
+          avatar_id?: string | null
+          biometric_data?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          duration_minutes?: number | null
+          effectiveness_rating?: number | null
+          id?: string
+          session_notes?: string | null
+          session_type?: string
+          started_at?: string
+          user_id?: string
+          world_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_vr_sessions_avatar_id_fkey"
+            columns: ["avatar_id"]
+            isOneToOne: false
+            referencedRelation: "ai_avatars"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_vr_sessions_world_id_fkey"
+            columns: ["world_id"]
+            isOneToOne: false
+            referencedRelation: "vr_therapy_worlds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       video_exercises: {
         Row: {
           ai_match_criteria: Json | null
@@ -1481,6 +1897,36 @@ export type Database = {
           title?: string
           updated_at?: string
           video_url?: string
+        }
+        Relationships: []
+      }
+      vr_therapy_worlds: {
+        Row: {
+          created_at: string
+          description: string | null
+          environment_type: string
+          id: string
+          name: string
+          updated_at: string
+          world_data: Json
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          environment_type: string
+          id?: string
+          name: string
+          updated_at?: string
+          world_data?: Json
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          environment_type?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          world_data?: Json
         }
         Relationships: []
       }
