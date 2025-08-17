@@ -151,6 +151,179 @@ export type Database = {
         }
         Relationships: []
       }
+      community_comments: {
+        Row: {
+          content: string
+          created_at: string
+          display_name: string | null
+          id: string
+          is_anonymous: boolean
+          like_count: number
+          moderation_flags: Json | null
+          moderation_status: string
+          post_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          is_anonymous?: boolean
+          like_count?: number
+          moderation_flags?: Json | null
+          moderation_status?: string
+          post_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          is_anonymous?: boolean
+          like_count?: number
+          moderation_flags?: Json | null
+          moderation_status?: string
+          post_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_groups: {
+        Row: {
+          created_at: string
+          created_by: string
+          description: string | null
+          group_type: string
+          id: string
+          invite_code: string | null
+          max_members: number | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          description?: string | null
+          group_type?: string
+          id?: string
+          invite_code?: string | null
+          max_members?: number | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          description?: string | null
+          group_type?: string
+          id?: string
+          invite_code?: string | null
+          max_members?: number | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      community_likes: {
+        Row: {
+          comment_id: string | null
+          created_at: string
+          id: string
+          post_id: string | null
+          user_id: string
+        }
+        Insert: {
+          comment_id?: string | null
+          created_at?: string
+          id?: string
+          post_id?: string | null
+          user_id: string
+        }
+        Update: {
+          comment_id?: string | null
+          created_at?: string
+          id?: string
+          post_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "community_likes_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "community_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "community_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "community_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      community_posts: {
+        Row: {
+          comment_count: number
+          content: string
+          created_at: string
+          display_name: string | null
+          group_id: string | null
+          id: string
+          is_anonymous: boolean
+          like_count: number
+          moderation_flags: Json | null
+          moderation_status: string
+          post_type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          comment_count?: number
+          content: string
+          created_at?: string
+          display_name?: string | null
+          group_id?: string | null
+          id?: string
+          is_anonymous?: boolean
+          like_count?: number
+          moderation_flags?: Json | null
+          moderation_status?: string
+          post_type?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          comment_count?: number
+          content?: string
+          created_at?: string
+          display_name?: string | null
+          group_id?: string | null
+          id?: string
+          is_anonymous?: boolean
+          like_count?: number
+          moderation_flags?: Json | null
+          moderation_status?: string
+          post_type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           ai_tone: string | null
@@ -249,6 +422,38 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      group_members: {
+        Row: {
+          group_id: string
+          id: string
+          joined_at: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          group_id: string
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id: string
+        }
+        Update: {
+          group_id?: string
+          id?: string
+          joined_at?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_members_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "community_groups"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       mood_entries: {
         Row: {
@@ -668,6 +873,10 @@ export type Database = {
       cleanup_old_conversations: {
         Args: Record<PropertyKey, never>
         Returns: undefined
+      }
+      generate_invite_code: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       get_therapist_patients_summary: {
         Args: { therapist_user_id: string }

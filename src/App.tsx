@@ -37,6 +37,7 @@ import Resources from "@/pages/Resources";
 import Emergency from "@/pages/Emergency";
 import Pricing from "@/pages/Pricing";
 import Settings from "@/pages/Settings";
+import Community from "@/pages/Community";
 import LanguageWelcome from "@/pages/LanguageWelcome";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import PaymentCancel from "@/pages/PaymentCancel";
@@ -71,19 +72,7 @@ const App = () => (
                           <Route path="/quests" element={<DailyQuests />} />
                           <Route path="/roleplay" element={<RoleplaySimulator />} />
                           <Route path="/crisis" element={<CrisisSupport />} />
-                          <Route path="/community" element={
-                            <div className="flex items-center justify-center min-h-[60vh]">
-                              <div className="text-center space-y-4">
-                                <div className="w-16 h-16 mx-auto bg-aura-gradient rounded-full flex items-center justify-center">
-                                  <span className="text-2xl">👥</span>
-                                </div>
-                                <h2 className="text-2xl font-semibold text-aura-primary">Community</h2>
-                                <p className="text-foreground/70 max-w-md">
-                                  Peer support groups, buddy system, and wellness events coming soon.
-                                </p>
-                              </div>
-                            </div>
-                          } />
+                          <Route path="/community" element={<Community />} />
                           <Route path="/tools" element={
                             <div className="flex items-center justify-center min-h-[60vh]">
                               <div className="text-center space-y-4">
