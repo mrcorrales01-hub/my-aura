@@ -1,47 +1,61 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
-interface MusicTrack {
+export interface MusicTrack {
   id: string;
   title: string;
-  artist: string;
-  duration_seconds: number;
-  category: string;
+  artist?: string;
   mood_tags: string[];
-  premium_only: boolean;
-  pay_per_play_cost: number;
+  duration_seconds: number;
   file_url: string;
   cover_image_url?: string;
-  description?: string;
-  multilingual_metadata: any;
-  ai_match_criteria: any;
+  audio_waveform_meta?: any;
+  premium_only: boolean;
+  license_type: string;
+  royalty_ppp: number;
+  category: string;
+  locale_meta?: any;
   gamification_unlock_level: number;
   gamification_achievements: string[];
+  multilingual_metadata?: any;
+  ai_match_criteria?: any;
+  pay_per_play_cost: number;
+  description?: string;
+  created_at: string;
+  updated_at: string;
 }
 
-interface MusicSession {
+export interface MusicSession {
   id: string;
+  user_id: string;
   track_id: string;
-  played_at: string;
+  started_at: string;
+  completed_at?: string;
   duration_played: number;
   completed: boolean;
   mood_before?: string;
   mood_after?: string;
-  session_context?: string;
-  payment_required: boolean;
-  payment_amount: number;
+  session_context: string;
+  sleep_timer_duration?: number;
+  revenue_cents: number;
+  device?: string;
+  locale: string;
+  played_at: string;
 }
 
-interface MusicPlaylist {
+export interface MusicPlaylist {
   id: string;
+  user_id: string;
   name: string;
   description?: string;
   track_ids: string[];
+  category?: string;
   is_public: boolean;
-  category: string;
-  ai_generated_criteria: any;
+  ai_generated_criteria?: any;
+  created_at: string;
+  updated_at: string;
 }
 
 export const useMusic = () => {
@@ -55,39 +69,43 @@ export const useMusic = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [currentSession, setCurrentSession] = useState<MusicSession | null>(null);
 
   // Fetch all tracks
-  const fetchTracks = async (category?: string, moodTags?: string[]) => {
+  const fetchTracks = useCallback(async (category?: string, moodFilter?: string) => {
+    setLoading(true);
     try {
-      setLoading(true);
       let query = supabase.from('music_tracks').select('*');
       
       if (category) {
         query = query.eq('category', category);
       }
       
-      if (moodTags && moodTags.length > 0) {
-        query = query.overlaps('mood_tags', moodTags);
+      if (moodFilter) {
+        query = query.contains('mood_tags', [moodFilter]);
       }
       
       const { data, error } = await query.order('created_at', { ascending: false });
       
       if (error) throw error;
-      setTracks(data || []);
-    } catch (error) {
-      console.error('Error fetching tracks:', error);
+      setTracks((data || []).map(track => ({
+        ...track,
+        license_type: (track as any).license_type || 'standard',
+        royalty_ppp: (track as any).royalty_ppp || 0
+      })) as MusicTrack[]);
+    } catch (error: any) {
       toast({
-        title: "Error",
-        description: "Failed to fetch music tracks",
+        title: "Error fetching music tracks",
+        description: error.message,
         variant: "destructive",
       });
     } finally {
       setLoading(false);
     }
-  };
+  }, [toast]);
 
-  // Fetch user's playlists
-  const fetchPlaylists = async () => {
+  // Fetch user playlists
+  const fetchPlaylists = useCallback(async () => {
     if (!user) return;
     
     try {
@@ -99,13 +117,17 @@ export const useMusic = () => {
       
       if (error) throw error;
       setPlaylists(data || []);
-    } catch (error) {
-      console.error('Error fetching playlists:', error);
+    } catch (error: any) {
+      toast({
+        title: "Error fetching playlists",
+        description: error.message,
+        variant: "destructive",
+      });
     }
-  };
+  }, [user, toast]);
 
-  // Fetch user's music sessions
-  const fetchSessions = async () => {
+  // Fetch user sessions
+  const fetchSessions = useCallback(async () => {
     if (!user) return;
     
     try {
@@ -117,96 +139,175 @@ export const useMusic = () => {
         .limit(50);
       
       if (error) throw error;
-      setSessions(data || []);
-    } catch (error) {
-      console.error('Error fetching sessions:', error);
-    }
-  };
-
-  // Start music session
-  const startMusicSession = async (track: MusicTrack, sessionContext?: string, moodBefore?: string) => {
-    if (!user) return;
-    
-    try {
-      const { error } = await supabase
-        .from('user_music_sessions')
-        .insert({
-          user_id: user.id,
-          track_id: track.id,
-          session_context: sessionContext,
-          mood_before: moodBefore,
-          payment_required: track.premium_only || track.pay_per_play_cost > 0,
-          payment_amount: track.pay_per_play_cost
-        });
-      
-      if (error) throw error;
-      
-      setCurrentTrack(track);
-      await fetchSessions();
-    } catch (error) {
-      console.error('Error starting music session:', error);
+      setSessions((data || []).map(session => ({
+        ...session,
+        started_at: (session as any).started_at || (session as any).played_at,
+        revenue_cents: (session as any).revenue_cents || (session as any).payment_amount || 0,
+        locale: (session as any).locale || 'en'
+      })) as MusicSession[]);
+    } catch (error: any) {
       toast({
-        title: "Error",
-        description: "Failed to start music session",
+        title: "Error fetching music sessions",
+        description: error.message,
         variant: "destructive",
       });
     }
-  };
+  }, [user, toast]);
 
-  // Complete music session
-  const completeMusicSession = async (sessionId: string, durationPlayed: number, moodAfter?: string) => {
+  // Start a music session
+  const startMusicSession = useCallback(async (track: MusicTrack, moodBefore?: string) => {
+    if (!user) return null;
+    
     try {
+      const sessionData = {
+        user_id: user.id,
+        track_id: track.id,
+        mood_before: moodBefore,
+        session_context: 'general',
+        device: 'web',
+        locale: 'en'
+      };
+
+      const { data, error } = await supabase
+        .from('user_music_sessions')
+        .insert(sessionData)
+        .select()
+        .single();
+      
+      if (error) throw error;
+      
+      setCurrentSession({
+        ...data,
+        started_at: (data as any).started_at || (data as any).played_at,
+        revenue_cents: (data as any).revenue_cents || (data as any).payment_amount || 0,
+        locale: (data as any).locale || 'en'
+      } as MusicSession);
+      setCurrentTrack(track);
+      
+      return data;
+    } catch (error: any) {
+      toast({
+        title: "Error starting music session",
+        description: error.message,
+        variant: "destructive",
+      });
+      return null;
+    }
+  }, [user, toast]);
+
+  // Complete a music session
+  const completeMusicSession = useCallback(async (
+    sessionId: string,
+    durationPlayed: number,
+    moodAfter?: string
+  ) => {
+    if (!user) return;
+    
+    try {
+      const completionPercentage = currentTrack ? (durationPlayed / currentTrack.duration_seconds) * 100 : 0;
+      const isCompleted = completionPercentage >= 60; // Consider 60%+ as completed
+      
+      const updateData = {
+        completed_at: new Date().toISOString(),
+        duration_played: durationPlayed,
+        completed: isCompleted,
+        mood_after: moodAfter,
+        revenue_cents: isCompleted && currentTrack?.royalty_ppp ? currentTrack.royalty_ppp : 0
+      };
+
       const { error } = await supabase
         .from('user_music_sessions')
-        .update({
-          duration_played: durationPlayed,
-          completed: true,
-          mood_after: moodAfter
-        })
+        .update(updateData)
         .eq('id', sessionId);
       
       if (error) throw error;
-      await fetchSessions();
-    } catch (error) {
-      console.error('Error completing music session:', error);
-    }
-  };
-
-  // Create playlist
-  const createPlaylist = async (name: string, description?: string, trackIds?: string[]) => {
-    if (!user) return;
-    
-    try {
-      const { error } = await supabase
-        .from('music_playlists')
-        .insert({
-          user_id: user.id,
-          name,
-          description,
-          track_ids: trackIds || [],
-          category: 'custom'
+      
+      // Award gamification points if completed
+      if (isCompleted && durationPlayed >= 600) { // 10+ minutes
+        await supabase.functions.invoke('wellness-gamification', {
+          body: {
+            userId: user.id,
+            action: 'complete_music_session',
+            data: {
+              sessionId,
+              durationMinutes: Math.floor(durationPlayed / 60),
+              category: currentTrack?.category
+            }
+          }
         });
+      }
       
-      if (error) throw error;
+      setCurrentSession(null);
+      await fetchSessions();
       
       toast({
-        title: "Success",
-        description: "Playlist created successfully",
+        title: "Session completed",
+        description: isCompleted ? "Great job! You've earned XP for completing this session." : "Session saved",
       });
-      
-      await fetchPlaylists();
-    } catch (error) {
-      console.error('Error creating playlist:', error);
+    } catch (error: any) {
       toast({
-        title: "Error",
-        description: "Failed to create playlist",
+        title: "Error completing session",
+        description: error.message,
         variant: "destructive",
       });
     }
-  };
+  }, [user, currentTrack, fetchSessions, toast]);
 
-  // Get AI-recommended tracks
-  const getAIRecommendations = async (mood?: string, context?: string, heartRate?: number) => {
+  // Create a new playlist
+  const createPlaylist = useCallback(async (name: string, description?: string, trackIds: string[] = []) => {
+    if (!user) return null;
+    
+    try {
+      const playlistData = {
+        user_id: user.id,
+        name,
+        description,
+        track_ids: trackIds,
+        is_public: false
+      };
+
+      const { data, error } = await supabase
+        .from('music_playlists')
+        .insert(playlistData)
+        .select()
+        .single();
+      
+      if (error) throw error;
+      
+      await fetchPlaylists();
+      
+      // Award achievement for creating first playlist
+      await supabase.functions.invoke('wellness-gamification', {
+        body: {
+          userId: user.id,
+          action: 'create_playlist',
+          data: { playlistId: data.id }
+        }
+      });
+      
+      toast({
+        title: "Playlist created",
+        description: `"${name}" has been created successfully`,
+      });
+      
+      return data;
+    } catch (error: any) {
+      toast({
+        title: "Error creating playlist",
+        description: error.message,
+        variant: "destructive",
+      });
+      return null;
+    }
+  }, [user, fetchPlaylists, toast]);
+
+  // Get AI recommendations
+  const getAIRecommendations = useCallback(async (
+    mood?: string,
+    context?: string,
+    heartRate?: number,
+    timeOfDay?: number
+  ) => {
     if (!user) return [];
     
     try {
@@ -216,39 +317,42 @@ export const useMusic = () => {
           mood,
           context,
           heartRate,
-          timeOfDay: new Date().getHours()
+          timeOfDay
         }
       });
       
       if (error) throw error;
       return data.recommendations || [];
-    } catch (error) {
-      console.error('Error getting AI recommendations:', error);
+    } catch (error: any) {
+      toast({
+        title: "Error getting recommendations",
+        description: error.message,
+        variant: "destructive",
+      });
       return [];
     }
-  };
+  }, [user, toast]);
 
-  // Get tracks by category
-  const getTracksByCategory = (category: string) => {
+  // Filter functions
+  const getTracksByCategory = useCallback((category: string) => {
     return tracks.filter(track => track.category === category);
-  };
+  }, [tracks]);
 
-  // Get tracks by mood
-  const getTracksByMood = (moodTags: string[]) => {
-    return tracks.filter(track => 
-      track.mood_tags.some(tag => moodTags.includes(tag))
-    );
-  };
+  const getTracksByMood = useCallback((mood: string) => {
+    return tracks.filter(track => track.mood_tags.includes(mood));
+  }, [tracks]);
 
+  // Load initial data
   useEffect(() => {
-    fetchTracks();
     if (user) {
+      fetchTracks();
       fetchPlaylists();
       fetchSessions();
     }
-  }, [user]);
+  }, [user, fetchTracks, fetchPlaylists, fetchSessions]);
 
   return {
+    // State
     tracks,
     playlists,
     sessions,
@@ -257,10 +361,15 @@ export const useMusic = () => {
     isPlaying,
     currentTime,
     duration,
-    setCurrentTrack,
+    currentSession,
+    
+    // Setters
     setIsPlaying,
     setCurrentTime,
     setDuration,
+    setCurrentTrack,
+    
+    // Functions
     fetchTracks,
     fetchPlaylists,
     fetchSessions,

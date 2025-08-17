@@ -1,54 +1,25 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { Slider } from '@/components/ui/slider';
+import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Play, Pause, Volume2, VolumeX, Clock, Heart, Brain, Moon, Coffee, BookOpen, Sparkles, Timer, Plus } from 'lucide-react';
 import { useMusic } from '@/hooks/useMusic';
 import { useAuth } from '@/contexts/AuthContext';
 import { useI18n } from '@/hooks/useI18n';
-import { 
-  Play, 
-  Pause, 
-  SkipForward, 
-  Volume2, 
-  VolumeX,
-  Heart,
-  Clock,
-  Music,
-  Sparkles,
-  Crown,
-  Plus,
-  Repeat,
-  Timer,
-  Coffee,
-  Moon,
-  Sunset,
-  Brain
-} from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const HarmoniousMusic = () => {
   const { user } = useAuth();
   const { t } = useI18n();
   const { toast } = useToast();
   const audioRef = useRef<HTMLAudioElement>(null);
-  const [timerMinutes, setTimerMinutes] = useState(30);
-  const [timerActive, setTimerActive] = useState(false);
-  const [timerRemaining, setTimerRemaining] = useState(0);
-  const [mood, setMood] = useState('');
-  const [volume, setVolume] = useState([75]);
-  const [isMuted, setIsMuted] = useState(false);
-  const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
-  const [newPlaylistName, setNewPlaylistName] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [showAIRecommendations, setShowAIRecommendations] = useState(false);
-  const [aiRecommendations, setAIRecommendations] = useState([]);
-
+  
   const {
     tracks,
     playlists,
@@ -57,6 +28,7 @@ const HarmoniousMusic = () => {
     isPlaying,
     currentTime,
     duration,
+    currentSession,
     setIsPlaying,
     setCurrentTime,
     setDuration,
@@ -68,27 +40,19 @@ const HarmoniousMusic = () => {
     getTracksByMood
   } = useMusic();
 
-  // Timer effect
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (timerActive && timerRemaining > 0) {
-      interval = setInterval(() => {
-        setTimerRemaining(prev => {
-          if (prev <= 1) {
-            setTimerActive(false);
-            pauseTrack();
-            toast({
-              title: "Timer Complete",
-              description: "Your music session has ended.",
-            });
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [timerActive, timerRemaining]);
+  const [volume, setVolume] = useState(100);
+  const [isMuted, setIsMuted] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedMood, setSelectedMood] = useState<string>('');
+  const [showTimer, setShowTimer] = useState(false);
+  const [timerMinutes, setTimerMinutes] = useState(20);
+  const [timerActive, setTimerActive] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(0);
+  const [showCreatePlaylist, setShowCreatePlaylist] = useState(false);
+  const [playlistName, setPlaylistName] = useState('');
+  const [playlistDescription, setPlaylistDescription] = useState('');
+  const [aiRecommendations, setAiRecommendations] = useState<any[]>([]);
+  const [loadingRecommendations, setLoadingRecommendations] = useState(false);
 
   // Audio event handlers
   useEffect(() => {
@@ -99,11 +63,8 @@ const HarmoniousMusic = () => {
     const handleDurationChange = () => setDuration(audio.duration);
     const handleEnded = () => {
       setIsPlaying(false);
-      // Auto-play next track in category
-      const categoryTracks = getTracksByCategory(currentTrack?.category || '');
-      const currentIndex = categoryTracks.findIndex(t => t.id === currentTrack?.id);
-      if (currentIndex < categoryTracks.length - 1) {
-        playTrack(categoryTracks[currentIndex + 1]);
+      if (currentSession) {
+        completeMusicSession(currentSession.id, audio.currentTime);
       }
     };
 
@@ -116,27 +77,58 @@ const HarmoniousMusic = () => {
       audio.removeEventListener('durationchange', handleDurationChange);
       audio.removeEventListener('ended', handleEnded);
     };
-  }, [currentTrack]);
+  }, [currentSession, completeMusicSession, setCurrentTime, setDuration, setIsPlaying]);
+
+  // Timer countdown
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (timerActive && timeRemaining > 0) {
+      interval = setInterval(() => {
+        setTimeRemaining(prev => {
+          if (prev <= 1) {
+            setTimerActive(false);
+            pauseTrack();
+            toast({
+              title: "Sleep timer finished",
+              description: "Music has been paused. Sweet dreams! 😴",
+            });
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timerActive, timeRemaining, toast]);
 
   const playTrack = async (track: any) => {
-    if (!user) return;
-
-    // Check if premium track and user has access
-    if (track.premium_only || track.pay_per_play_cost > 0) {
-      // In a real app, check subscription status or handle payment
+    if (!user) {
       toast({
-        title: "Premium Track",
-        description: `This track costs $${(track.pay_per_play_cost / 100).toFixed(2)} to play.`,
+        title: "Please sign in",
+        description: "You need to be signed in to play music",
         variant: "destructive",
       });
       return;
     }
 
-    await startMusicSession(track, selectedCategory, mood);
-    
+    // Check premium requirement (simplified for now)
+    if (track.premium_only) {
+      toast({
+        title: "Premium Required",
+        description: "This track requires a premium subscription",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Start music session
+    const session = await startMusicSession(track);
+    if (!session) return;
+
+    // Set up audio
     if (audioRef.current) {
       audioRef.current.src = track.file_url;
-      audioRef.current.volume = volume[0] / 100;
+      audioRef.current.volume = (isMuted ? 0 : volume) / 100;
       audioRef.current.play();
       setIsPlaying(true);
     }
@@ -150,61 +142,68 @@ const HarmoniousMusic = () => {
   };
 
   const togglePlay = () => {
+    if (!currentTrack) return;
+    
     if (isPlaying) {
       pauseTrack();
-    } else if (currentTrack) {
+    } else {
       audioRef.current?.play();
       setIsPlaying(true);
     }
   };
 
   const handleVolumeChange = (newVolume: number[]) => {
-    setVolume(newVolume);
+    const vol = newVolume[0];
+    setVolume(vol);
+    setIsMuted(vol === 0);
     if (audioRef.current) {
-      audioRef.current.volume = newVolume[0] / 100;
-    }
-    setIsMuted(newVolume[0] === 0);
-  };
-
-  const toggleMute = () => {
-    if (isMuted) {
-      handleVolumeChange([75]);
-    } else {
-      handleVolumeChange([0]);
+      audioRef.current.volume = vol / 100;
     }
   };
 
   const startTimer = () => {
-    setTimerRemaining(timerMinutes * 60);
+    setTimeRemaining(timerMinutes * 60);
     setTimerActive(true);
+    setShowTimer(false);
   };
 
   const stopTimer = () => {
     setTimerActive(false);
-    setTimerRemaining(0);
+    setTimeRemaining(0);
   };
 
   const handleCreatePlaylist = async () => {
-    if (!newPlaylistName.trim()) return;
+    if (!playlistName.trim()) return;
     
-    await createPlaylist(newPlaylistName);
-    setNewPlaylistName('');
+    await createPlaylist(playlistName, playlistDescription);
+    setPlaylistName('');
+    setPlaylistDescription('');
     setShowCreatePlaylist(false);
   };
 
   const loadAIRecommendations = async () => {
-    const recommendations = await getAIRecommendations(mood, selectedCategory);
-    setAIRecommendations(recommendations);
-    setShowAIRecommendations(true);
+    setLoadingRecommendations(true);
+    try {
+      const recommendations = await getAIRecommendations(
+        selectedMood || 'calm',
+        'general',
+        75, // default heart rate
+        new Date().getHours()
+      );
+      setAiRecommendations(recommendations);
+    } finally {
+      setLoadingRecommendations(false);
+    }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'meditation': return <Brain className="w-4 h-4" />;
-      case 'sleep': return <Moon className="w-4 h-4" />;
-      case 'relaxation': return <Sunset className="w-4 h-4" />;
-      case 'journaling': return <Coffee className="w-4 h-4" />;
-      default: return <Music className="w-4 h-4" />;
+      case 'relax': return <Heart className="h-4 w-4" />;
+      case 'focus': return <Brain className="h-4 w-4" />;
+      case 'sleep': return <Moon className="h-4 w-4" />;
+      case 'grounding': return <Coffee className="h-4 w-4" />;
+      case 'journaling': return <BookOpen className="h-4 w-4" />;
+      default: return <Sparkles className="h-4 w-4" />;
     }
   };
 
@@ -214,123 +213,137 @@ const HarmoniousMusic = () => {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const filteredTracks = selectedCategory === 'all' 
-    ? tracks 
-    : getTracksByCategory(selectedCategory);
+  const categories = ['relax', 'focus', 'sleep', 'grounding', 'journaling'];
+  const moods = ['calm', 'energizing', 'peaceful', 'uplifting', 'grounding'];
+
+  const filteredTracks = tracks.filter(track => {
+    const categoryMatch = !selectedCategory || track.category === selectedCategory;
+    const moodMatch = !selectedMood || track.mood_tags.includes(selectedMood);
+    return categoryMatch && moodMatch;
+  });
+
+  if (loading) {
+    return (
+      <div className="container mx-auto p-6">
+        <div className="text-center">Loading music library...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-6xl mx-auto p-6 space-y-6">
+    <div className="container mx-auto p-6">
       <audio ref={audioRef} />
       
       {/* Header */}
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-foreground mb-2 flex items-center justify-center gap-2">
-          <Music className="w-8 h-8 text-primary" />
+      <div className="mb-6">
+        <h1 className="text-3xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
           Harmonious Music
         </h1>
-        <p className="text-muted-foreground">
-          AI-curated music for meditation, relaxation, and wellness
+        <p className="text-lg text-muted-foreground mt-2">
+          AI-curated music for your wellness journey
         </p>
       </div>
 
       {/* Music Player */}
       {currentTrack && (
-        <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20">
+        <Card className="mb-6">
           <CardContent className="p-6">
             <div className="flex items-center space-x-4">
-              <div className="flex-shrink-0">
-                <div className="w-16 h-16 bg-primary/20 rounded-lg flex items-center justify-center">
-                  <Music className="w-8 h-8 text-primary" />
-                </div>
-              </div>
+              {currentTrack.cover_image_url && (
+                <img 
+                  src={currentTrack.cover_image_url} 
+                  alt={currentTrack.title}
+                  className="w-16 h-16 rounded-lg object-cover"
+                />
+              )}
               
-              <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold truncate">{currentTrack.title}</h3>
-                <p className="text-muted-foreground truncate">{currentTrack.artist}</p>
+              <div className="flex-1">
+                <h3 className="font-semibold">{currentTrack.title}</h3>
+                <p className="text-sm text-muted-foreground">{currentTrack.artist}</p>
                 
-                <div className="mt-2 space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm text-muted-foreground">{formatTime(currentTime)}</span>
-                    <Progress value={(currentTime / duration) * 100} className="flex-1" />
-                    <span className="text-sm text-muted-foreground">{formatTime(duration)}</span>
+                {/* Progress Bar */}
+                <div className="mt-2">
+                  <Slider
+                    value={[currentTime]}
+                    max={duration}
+                    step={1}
+                    onValueChange={(value) => {
+                      if (audioRef.current) {
+                        audioRef.current.currentTime = value[0];
+                        setCurrentTime(value[0]);
+                      }
+                    }}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                    <span>{formatTime(currentTime)}</span>
+                    <span>{formatTime(duration)}</span>
                   </div>
                 </div>
               </div>
 
+              {/* Controls */}
               <div className="flex items-center space-x-2">
-                {/* Volume Control */}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={toggleMute}
-                >
-                  {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+                <Button onClick={togglePlay} size="sm">
+                  {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                 </Button>
                 
-                <div className="w-20">
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setIsMuted(!isMuted)}
+                  >
+                    {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                  </Button>
                   <Slider
-                    value={volume}
-                    onValueChange={handleVolumeChange}
+                    value={[isMuted ? 0 : volume]}
                     max={100}
                     step={1}
-                    className="w-full"
+                    onValueChange={handleVolumeChange}
+                    className="w-20"
                   />
                 </div>
 
-                {/* Play/Pause */}
-                <Button onClick={togglePlay} size="lg">
-                  {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                </Button>
-
-                {/* Timer */}
-                <Dialog>
+                <Dialog open={showTimer} onOpenChange={setShowTimer}>
                   <DialogTrigger asChild>
-                    <Button variant="outline" size="sm">
-                      <Timer className="w-4 h-4" />
+                    <Button variant="ghost" size="sm">
+                      <Timer className="h-4 w-4" />
                     </Button>
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>Music Timer</DialogTitle>
+                      <DialogTitle>Sleep Timer</DialogTitle>
                     </DialogHeader>
                     <div className="space-y-4">
                       <div>
                         <label className="text-sm font-medium">Timer Duration (minutes)</label>
                         <Slider
                           value={[timerMinutes]}
-                          onValueChange={(value) => setTimerMinutes(value[0])}
                           max={120}
                           min={5}
                           step={5}
+                          onValueChange={(value) => setTimerMinutes(value[0])}
                           className="mt-2"
                         />
                         <p className="text-sm text-muted-foreground mt-1">{timerMinutes} minutes</p>
                       </div>
-                      
-                      {timerActive && (
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-primary">
-                            {formatTime(timerRemaining)}
-                          </p>
-                          <p className="text-sm text-muted-foreground">remaining</p>
-                        </div>
-                      )}
-                      
-                      <div className="flex space-x-2">
-                        {!timerActive ? (
-                          <Button onClick={startTimer} className="flex-1">
-                            <Timer className="w-4 h-4 mr-2" />
-                            Start Timer
-                          </Button>
-                        ) : (
-                          <Button onClick={stopTimer} variant="outline" className="flex-1">
-                            Stop Timer
-                          </Button>
-                        )}
-                      </div>
+                      <Button onClick={startTimer} className="w-full">
+                        Start Timer
+                      </Button>
                     </div>
                   </DialogContent>
                 </Dialog>
+
+                {timerActive && (
+                  <div className="flex items-center space-x-2 px-3 py-1 bg-primary/10 rounded-full">
+                    <Clock className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-mono">{formatTime(timeRemaining)}</span>
+                    <Button variant="ghost" size="sm" onClick={stopTimer}>
+                      ×
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           </CardContent>
@@ -338,44 +351,47 @@ const HarmoniousMusic = () => {
       )}
 
       {/* Controls */}
-      <div className="flex flex-wrap gap-4 items-center">
+      <div className="mb-6 flex flex-wrap gap-4">
         <Select value={selectedCategory} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="Select category" />
+            <SelectValue placeholder="Filter by category" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Categories</SelectItem>
-            <SelectItem value="meditation">Meditation</SelectItem>
-            <SelectItem value="sleep">Sleep</SelectItem>
-            <SelectItem value="relaxation">Relaxation</SelectItem>
-            <SelectItem value="journaling">Journaling</SelectItem>
+            <SelectItem value="">All Categories</SelectItem>
+            {categories.map(category => (
+              <SelectItem key={category} value={category}>
+                <div className="flex items-center space-x-2">
+                  {getCategoryIcon(category)}
+                  <span className="capitalize">{category}</span>
+                </div>
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
-        <Select value={mood} onValueChange={setMood}>
+        <Select value={selectedMood} onValueChange={setSelectedMood}>
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="How are you feeling?" />
+            <SelectValue placeholder="Filter by mood" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Any Mood</SelectItem>
-            <SelectItem value="calm">Calm</SelectItem>
-            <SelectItem value="stressed">Stressed</SelectItem>
-            <SelectItem value="anxious">Anxious</SelectItem>
-            <SelectItem value="happy">Happy</SelectItem>
-            <SelectItem value="sad">Sad</SelectItem>
-            <SelectItem value="tired">Tired</SelectItem>
+            <SelectItem value="">All Moods</SelectItem>
+            {moods.map(mood => (
+              <SelectItem key={mood} value={mood}>
+                <span className="capitalize">{mood}</span>
+              </SelectItem>
+            ))}
           </SelectContent>
         </Select>
 
-        <Button onClick={loadAIRecommendations} variant="outline">
-          <Sparkles className="w-4 h-4 mr-2" />
+        <Button onClick={loadAIRecommendations} disabled={loadingRecommendations}>
+          <Sparkles className="h-4 w-4 mr-2" />
           AI Recommendations
         </Button>
 
         <Dialog open={showCreatePlaylist} onOpenChange={setShowCreatePlaylist}>
           <DialogTrigger asChild>
             <Button variant="outline">
-              <Plus className="w-4 h-4 mr-2" />
+              <Plus className="h-4 w-4 mr-2" />
               Create Playlist
             </Button>
           </DialogTrigger>
@@ -386,99 +402,89 @@ const HarmoniousMusic = () => {
             <div className="space-y-4">
               <Input
                 placeholder="Playlist name"
-                value={newPlaylistName}
-                onChange={(e) => setNewPlaylistName(e.target.value)}
+                value={playlistName}
+                onChange={(e) => setPlaylistName(e.target.value)}
               />
-              <div className="flex space-x-2">
-                <Button onClick={handleCreatePlaylist} className="flex-1">
-                  Create
-                </Button>
-                <Button variant="outline" onClick={() => setShowCreatePlaylist(false)}>
-                  Cancel
-                </Button>
-              </div>
+              <Textarea
+                placeholder="Description (optional)"
+                value={playlistDescription}
+                onChange={(e) => setPlaylistDescription(e.target.value)}
+              />
+              <Button onClick={handleCreatePlaylist} className="w-full">
+                Create Playlist
+              </Button>
             </div>
           </DialogContent>
         </Dialog>
       </div>
 
       {/* Music Library */}
-      <Tabs defaultValue="tracks" className="w-full">
+      <Tabs defaultValue="library" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="tracks">Music Library</TabsTrigger>
+          <TabsTrigger value="library">Music Library</TabsTrigger>
           <TabsTrigger value="playlists">My Playlists</TabsTrigger>
           <TabsTrigger value="recommendations">For You</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="tracks" className="space-y-4">
-          {loading ? (
-            <div className="text-center py-8">
-              <Music className="w-8 h-8 animate-spin mx-auto mb-2" />
-              <p>Loading music library...</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filteredTracks.map((track) => (
-                <Card key={track.id} className="hover:shadow-lg transition-shadow cursor-pointer">
-                  <CardContent className="p-4">
-                    <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                          {getCategoryIcon(track.category)}
-                        </div>
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold truncate">{track.title}</h4>
-                        <p className="text-sm text-muted-foreground truncate">{track.artist}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {formatTime(track.duration_seconds)}
-                        </p>
-                        
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {track.mood_tags.slice(0, 2).map((tag) => (
-                            <Badge key={tag} variant="secondary" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                          {track.premium_only && (
-                            <Badge variant="outline" className="text-xs">
-                              <Crown className="w-3 h-3 mr-1" />
-                              Premium
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-
-                      <Button
-                        size="sm"
-                        onClick={() => playTrack(track)}
-                        className="flex-shrink-0"
-                      >
-                        <Play className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          )}
+        <TabsContent value="library" className="mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredTracks.map((track) => (
+              <Card key={track.id} className="group hover:shadow-lg transition-shadow">
+                <CardContent className="p-4">
+                  {track.cover_image_url && (
+                    <img 
+                      src={track.cover_image_url} 
+                      alt={track.title}
+                      className="w-full h-32 object-cover rounded-lg mb-3"
+                    />
+                  )}
+                  
+                  <h3 className="font-semibold mb-1">{track.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-2">{track.artist}</p>
+                  <p className="text-xs text-muted-foreground mb-3">{track.description}</p>
+                  
+                  <div className="flex flex-wrap gap-1 mb-3">
+                    {track.mood_tags.slice(0, 3).map((tag) => (
+                      <Badge key={tag} variant="secondary" className="text-xs">
+                        {tag}
+                      </Badge>
+                    ))}
+                    {track.premium_only && (
+                      <Badge variant="default" className="text-xs">
+                        Premium
+                      </Badge>
+                    )}
+                  </div>
+                  
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      {formatTime(track.duration_seconds)}
+                    </span>
+                    <Button 
+                      size="sm" 
+                      onClick={() => playTrack(track)}
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <Play className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </TabsContent>
 
-        <TabsContent value="playlists" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <TabsContent value="playlists" className="mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {playlists.map((playlist) => (
-              <Card key={playlist.id} className="hover:shadow-lg transition-shadow">
+              <Card key={playlist.id} className="group hover:shadow-lg transition-shadow">
                 <CardContent className="p-4">
-                  <h4 className="font-semibold mb-2">{playlist.name}</h4>
-                  <p className="text-sm text-muted-foreground mb-3">
-                    {playlist.description || 'Custom playlist'}
-                  </p>
-                  <p className="text-xs text-muted-foreground">
+                  <h3 className="font-semibold mb-1">{playlist.name}</h3>
+                  <p className="text-sm text-muted-foreground mb-2">{playlist.description}</p>
+                  <p className="text-xs text-muted-foreground mb-3">
                     {playlist.track_ids.length} tracks
                   </p>
-                  <Button size="sm" className="mt-3 w-full">
-                    <Play className="w-4 h-4 mr-2" />
+                  <Button size="sm" variant="outline" className="w-full">
                     Play Playlist
                   </Button>
                 </CardContent>
@@ -487,56 +493,61 @@ const HarmoniousMusic = () => {
           </div>
         </TabsContent>
 
-        <TabsContent value="recommendations" className="space-y-4">
-          {showAIRecommendations ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {aiRecommendations.map((track: any) => (
-                <Card key={track.id} className="hover:shadow-lg transition-shadow border-primary/20">
+        <TabsContent value="recommendations" className="mt-6">
+          {aiRecommendations.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {aiRecommendations.map((track) => (
+                <Card key={track.id} className="group hover:shadow-lg transition-shadow">
                   <CardContent className="p-4">
-                    <div className="flex items-center space-x-2 mb-2">
-                      <Sparkles className="w-4 h-4 text-primary" />
-                      <span className="text-xs font-medium text-primary">AI Recommended</span>
+                    {track.cover_image_url && (
+                      <img 
+                        src={track.cover_image_url} 
+                        alt={track.title}
+                        className="w-full h-32 object-cover rounded-lg mb-3"
+                      />
+                    )}
+                    
+                    <h3 className="font-semibold mb-1">{track.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-2">{track.artist}</p>
+                    
+                    {track.matchReason && (
+                      <p className="text-xs text-primary mb-3">{track.matchReason}</p>
+                    )}
+                    
+                    <div className="flex flex-wrap gap-1 mb-3">
+                      {track.mood_tags.slice(0, 3).map((tag: string) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
                     </div>
                     
-                    <div className="flex items-start space-x-3">
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
-                          {getCategoryIcon(track.category)}
-                        </div>
-                      </div>
-                      
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold truncate">{track.title}</h4>
-                        <p className="text-sm text-muted-foreground truncate">{track.artist}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {formatTime(track.duration_seconds)}
-                        </p>
-                      </div>
-
-                      <Button
-                        size="sm"
-                        onClick={() => playTrack(track)}
-                        className="flex-shrink-0"
-                      >
-                        <Play className="w-4 h-4" />
-                      </Button>
-                    </div>
+                    <Button 
+                      size="sm" 
+                      onClick={() => playTrack(track)}
+                      className="w-full"
+                    >
+                      <Play className="h-4 w-4 mr-2" />
+                      Play
+                    </Button>
                   </CardContent>
                 </Card>
               ))}
             </div>
           ) : (
-            <div className="text-center py-12">
-              <Sparkles className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Get Personalized Recommendations</h3>
-              <p className="text-muted-foreground mb-4">
-                Let our AI suggest music based on your mood and preferences
-              </p>
-              <Button onClick={loadAIRecommendations}>
-                <Sparkles className="w-4 h-4 mr-2" />
-                Get AI Recommendations
-              </Button>
-            </div>
+            <Card>
+              <CardContent className="p-8 text-center">
+                <Sparkles className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
+                <h3 className="font-semibold mb-2">Get AI Recommendations</h3>
+                <p className="text-muted-foreground mb-4">
+                  Let Auri suggest the perfect music for your current mood and needs
+                </p>
+                <Button onClick={loadAIRecommendations} disabled={loadingRecommendations}>
+                  <Sparkles className="h-4 w-4 mr-2" />
+                  {loadingRecommendations ? 'Loading...' : 'Get Recommendations'}
+                </Button>
+              </CardContent>
+            </Card>
           )}
         </TabsContent>
       </Tabs>

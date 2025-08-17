@@ -156,11 +156,11 @@ export const useUltraPersonalization = () => {
       if (data) {
         setPersonalization({
           ...data,
-          auri_personality: data.auri_personality as AuriPersonality,
-          interaction_style: data.interaction_style as InteractionStyle,
-          mood_adaptations: data.mood_adaptations as MoodAdaptations,
-          visual_preferences: data.visual_preferences as VisualPreferences,
-          voice_preferences: data.voice_preferences as VoicePreferences
+          auri_personality: data.auri_personality as unknown as AuriPersonality,
+          interaction_style: data.interaction_style as unknown as InteractionStyle,
+          mood_adaptations: data.mood_adaptations as unknown as MoodAdaptations,
+          visual_preferences: data.visual_preferences as unknown as VisualPreferences,
+          voice_preferences: data.voice_preferences as unknown as VoicePreferences
         });
       } else {
         // Create default personalization
@@ -189,13 +189,20 @@ export const useUltraPersonalization = () => {
 
       const { data, error } = await supabase
         .from('ultra_personalizations')
-        .insert(newPersonalization)
+        .insert(newPersonalization as any)
         .select()
         .single();
 
       if (error) throw error;
 
-      setPersonalization(data);
+      setPersonalization({
+        ...data,
+        auri_personality: data.auri_personality as unknown as AuriPersonality,
+        interaction_style: data.interaction_style as unknown as InteractionStyle,
+        mood_adaptations: data.mood_adaptations as unknown as MoodAdaptations,
+        visual_preferences: data.visual_preferences as unknown as VisualPreferences,
+        voice_preferences: data.voice_preferences as unknown as VoicePreferences
+      });
     } catch (error) {
       console.error('Error creating default personalization:', error);
     }
@@ -216,7 +223,14 @@ export const useUltraPersonalization = () => {
 
       if (error) throw error;
 
-      setPersonalization(data);
+      setPersonalization({
+        ...data,
+        auri_personality: data.auri_personality as unknown as AuriPersonality,
+        interaction_style: data.interaction_style as unknown as InteractionStyle,
+        mood_adaptations: data.mood_adaptations as unknown as MoodAdaptations,
+        visual_preferences: data.visual_preferences as unknown as VisualPreferences,
+        voice_preferences: data.voice_preferences as unknown as VoicePreferences
+      });
 
       toast({
         title: "Settings Updated! ✨",

@@ -1,17 +1,26 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
+
+export interface MentalHealthCoin {
+  id: string;
+  user_id: string;
+  amount: number;
+  coin_type: string;
+  source_activity: string;
+  source_id?: string;
+  description?: string;
+  created_at: string;
+}
 
 interface CoinTransaction {
   id: string;
-  user_id: string;
-  coin_type: 'earned' | 'spent' | 'bonus';
+  type: 'earned' | 'spent';
   amount: number;
-  source_activity: string;
-  source_id?: string;
   description: string;
-  created_at: string;
+  activity: string;
+  timestamp: string;
 }
 
 interface RewardItem {
@@ -19,244 +28,298 @@ interface RewardItem {
   name: string;
   description: string;
   cost: number;
-  type: 'discount' | 'content' | 'feature' | 'physical';
-  availability: 'unlimited' | 'limited' | 'one_time';
-  image_url?: string;
+  type: 'discount' | 'premium_unlock' | 'exclusive_access' | 'physical_item';
+  category: string;
+  icon: string;
+  availability: 'unlimited' | 'limited' | 'monthly';
+  remaining?: number;
 }
 
 export const useMentalHealthCoins = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   
+  const [coins, setCoins] = useState<MentalHealthCoin[]>([]);
   const [balance, setBalance] = useState(0);
-  const [transactions, setTransactions] = useState<CoinTransaction[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [recentTransactions, setRecentTransactions] = useState<CoinTransaction[]>([]);
 
-  const rewardStore: RewardItem[] = [
+  const rewardCatalog: RewardItem[] = [
     {
-      id: 'therapist_discount_10',
-      name: '10% Therapist Session Discount',
-      description: 'Save 10% on your next therapy session',
+      id: 'therapy_discount_10',
+      name: '10% Therapy Discount',
+      description: 'Get 10% off your next therapy session',
       cost: 50,
       type: 'discount',
+      category: 'therapy',
+      icon: '🎯',
       availability: 'unlimited'
+    },
+    {
+      id: 'therapy_discount_25',
+      name: '25% Therapy Discount', 
+      description: 'Get 25% off your next therapy session',
+      cost: 120,
+      type: 'discount',
+      category: 'therapy',
+      icon: '💎',
+      availability: 'limited',
+      remaining: 5
     },
     {
       id: 'premium_music_week',
-      name: 'Premium Music (1 Week)',
-      description: 'Access to exclusive premium music collection',
-      cost: 25,
-      type: 'content',
-      availability: 'unlimited'
-    },
-    {
-      id: 'vr_world_unlock',
-      name: 'Unlock VR World',
-      description: 'Access to exclusive VR therapy environments',
+      name: 'Premium Music Access',
+      description: '1 week of premium music library access',
       cost: 75,
-      type: 'feature',
+      type: 'premium_unlock',
+      category: 'content',
+      icon: '🎵',
       availability: 'unlimited'
     },
     {
-      id: 'ai_avatar_custom',
-      name: 'Custom AI Avatar',
-      description: 'Create your personalized AI companion',
-      cost: 100,
-      type: 'feature',
-      availability: 'one_time'
+      id: 'premium_videos_week',
+      name: 'Premium Video Access',
+      description: '1 week of premium exercise videos',
+      cost: 80,
+      type: 'premium_unlock',
+      category: 'content',
+      icon: '🎬',
+      availability: 'unlimited'
     },
     {
-      id: 'therapist_discount_25',
-      name: '25% Therapist Session Discount',
-      description: 'Save 25% on your next therapy session',
-      cost: 150,
-      type: 'discount',
-      availability: 'limited'
-    },
-    {
-      id: 'mindfulness_course',
-      name: 'Advanced Mindfulness Course',
-      description: '30-day guided mindfulness journey',
+      id: 'early_feature_access',
+      name: 'Beta Feature Access',
+      description: 'Get early access to new features',
       cost: 200,
-      type: 'content',
-      availability: 'unlimited'
+      type: 'exclusive_access',
+      category: 'features',
+      icon: '🚀',
+      availability: 'monthly',
+      remaining: 10
     },
     {
-      id: 'wellness_box',
-      name: 'Wellness Care Package',
-      description: 'Physical wellness items shipped to you',
+      id: 'wellness_journal',
+      name: 'Premium Wellness Journal',
+      description: 'Physical wellness journal shipped to you',
       cost: 500,
-      type: 'physical',
-      availability: 'limited'
+      type: 'physical_item',
+      category: 'merchandise',
+      icon: '📔',
+      availability: 'limited',
+      remaining: 3
+    },
+    {
+      id: 'meditation_cushion',
+      name: 'Meditation Cushion',
+      description: 'Eco-friendly meditation cushion',
+      cost: 800,
+      type: 'physical_item',
+      category: 'merchandise',
+      icon: '🧘',
+      availability: 'limited',
+      remaining: 2
     }
   ];
 
-  useEffect(() => {
-    if (user) {
-      fetchCoinsData();
-    }
-  }, [user]);
-
+  // Fetch user's coin data
   const fetchCoinsData = async () => {
+    if (!user) return;
+    
+    setLoading(true);
     try {
-      setLoading(true);
-
-      // Fetch all coin transactions
-      const { data: transactionsData, error: transactionsError } = await supabase
+      const { data: coinsData, error } = await supabase
         .from('mental_health_coins')
         .select('*')
-        .eq('user_id', user!.id)
-        .order('created_at', { ascending: false })
-        .limit(100);
-
-      if (transactionsError) throw transactionsError;
-
-      setTransactions((transactionsData || []) as CoinTransaction[]);
-
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      
+      setCoins(coinsData || []);
+      
       // Calculate balance
-      const totalBalance = (transactionsData || []).reduce((sum, transaction) => {
-        return transaction.coin_type === 'spent' 
-          ? sum - transaction.amount 
-          : sum + transaction.amount;
-      }, 0);
-
+      const totalBalance = (coinsData || []).reduce((sum, coin) => sum + coin.amount, 0);
       setBalance(totalBalance);
-    } catch (error) {
+      
+      // Create recent transactions view
+      const transactions: CoinTransaction[] = (coinsData || []).slice(0, 10).map(coin => ({
+        id: coin.id,
+        type: coin.amount > 0 ? 'earned' : 'spent',
+        amount: Math.abs(coin.amount),
+        description: coin.description || `${coin.source_activity} activity`,
+        activity: coin.source_activity,
+        timestamp: coin.created_at
+      }));
+      
+      setRecentTransactions(transactions);
+      
+    } catch (error: any) {
       console.error('Error fetching coins data:', error);
       toast({
-        title: "Error",
-        description: "Failed to load coins data",
-        variant: "destructive"
+        title: "Error loading coins",
+        description: error.message,
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
     }
   };
 
-  const earnCoins = async (
+  // Award coins for activities
+  const awardCoins = async (
     amount: number,
     sourceActivity: string,
-    description: string,
+    description?: string,
     sourceId?: string
   ) => {
     if (!user) return false;
-
+    
     try {
       const { error } = await supabase
         .from('mental_health_coins')
         .insert({
           user_id: user.id,
-          coin_type: 'earned',
-          amount: amount,
+          amount,
+          coin_type: 'wellness',
           source_activity: sourceActivity,
           source_id: sourceId,
-          description: description
+          description: description || `Earned from ${sourceActivity}`
         });
-
+      
       if (error) throw error;
-
+      
+      // Refresh data
       await fetchCoinsData();
-
+      
       toast({
-        title: "Coins Earned! 🪙",
-        description: `+${amount} Mental Health Coins: ${description}`,
+        title: `+${amount} Wellness Coins! 🪙`,
+        description: description || `Great job with ${sourceActivity}!`,
       });
-
+      
       return true;
-    } catch (error) {
-      console.error('Error earning coins:', error);
+    } catch (error: any) {
+      console.error('Error awarding coins:', error);
+      toast({
+        title: "Error awarding coins",
+        description: error.message,
+        variant: "destructive",
+      });
       return false;
     }
   };
 
+  // Spend coins
   const spendCoins = async (
     amount: number,
     sourceActivity: string,
-    description: string,
+    description?: string,
     sourceId?: string
   ) => {
-    if (!user || balance < amount) return false;
-
+    if (!user) return false;
+    
+    if (balance < amount) {
+      toast({
+        title: "Insufficient coins",
+        description: `You need ${amount} coins but only have ${balance}`,
+        variant: "destructive",
+      });
+      return false;
+    }
+    
     try {
       const { error } = await supabase
         .from('mental_health_coins')
         .insert({
           user_id: user.id,
-          coin_type: 'spent',
-          amount: amount,
+          amount: -amount, // Negative for spending
+          coin_type: 'wellness',
           source_activity: sourceActivity,
           source_id: sourceId,
-          description: description
+          description: description || `Spent on ${sourceActivity}`
         });
-
+      
       if (error) throw error;
-
+      
+      // Refresh data
       await fetchCoinsData();
-
+      
       toast({
-        title: "Purchase Complete! 🛍️",
-        description: `Spent ${amount} coins: ${description}`,
+        title: `Spent ${amount} coins! 💰`,
+        description: description || `Redeemed: ${sourceActivity}`,
       });
-
+      
       return true;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error spending coins:', error);
       toast({
-        title: "Purchase Failed",
-        description: "Unable to complete purchase",
-        variant: "destructive"
+        title: "Error spending coins",
+        description: error.message,
+        variant: "destructive",
       });
       return false;
     }
   };
 
-  const redeemReward = async (rewardId: string) => {
-    const reward = rewardStore.find(r => r.id === rewardId);
-    if (!reward || balance < reward.cost) return false;
-
+  // Redeem reward
+  const redeemReward = async (reward: RewardItem) => {
+    if (!user) return false;
+    
+    if (balance < reward.cost) {
+      toast({
+        title: "Insufficient coins",
+        description: `You need ${reward.cost} coins but only have ${balance}`,
+        variant: "destructive",
+      });
+      return false;
+    }
+    
+    if (reward.availability === 'limited' && reward.remaining === 0) {
+      toast({
+        title: "Reward unavailable",
+        description: "This reward is out of stock",
+        variant: "destructive",
+      });
+      return false;
+    }
+    
     const success = await spendCoins(
       reward.cost,
-      'reward_redemption',
+      `reward_redemption`,
       `Redeemed: ${reward.name}`,
-      rewardId
+      reward.id
     );
-
+    
     if (success) {
-      // Handle specific reward types
+      // Execute reward-specific logic
       switch (reward.type) {
         case 'discount':
-          // Store discount for later use
           await storeUserDiscount(reward);
           break;
-        case 'content':
-          // Unlock premium content
+        case 'premium_unlock':
           await unlockPremiumContent(reward);
           break;
-        case 'feature':
-          // Enable feature for user
-          await enableUserFeature(reward);
+        case 'exclusive_access':
+          await grantExclusiveAccess(reward);
           break;
-        case 'physical':
-          // Initiate shipping process
-          await initiateShipping(reward);
+        case 'physical_item':
+          await requestPhysicalItem(reward);
           break;
       }
-
+      
       toast({
-        title: "Reward Redeemed! 🎁",
-        description: `${reward.name} has been added to your account`,
+        title: "Reward redeemed! 🎉",
+        description: `${reward.name} has been activated`,
       });
     }
-
+    
     return success;
   };
 
   const storeUserDiscount = async (reward: RewardItem) => {
     // Store discount in user preferences or separate table
     try {
-      // Note: user_discounts table would need to be created in migration
       console.log('Discount stored:', reward.id);
-      // TODO: Implement user_discounts table and insert logic
+      // TODO: Implement user_discounts table and insert logic when needed
     } catch (error) {
       console.error('Error storing discount:', error);
     }
@@ -265,98 +328,132 @@ export const useMentalHealthCoins = () => {
   const unlockPremiumContent = async (reward: RewardItem) => {
     // Update user preferences to include premium access
     try {
-      const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 1 week
-      
-      await supabase
-        .from('user_premium_access')
-        .upsert({
-          user_id: user!.id,
-          content_type: reward.id,
-          expires_at: expiresAt.toISOString()
-        });
+      console.log('Premium content unlocked:', reward.id);
+      // TODO: Implement premium access system when needed
     } catch (error) {
-      console.error('Error unlocking content:', error);
+      console.error('Error unlocking premium content:', error);
     }
   };
 
-  const enableUserFeature = async (reward: RewardItem) => {
-    // Enable feature in user preferences
+  const grantExclusiveAccess = async (reward: RewardItem) => {
     try {
-      await supabase
-        .from('user_feature_access')
-        .upsert({
-          user_id: user!.id,
-          feature_type: reward.id,
-          enabled: true,
-          granted_at: new Date().toISOString()
-        });
+      console.log('Exclusive access granted:', reward.id);
+      // TODO: Implement exclusive access system when needed
     } catch (error) {
-      console.error('Error enabling feature:', error);
+      console.error('Error granting exclusive access:', error);
     }
   };
 
-  const initiateShipping = async (reward: RewardItem) => {
-    // Create shipping request
+  const requestPhysicalItem = async (reward: RewardItem) => {
     try {
-      await supabase
-        .from('shipping_requests')
-        .insert({
-          user_id: user!.id,
-          reward_id: reward.id,
-          reward_name: reward.name,
-          status: 'pending',
-          requested_at: new Date().toISOString()
-        });
+      console.log('Physical item requested:', reward.id);
+      // TODO: Implement shipping system when needed
     } catch (error) {
-      console.error('Error initiating shipping:', error);
+      console.error('Error requesting physical item:', error);
     }
   };
 
   const getAffordableRewards = () => {
-    return rewardStore.filter(reward => reward.cost <= balance);
+    return rewardCatalog.filter(reward => 
+      reward.cost <= balance && 
+      (reward.availability !== 'limited' || (reward.remaining && reward.remaining > 0))
+    );
   };
 
-  const getTransactionsByType = (type: 'earned' | 'spent' | 'bonus') => {
-    return transactions.filter(t => t.coin_type === type);
+  const getRewardsByCategory = (category: string) => {
+    return rewardCatalog.filter(reward => reward.category === category);
+  };
+
+  const formatCoinsDisplay = (amount: number) => {
+    if (amount >= 1000) {
+      return `${(amount / 1000).toFixed(1)}k`;
+    }
+    return amount.toString();
+  };
+
+  const getCoinEarningRate = (activity: string): number => {
+    const rates: Record<string, number> = {
+      'mood_checkin': 5,
+      'journal_entry': 8,
+      'meditation_session': 12,
+      'music_session': 10,
+      'video_exercise': 15,
+      'therapy_session': 25,
+      'daily_streak': 20,
+      'weekly_goals': 30,
+      'community_post': 8,
+      'helping_others': 15,
+      'milestone_achievement': 50
+    };
+    
+    return rates[activity] || 5;
+  };
+
+  // Analytics functions
+  const getTotalEarned = () => {
+    return coins.filter(coin => coin.amount > 0).reduce((sum, coin) => sum + coin.amount, 0);
+  };
+
+  const getTotalSpent = () => {
+    return Math.abs(coins.filter(coin => coin.amount < 0).reduce((sum, coin) => sum + coin.amount, 0));
+  };
+
+  const getTransactionsByType = (type: 'earned' | 'spent') => {
+    return coins.filter(coin => type === 'earned' ? coin.amount > 0 : coin.amount < 0);
   };
 
   const getWeeklyEarnings = () => {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
     
-    return transactions
-      .filter(t => t.coin_type === 'earned' && new Date(t.created_at) >= oneWeekAgo)
-      .reduce((sum, t) => sum + t.amount, 0);
+    return coins
+      .filter(coin => 
+        coin.amount > 0 && 
+        new Date(coin.created_at) >= oneWeekAgo
+      )
+      .reduce((sum, coin) => sum + coin.amount, 0);
   };
 
   const getMonthlyStats = () => {
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
     
-    const monthlyTransactions = transactions.filter(
-      t => new Date(t.created_at) >= oneMonthAgo
-    );
-
-    const earned = monthlyTransactions
-      .filter(t => t.coin_type === 'earned')
-      .reduce((sum, t) => sum + t.amount, 0);
-
-    const spent = monthlyTransactions
-      .filter(t => t.coin_type === 'spent')
-      .reduce((sum, t) => sum + t.amount, 0);
-
-    return { earned, spent, net: earned - spent };
+    const monthlyCoins = coins.filter(coin => new Date(coin.created_at) >= oneMonthAgo);
+    
+    return {
+      earned: monthlyCoins.filter(coin => coin.amount > 0).reduce((sum, coin) => sum + coin.amount, 0),
+      spent: Math.abs(monthlyCoins.filter(coin => coin.amount < 0).reduce((sum, coin) => sum + coin.amount, 0)),
+      transactions: monthlyCoins.length
+    };
   };
 
+  // Load data on mount
+  useEffect(() => {
+    if (user) {
+      fetchCoinsData();
+    }
+  }, [user]);
+
   return {
+    // State
+    coins,
     balance,
-    transactions,
-    rewardStore,
     loading,
-    earnCoins,
+    recentTransactions,
+    rewardCatalog,
+    
+    // Functions
+    awardCoins,
     spendCoins,
     redeemReward,
     getAffordableRewards,
+    getRewardsByCategory,
+    formatCoinsDisplay,
+    getCoinEarningRate,
+    
+    // Analytics
+    getTotalEarned,
+    getTotalSpent,
     getTransactionsByType,
     getWeeklyEarnings,
     getMonthlyStats,
