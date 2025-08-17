@@ -38,12 +38,14 @@ import Emergency from "@/pages/Emergency";
 import Pricing from "@/pages/Pricing";
 import Settings from "@/pages/Settings";
 import Community from "@/pages/Community";
+import AdvancedFeatures from "@/pages/AdvancedFeatures";
 import LanguageWelcome from "@/pages/LanguageWelcome";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import PaymentCancel from "@/pages/PaymentCancel";
 import NotFound from "@/pages/NotFound";
 import TherapistDashboard from "@/components/therapy/TherapistDashboard";
 import GamificationStats from "@/components/GamificationStats";
+import ProductionDashboard from "@/components/ProductionDashboard";
 
 const queryClient = new QueryClient();
 
@@ -73,6 +75,7 @@ const App = () => (
                           <Route path="/roleplay" element={<RoleplaySimulator />} />
                           <Route path="/crisis" element={<CrisisSupport />} />
                           <Route path="/community" element={<Community />} />
+                          <Route path="/advanced" element={<AdvancedFeatures />} />
                           <Route path="/tools" element={
                             <div className="flex items-center justify-center min-h-[60vh]">
                               <div className="text-center space-y-4">
@@ -86,15 +89,15 @@ const App = () => (
                               </div>
                             </div>
                           } />
-          <Route path="/profile" element={
-            <GamificationStats />
-          } />
+                          <Route path="/profile" element={
+                            <GamificationStats />
+                          } />
                           
                           {/* Legacy Routes for Backwards Compatibility */}
                           <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/checkin" element={<DailyCheckin />} />
-          <Route path="/coach" element={<Coach />} />
+                          <Route path="/dashboard" element={<Dashboard />} />
+                          <Route path="/checkin" element={<DailyCheckin />} />
+                          <Route path="/coach" element={<Coach />} />
                           <Route path="/live" element={<LiveSession />} />
                           <Route path="/exercises" element={<Exercises />} />
                           <Route path="/journal" element={<Journal />} />
@@ -108,6 +111,8 @@ const App = () => (
                           <Route path="/success" element={<PaymentSuccess />} />
                           <Route path="/cancel" element={<PaymentCancel />} />
                           <Route path="/therapist" element={<TherapistDashboard />} />
+                          <Route path="/advanced" element={<AdvancedFeatures />} />
+                          <Route path="/dashboard/production" element={<ProductionDashboard />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                       </div>

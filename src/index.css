@@ -4,81 +4,97 @@
 
 @layer base {
   :root {
-    /* Aura Theme - Calming Mental Health Colors */
-    --aura-primary: 210 32% 55%; /* #6A8CAF - Calming blue-gray */
-    --aura-secondary: 132 20% 68%; /* #A3C9A8 - Healing green */
-    --aura-calm: 214 32% 91%; /* #F4F7F9 - Serene background */
-    --aura-serenity: 240 60% 88%; /* Soft lavender */
-    --aura-growth: 156 39% 54%; /* Growth green */
-    --aura-warm: 14 91% 85%; /* Warm coral for warmth */
+    /* Aura MVP Design System - Professional Mental Health Colors */
+    --aura-primary: 210 40% 58%; /* #5A9BD4 - Therapeutic blue */
+    --aura-primary-variant: 210 50% 45%; /* Deeper blue for hover states */
+    --aura-secondary: 142 30% 65%; /* #87C3A2 - Growth green */
+    --aura-accent: 340 35% 75%; /* #C3A287 - Warm accent */
+    --aura-neutral: 220 15% 25%; /* #3A404A - Professional dark */
+    --aura-surface: 210 25% 98%; /* #FBFCFD - Clean surface */
+    --aura-surface-variant: 210 15% 95%; /* #F1F3F5 - Card background */
+    --aura-calm: 214 35% 92%; /* #F5F8FA - Serene background */
+    --aura-serenity: 240 25% 85%; /* #D1D9E8 - Soft lavender */
+    --aura-growth: 156 35% 55%; /* #5CB85C - Success green */
+    --aura-warm: 25 85% 80%; /* #F2B894 - Warm coral */
+    --aura-warning: 45 95% 68%; /* #FDD835 - Warning yellow */
+    --aura-error: 355 85% 65%; /* #E57373 - Error red */
     
-    /* Base theme variables */
-    --background: 214 32% 91%; /* Light calming blue */
-    --foreground: 0 0% 20%; /* #333333 */
-
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 20%;
-
+    /* Semantic color system */
+    --background: 210 25% 98%; /* Clean white background */
+    --foreground: 220 15% 25%; /* Professional dark text */
+    --card: 0 0% 100%; /* Pure white cards */
+    --card-foreground: 220 15% 25%;
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 20%;
-
-    --primary: 210 32% 55%; /* Aura primary */
+    --popover-foreground: 220 15% 25%;
+    --primary: 210 40% 58%;
     --primary-foreground: 0 0% 98%;
-
-    --secondary: 132 20% 68%; /* Aura secondary */
-    --secondary-foreground: 0 0% 20%;
-
-    --muted: 214 32% 91%;
-    --muted-foreground: 0 0% 45%;
-
-    --accent: 240 60% 88%; /* Soft lavender */
-    --accent-foreground: 0 0% 20%;
-
-    --destructive: 0 84% 60%;
+    --secondary: 142 30% 65%;
+    --secondary-foreground: 220 15% 25%;
+    --muted: 210 15% 95%;
+    --muted-foreground: 220 15% 45%;
+    --accent: 240 25% 85%;
+    --accent-foreground: 220 15% 25%;
+    --destructive: 355 85% 65%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 214 32% 82%;
-    --input: 214 32% 82%;
-    --ring: 210 32% 55%;
-
+    --border: 210 15% 90%;
+    --input: 210 15% 90%;
+    --ring: 210 40% 58%;
     --radius: 0.75rem;
+    
+    /* Professional gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(210, 40%, 58%), hsl(210, 50%, 45%));
+    --gradient-calm: linear-gradient(135deg, hsl(214, 35%, 92%), hsl(240, 25%, 85%));
+    --gradient-warm: linear-gradient(135deg, hsl(25, 85%, 80%), hsl(340, 35%, 75%));
+    --gradient-success: linear-gradient(135deg, hsl(156, 35%, 55%), hsl(142, 30%, 65%));
+    
+    /* Professional shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-aura: 0 8px 25px -2px hsla(210, 40%, 58%, 0.2);
+    --shadow-warm: 0 8px 25px -2px hsla(25, 85%, 80%, 0.15);
   }
 
   .dark {
-    --aura-primary: 210 32% 65%; /* Lighter for dark mode */
-    --aura-secondary: 132 25% 75%;
-    --aura-calm: 217 32% 17%;
-    --aura-serenity: 240 30% 25%;
-    --aura-growth: 156 39% 64%;
-    --aura-warm: 14 91% 75%;
-
-    --background: 217 32% 17%;
+    --aura-primary: 210 45% 68%;
+    --aura-primary-variant: 210 35% 55%;
+    --aura-secondary: 142 35% 70%;
+    --aura-accent: 340 40% 70%;
+    --aura-neutral: 220 25% 15%;
+    --aura-surface: 220 25% 8%;
+    --aura-surface-variant: 220 20% 12%;
+    --aura-calm: 217 25% 15%;
+    --aura-serenity: 240 20% 20%;
+    --aura-growth: 156 40% 60%;
+    --aura-warm: 25 80% 75%;
+    --aura-warning: 45 90% 75%;
+    --aura-error: 355 80% 70%;
+    
+    --background: 220 25% 8%;
     --foreground: 0 0% 95%;
-
-    --card: 217 32% 17%;
+    --card: 220 20% 12%;
     --card-foreground: 0 0% 95%;
-
-    --popover: 217 32% 17%;
+    --popover: 220 20% 12%;
     --popover-foreground: 0 0% 95%;
-
-    --primary: 210 32% 65%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 132 25% 75%;
-    --secondary-foreground: 0 0% 15%;
-
-    --muted: 217 32% 25%;
+    --primary: 210 45% 68%;
+    --primary-foreground: 220 25% 8%;
+    --secondary: 142 35% 70%;
+    --secondary-foreground: 220 25% 8%;
+    --muted: 220 20% 18%;
     --muted-foreground: 0 0% 65%;
-
-    --accent: 240 30% 25%;
+    --accent: 240 20% 20%;
     --accent-foreground: 0 0% 95%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 217 32% 25%;
-    --input: 217 32% 25%;
-    --ring: 210 32% 65%;
+    --destructive: 355 80% 70%;
+    --destructive-foreground: 220 25% 8%;
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --ring: 210 45% 68%;
+    
+    --gradient-primary: linear-gradient(135deg, hsl(210, 45%, 68%), hsl(210, 35%, 55%));
+    --gradient-calm: linear-gradient(135deg, hsl(217, 25%, 15%), hsl(240, 20%, 20%));
+    --gradient-warm: linear-gradient(135deg, hsl(25, 80%, 75%), hsl(340, 40%, 70%));
+    --gradient-success: linear-gradient(135deg, hsl(156, 40%, 60%), hsl(142, 35%, 70%));
   }
 }
 
@@ -86,29 +102,210 @@
   * {
     @apply border-border;
   }
+  
   body {
-    @apply bg-background text-foreground font-sans;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+  }
+  
+  /* Improved focus styles for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 }
 
-/* Aura custom styles */
-.aura-breathe {
-  animation: breathe 4s ease-in-out infinite;
+@layer components {
+  /* Professional button variants */
+  .btn-gradient-primary {
+    background: var(--gradient-primary);
+    @apply text-white shadow-aura hover:shadow-xl transition-all duration-300;
+  }
+  
+  .btn-gradient-calm {
+    background: var(--gradient-calm);
+    @apply text-foreground shadow-md hover:shadow-lg transition-all duration-300;
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+  }
+  
+  /* Breathing animation for meditation/wellness elements */
+  .breathe {
+    animation: breathe 4s ease-in-out infinite;
+  }
+  
+  /* Floating animation for engaging elements */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Gentle pulse for notifications */
+  .pulse-gentle {
+    animation: pulse-gentle 2s ease-in-out infinite;
+  }
+  
+  /* Text gradients */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-warm {
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
 
-.aura-float {
-  animation: float 6s ease-in-out infinite;
+@layer utilities {
+  /* Custom animations */
+  @keyframes breathe {
+    0%, 100% { 
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    50% { 
+      transform: scale(1.05);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% { 
+      transform: translateY(0px);
+    }
+    50% { 
+      transform: translateY(-8px);
+    }
+  }
+  
+  @keyframes pulse-gentle {
+    0%, 100% { 
+      opacity: 1;
+    }
+    50% { 
+      opacity: 0.7;
+    }
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Professional spacing utilities */
+  .space-y-comfortable > * + * {
+    margin-top: 1.5rem;
+  }
+  
+  /* Accessible text sizes */
+  .text-readable {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  
+  /* Custom shadows */
+  .shadow-aura {
+    box-shadow: var(--shadow-aura);
+  }
+  
+  .shadow-warm {
+    box-shadow: var(--shadow-warm);
+  }
 }
 
-.aura-glow {
-  animation: aura-glow 3s ease-in-out infinite;
+/* Print styles for therapy reports */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+    color: black;
+    background: white;
+  }
+  
+  .print-break {
+    page-break-before: always;
+  }
 }
 
-/* Smooth transitions for mental wellness feel */
-* {
-  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, 
-              transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 0 0% 0%;
+    --ring: 0 0% 0%;
+  }
+  
+  .dark {
+    --border: 0 0% 100%;
+    --ring: 0 0% 100%;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
 }

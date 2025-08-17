@@ -15,12 +15,12 @@ import {
   TrendingUp,
   Target
 } from 'lucide-react';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useI18n } from '@/hooks/useI18n';
 import { useNavigate } from 'react-router-dom';
 
 const AuraHome = () => {
   const [currentMood, setCurrentMood] = useState<string>('');
-  const { t } = useLanguage();
+  const { t } = useI18n();
   const navigate = useNavigate();
 
   const moodOptions = [
