@@ -53,6 +53,42 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_predictions: {
+        Row: {
+          based_on_data: Json | null
+          confidence_score: number | null
+          content: string
+          created_at: string
+          expires_at: string | null
+          id: string
+          prediction_type: string
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          based_on_data?: Json | null
+          confidence_score?: number | null
+          content: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          prediction_type: string
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          based_on_data?: Json | null
+          confidence_score?: number | null
+          content?: string
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          prediction_type?: string
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       appointments: {
         Row: {
           client_id: string
@@ -148,6 +184,42 @@ export type Database = {
           table_name?: string
           user_agent?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      child_activities: {
+        Row: {
+          activity_data: Json
+          activity_type: string
+          completed_at: string | null
+          completion_status: string | null
+          created_at: string
+          feedback: string | null
+          id: string
+          points_earned: number | null
+          user_id: string
+        }
+        Insert: {
+          activity_data?: Json
+          activity_type: string
+          completed_at?: string | null
+          completion_status?: string | null
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          points_earned?: number | null
+          user_id: string
+        }
+        Update: {
+          activity_data?: Json
+          activity_type?: string
+          completed_at?: string | null
+          completion_status?: string | null
+          created_at?: string
+          feedback?: string | null
+          id?: string
+          points_earned?: number | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -423,6 +495,78 @@ export type Database = {
         }
         Relationships: []
       }
+      family_accounts: {
+        Row: {
+          account_type: string
+          created_at: string
+          created_by: string
+          family_name: string
+          id: string
+          settings: Json | null
+          updated_at: string
+        }
+        Insert: {
+          account_type?: string
+          created_at?: string
+          created_by: string
+          family_name: string
+          id?: string
+          settings?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          account_type?: string
+          created_at?: string
+          created_by?: string
+          family_name?: string
+          id?: string
+          settings?: Json | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      family_sessions: {
+        Row: {
+          ai_suggestions: Json | null
+          completed_at: string | null
+          created_at: string
+          exercises_completed: Json | null
+          family_account_id: string
+          id: string
+          issue_description: string | null
+          mood_scores: Json | null
+          notes: string | null
+          participants: Json
+          session_type: string
+        }
+        Insert: {
+          ai_suggestions?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          exercises_completed?: Json | null
+          family_account_id: string
+          id?: string
+          issue_description?: string | null
+          mood_scores?: Json | null
+          notes?: string | null
+          participants?: Json
+          session_type: string
+        }
+        Update: {
+          ai_suggestions?: Json | null
+          completed_at?: string | null
+          created_at?: string
+          exercises_completed?: Json | null
+          family_account_id?: string
+          id?: string
+          issue_description?: string | null
+          mood_scores?: Json | null
+          notes?: string | null
+          participants?: Json
+          session_type?: string
+        }
+        Relationships: []
+      }
       group_members: {
         Row: {
           group_id: string
@@ -487,44 +631,59 @@ export type Database = {
       }
       profiles: {
         Row: {
+          age_group: string | null
           avatar_url: string | null
           bio: string | null
+          birth_year: number | null
           created_at: string
           date_of_birth: string | null
           email: string
           emergency_contact_name: string | null
           emergency_contact_phone: string | null
+          family_account_id: string | null
           full_name: string | null
           id: string
+          language_preference: string | null
           phone: string | null
+          relationship_type: string | null
           timezone: string | null
           updated_at: string
         }
         Insert: {
+          age_group?: string | null
           avatar_url?: string | null
           bio?: string | null
+          birth_year?: number | null
           created_at?: string
           date_of_birth?: string | null
           email: string
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
+          family_account_id?: string | null
           full_name?: string | null
           id: string
+          language_preference?: string | null
           phone?: string | null
+          relationship_type?: string | null
           timezone?: string | null
           updated_at?: string
         }
         Update: {
+          age_group?: string | null
           avatar_url?: string | null
           bio?: string | null
+          birth_year?: number | null
           created_at?: string
           date_of_birth?: string | null
           email?: string
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
+          family_account_id?: string | null
           full_name?: string | null
           id?: string
+          language_preference?: string | null
           phone?: string | null
+          relationship_type?: string | null
           timezone?: string | null
           updated_at?: string
         }
@@ -716,6 +875,39 @@ export type Database = {
           updated_at?: string
           user_id?: string
           years_experience?: number | null
+        }
+        Relationships: []
+      }
+      translation_history: {
+        Row: {
+          context: string | null
+          created_at: string
+          id: string
+          original_text: string
+          source_language: string
+          target_language: string
+          translated_text: string
+          user_id: string
+        }
+        Insert: {
+          context?: string | null
+          created_at?: string
+          id?: string
+          original_text: string
+          source_language: string
+          target_language: string
+          translated_text: string
+          user_id: string
+        }
+        Update: {
+          context?: string | null
+          created_at?: string
+          id?: string
+          original_text?: string
+          source_language?: string
+          target_language?: string
+          translated_text?: string
+          user_id?: string
         }
         Relationships: []
       }
