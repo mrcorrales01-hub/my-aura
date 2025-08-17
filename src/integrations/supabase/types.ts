@@ -145,6 +145,72 @@ export type Database = {
         }
         Relationships: []
       }
+      crisis_interactions: {
+        Row: {
+          action_taken: string
+          created_at: string
+          crisis_level: string
+          id: string
+          notes: string | null
+          resolved_at: string | null
+          user_id: string
+        }
+        Insert: {
+          action_taken: string
+          created_at?: string
+          crisis_level: string
+          id?: string
+          notes?: string | null
+          resolved_at?: string | null
+          user_id: string
+        }
+        Update: {
+          action_taken?: string
+          created_at?: string
+          crisis_level?: string
+          id?: string
+          notes?: string | null
+          resolved_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      daily_quests: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          id: string
+          points: number | null
+          quest_date: string
+          quest_type: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          points?: number | null
+          quest_date?: string
+          quest_type: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          points?: number | null
+          quest_date?: string
+          quest_type?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       mood_entries: {
         Row: {
           created_at: string
@@ -171,6 +237,87 @@ export type Database = {
           mood_value?: number
           notes?: string | null
           updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          date_of_birth: string | null
+          email: string
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          full_name: string | null
+          id: string
+          phone: string | null
+          timezone: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          email: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          date_of_birth?: string | null
+          email?: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      roleplay_sessions: {
+        Row: {
+          completed_at: string | null
+          confidence_rating: number | null
+          created_at: string
+          duration_minutes: number | null
+          feedback_data: Json | null
+          id: string
+          scenario_title: string
+          scenario_type: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          confidence_rating?: number | null
+          created_at?: string
+          duration_minutes?: number | null
+          feedback_data?: Json | null
+          id?: string
+          scenario_title: string
+          scenario_type: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          confidence_rating?: number | null
+          created_at?: string
+          duration_minutes?: number | null
+          feedback_data?: Json | null
+          id?: string
+          scenario_title?: string
+          scenario_type?: string
           user_id?: string
         }
         Relationships: []
@@ -325,6 +472,93 @@ export type Database = {
           updated_at?: string
           user_id?: string
           years_experience?: number | null
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement_name: string
+          achievement_type: string
+          created_at: string
+          description: string | null
+          id: string
+          metadata: Json | null
+          points_earned: number | null
+          unlocked_at: string
+          user_id: string
+        }
+        Insert: {
+          achievement_name: string
+          achievement_type: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          points_earned?: number | null
+          unlocked_at?: string
+          user_id: string
+        }
+        Update: {
+          achievement_name?: string
+          achievement_type?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          points_earned?: number | null
+          unlocked_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_goals: {
+        Row: {
+          category: string
+          completed_at: string | null
+          created_at: string
+          current_progress: number | null
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: string | null
+          status: string | null
+          target_value: number
+          title: string
+          unit: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          completed_at?: string | null
+          created_at?: string
+          current_progress?: number | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          status?: string | null
+          target_value: number
+          title: string
+          unit?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          completed_at?: string | null
+          created_at?: string
+          current_progress?: number | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: string | null
+          status?: string | null
+          target_value?: number
+          title?: string
+          unit?: string | null
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
