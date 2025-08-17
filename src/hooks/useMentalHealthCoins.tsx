@@ -256,12 +256,7 @@ export const useMentalHealthCoins = () => {
     try {
       // Note: user_discounts table would need to be created in migration
       console.log('Discount stored:', reward.id);
-          user_id: user!.id,
-          discount_type: reward.id,
-          discount_amount: reward.id.includes('10') ? 10 : 25,
-          expires_at: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days
-          used: false
-        });
+      // TODO: Implement user_discounts table and insert logic
     } catch (error) {
       console.error('Error storing discount:', error);
     }
