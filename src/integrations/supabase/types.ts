@@ -629,6 +629,105 @@ export type Database = {
         }
         Relationships: []
       }
+      music_playlists: {
+        Row: {
+          ai_generated_criteria: Json | null
+          category: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_public: boolean | null
+          name: string
+          track_ids: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_generated_criteria?: Json | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          name: string
+          track_ids?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_generated_criteria?: Json | null
+          category?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_public?: boolean | null
+          name?: string
+          track_ids?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      music_tracks: {
+        Row: {
+          ai_match_criteria: Json | null
+          artist: string | null
+          category: string
+          cover_image_url: string | null
+          created_at: string
+          description: string | null
+          duration_seconds: number
+          file_url: string
+          gamification_achievements: string[] | null
+          gamification_unlock_level: number | null
+          id: string
+          mood_tags: string[] | null
+          multilingual_metadata: Json | null
+          pay_per_play_cost: number | null
+          premium_only: boolean | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          ai_match_criteria?: Json | null
+          artist?: string | null
+          category: string
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds: number
+          file_url: string
+          gamification_achievements?: string[] | null
+          gamification_unlock_level?: number | null
+          id?: string
+          mood_tags?: string[] | null
+          multilingual_metadata?: Json | null
+          pay_per_play_cost?: number | null
+          premium_only?: boolean | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          ai_match_criteria?: Json | null
+          artist?: string | null
+          category?: string
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number
+          file_url?: string
+          gamification_achievements?: string[] | null
+          gamification_unlock_level?: number | null
+          id?: string
+          mood_tags?: string[] | null
+          multilingual_metadata?: Json | null
+          pay_per_play_cost?: number | null
+          premium_only?: boolean | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           age_group: string | null
@@ -1007,6 +1106,56 @@ export type Database = {
         }
         Relationships: []
       }
+      user_music_sessions: {
+        Row: {
+          completed: boolean | null
+          duration_played: number
+          id: string
+          mood_after: string | null
+          mood_before: string | null
+          payment_amount: number | null
+          payment_required: boolean | null
+          played_at: string
+          session_context: string | null
+          track_id: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          duration_played?: number
+          id?: string
+          mood_after?: string | null
+          mood_before?: string | null
+          payment_amount?: number | null
+          payment_required?: boolean | null
+          played_at?: string
+          session_context?: string | null
+          track_id: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          duration_played?: number
+          id?: string
+          mood_after?: string | null
+          mood_before?: string | null
+          payment_amount?: number | null
+          payment_required?: boolean | null
+          played_at?: string
+          session_context?: string | null
+          track_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_music_sessions_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "music_tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_preferences: {
         Row: {
           ai_tone: string | null
@@ -1046,6 +1195,122 @@ export type Database = {
           theme_preference?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_video_sessions: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          difficulty_rating: number | null
+          duration_watched: number
+          effectiveness_rating: number | null
+          id: string
+          mood_after: string | null
+          mood_before: string | null
+          session_notes: string | null
+          started_at: string
+          user_id: string
+          video_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          difficulty_rating?: number | null
+          duration_watched?: number
+          effectiveness_rating?: number | null
+          id?: string
+          mood_after?: string | null
+          mood_before?: string | null
+          session_notes?: string | null
+          started_at?: string
+          user_id: string
+          video_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          difficulty_rating?: number | null
+          duration_watched?: number
+          effectiveness_rating?: number | null
+          id?: string
+          mood_after?: string | null
+          mood_before?: string | null
+          session_notes?: string | null
+          started_at?: string
+          user_id?: string
+          video_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_video_sessions_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "video_exercises"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      video_exercises: {
+        Row: {
+          ai_match_criteria: Json | null
+          category: string
+          created_at: string
+          description: string | null
+          difficulty_level: string | null
+          duration_seconds: number
+          gamification_achievements: string[] | null
+          gamification_unlock_level: number | null
+          id: string
+          instructor: string | null
+          multilingual_captions: Json | null
+          multilingual_metadata: Json | null
+          premium_only: boolean | null
+          tags: string[] | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string
+          video_url: string
+        }
+        Insert: {
+          ai_match_criteria?: Json | null
+          category: string
+          created_at?: string
+          description?: string | null
+          difficulty_level?: string | null
+          duration_seconds: number
+          gamification_achievements?: string[] | null
+          gamification_unlock_level?: number | null
+          id?: string
+          instructor?: string | null
+          multilingual_captions?: Json | null
+          multilingual_metadata?: Json | null
+          premium_only?: boolean | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string
+          video_url: string
+        }
+        Update: {
+          ai_match_criteria?: Json | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          difficulty_level?: string | null
+          duration_seconds?: number
+          gamification_achievements?: string[] | null
+          gamification_unlock_level?: number | null
+          id?: string
+          instructor?: string | null
+          multilingual_captions?: Json | null
+          multilingual_metadata?: Json | null
+          premium_only?: boolean | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string
+          video_url?: string
         }
         Relationships: []
       }

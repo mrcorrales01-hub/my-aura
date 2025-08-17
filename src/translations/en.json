@@ -23,7 +23,9 @@
     "therapy": "Therapy",
     "checkin": "Check-in",
     "pricing": "Pricing",
-    "advanced": "Advanced Features"
+    "advanced": "Advanced Features",
+    "music": "Music",
+    "videos": "Video Exercises"
   },
   "auth": {
     "signin": "Sign In",
@@ -316,5 +318,80 @@
     "sessionReminder": "Your therapy session starts in 15 minutes",
     "goalProgress": "Great progress on your wellness goals!",
     "crisisAlert": "Crisis support resources are available 24/7"
+  },
+  "music": {
+    "title": "Harmonious Music",
+    "subtitle": "AI-curated music for meditation, relaxation, and wellness",
+    "categories": {
+      "meditation": "Meditation",
+      "sleep": "Sleep",
+      "relaxation": "Relaxation",
+      "journaling": "Journaling"
+    },
+    "controls": {
+      "play": "Play",
+      "pause": "Pause",
+      "volume": "Volume",
+      "timer": "Timer",
+      "repeat": "Repeat",
+      "shuffle": "Shuffle"
+    },
+    "playlists": {
+      "create": "Create Playlist",
+      "name": "Playlist Name",
+      "description": "Description",
+      "tracks": "tracks"
+    },
+    "recommendations": {
+      "title": "AI Recommendations",
+      "subtitle": "Personalized music based on your mood and preferences",
+      "getRecommendations": "Get AI Recommendations"
+    },
+    "premium": "Premium Track",
+    "timer": {
+      "title": "Music Timer",
+      "duration": "Timer Duration (minutes)",
+      "remaining": "remaining",
+      "start": "Start Timer",
+      "stop": "Stop Timer"
+    }
+  },
+  "videos": {
+    "title": "Video Exercises",
+    "subtitle": "Short guided exercises for mindfulness, movement, and wellness",
+    "categories": {
+      "mindfulness": "Mindfulness",
+      "breathing": "Breathing",
+      "stretching": "Stretching",
+      "journaling": "Journaling"
+    },
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "stats": {
+      "completed": "Sessions Completed",
+      "totalTime": "Total Practice Time",
+      "available": "Available Exercises"
+    },
+    "session": {
+      "start": "Start Exercise",
+      "complete": "Exercise Complete!",
+      "rating": {
+        "difficulty": "Difficulty Rating",
+        "effectiveness": "Effectiveness Rating"
+      },
+      "mood": {
+        "before": "How are you feeling?",
+        "after": "How are you feeling now?"
+      },
+      "notes": "Notes (optional)",
+      "notesPlaceholder": "How did this exercise help you?"
+    },
+    "recommendations": {
+      "title": "Get Personalized Recommendations",
+      "subtitle": "Let our AI suggest exercises based on your mood and progress"
+    }
   }
 }

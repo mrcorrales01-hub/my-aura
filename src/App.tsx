@@ -45,7 +45,9 @@ import PaymentCancel from "@/pages/PaymentCancel";
 import NotFound from "@/pages/NotFound";
 import TherapistDashboard from "@/components/therapy/TherapistDashboard";
 import GamificationStats from "@/components/GamificationStats";
-import ProductionDashboard from "@/components/ProductionDashboard";
+// New Modules
+import HarmoniousMusic from "@/components/HarmoniousMusic";
+import VideoExercises from "@/components/VideoExercises";
 
 const queryClient = new QueryClient();
 
@@ -89,6 +91,8 @@ const App = () => (
                               </div>
                             </div>
                           } />
+                          <Route path="/music" element={<HarmoniousMusic />} />
+                          <Route path="/videos" element={<VideoExercises />} />
                           <Route path="/profile" element={
                             <GamificationStats />
                           } />
