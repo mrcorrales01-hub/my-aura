@@ -297,6 +297,81 @@
   }
 }
 
+/* RTL Support */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+[dir="rtl"] .flex {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .justify-start {
+  justify-content: flex-end;
+}
+
+[dir="rtl"] .justify-end {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .ml-auto {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+[dir="rtl"] .mr-auto {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+/* Arabic and Farsi font support */
+[lang="ar"], [lang="fa"] {
+  font-family: 'Arabic UI Display', 'SF Pro Display', system-ui, sans-serif;
+}
+
+/* Chinese font support */
+[lang="zh-CN"], [lang="zh-TW"] {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
+}
+
+/* Japanese font support */
+[lang="ja"] {
+  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', system-ui, sans-serif;
+}
+
+/* Korean font support */
+[lang="ko"] {
+  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+}
+
+/* Hindi font support */
+[lang="hi"] {
+  font-family: 'Devanagari Sangam MN', 'Noto Sans Devanagari', system-ui, sans-serif;
+}
+
+/* Bengali font support */
+[lang="bn"] {
+  font-family: 'Bangla Sangam MN', 'Noto Sans Bengali', system-ui, sans-serif;
+}
+
+/* Thai font support */
+[lang="th"] {
+  font-family: 'Thonburi', 'Sukhumvit Set', system-ui, sans-serif;
+}
+
+/* Vietnamese font support */
+[lang="vi"] {
+  font-family: 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   * {

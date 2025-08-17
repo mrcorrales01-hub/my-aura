@@ -2,15 +2,14 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Languages, Globe } from "lucide-react";
-import { useI18n, languages } from "@/hooks/useI18n";
+import { useI18n } from "@/hooks/useMultilingualI18n";
 
 interface LanguageSelectorProps {
   variant?: "button" | "compact";
 }
 
 export const LanguageSelector = ({ variant = "button" }: LanguageSelectorProps) => {
-  const { currentLanguage, setLanguage, t } = useI18n();
-  const currentLang = languages.find(lang => lang.code === currentLanguage) || languages[0];
+  const { currentLanguage, currentLang, setLanguage, t, languages } = useI18n();
   const [open, setOpen] = useState(false);
 
   const handleLanguageSelect = (code: string) => {
@@ -32,7 +31,7 @@ export const LanguageSelector = ({ variant = "button" }: LanguageSelectorProps) 
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Languages className="w-5 h-5" />
-              Select Language
+              {t('settings.language')}
             </DialogTitle>
           </DialogHeader>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-96 overflow-auto">
@@ -69,7 +68,7 @@ export const LanguageSelector = ({ variant = "button" }: LanguageSelectorProps) 
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Languages className="w-5 h-5" />
-            Select Language
+            {t('settings.language')}
           </DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-96 overflow-auto">

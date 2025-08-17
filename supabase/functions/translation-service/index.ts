@@ -10,26 +10,26 @@ const corsHeaders = {
 const supportedLanguages = {
   'en': 'English',
   'es': 'Spanish',
-  'fr': 'French',
+  'sv': 'Swedish', 
   'de': 'German',
-  'it': 'Italian',
+  'fr': 'French',
   'pt': 'Portuguese',
+  'it': 'Italian',
+  'nl': 'Dutch',
   'ru': 'Russian',
+  'ar': 'Arabic',
+  'tr': 'Turkish',
+  'zh-CN': 'Chinese (Simplified)',
+  'zh-TW': 'Chinese (Traditional)',
   'ja': 'Japanese',
   'ko': 'Korean',
-  'zh': 'Chinese',
-  'ar': 'Arabic',
   'hi': 'Hindi',
-  'tr': 'Turkish',
+  'bn': 'Bengali',
   'pl': 'Polish',
-  'nl': 'Dutch',
-  'sv': 'Swedish',
-  'no': 'Norwegian',
-  'da': 'Danish',
-  'fi': 'Finnish',
-  'he': 'Hebrew',
+  'fa': 'Farsi',
   'th': 'Thai',
-  'vi': 'Vietnamese'
+  'vi': 'Vietnamese',
+  'tl': 'Filipino'
 };
 
 serve(async (req) => {
