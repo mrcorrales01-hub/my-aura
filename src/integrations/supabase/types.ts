@@ -14,6 +14,45 @@ export type Database = {
   }
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          badge_color: string | null
+          badge_icon: string | null
+          category: string
+          created_at: string
+          description: string | null
+          id: string
+          is_secret: boolean | null
+          name: string
+          points: number | null
+          requirements: Json
+        }
+        Insert: {
+          badge_color?: string | null
+          badge_icon?: string | null
+          category: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_secret?: boolean | null
+          name: string
+          points?: number | null
+          requirements?: Json
+        }
+        Update: {
+          badge_color?: string | null
+          badge_icon?: string | null
+          category?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_secret?: boolean | null
+          name?: string
+          points?: number | null
+          requirements?: Json
+        }
+        Relationships: []
+      }
       appointments: {
         Row: {
           client_id: string
@@ -480,10 +519,13 @@ export type Database = {
           achievement_name: string
           achievement_type: string
           created_at: string
+          current_level: number | null
           description: string | null
           id: string
           metadata: Json | null
           points_earned: number | null
+          streak_count: number | null
+          total_xp: number | null
           unlocked_at: string
           user_id: string
         }
@@ -491,10 +533,13 @@ export type Database = {
           achievement_name: string
           achievement_type: string
           created_at?: string
+          current_level?: number | null
           description?: string | null
           id?: string
           metadata?: Json | null
           points_earned?: number | null
+          streak_count?: number | null
+          total_xp?: number | null
           unlocked_at?: string
           user_id: string
         }
@@ -502,10 +547,13 @@ export type Database = {
           achievement_name?: string
           achievement_type?: string
           created_at?: string
+          current_level?: number | null
           description?: string | null
           id?: string
           metadata?: Json | null
           points_earned?: number | null
+          streak_count?: number | null
+          total_xp?: number | null
           unlocked_at?: string
           user_id?: string
         }
@@ -609,6 +657,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      award_achievement: {
+        Args: {
+          p_achievement_name: string
+          p_points?: number
+          p_user_id: string
+        }
+        Returns: boolean
+      }
       cleanup_old_conversations: {
         Args: Record<PropertyKey, never>
         Returns: undefined

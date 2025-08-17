@@ -42,6 +42,7 @@ import PaymentSuccess from "@/pages/PaymentSuccess";
 import PaymentCancel from "@/pages/PaymentCancel";
 import NotFound from "@/pages/NotFound";
 import TherapistDashboard from "@/components/therapy/TherapistDashboard";
+import GamificationStats from "@/components/GamificationStats";
 
 const queryClient = new QueryClient();
 
@@ -96,19 +97,9 @@ const App = () => (
                               </div>
                             </div>
                           } />
-                          <Route path="/profile" element={
-                            <div className="flex items-center justify-center min-h-[60vh]">
-                              <div className="text-center space-y-4">
-                                <div className="w-16 h-16 mx-auto bg-aura-gradient rounded-full flex items-center justify-center">
-                                  <span className="text-2xl">👤</span>
-                                </div>
-                                <h2 className="text-2xl font-semibold text-aura-primary">Profile</h2>
-                                <p className="text-foreground/70 max-w-md">
-                                  Account settings, subscriptions, and personal preferences coming soon.
-                                </p>
-                              </div>
-                            </div>
-                          } />
+          <Route path="/profile" element={
+            <GamificationStats />
+          } />
                           
                           {/* Legacy Routes for Backwards Compatibility */}
                           <Route path="/auth" element={<Auth />} />

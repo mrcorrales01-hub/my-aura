@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { useGamification } from '@/hooks/useGamification';
 
 interface RoleplayScenario {
   id: string;
@@ -55,7 +57,10 @@ const RoleplaySimulator = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [isListening, setIsListening] = useState(false);
   const [sessionFeedback, setSessionFeedback] = useState<any>(null);
+  const [sessionStartTime, setSessionStartTime] = useState<Date | null>(null);
+  const { user } = useAuth();
   const { toast } = useToast();
+  const { completeRoleplaySession } = useGamification();
 
   const scenarios: RoleplayScenario[] = [
     {
@@ -166,6 +171,7 @@ const RoleplaySimulator = () => {
     setSelectedScenario(scenario);
     setIsActive(true);
     setMessages([]);
+    setSessionStartTime(new Date());
     
     // AI introduces the roleplay
     const introMessage: ChatMessage = {
@@ -197,14 +203,14 @@ const RoleplaySimulator = () => {
     setInputMessage('');
 
     try {
-      // Send to AI coach with roleplay context
-      const { data, error } = await supabase.functions.invoke('ai-coach', {
+      // Send to dedicated roleplay AI
+      const { data, error } = await supabase.functions.invoke('roleplay-ai', {
         body: {
           message: inputMessage,
-          context: `roleplay_${selectedScenario.category}`,
-          roleplayScenario: selectedScenario.title,
-          aiPersona: selectedScenario.aiPersona,
-          language: 'en'
+          scenario: selectedScenario.title,
+          persona: selectedScenario.aiPersona,
+          conversationHistory: messages.slice(-6), // Keep last 6 messages for context
+          userId: user?.id
         }
       });
 
@@ -215,15 +221,14 @@ const RoleplaySimulator = () => {
         role: 'ai',
         content: data.response || "I understand. Can you tell me more about that?",
         timestamp: new Date(),
-        feedback: {
-          tone: 'confident',
-          confidence: Math.floor(Math.random() * 30) + 70, // 70-100%
+        feedback: data.feedback ? {
+          tone: data.feedback.tone || 'neutral',
+          confidence: data.feedback.confidence || 75,
           suggestions: [
-            'Good use of "I" statements',
-            'Consider maintaining more eye contact',
-            'Try to speak a bit slower for clarity'
+            data.feedback.strength ? `Strength: ${data.feedback.strength}` : 'Good communication',
+            data.feedback.improvement ? `Tip: ${data.feedback.improvement}` : 'Keep practicing'
           ]
-        }
+        } : undefined
       };
 
       setMessages(prev => [...prev, aiMessage]);
@@ -238,21 +243,35 @@ const RoleplaySimulator = () => {
     }
   };
 
-  const endRoleplay = () => {
-    if (messages.length > 1) {
+  const endRoleplay = async () => {
+    if (messages.length > 1 && selectedScenario && sessionStartTime) {
+      const duration = Math.round((Date.now() - sessionStartTime.getTime()) / 60000); // duration in minutes
+      const averageConfidence = messages
+        .filter(m => m.feedback?.confidence)
+        .reduce((sum, m) => sum + (m.feedback?.confidence || 0), 0) / 
+        Math.max(1, messages.filter(m => m.feedback?.confidence).length);
+
       setSessionFeedback({
-        duration: '5 minutes',
+        duration: `${duration} minutes`,
         messagesExchanged: messages.length,
-        overallConfidence: 85,
+        overallConfidence: Math.round(averageConfidence || 75),
         strengths: ['Good listening skills', 'Clear communication', 'Stayed calm under pressure'],
         areasToImprove: ['Could be more assertive', 'Practice summarizing key points'],
         nextSteps: ['Try the advanced version', 'Practice with a friend', 'Record yourself speaking']
       });
+
+      // Complete roleplay session for gamification
+      await completeRoleplaySession(
+        selectedScenario.title,
+        selectedScenario.category,
+        Math.round(averageConfidence || 75)
+      );
     }
     
     setIsActive(false);
     setSelectedScenario(null);
     setMessages([]);
+    setSessionStartTime(null);
   };
 
   const getDifficultyColor = (difficulty: string) => {

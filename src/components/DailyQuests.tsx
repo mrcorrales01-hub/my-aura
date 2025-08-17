@@ -21,6 +21,9 @@ import {
   Sun
 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
+import { useGamification } from '@/hooks/useGamification';
+import AchievementBadge from './AchievementBadge';
 
 interface Quest {
   id: string;
@@ -48,12 +51,10 @@ interface Achievement {
 
 const DailyQuests = () => {
   const [quests, setQuests] = useState<Quest[]>([]);
-  const [achievements, setAchievements] = useState<Achievement[]>([]);
   const [todayPoints, setTodayPoints] = useState(0);
-  const [streakDays, setStreakDays] = useState(3);
-  const [level, setLevel] = useState(1);
-  const [levelProgress, setLevelProgress] = useState(45);
+  const { user } = useAuth();
   const { toast } = useToast();
+  const { achievements, userStats, loading, completeQuest } = useGamification();
 
   // Initialize daily quests
   useEffect(() => {
@@ -178,52 +179,42 @@ const DailyQuests = () => {
     ];
 
     setQuests(dailyQuests);
-    setAchievements(userAchievements);
   }, []);
 
-  const completeQuest = (questId: string) => {
-    setQuests(prev => prev.map(quest => {
-      if (quest.id === questId && !quest.completed) {
-        setTodayPoints(current => current + quest.points);
-        setLevelProgress(current => {
-          const newProgress = current + (quest.points / 10);
-          if (newProgress >= 100) {
-            setLevel(currentLevel => currentLevel + 1);
-            return newProgress - 100;
-          }
-          return newProgress;
-        });
+  const handleCompleteQuest = async (questId: string) => {
+    const quest = quests.find(q => q.id === questId);
+    if (!quest || quest.completed) return;
 
-        toast({
-          title: `Quest Completed! 🎉`,
-          description: `You earned ${quest.points} points for "${quest.title}"`,
-        });
-
-        // Check for achievements
-        checkAchievements(quest);
-
-        return { ...quest, completed: true };
-      }
-      return quest;
-    }));
+    // Complete quest in gamification system
+    const success = await completeQuest(quest.title, quest.points);
+    
+    if (success) {
+      // Update local state
+      setQuests(prev => prev.map(q => 
+        q.id === questId ? { ...q, completed: true } : q
+      ));
+      setTodayPoints(current => current + quest.points);
+    }
   };
 
-  const checkAchievements = (completedQuest: Quest) => {
-    setAchievements(prev => prev.map(achievement => {
-      if (achievement.id === '2' && completedQuest.category === 'mindfulness') {
-        const newProgress = Math.min(achievement.progress + 1, achievement.maxProgress);
-        if (newProgress === achievement.maxProgress && !achievement.unlocked) {
-          toast({
-            title: "Achievement Unlocked! 🏆",
-            description: achievement.title,
-          });
-          return { ...achievement, progress: newProgress, unlocked: true };
-        }
-        return { ...achievement, progress: newProgress };
+  // Reset quests daily
+  useEffect(() => {
+    const checkDailyReset = () => {
+      const today = new Date().toDateString();
+      const lastReset = localStorage.getItem('lastQuestReset');
+      
+      if (lastReset !== today) {
+        setQuests(prev => prev.map(quest => ({ ...quest, completed: false })));
+        setTodayPoints(0);
+        localStorage.setItem('lastQuestReset', today);
       }
-      return achievement;
-    }));
-  };
+    };
+
+    checkDailyReset();
+    // Check every hour for day change
+    const interval = setInterval(checkDailyReset, 60 * 60 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
@@ -245,8 +236,8 @@ const DailyQuests = () => {
         <Card className="p-4 bg-aura-gradient text-white">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-bold">{todayPoints}</div>
-              <div className="text-white/80 text-sm">Points Today</div>
+              <div className="text-2xl font-bold">{userStats.totalXP}</div>
+              <div className="text-white/80 text-sm">Total XP</div>
             </div>
             <Zap className="w-8 h-8 text-white/80" />
           </div>
@@ -255,7 +246,7 @@ const DailyQuests = () => {
         <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-aura">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-bold text-aura-primary">{streakDays}</div>
+              <div className="text-2xl font-bold text-aura-primary">{userStats.streakCount}</div>
               <div className="text-foreground/70 text-sm">Day Streak</div>
             </div>
             <Target className="w-8 h-8 text-aura-primary" />
@@ -265,8 +256,8 @@ const DailyQuests = () => {
         <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-aura">
           <div className="flex items-center justify-between">
             <div>
-              <div className="text-2xl font-bold text-aura-secondary">Level {level}</div>
-              <div className="text-foreground/70 text-sm">{Math.round(levelProgress)}% to next</div>
+              <div className="text-2xl font-bold text-aura-secondary">Level {userStats.level}</div>
+              <div className="text-foreground/70 text-sm">{userStats.xpToNextLevel} XP to next</div>
             </div>
             <Trophy className="w-8 h-8 text-aura-secondary" />
           </div>
@@ -286,10 +277,10 @@ const DailyQuests = () => {
       {/* Level Progress */}
       <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-aura">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium text-aura-primary">Level {level} Progress</span>
-          <span className="text-sm text-foreground/70">{Math.round(levelProgress)}/100 XP</span>
+          <span className="text-sm font-medium text-aura-primary">Level {userStats.level} Progress</span>
+          <span className="text-sm text-foreground/70">{userStats.xpToNextLevel} XP to next level</span>
         </div>
-        <Progress value={levelProgress} className="h-3" />
+        <Progress value={((100 - userStats.xpToNextLevel) / 100) * 100} className="h-3" />
       </Card>
 
       {/* Daily Quests */}
@@ -315,7 +306,7 @@ const DailyQuests = () => {
                     ? 'bg-aura-secondary/10 border border-aura-secondary/30' 
                     : 'hover:shadow-lg cursor-pointer'
                 }`}
-                onClick={() => !quest.completed && completeQuest(quest.id)}
+                onClick={() => !quest.completed && handleCompleteQuest(quest.id)}
               >
                 <div className="flex items-center space-x-4">
                   <div className={`w-12 h-12 rounded-full ${quest.bgColor} flex items-center justify-center`}>
@@ -349,7 +340,15 @@ const DailyQuests = () => {
                   </div>
                   
                   {!quest.completed && (
-                    <Button size="sm" variant="outline" className="border-aura-primary/20 text-aura-primary hover:bg-aura-primary hover:text-white">
+                    <Button 
+                      size="sm" 
+                      variant="outline" 
+                      className="border-aura-primary/20 text-aura-primary hover:bg-aura-primary hover:text-white"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleCompleteQuest(quest.id);
+                      }}
+                    >
                       Complete
                     </Button>
                   )}
@@ -368,43 +367,14 @@ const DailyQuests = () => {
         </h2>
         
         <div className="grid md:grid-cols-2 gap-4">
-          {achievements.map((achievement) => {
-            const Icon = achievement.icon;
-            return (
-              <Card 
-                key={achievement.id}
-                className={`p-4 ${
-                  achievement.unlocked 
-                    ? 'bg-aura-growth/10 border border-aura-growth/30' 
-                    : 'bg-gray-50 border border-gray-200'
-                }`}
-              >
-                <div className="flex items-center space-x-3">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                    achievement.unlocked ? 'bg-aura-growth text-white' : 'bg-gray-200 text-gray-400'
-                  }`}>
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className={`font-medium ${achievement.unlocked ? 'text-aura-growth' : 'text-gray-500'}`}>
-                      {achievement.title}
-                    </h3>
-                    <p className="text-sm text-foreground/70">{achievement.description}</p>
-                    <div className="mt-2">
-                      <div className="flex justify-between text-xs text-foreground/60 mb-1">
-                        <span>Progress</span>
-                        <span>{achievement.progress}/{achievement.maxProgress}</span>
-                      </div>
-                      <Progress 
-                        value={(achievement.progress / achievement.maxProgress) * 100} 
-                        className="h-2"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            );
-          })}
+          {achievements.slice(0, 8).map((achievement) => (
+            <AchievementBadge
+              key={achievement.id}
+              achievement={achievement}
+              size="sm"
+              showProgress={true}
+            />
+          ))}
         </div>
       </Card>
     </div>
