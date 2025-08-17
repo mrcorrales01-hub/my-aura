@@ -187,6 +187,42 @@ export type Database = {
         }
         Relationships: []
       }
+      biometric_analysis: {
+        Row: {
+          analysis_type: string
+          confidence_score: number | null
+          consent_given: boolean
+          created_at: string
+          emotion_data: Json | null
+          id: string
+          session_id: string | null
+          stress_indicators: Json | null
+          user_id: string
+        }
+        Insert: {
+          analysis_type: string
+          confidence_score?: number | null
+          consent_given?: boolean
+          created_at?: string
+          emotion_data?: Json | null
+          id?: string
+          session_id?: string | null
+          stress_indicators?: Json | null
+          user_id: string
+        }
+        Update: {
+          analysis_type?: string
+          confidence_score?: number | null
+          consent_given?: boolean
+          created_at?: string
+          emotion_data?: Json | null
+          id?: string
+          session_id?: string | null
+          stress_indicators?: Json | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       child_activities: {
         Row: {
           activity_data: Json
@@ -495,6 +531,48 @@ export type Database = {
         }
         Relationships: []
       }
+      early_warning_alerts: {
+        Row: {
+          ai_reasoning: string | null
+          alert_type: string
+          confidence_score: number
+          contributing_factors: Json
+          created_at: string
+          id: string
+          recommended_actions: Json | null
+          severity_level: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          ai_reasoning?: string | null
+          alert_type: string
+          confidence_score: number
+          contributing_factors?: Json
+          created_at?: string
+          id?: string
+          recommended_actions?: Json | null
+          severity_level: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          ai_reasoning?: string | null
+          alert_type?: string
+          confidence_score?: number
+          contributing_factors?: Json
+          created_at?: string
+          id?: string
+          recommended_actions?: Json | null
+          severity_level?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       family_accounts: {
         Row: {
           account_type: string
@@ -567,6 +645,53 @@ export type Database = {
         }
         Relationships: []
       }
+      family_supporter_insights: {
+        Row: {
+          ai_generated: boolean | null
+          content: string
+          created_at: string
+          family_account_id: string
+          id: string
+          insight_type: string
+          priority_level: string | null
+          status: string | null
+          supported_user_id: string
+          supporter_user_id: string
+        }
+        Insert: {
+          ai_generated?: boolean | null
+          content: string
+          created_at?: string
+          family_account_id: string
+          id?: string
+          insight_type: string
+          priority_level?: string | null
+          status?: string | null
+          supported_user_id: string
+          supporter_user_id: string
+        }
+        Update: {
+          ai_generated?: boolean | null
+          content?: string
+          created_at?: string
+          family_account_id?: string
+          id?: string
+          insight_type?: string
+          priority_level?: string | null
+          status?: string | null
+          supported_user_id?: string
+          supporter_user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "family_supporter_insights_family_account_id_fkey"
+            columns: ["family_account_id"]
+            isOneToOne: false
+            referencedRelation: "family_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       group_members: {
         Row: {
           group_id: string
@@ -598,6 +723,51 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      mental_health_timeline: {
+        Row: {
+          activity_level: number | null
+          ai_insights: Json | null
+          created_at: string
+          id: string
+          mood_average: number | null
+          overall_score: number
+          sleep_quality: number | null
+          stress_level: number | null
+          timeline_date: string
+          updated_at: string
+          user_id: string
+          wearable_contributions: Json | null
+        }
+        Insert: {
+          activity_level?: number | null
+          ai_insights?: Json | null
+          created_at?: string
+          id?: string
+          mood_average?: number | null
+          overall_score: number
+          sleep_quality?: number | null
+          stress_level?: number | null
+          timeline_date: string
+          updated_at?: string
+          user_id: string
+          wearable_contributions?: Json | null
+        }
+        Update: {
+          activity_level?: number | null
+          ai_insights?: Json | null
+          created_at?: string
+          id?: string
+          mood_average?: number | null
+          overall_score?: number
+          sleep_quality?: number | null
+          stress_level?: number | null
+          timeline_date?: string
+          updated_at?: string
+          user_id?: string
+          wearable_contributions?: Json | null
+        }
+        Relationships: []
       }
       mood_entries: {
         Row: {
@@ -1311,6 +1481,42 @@ export type Database = {
           title?: string
           updated_at?: string
           video_url?: string
+        }
+        Relationships: []
+      }
+      wearable_data: {
+        Row: {
+          created_at: string
+          data_type: string
+          device_type: string
+          id: string
+          metadata: Json | null
+          recorded_at: string
+          unit: string
+          user_id: string
+          value: number
+        }
+        Insert: {
+          created_at?: string
+          data_type: string
+          device_type: string
+          id?: string
+          metadata?: Json | null
+          recorded_at: string
+          unit: string
+          user_id: string
+          value: number
+        }
+        Update: {
+          created_at?: string
+          data_type?: string
+          device_type?: string
+          id?: string
+          metadata?: Json | null
+          recorded_at?: string
+          unit?: string
+          user_id?: string
+          value?: number
         }
         Relationships: []
       }
