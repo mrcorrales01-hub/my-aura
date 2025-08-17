@@ -41,6 +41,7 @@ import LanguageWelcome from "@/pages/LanguageWelcome";
 import PaymentSuccess from "@/pages/PaymentSuccess";
 import PaymentCancel from "@/pages/PaymentCancel";
 import NotFound from "@/pages/NotFound";
+import TherapistDashboard from "@/components/therapy/TherapistDashboard";
 
 const queryClient = new QueryClient();
 
@@ -126,6 +127,7 @@ const App = () => (
                           <Route path="/language" element={<LanguageWelcome />} />
                           <Route path="/success" element={<PaymentSuccess />} />
                           <Route path="/cancel" element={<PaymentCancel />} />
+                          <Route path="/therapist" element={<TherapistDashboard />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                       </div>

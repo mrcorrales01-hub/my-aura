@@ -613,6 +613,17 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      get_therapist_patients_summary: {
+        Args: { therapist_user_id: string }
+        Returns: {
+          appointment_count: number
+          avg_mood: number
+          last_session: string
+          patient_id: string
+          patient_name: string
+          total_conversations: number
+        }[]
+      }
       log_ai_interaction: {
         Args: {
           p_ai_tone?: string
