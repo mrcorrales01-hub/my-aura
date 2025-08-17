@@ -1,186 +1,258 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Star, Sparkles, Crown } from 'lucide-react';
-import { useSubscription } from '@/contexts/SubscriptionContext';
+import { Check, Crown, Heart, Zap, Shield, Users } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useGlobalLanguage } from '@/hooks/useGlobalLanguage';
 import { useNavigate } from 'react-router-dom';
 
 const Pricing = () => {
-  const { createCheckoutSession, subscribed, subscription_tier, openCustomerPortal } = useSubscription();
   const { user } = useAuth();
+  const { subscribed, tier, createCheckoutSession, openCustomerPortal, loading } = useSubscription();
+  const { t } = useGlobalLanguage();
   const navigate = useNavigate();
 
   const plans = [
     {
-      id: 'basic',
-      name: 'Basic',
-      price: '$7.99',
-      description: 'Essential wellness tools for getting started',
-      icon: Star,
-      color: 'text-wellness-secondary',
+      id: 'free',
+      name: 'Free',
+      price: '$0',
+      period: '/month',
+      description: 'Perfect for getting started with mental wellness',
       features: [
-        'Daily mood tracking',
-        'Basic AI coach conversations',
-        'Emergency resources',
-        'Progress tracking',
-        'Community access'
+        '3 AI coaching sessions per month',
+        'Basic mood tracking',
+        'Daily wellness tips',
+        'Community access (read-only)',
+        'Email support'
       ],
-      buttonText: 'Get Started',
-      popular: false
+      icon: Heart,
+      current: !subscribed
     },
     {
-      id: 'plus',
-      name: 'Plus',
-      price: '$12.99',
-      description: 'Enhanced features for deeper wellness work',
-      icon: Sparkles,
-      color: 'text-wellness-primary',
-      features: [
-        'Everything in Basic',
-        'Advanced AI coaching',
-        'Personalized Auri companion',
-        'Relationship roleplay scenarios',
-        'Weekly wellness reports',
-        'Priority support'
-      ],
-      buttonText: 'Upgrade to Plus',
-      popular: true
-    },
-    {
-      id: 'pro',
-      name: 'Pro',
+      id: 'premium',
+      name: 'Premium',
       price: '$19.99',
-      description: 'Complete wellness ecosystem for transformation',
-      icon: Crown,
-      color: 'text-coral',
+      period: '/month',
+      description: 'Everything you need for comprehensive mental health support',
       features: [
-        'Everything in Plus',
-        'Unlimited AI conversations',
-        'Custom wellness plans',
-        '1-on-1 coaching sessions',
-        'Advanced analytics',
-        'Early access to new features',
-        'Expert consultations'
+        'Unlimited AI coaching sessions',
+        'Advanced mood analytics & insights',
+        'Personalized wellness plans',
+        'Full community participation',
+        'Priority chat support',
+        'Meditation & breathing exercises',
+        'Weekly progress reports',
+        'Goal setting & tracking'
       ],
-      buttonText: 'Go Pro',
-      popular: false
+      icon: Crown,
+      popular: true,
+      current: subscribed && tier === 'Premium'
+    },
+    {
+      id: 'enterprise',
+      name: 'Enterprise',
+      price: '$49.99',
+      period: '/month',
+      description: 'Advanced features for organizations and teams',
+      features: [
+        'Everything in Premium',
+        'Team dashboard & analytics',
+        'Custom AI coaching personas',
+        'Advanced reporting & insights',
+        'API access',
+        'Dedicated account manager',
+        'Custom integrations',
+        'HIPAA compliance tools'
+      ],
+      icon: Shield,
+      current: subscribed && tier === 'Enterprise'
     }
   ];
 
-  const handleSelectPlan = (planId: string) => {
+  const handleSelectPlan = async (planId: string) => {
     if (!user) {
       navigate('/auth');
       return;
     }
 
-    if (planId === 'basic' || (subscribed && subscription_tier === planId)) {
-      return;
+    if (planId === 'free') {
+      return; // Already on free plan
     }
 
-    createCheckoutSession();
+    await createCheckoutSession();
   };
 
   const getCurrentPlanId = () => {
-    if (!subscribed) return 'basic';
-    if (subscription_tier === 'Premium') return 'plus';
-    if (subscription_tier === 'Enterprise') return 'pro';
-    return 'basic';
+    if (!subscribed) return 'free';
+    if (tier === 'Premium') return 'premium';
+    if (tier === 'Enterprise') return 'enterprise';
+    return 'free';
   };
 
-  const currentPlan = getCurrentPlanId();
-
   return (
-    <div className="min-h-screen bg-gradient-hero py-12 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-wellness-primary mb-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-aura-primary/5">
+      <div className="container mx-auto px-4 py-16">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
             Choose Your Wellness Journey
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Unlock the full potential of your emotional and relationship health with Aura
+          <p className="text-xl text-foreground/70 max-w-2xl mx-auto">
+            Select the perfect plan to support your mental health and unlock your full potential.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {plans.map((plan) => {
-            const Icon = plan.icon;
-            const isCurrentPlan = currentPlan === plan.id;
-            const isUpgrade = (currentPlan === 'basic' && plan.id !== 'basic') || 
-                             (currentPlan === 'plus' && plan.id === 'pro');
-
-            return (
-              <Card
-                key={plan.id}
-                className={`relative transition-all duration-300 hover:shadow-wellness ${
-                  plan.popular ? 'ring-2 ring-wellness-primary scale-105' : ''
-                } ${isCurrentPlan ? 'bg-gradient-wellness border-wellness-primary' : ''}`}
-              >
-                {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-wellness-primary">
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
+          {plans.map((plan) => (
+            <Card 
+              key={plan.id} 
+              className={`relative bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg ${
+                plan.popular ? 'border-aura-primary scale-105' : 'border-aura-primary/20'
+              } ${plan.current ? 'ring-2 ring-aura-primary' : ''}`}
+            >
+              {plan.popular && (
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
+                  <Badge className="bg-aura-primary text-white px-4 py-1">
                     Most Popular
                   </Badge>
-                )}
-                
-                <CardHeader className="text-center">
-                  <div className="flex justify-center mb-4">
-                    <Icon className={`h-12 w-12 ${plan.color}`} />
-                  </div>
-                  <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                  <div className="text-3xl font-bold text-wellness-primary">
-                    {plan.price}
-                    <span className="text-base font-normal text-muted-foreground">/month</span>
-                  </div>
-                  <CardDescription>{plan.description}</CardDescription>
-                </CardHeader>
+                </div>
+              )}
 
-                <CardContent className="space-y-6">
-                  <ul className="space-y-3">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-center space-x-3">
-                        <Check className="h-5 w-5 text-wellness-primary flex-shrink-0" />
-                        <span className="text-sm">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+              {plan.current && (
+                <div className="absolute -top-3 right-4">
+                  <Badge variant="outline" className="border-aura-primary text-aura-primary bg-background">
+                    Current Plan
+                  </Badge>
+                </div>
+              )}
 
-                  <Button
-                    className="w-full"
-                    variant={plan.popular ? 'wellness' : 'outline'}
-                    onClick={() => handleSelectPlan(plan.id)}
-                    disabled={isCurrentPlan && subscribed}
-                  >
-                    {isCurrentPlan && subscribed
-                      ? 'Current Plan'
-                      : isUpgrade
-                      ? plan.buttonText
-                      : plan.buttonText
-                    }
-                  </Button>
+              <CardHeader className="text-center pb-4">
+                <div className={`w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center ${
+                  plan.popular ? 'bg-aura-gradient' : 'bg-aura-primary/10'
+                }`}>
+                  <plan.icon className={`w-8 h-8 ${plan.popular ? 'text-white' : 'text-aura-primary'}`} />
+                </div>
+                <CardTitle className="text-2xl font-bold">{plan.name}</CardTitle>
+                <div className="text-3xl font-bold text-aura-primary">
+                  {plan.price}
+                  <span className="text-base font-normal text-foreground/60">{plan.period}</span>
+                </div>
+                <CardDescription className="text-center">{plan.description}</CardDescription>
+              </CardHeader>
 
-                  {isCurrentPlan && subscribed && (
-                    <p className="text-center text-sm text-muted-foreground">
-                      You're on the {plan.name} plan
-                    </p>
+              <CardContent className="pt-0">
+                <ul className="space-y-3 mb-8">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="flex items-start space-x-3">
+                      <Check className="w-5 h-5 text-aura-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-sm text-foreground/80">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <Button
+                  className={`w-full ${
+                    plan.popular 
+                      ? 'bg-aura-primary hover:bg-aura-primary/90 text-white' 
+                      : 'bg-aura-primary/10 hover:bg-aura-primary/20 text-aura-primary'
+                  }`}
+                  onClick={() => handleSelectPlan(plan.id)}
+                  disabled={loading || plan.current}
+                >
+                  {plan.current ? (
+                    'Current Plan'
+                  ) : plan.id === 'free' ? (
+                    'Get Started Free'
+                  ) : (
+                    `Upgrade to ${plan.name}`
                   )}
-                </CardContent>
-              </Card>
-            );
-          })}
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <p className="text-muted-foreground mb-4">
-            All plans include a 7-day free trial. Cancel anytime.
-          </p>
-          {user && subscribed && (
-            <Button
-              variant="link"
-              onClick={openCustomerPortal}
-            >
-              Manage Subscription
-            </Button>
-          )}
+        {/* Manage Subscription */}
+        {user && subscribed && (
+          <div className="text-center">
+            <Card className="max-w-md mx-auto bg-card/50 backdrop-blur-sm border-aura-primary/20">
+              <CardContent className="p-6 text-center">
+                <Users className="w-12 h-12 text-aura-primary mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-foreground mb-2">
+                  Manage Your Subscription
+                </h3>
+                <p className="text-foreground/70 mb-4">
+                  Update payment methods, change plans, or cancel anytime.
+                </p>
+                <Button 
+                  variant="outline" 
+                  onClick={openCustomerPortal}
+                  disabled={loading}
+                  className="border-aura-primary text-aura-primary hover:bg-aura-primary/10"
+                >
+                  {loading ? 'Loading...' : 'Manage Subscription'}
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* FAQ Section */}
+        <div className="max-w-4xl mx-auto mt-16">
+          <h2 className="text-3xl font-bold text-center text-foreground mb-8">
+            Frequently Asked Questions
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <Card className="bg-card/50 backdrop-blur-sm border-aura-primary/20">
+              <CardHeader>
+                <CardTitle className="text-lg">Is my data secure?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/70">
+                  Absolutely. We use end-to-end encryption and comply with HIPAA and GDPR standards 
+                  to ensure your mental health data is completely secure and private.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm border-aura-primary/20">
+              <CardHeader>
+                <CardTitle className="text-lg">Can I cancel anytime?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/70">
+                  Yes, you can cancel your subscription at any time through your account settings. 
+                  You'll continue to have access until the end of your billing period.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm border-aura-primary/20">
+              <CardHeader>
+                <CardTitle className="text-lg">What payment methods do you accept?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/70">
+                  We accept all major credit cards, PayPal, Apple Pay, and Google Pay for your convenience.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 backdrop-blur-sm border-aura-primary/20">
+              <CardHeader>
+                <CardTitle className="text-lg">Is there a free trial?</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/70">
+                  Yes! Start with our free plan and upgrade when you're ready. 
+                  No credit card required to get started.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>

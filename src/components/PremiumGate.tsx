@@ -21,7 +21,7 @@ export const PremiumGate = ({
   requiredTier = 'premium',
   showPreview = false 
 }: PremiumGateProps) => {
-  const { subscribed, subscription_tier } = useSubscription();
+  const { subscribed, tier: subscription_tier } = useSubscription();
   const navigate = useNavigate();
 
   // Check if user has required access
