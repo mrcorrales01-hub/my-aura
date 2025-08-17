@@ -12,13 +12,16 @@ import {
   Mic,
   Send,
   Clock,
-  TrendingUp
+  TrendingUp,
+  Target
 } from 'lucide-react';
 import { useLanguage } from '@/hooks/useLanguage';
+import { useNavigate } from 'react-router-dom';
 
 const AuraHome = () => {
   const [currentMood, setCurrentMood] = useState<string>('');
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
   const moodOptions = [
     { emoji: '😊', label: 'Happy', value: 'happy', color: 'bg-aura-secondary' },
@@ -36,31 +39,31 @@ const AuraHome = () => {
       icon: MessageCircle,
       color: 'text-aura-primary',
       bgColor: 'bg-aura-primary/10',
-      action: 'chat'
-    },
-    {
-      title: 'Voice Session',
-      description: 'Talk to Auri with your voice',
-      icon: Mic,
-      color: 'text-aura-secondary',
-      bgColor: 'bg-aura-secondary/10',
-      action: 'voice'
+      action: () => navigate('/chat')
     },
     {
       title: 'Mood Check-in',
-      description: 'How are you feeling today?',
+      description: 'Track your emotional patterns',
       icon: Heart,
       color: 'text-aura-warm',
       bgColor: 'bg-aura-warm/10',
-      action: 'mood'
+      action: () => navigate('/mood')
     },
     {
-      title: 'Daily Affirmation',
-      description: 'Get personalized encouragement',
+      title: 'Daily Quests',
+      description: 'Complete wellness micro-tasks',
       icon: Sparkles,
       color: 'text-aura-serenity',
       bgColor: 'bg-aura-serenity/10',
-      action: 'affirmation'
+      action: () => navigate('/quests')
+    },
+    {
+      title: 'My Plan',
+      description: 'Goals, habits & life balance',
+      icon: Target,
+      color: 'text-aura-secondary',
+      bgColor: 'bg-aura-secondary/10',
+      action: () => navigate('/plan')
     }
   ];
 
@@ -119,7 +122,11 @@ const AuraHome = () => {
             <p className="text-sm text-foreground/80 mb-3">
               Thank you for sharing. Would you like to talk about what's making you feel {currentMood} today?
             </p>
-            <Button size="sm" className="bg-aura-primary hover:bg-aura-primary/90 text-white">
+            <Button 
+              size="sm" 
+              className="bg-aura-primary hover:bg-aura-primary/90 text-white"
+              onClick={() => navigate('/chat')}
+            >
               Start Conversation
               <Send className="w-4 h-4 ml-2" />
             </Button>
@@ -129,11 +136,11 @@ const AuraHome = () => {
 
       {/* Quick Actions */}
       <div className="grid md:grid-cols-2 gap-4">
-        {quickActions.map((action) => {
+        {quickActions.map((action, index) => {
           const Icon = action.icon;
           return (
             <Card 
-              key={action.action}
+              key={index}
               className="p-6 bg-white/80 backdrop-blur-sm border-0 shadow-aura hover:shadow-glow cursor-pointer transition-all duration-300 hover:scale-105"
             >
               <div className="flex items-start space-x-4">
@@ -147,6 +154,7 @@ const AuraHome = () => {
                     size="sm" 
                     variant="outline" 
                     className="border-aura-primary/20 text-aura-primary hover:bg-aura-primary hover:text-white"
+                    onClick={action.action}
                   >
                     Get Started
                   </Button>
@@ -195,7 +203,11 @@ const AuraHome = () => {
             <h3 className="font-medium text-destructive mb-1">Need immediate support?</h3>
             <p className="text-sm text-destructive/80">Crisis resources and human support available 24/7</p>
           </div>
-          <Button variant="destructive" size="sm">
+          <Button 
+            variant="destructive" 
+            size="sm"
+            onClick={() => navigate('/crisis')}
+          >
             Get Help Now
           </Button>
         </div>

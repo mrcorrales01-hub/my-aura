@@ -156,3 +156,5 @@ export const MoodTracker = () => {
     </Card>
   );
 };
+
+export default MoodTracker;

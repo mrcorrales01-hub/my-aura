@@ -17,6 +17,11 @@ import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 // Aura App Pages
 import AuraHome from "@/components/AuraHome";
 import AuriChat from "@/components/AuriChat";
+import MyPlan from "@/components/MyPlan";
+import MoodTracker from "@/components/MoodTracker";
+import DailyQuests from "@/components/DailyQuests";
+import RoleplaySimulator from "@/components/RoleplaySimulator";
+import CrisisSupport from "@/components/CrisisSupport";
 
 // Legacy Pages (for compatibility)
 import Auth from "@/pages/Auth";
@@ -58,19 +63,11 @@ const App = () => (
                           {/* Aura Mental Health App Routes */}
                           <Route path="/" element={<AuraHome />} />
                           <Route path="/chat" element={<AuriChat />} />
-                          <Route path="/plan" element={
-                            <div className="flex items-center justify-center min-h-[60vh]">
-                              <div className="text-center space-y-4">
-                                <div className="w-16 h-16 mx-auto bg-aura-gradient rounded-full flex items-center justify-center">
-                                  <span className="text-2xl">📅</span>
-                                </div>
-                                <h2 className="text-2xl font-semibold text-aura-primary">My Plan</h2>
-                                <p className="text-foreground/70 max-w-md">
-                                  Personalized mental health plans, habit tracking, and life balance tools coming soon.
-                                </p>
-                              </div>
-                            </div>
-                          } />
+                          <Route path="/plan" element={<MyPlan />} />
+                          <Route path="/mood" element={<MoodTracker />} />
+                          <Route path="/quests" element={<DailyQuests />} />
+                          <Route path="/roleplay" element={<RoleplaySimulator />} />
+                          <Route path="/crisis" element={<CrisisSupport />} />
                           <Route path="/community" element={
                             <div className="flex items-center justify-center min-h-[60vh]">
                               <div className="text-center space-y-4">
