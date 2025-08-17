@@ -10,7 +10,7 @@ import { I18nProvider } from './hooks/useMultilingualI18n'
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider defaultTheme="light" storageKey="aura-ui-theme">
+    <ThemeProvider>
       <I18nProvider>
         <AuthProvider>
           <SubscriptionProvider>
