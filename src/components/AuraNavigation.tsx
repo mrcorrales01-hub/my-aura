@@ -12,7 +12,9 @@ import {
   Menu, 
   X,
   Heart,
-  Shield
+  Shield,
+  Music,
+  Video
 } from 'lucide-react';
 
 const AuraNavigation = () => {
@@ -22,8 +24,9 @@ const AuraNavigation = () => {
   const navItems = [
     { name: 'Home', path: '/', icon: MessageCircle, color: 'text-aura-primary' },
     { name: 'My Plan', path: '/plan', icon: Calendar, color: 'text-aura-secondary' },
+    { name: 'Music', path: '/music', icon: Music, color: 'text-purple-500' },
+    { name: 'Videos', path: '/videos', icon: Video, color: 'text-blue-500' },
     { name: 'Community', path: '/community', icon: Users, color: 'text-aura-growth' },
-    { name: 'Growth Tools', path: '/tools', icon: Sparkles, color: 'text-aura-serenity' },
     { name: 'Profile', path: '/profile', icon: User, color: 'text-aura-warm' }
   ];
 
