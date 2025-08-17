@@ -21,6 +21,7 @@ import MyPlan from "@/components/MyPlan";
 import MoodTracker from "@/components/MoodTracker";
 import DailyQuests from "@/components/DailyQuests";
 import RoleplaySimulator from "@/components/RoleplaySimulator";
+import DailyCheckin from "@/components/DailyCheckin";
 import CrisisSupport from "@/components/CrisisSupport";
 
 // Legacy Pages (for compatibility)
@@ -110,8 +111,9 @@ const App = () => (
                           
                           {/* Legacy Routes for Backwards Compatibility */}
                           <Route path="/auth" element={<Auth />} />
-                          <Route path="/dashboard" element={<Dashboard />} />
-                          <Route path="/coach" element={<Coach />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/checkin" element={<DailyCheckin />} />
+          <Route path="/coach" element={<Coach />} />
                           <Route path="/live" element={<LiveSession />} />
                           <Route path="/exercises" element={<Exercises />} />
                           <Route path="/journal" element={<Journal />} />
