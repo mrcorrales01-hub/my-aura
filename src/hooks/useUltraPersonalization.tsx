@@ -154,7 +154,14 @@ export const useUltraPersonalization = () => {
       }
 
       if (data) {
-        setPersonalization(data);
+        setPersonalization({
+          ...data,
+          auri_personality: data.auri_personality as AuriPersonality,
+          interaction_style: data.interaction_style as InteractionStyle,
+          mood_adaptations: data.mood_adaptations as MoodAdaptations,
+          visual_preferences: data.visual_preferences as VisualPreferences,
+          voice_preferences: data.voice_preferences as VoicePreferences
+        });
       } else {
         // Create default personalization
         await createDefaultPersonalization();
@@ -202,7 +209,7 @@ export const useUltraPersonalization = () => {
 
       const { data, error } = await supabase
         .from('ultra_personalizations')
-        .update(updates)
+        .update(updates as any)
         .eq('user_id', user.id)
         .select()
         .single();

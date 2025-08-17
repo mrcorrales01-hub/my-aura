@@ -219,9 +219,21 @@ export const useVRTherapy = () => {
       if (error) throw error;
 
       // Update participant count
-      await supabase.rpc('increment_group_session_participants', {
-        session_id: sessionId
-      });
+      // Increment participant count
+      const { data: session } = await supabase
+        .from('group_vr_sessions')
+        .select('current_participants')
+        .eq('id', sessionId)
+        .single();
+      
+      if (session) {
+        await supabase
+          .from('group_vr_sessions')
+          .update({ 
+            current_participants: (session.current_participants || 0) + 1 
+          })
+          .eq('id', sessionId);
+      }
 
       await fetchVRData();
 
