@@ -1,6 +1,5 @@
-import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,151 +12,164 @@ serve(async (req) => {
   }
 
   try {
-    const supabase = createClient(
+    const { mood, preferences = {}, recentSessions = [] } = await req.json();
+
+    // Create Supabase client
+    const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      {
+        global: {
+          headers: { Authorization: req.headers.get('Authorization')! },
+        },
+      }
     );
 
-    const { userId, mood, context, heartRate, timeOfDay } = await req.json();
+    // Get user from token
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) throw new Error('Not authenticated');
 
-    console.log('Music AI Recommendations request:', { userId, mood, context, heartRate, timeOfDay });
-
-    // Get user's music session history for personalization
-    const { data: sessions } = await supabase
-      .from('user_music_sessions')
-      .select('track_id, session_context, mood_before, mood_after, completed')
-      .eq('user_id', userId)
-      .order('played_at', { ascending: false })
-      .limit(20);
-
-    // Get user's current mood entries
-    const { data: moodEntries } = await supabase
-      .from('mood_entries')
-      .select('mood_id, mood_value, created_at')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(5);
-
-    // Get all available tracks
-    const { data: allTracks } = await supabase
+    // Fetch available music tracks
+    const { data: tracks, error } = await supabaseClient
       .from('music_tracks')
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (!allTracks) {
-      throw new Error('No tracks available');
-    }
+    if (error) throw error;
 
-    console.log(`Found ${allTracks.length} tracks to analyze`);
-
-    // Create AI matching criteria based on user data
-    const matchingCriteria = {
-      mood: mood || 'neutral',
-      context: context || 'relaxation',
-      timeOfDay,
-      heartRate,
-      recentSessions: sessions?.slice(0, 5) || [],
-      recentMoods: moodEntries?.map(entry => ({
-        mood: entry.mood_id,
-        value: entry.mood_value,
-        timestamp: entry.created_at
-      })) || []
+    // AI-powered recommendation logic
+    const moodToCategories = {
+      'anxious': ['relaxation', 'breathing'],
+      'stressed': ['relaxation', 'meditation'],
+      'sad': ['uplifting', 'gentle'],
+      'happy': ['energetic', 'uplifting'],
+      'tired': ['gentle', 'restoration'],
+      'calm': ['meditation', 'ambient'],
+      'angry': ['calming', 'grounding'],
+      'confused': ['clarity', 'focus']
     };
 
-    // Score tracks based on AI matching criteria
-    const scoredTracks = allTracks.map(track => {
+    const moodToTags = {
+      'anxious': ['calm', 'grounding', 'peaceful'],
+      'stressed': ['relaxing', 'soothing', 'stress-relief'],
+      'sad': ['uplifting', 'gentle', 'comfort'],
+      'happy': ['joyful', 'energetic', 'positive'],
+      'tired': ['restful', 'gentle', 'restorative'],
+      'calm': ['peaceful', 'serene', 'meditative'],
+      'angry': ['calming', 'cooling', 'patience'],
+      'confused': ['clarity', 'focus', 'centering']
+    };
+
+    // Score tracks based on mood and preferences
+    const scoredTracks = tracks?.map(track => {
       let score = 0;
-      const criteria = track.ai_match_criteria || {};
-
-      // Mood matching (40% weight)
-      if (criteria.mood && Array.isArray(criteria.mood)) {
-        if (criteria.mood.includes(mood)) {
-          score += 40;
-        }
-      }
-
-      // Context matching (30% weight)
-      if (context && track.category === context) {
-        score += 30;
-      }
-
-      // Time of day matching (20% weight)
-      if (criteria.time_of_day) {
-        const currentHour = timeOfDay || new Date().getHours();
-        if (criteria.time_of_day === 'morning' && currentHour >= 6 && currentHour < 12) {
-          score += 20;
-        } else if (criteria.time_of_day === 'evening' && currentHour >= 18) {
-          score += 20;
-        } else if (criteria.time_of_day === 'night' && (currentHour >= 22 || currentHour < 6)) {
-          score += 20;
-        }
-      }
-
-      // Heart rate matching (10% weight)
-      if (heartRate && criteria.heart_rate) {
-        if (criteria.heart_rate === 'high' && heartRate > 80) {
-          score += 10;
-        } else if (criteria.heart_rate === 'low' && heartRate < 70) {
+      
+      // Mood-based scoring
+      if (mood && moodToCategories[mood]) {
+        if (moodToCategories[mood].includes(track.category)) {
           score += 10;
         }
+        
+        const moodTags = moodToTags[mood] || [];
+        const trackTags = track.mood_tags || [];
+        const tagMatches = trackTags.filter(tag => moodTags.includes(tag)).length;
+        score += tagMatches * 5;
       }
 
-      // Boost score for tracks user hasn't played recently
-      const recentlyPlayed = sessions?.some(session => session.track_id === track.id);
-      if (!recentlyPlayed) {
-        score += 10;
-      }
-
-      // Boost score for tracks that match user's successful past sessions
-      const successfulSessions = sessions?.filter(session => 
-        session.completed && 
-        session.mood_after && 
-        ['calm', 'relaxed', 'peaceful', 'happy'].includes(session.mood_after)
+      // Recent session diversity (avoid repetition)
+      const wasRecentlyPlayed = recentSessions.some(session => 
+        session.track_id === track.id
       );
-      
-      const hasSuccessfulMatch = successfulSessions?.some(session => {
-        const sessionTrack = allTracks.find(t => t.id === session.track_id);
-        return sessionTrack?.category === track.category || 
-               sessionTrack?.mood_tags.some(tag => track.mood_tags.includes(tag));
-      });
-      
-      if (hasSuccessfulMatch) {
-        score += 15;
+      if (wasRecentlyPlayed) {
+        score -= 5;
       }
 
-      return {
-        ...track,
-        aiScore: score,
-        matchReason: score > 50 ? 'Perfect match for your current state' :
-                    score > 30 ? 'Good match based on your preferences' :
-                    'Recommended for discovery'
-      };
-    });
+      // Preference-based scoring
+      if (preferences.preferred_categories && preferences.preferred_categories.includes(track.category)) {
+        score += 8;
+      }
 
-    // Sort by AI score and return top recommendations
+      if (preferences.disliked_categories && preferences.disliked_categories.includes(track.category)) {
+        score -= 10;
+      }
+
+      // Time-based recommendations
+      const hour = new Date().getHours();
+      if (hour < 6 || hour > 22) {
+        // Late night/early morning - prefer calming
+        if (track.category === 'sleep' || track.category === 'relaxation') {
+          score += 7;
+        }
+      } else if (hour >= 6 && hour < 12) {
+        // Morning - prefer energizing but gentle
+        if (track.category === 'morning' || track.category === 'focus') {
+          score += 7;
+        }
+      } else if (hour >= 12 && hour < 18) {
+        // Afternoon - prefer focus or uplifting
+        if (track.category === 'focus' || track.category === 'energetic') {
+          score += 5;
+        }
+      }
+
+      // Duration preferences
+      if (preferences.preferred_duration) {
+        const durationDiff = Math.abs(track.duration_seconds - preferences.preferred_duration * 60);
+        if (durationDiff < 300) { // Within 5 minutes
+          score += 3;
+        }
+      }
+
+      return { ...track, recommendation_score: score };
+    }) || [];
+
+    // Sort by score and return top recommendations
     const recommendations = scoredTracks
-      .sort((a, b) => b.aiScore - a.aiScore)
-      .slice(0, 12);
+      .sort((a, b) => b.recommendation_score - a.recommendation_score)
+      .slice(0, 10)
+      .map(track => ({
+        ...track,
+        recommendation_reason: generateRecommendationReason(track, mood, preferences)
+      }));
 
-    console.log(`Returning ${recommendations.length} recommendations with scores:`, 
-      recommendations.map(r => ({ title: r.title, score: r.aiScore })));
-
-    return new Response(JSON.stringify({
+    return new Response(JSON.stringify({ 
       recommendations,
-      matchingCriteria,
-      totalTracksAnalyzed: allTracks.length
+      mood_context: mood,
+      total_available: tracks?.length || 0
     }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
-    console.error('Error in music-ai-recommendations:', error);
-    return new Response(JSON.stringify({ 
-      error: error.message,
-      recommendations: []
-    }), {
+    console.error('Music AI Recommendations Error:', error);
+    return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 });
+
+function generateRecommendationReason(track, mood, preferences) {
+  const reasons = [];
+  
+  if (mood) {
+    if (mood === 'anxious' && track.category === 'relaxation') {
+      reasons.push('Perfect for reducing anxiety');
+    } else if (mood === 'stressed' && track.category === 'meditation') {
+      reasons.push('Great for stress relief');
+    } else if (mood === 'sad' && track.mood_tags?.includes('uplifting')) {
+      reasons.push('May help lift your spirits');
+    }
+  }
+  
+  if (track.recommendation_score > 15) {
+    reasons.push('Highly recommended for you');
+  }
+  
+  const hour = new Date().getHours();
+  if (hour > 20 && track.category === 'sleep') {
+    reasons.push('Perfect evening choice');
+  }
+  
+  return reasons.length > 0 ? reasons.join(', ') : 'Matches your current needs';
+}

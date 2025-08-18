@@ -1,6 +1,5 @@
-import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.38.4';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.7.1';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -13,211 +12,217 @@ serve(async (req) => {
   }
 
   try {
-    const supabase = createClient(
+    const { mood, preferences = {}, recentSessions = [], skillLevel = 'beginner' } = await req.json();
+
+    // Create Supabase client
+    const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      {
+        global: {
+          headers: { Authorization: req.headers.get('Authorization')! },
+        },
+      }
     );
 
-    const { userId, mood, goals, activityHistory, timeOfDay } = await req.json();
+    // Get user from token
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (!user) throw new Error('Not authenticated');
 
-    console.log('Video AI Recommendations request:', { userId, mood, goals, timeOfDay });
-
-    // Get user's video session history
-    const { data: sessions } = await supabase
-      .from('user_video_sessions')
-      .select('video_id, mood_before, mood_after, completed, difficulty_rating, effectiveness_rating')
-      .eq('user_id', userId)
-      .order('started_at', { ascending: false })
-      .limit(20);
-
-    // Get user's current mood entries
-    const { data: moodEntries } = await supabase
-      .from('mood_entries')
-      .select('mood_id, mood_value, created_at')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(5);
-
-    // Get user's goals for context
-    const { data: userGoals } = await supabase
-      .from('user_goals')
-      .select('category, status, priority')
-      .eq('user_id', userId)
-      .eq('status', 'active');
-
-    // Get all available videos
-    const { data: allVideos } = await supabase
+    // Fetch available video exercises
+    const { data: videos, error } = await supabaseClient
       .from('video_exercises')
       .select('*')
       .order('created_at', { ascending: false });
 
-    if (!allVideos) {
-      throw new Error('No videos available');
-    }
+    if (error) throw error;
 
-    console.log(`Found ${allVideos.length} videos to analyze`);
-
-    // Analyze user's preferences from past sessions
-    const completedSessions = sessions?.filter(s => s.completed) || [];
-    const highEffectivenessVideos = completedSessions.filter(s => s.effectiveness_rating >= 4);
-    const preferredCategories = [...new Set(
-      highEffectivenessVideos.map(s => {
-        const video = allVideos.find(v => v.id === s.video_id);
-        return video?.category;
-      }).filter(Boolean)
-    )];
-
-    const preferredDifficulty = completedSessions.length > 0 
-      ? Math.round(completedSessions.reduce((sum, s) => sum + (s.difficulty_rating || 2), 0) / completedSessions.length)
-      : 1;
-
-    // Create AI matching criteria
-    const matchingCriteria = {
-      mood: mood || 'neutral',
-      goals: goals || [],
-      timeOfDay,
-      preferredCategories,
-      preferredDifficulty,
-      recentSessions: sessions?.slice(0, 5) || [],
-      recentMoods: moodEntries?.map(entry => ({
-        mood: entry.mood_id,
-        value: entry.mood_value,
-        timestamp: entry.created_at
-      })) || []
+    // AI-powered recommendation logic for video exercises
+    const moodToCategories = {
+      'anxious': ['breathing', 'mindfulness', 'grounding'],
+      'stressed': ['breathing', 'stretching', 'mindfulness'],
+      'sad': ['gentle_movement', 'mindfulness', 'self_compassion'],
+      'happy': ['energetic', 'dance', 'strength'],
+      'tired': ['gentle', 'restorative', 'breathing'],
+      'calm': ['mindfulness', 'meditation', 'gentle'],
+      'angry': ['intense_workout', 'boxing', 'running'],
+      'overwhelmed': ['breathing', 'grounding', 'simple']
     };
 
-    // Score videos based on AI matching criteria
-    const scoredVideos = allVideos.map(video => {
+    const moodToIntensity = {
+      'anxious': ['low', 'gentle'],
+      'stressed': ['moderate', 'calming'],
+      'sad': ['gentle', 'nurturing'],
+      'happy': ['moderate', 'energetic'],
+      'tired': ['low', 'restorative'],
+      'calm': ['gentle', 'mindful'],
+      'angry': ['high', 'intense'],
+      'overwhelmed': ['low', 'simple']
+    };
+
+    // Score videos based on mood and user data
+    const scoredVideos = videos?.map(video => {
       let score = 0;
-      const criteria = video.ai_match_criteria || {};
-
-      // Mood matching (35% weight)
-      if (criteria.mood && Array.isArray(criteria.mood)) {
-        if (criteria.mood.includes(mood)) {
-          score += 35;
-        }
-      }
-
-      // Category preference matching (25% weight)
-      if (preferredCategories.includes(video.category)) {
-        score += 25;
-      }
-
-      // Difficulty matching (20% weight)
-      const difficultyMap = { 'beginner': 1, 'intermediate': 2, 'advanced': 3 };
-      const videoDifficulty = difficultyMap[video.difficulty_level] || 1;
-      const difficultyDiff = Math.abs(videoDifficulty - preferredDifficulty);
       
-      if (difficultyDiff === 0) {
-        score += 20;
-      } else if (difficultyDiff === 1) {
+      // Mood-based scoring
+      if (mood && moodToCategories[mood]) {
+        if (moodToCategories[mood].includes(video.category)) {
+          score += 15;
+        }
+        
+        const moodIntensities = moodToIntensity[mood] || [];
+        if (moodIntensities.includes(video.intensity_level)) {
+          score += 10;
+        }
+      }
+
+      // Skill level matching
+      if (video.difficulty_level === skillLevel) {
+        score += 12;
+      } else if (skillLevel === 'beginner' && video.difficulty_level === 'intermediate') {
+        score += 5; // Slight progression challenge
+      } else if (skillLevel === 'intermediate' && video.difficulty_level === 'advanced') {
+        score += 5;
+      } else if (skillLevel === 'advanced' && video.difficulty_level === 'beginner') {
+        score -= 5; // Too easy for advanced users
+      }
+
+      // Duration preferences
+      if (preferences.preferred_duration) {
+        const durationDiff = Math.abs(video.duration_seconds - preferences.preferred_duration * 60);
+        if (durationDiff < 120) { // Within 2 minutes
+          score += 8;
+        } else if (durationDiff < 300) { // Within 5 minutes
+          score += 4;
+        }
+      }
+
+      // Recent session diversity (avoid repetition)
+      const wasRecentlyCompleted = recentSessions.some(session => 
+        session.video_id === video.id
+      );
+      if (wasRecentlyCompleted) {
+        score -= 8;
+      }
+
+      // Time-based recommendations
+      const hour = new Date().getHours();
+      if (hour < 8) {
+        // Early morning - gentle awakening
+        if (video.category === 'morning_flow' || video.category === 'gentle_stretching') {
+          score += 10;
+        }
+      } else if (hour >= 8 && hour < 12) {
+        // Morning - energizing
+        if (video.category === 'energizing' || video.category === 'strength') {
+          score += 8;
+        }
+      } else if (hour >= 12 && hour < 17) {
+        // Afternoon - focus and energy
+        if (video.category === 'focus' || video.category === 'midday_boost') {
+          score += 6;
+        }
+      } else if (hour >= 17 && hour < 21) {
+        // Evening - stress relief
+        if (video.category === 'stress_relief' || video.category === 'unwinding') {
+          score += 8;
+        }
+      } else {
+        // Night - calming and restorative
+        if (video.category === 'restorative' || video.category === 'bedtime') {
+          score += 10;
+        }
+      }
+
+      // Category preferences
+      if (preferences.preferred_categories && preferences.preferred_categories.includes(video.category)) {
         score += 10;
       }
 
-      // Time of day matching (10% weight)
-      if (criteria.time_of_day) {
-        const currentHour = timeOfDay || new Date().getHours();
-        if (criteria.time_of_day === 'morning' && currentHour >= 6 && currentHour < 12) {
-          score += 10;
-        } else if (criteria.time_of_day === 'evening' && currentHour >= 17) {
-          score += 10;
-        }
+      if (preferences.disliked_categories && preferences.disliked_categories.includes(video.category)) {
+        score -= 15;
       }
 
-      // Goals alignment (10% weight)
-      if (userGoals && userGoals.length > 0) {
-        const hasGoalAlignment = userGoals.some(goal => {
-          if (goal.category === 'mental_health' && ['mindfulness', 'breathing'].includes(video.category)) {
-            return true;
-          }
-          if (goal.category === 'physical_health' && video.category === 'stretching') {
-            return true;
-          }
-          if (goal.category === 'personal_growth' && video.category === 'journaling') {
-            return true;
-          }
-          return false;
-        });
-        
-        if (hasGoalAlignment) {
-          score += 10;
-        }
+      // Progressive difficulty (encourage growth)
+      const completedCount = recentSessions.filter(s => s.completed_at).length;
+      if (completedCount > 10 && video.difficulty_level === 'intermediate' && skillLevel === 'beginner') {
+        score += 3; // Encourage progression
       }
 
-      // Boost for videos not recently watched
-      const recentlyWatched = sessions?.some(session => session.video_id === video.id);
-      if (!recentlyWatched) {
-        score += 10;
+      // Mood-specific exercise benefits
+      if (mood === 'anxious' && video.category === 'breathing') {
+        score += 12; // Breathing exercises are excellent for anxiety
+      }
+      if (mood === 'sad' && video.category === 'gentle_movement') {
+        score += 10; // Gentle movement helps with depression
+      }
+      if (mood === 'stressed' && video.category === 'mindfulness') {
+        score += 11; // Mindfulness reduces stress
       }
 
-      // Boost for videos in effective categories from past sessions
-      if (highEffectivenessVideos.length > 0) {
-        const hasEffectiveMatch = highEffectivenessVideos.some(session => {
-          const sessionVideo = allVideos.find(v => v.id === session.video_id);
-          return sessionVideo?.category === video.category;
-        });
-        
-        if (hasEffectiveMatch) {
-          score += 15;
-        }
-      }
+      return { ...video, recommendation_score: score };
+    }) || [];
 
-      // Context-specific boosts
-      if (criteria.context) {
-        if (criteria.context === 'work' && mood === 'stressed' && video.category === 'breathing') {
-          score += 15;
-        }
-        if (criteria.stress_level === 'high' && ['mindfulness', 'breathing'].includes(video.category)) {
-          score += 15;
-        }
-      }
-
-      // Duration preference (shorter videos for beginners or stressed users)
-      if (mood === 'stressed' || mood === 'anxious') {
-        if (video.duration_seconds <= 300) { // 5 minutes or less
-          score += 10;
-        }
-      }
-
-      return {
-        ...video,
-        aiScore: score,
-        matchReason: score > 60 ? 'Perfectly matched to your current needs' :
-                    score > 40 ? 'Great match based on your history' :
-                    score > 20 ? 'Good option to try something new' :
-                    'Recommended for variety'
-      };
-    });
-
-    // Sort by AI score and return top recommendations
+    // Sort by score and return top recommendations
     const recommendations = scoredVideos
-      .sort((a, b) => b.aiScore - a.aiScore)
-      .slice(0, 12);
+      .sort((a, b) => b.recommendation_score - a.recommendation_score)
+      .slice(0, 8)
+      .map(video => ({
+        ...video,
+        recommendation_reason: generateVideoRecommendationReason(video, mood, preferences, skillLevel)
+      }));
 
-    console.log(`Returning ${recommendations.length} recommendations with scores:`, 
-      recommendations.map(r => ({ title: r.title, score: r.aiScore, category: r.category })));
-
-    return new Response(JSON.stringify({
+    return new Response(JSON.stringify({ 
       recommendations,
-      matchingCriteria,
-      totalVideosAnalyzed: allVideos.length,
-      userPreferences: {
-        preferredCategories,
-        preferredDifficulty: ['beginner', 'intermediate', 'advanced'][preferredDifficulty - 1] || 'beginner',
-        completedSessions: completedSessions.length
-      }
+      mood_context: mood,
+      skill_level: skillLevel,
+      total_available: videos?.length || 0
     }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
 
   } catch (error) {
-    console.error('Error in video-ai-recommendations:', error);
-    return new Response(JSON.stringify({ 
-      error: error.message,
-      recommendations: []
-    }), {
+    console.error('Video AI Recommendations Error:', error);
+    return new Response(JSON.stringify({ error: error.message }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   }
 });
+
+function generateVideoRecommendationReason(video, mood, preferences, skillLevel) {
+  const reasons = [];
+  
+  if (mood) {
+    if (mood === 'anxious' && video.category === 'breathing') {
+      reasons.push('Breathing exercises help reduce anxiety');
+    } else if (mood === 'stressed' && video.category === 'mindfulness') {
+      reasons.push('Mindfulness practice reduces stress');
+    } else if (mood === 'sad' && video.category === 'gentle_movement') {
+      reasons.push('Gentle movement can lift your mood');
+    } else if (mood === 'tired' && video.category === 'restorative') {
+      reasons.push('Restorative practice for when you\'re tired');
+    }
+  }
+  
+  if (video.difficulty_level === skillLevel) {
+    reasons.push(`Perfect for your ${skillLevel} level`);
+  }
+  
+  if (video.recommendation_score > 20) {
+    reasons.push('Highly personalized for you');
+  }
+  
+  const hour = new Date().getHours();
+  if (hour < 8 && video.category === 'morning_flow') {
+    reasons.push('Great way to start your day');
+  } else if (hour > 18 && video.category === 'stress_relief') {
+    reasons.push('Perfect for evening unwinding');
+  }
+  
+  if (video.duration_seconds <= 300) {
+    reasons.push('Quick and effective');
+  }
+  
+  return reasons.length > 0 ? reasons.join(' • ') : 'Recommended based on your preferences';
+}
