@@ -21,8 +21,8 @@ import { useMentalHealthCoins } from '@/hooks/useMentalHealthCoins';
 const SmartRewardsSystem = () => {
   const {
     balance,
-    transactions,
-    rewardStore,
+    recentTransactions,
+    rewardCatalog,
     loading,
     redeemReward,
     getAffordableRewards,
@@ -57,11 +57,13 @@ const SmartRewardsSystem = () => {
   };
 
   const filteredRewards = selectedCategory === 'all' 
-    ? rewardStore 
-    : rewardStore.filter(reward => reward.type === selectedCategory);
+    ? rewardCatalog 
+    : rewardCatalog.filter(reward => reward.type === selectedCategory);
 
   const handleRedeemReward = async (rewardId: string) => {
-    const success = await redeemReward(rewardId);
+    const reward = rewardCatalog.find(r => r.id === rewardId);
+    if (!reward) return;
+    const success = await redeemReward(reward);
     if (success) {
       // Reward redeemed successfully
     }
@@ -178,7 +180,7 @@ const SmartRewardsSystem = () => {
               const IconComponent = getRewardIcon(reward.type);
               const canAfford = balance >= reward.cost;
               const isLimited = reward.availability === 'limited';
-              const isOneTime = reward.availability === 'one_time';
+              const isMonthly = reward.availability === 'monthly';
               
               return (
                 <Card 
@@ -198,9 +200,9 @@ const SmartRewardsSystem = () => {
                           Limited
                         </Badge>
                       )}
-                      {isOneTime && (
+                      {isMonthly && (
                         <Badge variant="secondary" className="text-xs">
-                          One Time
+                          Monthly
                         </Badge>
                       )}
                     </div>
@@ -246,20 +248,20 @@ const SmartRewardsSystem = () => {
 
         <TabsContent value="history" className="space-y-4">
           <div className="space-y-4">
-            {transactions.slice(0, 20).map((transaction) => (
+            {recentTransactions.slice(0, 20).map((transaction) => (
               <Card key={transaction.id} className="p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      transaction.coin_type === 'earned' 
+                      transaction.type === 'earned' 
                         ? 'bg-green-100 text-green-600'
-                        : transaction.coin_type === 'spent'
+                        : transaction.type === 'spent'
                         ? 'bg-red-100 text-red-600'
                         : 'bg-blue-100 text-blue-600'
                     }`}>
-                      {transaction.coin_type === 'earned' ? (
+                      {transaction.type === 'earned' ? (
                         <TrendingUp className="w-4 h-4" />
-                      ) : transaction.coin_type === 'spent' ? (
+                      ) : transaction.type === 'spent' ? (
                         <ShoppingBag className="w-4 h-4" />
                       ) : (
                         <Gift className="w-4 h-4" />
@@ -269,20 +271,20 @@ const SmartRewardsSystem = () => {
                     <div>
                       <div className="font-medium">{transaction.description}</div>
                       <div className="text-sm text-muted-foreground capitalize">
-                        {transaction.source_activity.replace('_', ' ')} • {' '}
-                        {new Date(transaction.created_at).toLocaleDateString()}
+                        {transaction.activity.replace('_', ' ')} • {' '}
+                        {new Date(transaction.timestamp).toLocaleDateString()}
                       </div>
                     </div>
                   </div>
                   
                   <div className={`font-semibold ${
-                    transaction.coin_type === 'earned' 
+                    transaction.type === 'earned' 
                       ? 'text-green-600'
-                      : transaction.coin_type === 'spent'
+                      : transaction.type === 'spent'
                       ? 'text-red-600'
                       : 'text-blue-600'
                   }`}>
-                    {transaction.coin_type === 'spent' ? '-' : '+'}
+                    {transaction.type === 'spent' ? '-' : '+'}
                     {transaction.amount}
                   </div>
                 </div>
@@ -313,9 +315,9 @@ const SmartRewardsSystem = () => {
                 <div className="flex justify-between items-center pt-2 border-t">
                   <span className="font-medium">Net Change</span>
                   <span className={`font-bold ${
-                    monthlyStats.net >= 0 ? 'text-green-600' : 'text-red-600'
+                    (monthlyStats.earned - monthlyStats.spent) >= 0 ? 'text-green-600' : 'text-red-600'
                   }`}>
-                    {monthlyStats.net >= 0 ? '+' : ''}{monthlyStats.net}
+                    {(monthlyStats.earned - monthlyStats.spent) >= 0 ? '+' : ''}{monthlyStats.earned - monthlyStats.spent}
                   </span>
                 </div>
               </div>
