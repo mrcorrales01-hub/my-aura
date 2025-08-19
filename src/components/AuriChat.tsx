@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useLanguage } from '@/hooks/useLanguage';
+import { useI18n } from '@/hooks/useEnhancedI18n';
 import { useToast } from '@/components/ui/use-toast';
 
 interface Message {
@@ -42,7 +42,7 @@ const AuriChat = () => {
   const [isSpeaking, setIsSpeaking] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
-  const { language } = useLanguage();
+  const { currentLanguage, t } = useI18n();
   const { toast } = useToast();
 
   // Scroll to bottom when new messages arrive
@@ -71,7 +71,7 @@ const AuriChat = () => {
       const { data, error } = await supabase.functions.invoke('ai-coach', {
         body: {
           message: content,
-          language: language,
+          language: currentLanguage,
           context: 'general',
           tone: 'empathetic',
           mood: mood
@@ -122,7 +122,7 @@ const AuriChat = () => {
         const recognition = new SpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
-        recognition.lang = language === 'en' ? 'en-US' : language;
+        recognition.lang = currentLanguage === 'en' ? 'en-US' : currentLanguage;
 
         recognition.onstart = () => {
           setIsListening(true);
@@ -164,7 +164,7 @@ const AuriChat = () => {
     if ('speechSynthesis' in window && !isSpeaking) {
       setIsSpeaking(true);
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = language === 'en' ? 'en-US' : language;
+      utterance.lang = currentLanguage === 'en' ? 'en-US' : currentLanguage;
       utterance.rate = 0.9; // Slightly slower for therapeutic feel
       utterance.pitch = 1.0;
       
@@ -197,9 +197,9 @@ const AuriChat = () => {
               <Heart className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-aura-primary">Auri - Your AI Wellness Coach</h3>
+              <h3 className="font-semibold text-aura-primary">{t('chat.title')}</h3>
               <p className="text-sm text-foreground/70">
-                {isLoading ? 'Thinking...' : 'Here to listen and support you'}
+                {isLoading ? t('chat.thinking') : t('chat.subtitle')}
               </p>
             </div>
           </div>
@@ -277,7 +277,7 @@ const AuriChat = () => {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Share what's on your mind... Auri is here to listen"
+              placeholder={t('chat.placeholder')}
               className="border-aura-calm/50 focus:ring-aura-primary focus:border-aura-primary"
               disabled={isLoading}
             />
@@ -312,7 +312,7 @@ const AuriChat = () => {
         </form>
         
         <p className="text-xs text-foreground/50 mt-2 text-center">
-          Auri provides supportive guidance but is not a substitute for professional therapy.
+          {t('chat.disclaimer')}
         </p>
       </Card>
     </div>

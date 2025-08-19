@@ -23,6 +23,7 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
+import { useI18n } from '@/hooks/useEnhancedI18n';
 import { useGamification } from '@/hooks/useGamification';
 
 interface RoleplayScenario {
@@ -61,6 +62,7 @@ const RoleplaySimulator = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const { completeRoleplaySession } = useGamification();
+  const { currentLanguage, t } = useI18n();
 
   const scenarios: RoleplayScenario[] = [
     {
@@ -210,6 +212,7 @@ const RoleplaySimulator = () => {
           scenario: selectedScenario.title,
           persona: selectedScenario.aiPersona,
           conversationHistory: messages.slice(-6), // Keep last 6 messages for context
+          language: currentLanguage,
           userId: user?.id
         }
       });
@@ -294,8 +297,8 @@ const RoleplaySimulator = () => {
                 <Play className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-semibold text-aura-primary">Roleplay Simulator</h1>
-                <p className="text-foreground/70">Practice real-life situations in a safe environment</p>
+                <h1 className="text-2xl font-semibold text-aura-primary">{t('roleplay.title')}</h1>
+                <p className="text-foreground/70">{t('roleplay.subtitle')}</p>
               </div>
             </div>
 

@@ -6,19 +6,19 @@ import { AuthProvider } from './contexts/AuthContext'
 import { SubscriptionProvider } from './contexts/SubscriptionContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { Toaster } from './components/ui/toaster'
-import { I18nProvider } from './hooks/useMultilingualI18n'
+import { EnhancedI18nProvider } from './hooks/useEnhancedI18n'
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
-      <I18nProvider>
+      <EnhancedI18nProvider>
         <AuthProvider>
           <SubscriptionProvider>
             <App />
             <Toaster />
           </SubscriptionProvider>
         </AuthProvider>
-      </I18nProvider>
+      </EnhancedI18nProvider>
     </ThemeProvider>
   </StrictMode>
 );

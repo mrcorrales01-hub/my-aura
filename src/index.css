@@ -1,101 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    /* Aura MVP Design System - Professional Mental Health Colors */
-    --aura-primary: 210 40% 58%; /* #5A9BD4 - Therapeutic blue */
-    --aura-primary-variant: 210 50% 45%; /* Deeper blue for hover states */
-    --aura-secondary: 142 30% 65%; /* #87C3A2 - Growth green */
-    --aura-accent: 340 35% 75%; /* #C3A287 - Warm accent */
-    --aura-neutral: 220 15% 25%; /* #3A404A - Professional dark */
-    --aura-surface: 210 25% 98%; /* #FBFCFD - Clean surface */
-    --aura-surface-variant: 210 15% 95%; /* #F1F3F5 - Card background */
-    --aura-calm: 214 35% 92%; /* #F5F8FA - Serene background */
-    --aura-serenity: 240 25% 85%; /* #D1D9E8 - Soft lavender */
-    --aura-growth: 156 35% 55%; /* #5CB85C - Success green */
-    --aura-warm: 25 85% 80%; /* #F2B894 - Warm coral */
-    --aura-warning: 45 95% 68%; /* #FDD835 - Warning yellow */
-    --aura-error: 355 85% 65%; /* #E57373 - Error red */
-    
-    /* Semantic color system */
-    --background: 210 25% 98%; /* Clean white background */
-    --foreground: 220 15% 25%; /* Professional dark text */
-    --card: 0 0% 100%; /* Pure white cards */
-    --card-foreground: 220 15% 25%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 15% 25%;
-    --primary: 210 40% 58%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 142 30% 65%;
-    --secondary-foreground: 220 15% 25%;
-    --muted: 210 15% 95%;
-    --muted-foreground: 220 15% 45%;
-    --accent: 240 25% 85%;
-    --accent-foreground: 220 15% 25%;
-    --destructive: 355 85% 65%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 210 15% 90%;
-    --input: 210 15% 90%;
-    --ring: 210 40% 58%;
-    --radius: 0.75rem;
-    
-    /* Professional gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210, 40%, 58%), hsl(210, 50%, 45%));
-    --gradient-calm: linear-gradient(135deg, hsl(214, 35%, 92%), hsl(240, 25%, 85%));
-    --gradient-warm: linear-gradient(135deg, hsl(25, 85%, 80%), hsl(340, 35%, 75%));
-    --gradient-success: linear-gradient(135deg, hsl(156, 35%, 55%), hsl(142, 30%, 65%));
-    
-    /* Professional shadows */
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    --shadow-aura: 0 8px 25px -2px hsla(210, 40%, 58%, 0.2);
-    --shadow-warm: 0 8px 25px -2px hsla(25, 85%, 80%, 0.15);
-  }
+:root {
+  /* Color System */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
 
-  .dark {
-    --aura-primary: 210 45% 68%;
-    --aura-primary-variant: 210 35% 55%;
-    --aura-secondary: 142 35% 70%;
-    --aura-accent: 340 40% 70%;
-    --aura-neutral: 220 25% 15%;
-    --aura-surface: 220 25% 8%;
-    --aura-surface-variant: 220 20% 12%;
-    --aura-calm: 217 25% 15%;
-    --aura-serenity: 240 20% 20%;
-    --aura-growth: 156 40% 60%;
-    --aura-warm: 25 80% 75%;
-    --aura-warning: 45 90% 75%;
-    --aura-error: 355 80% 70%;
-    
-    --background: 220 25% 8%;
-    --foreground: 0 0% 95%;
-    --card: 220 20% 12%;
-    --card-foreground: 0 0% 95%;
-    --popover: 220 20% 12%;
-    --popover-foreground: 0 0% 95%;
-    --primary: 210 45% 68%;
-    --primary-foreground: 220 25% 8%;
-    --secondary: 142 35% 70%;
-    --secondary-foreground: 220 25% 8%;
-    --muted: 220 20% 18%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 240 20% 20%;
-    --accent-foreground: 0 0% 95%;
-    --destructive: 355 80% 70%;
-    --destructive-foreground: 220 25% 8%;
-    --border: 220 20% 18%;
-    --input: 220 20% 18%;
-    --ring: 210 45% 68%;
-    
-    --gradient-primary: linear-gradient(135deg, hsl(210, 45%, 68%), hsl(210, 35%, 55%));
-    --gradient-calm: linear-gradient(135deg, hsl(217, 25%, 15%), hsl(240, 20%, 20%));
-    --gradient-warm: linear-gradient(135deg, hsl(25, 80%, 75%), hsl(340, 40%, 70%));
-    --gradient-success: linear-gradient(135deg, hsl(156, 40%, 60%), hsl(142, 35%, 70%));
-  }
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 262 100% 65%;
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 217.2 32.6% 17.5%;
+  --input: 217.2 32.6% 17.5%;
+  --ring: 262 100% 65%;
+
+  --radius: 0.75rem;
+
+  /* Wellness-specific colors */
+  --wellness-primary: 262 100% 65%;
+  --wellness-secondary: 280 60% 50%;
+  --wellness-accent: 200 50% 70%;
+  --wellness-calm: 200 60% 85%;
+  --wellness-energy: 45 100% 70%;
+  --wellness-focus: 262 80% 60%;
+  --wellness-warm: 25 85% 65%;
+
+  /* Aura MVP colors for compatibility */
+  --aura-primary: 210 40% 58%;
+  --aura-primary-variant: 210 50% 45%;
+  --aura-secondary: 142 30% 65%;
+  --aura-accent: 340 35% 75%;
+  --aura-neutral: 220 15% 25%;
+  --aura-surface: 210 25% 98%;
+  --aura-surface-variant: 210 15% 95%;
+  --aura-calm: 214 35% 92%;
+  --aura-serenity: 240 25% 85%;
+  --aura-growth: 156 35% 55%;
+  --aura-warm: 25 85% 80%;
+  --aura-warning: 45 95% 68%;
+  --aura-error: 355 85% 65%;
+
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(262 100% 65%), hsl(280 60% 50%));
+  --gradient-wellness: linear-gradient(135deg, hsl(262 100% 65%) 0%, hsl(280 60% 50%) 50%, hsl(200 50% 70%) 100%);
+  --gradient-hero: linear-gradient(135deg, hsl(222.2 84% 4.9%) 0%, hsl(217.2 32.6% 17.5%) 100%);
+  --gradient-card: linear-gradient(135deg, hsl(222.2 84% 4.9%) 0%, hsl(217.2 32.6% 17.5%) 100%);
+  --aura-gradient: linear-gradient(135deg, hsl(210 40% 58%), hsl(210 50% 45%));
+
+  /* Shadows */
+  --shadow-wellness: 0 10px 30px -10px hsl(262 100% 65% / 0.3);
+  --shadow-glow: 0 0 40px hsl(262 100% 65% / 0.2);
+  --shadow-soft: 0 4px 20px hsl(217.2 32.6% 17.5% / 0.3);
+  --shadow-aura: 0 8px 25px -2px hsla(210, 40%, 58%, 0.2);
+
+  /* Animation */
+  --animation-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animation-medium: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --animation-slow: 500ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* RTL/LTR Support */
+  --text-direction: ltr;
+  --start: left;
+  --end: right;
+}
+
+[data-theme="light"] {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+
+  --primary: 262 100% 65%;
+  --primary-foreground: 210 40% 98%;
+
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222.2 84% 4.9%;
+
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 262 100% 65%;
+
+  --gradient-hero: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 40% 96%) 100%);
+  --gradient-card: linear-gradient(135deg, hsl(0 0% 100%) 0%, hsl(210 40% 98%) 100%);
+
+  /* Aura colors for light mode */
+  --aura-primary: 210 40% 58%;
+  --aura-surface: 210 25% 98%;
+  --aura-calm: 214 35% 92%;
+}
+
+/* RTL Support */
+[data-rtl="true"] {
+  --text-direction: rtl;
+  --start: right;
+  --end: left;
+}
+
+.rtl {
+  direction: rtl;
+}
+
+.ltr {
+  direction: ltr;
+}
+
+/* Language-specific adjustments */
+[data-language="ar"], [data-language="fa"] {
+  font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+}
+
+[data-language="zh-CN"], [data-language="zh-TW"] {
+  font-family: 'Noto Sans CJK SC', 'Inter', sans-serif;
+}
+
+[data-language="ja"] {
+  font-family: 'Noto Sans CJK JP', 'Inter', sans-serif;
+}
+
+[data-language="ko"] {
+  font-family: 'Noto Sans CJK KR', 'Inter', sans-serif;
+}
+
+[data-language="hi"], [data-language="bn"] {
+  font-family: 'Noto Sans Devanagari', 'Inter', sans-serif;
+}
+
+[data-language="th"] {
+  font-family: 'Noto Sans Thai', 'Inter', sans-serif;
+}
+
+/* Responsive text sizing for different languages */
+[data-language="de"] .text-sm {
+  font-size: 0.825rem; /* German tends to be longer */
+}
+
+[data-language="fi"] .text-sm {
+  font-size: 0.825rem; /* Finnish tends to be longer */
+}
+
+[data-language="zh-CN"], [data-language="zh-TW"] .text-sm {
+  font-size: 0.9rem; /* CJK characters need more space */
 }
 
 @layer base {
@@ -104,52 +180,143 @@
   }
   
   body {
-    @apply bg-background text-foreground font-sans antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    line-height: 1.6;
-    letter-spacing: -0.01em;
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+    transition: all var(--animation-medium);
   }
-  
-  /* Improved focus styles for accessibility */
-  :focus-visible {
-    @apply outline-2 outline-offset-2 outline-ring;
-  }
-  
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  /* Hide scrollbar but keep functionality */
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+
+  /* Improved focus states for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 }
 
 @layer components {
-  /* Professional button variants */
-  .btn-gradient-primary {
+  /* Gradient backgrounds */
+  .bg-gradient-primary {
     background: var(--gradient-primary);
-    @apply text-white shadow-aura hover:shadow-xl transition-all duration-300;
   }
-  
-  .btn-gradient-calm {
-    background: var(--gradient-calm);
-    @apply text-foreground shadow-md hover:shadow-lg transition-all duration-300;
+
+  .bg-gradient-wellness {
+    background: var(--gradient-wellness);
   }
-  
-  /* Glass morphism effect */
-  .glass {
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.125);
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
   }
-  
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .bg-aura-gradient {
+    background: var(--aura-gradient);
+  }
+
+  /* Color utilities */
+  .text-aura-primary {
+    color: hsl(var(--aura-primary));
+  }
+
+  .bg-aura-primary {
+    background-color: hsl(var(--aura-primary));
+  }
+
+  .text-aura-growth {
+    color: hsl(var(--aura-growth));
+  }
+
+  .bg-aura-calm {
+    background-color: hsl(var(--aura-calm));
+  }
+
+  .border-aura-primary {
+    border-color: hsl(var(--aura-primary));
+  }
+
+  /* Wellness shadows */
+  .shadow-wellness {
+    box-shadow: var(--shadow-wellness);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-aura {
+    box-shadow: var(--shadow-aura);
+  }
+
+  /* Animation classes */
+  .animate-fade-in {
+    animation: fade-in var(--animation-medium) ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up var(--animation-medium) ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in var(--animation-fast) ease-out;
+  }
+
+  /* Language transition support */
+  .language-transition {
+    transition: all var(--animation-medium);
+  }
+
+  /* RTL-aware positioning */
+  .start-0 {
+    inset-inline-start: 0;
+  }
+
+  .end-0 {
+    inset-inline-end: 0;
+  }
+
+  /* Responsive grid for different languages */
+  .grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  @media (max-width: 640px) {
+    .grid-responsive {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Text overflow handling for longer languages */
+  .text-adaptive {
+    word-break: break-word;
+    hyphens: auto;
+    overflow-wrap: break-word;
+  }
+
+  /* RTL-aware margins */
+  .me-2 {
+    margin-inline-end: 0.5rem;
+  }
+
+  .ms-2 {
+    margin-inline-start: 0.5rem;
+  }
+
+  .pe-4 {
+    padding-inline-end: 1rem;
+  }
+
+  .ps-4 {
+    padding-inline-start: 1rem;
+  }
+
   /* Breathing animation for meditation/wellness elements */
   .breathe {
     animation: breathe 4s ease-in-out infinite;
@@ -164,25 +331,47 @@
   .pulse-gentle {
     animation: pulse-gentle 2s ease-in-out infinite;
   }
-  
-  /* Text gradients */
-  .text-gradient-primary {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .text-gradient-warm {
-    background: var(--gradient-warm);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+
+  /* Aura-specific glow effect */
+  .aura-glow {
+    box-shadow: 0 0 20px hsl(var(--aura-primary) / 0.3);
   }
 }
 
 @layer utilities {
-  /* Custom animations */
+  /* Animation keyframes */
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Wellness animations */
   @keyframes breathe {
     0%, 100% { 
       transform: scale(1);
@@ -211,176 +400,65 @@
       opacity: 0.7;
     }
   }
-  
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  /* Language-specific utilities */
+  .dir-rtl {
+    direction: rtl;
   }
-  
-  @keyframes slide-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  .dir-ltr {
+    direction: ltr;
   }
-  
-  @keyframes scale-in {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+
+  /* Improved scrollbars */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
   }
-  
-  /* Professional spacing utilities */
-  .space-y-comfortable > * + * {
-    margin-top: 1.5rem;
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 3px;
   }
-  
-  /* Accessible text sizes */
-  .text-readable {
-    font-size: 1.1rem;
-    line-height: 1.7;
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
   }
-  
-  /* Custom shadows */
-  .shadow-aura {
-    box-shadow: var(--shadow-aura);
-  }
-  
-  .shadow-warm {
-    box-shadow: var(--shadow-warm);
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
   }
 }
 
-/* Print styles for therapy reports */
+/* Print styles */
 @media print {
   .no-print {
     display: none !important;
   }
   
-  body {
-    font-size: 12pt;
-    line-height: 1.4;
-    color: black;
-    background: white;
-  }
-  
-  .print-break {
-    page-break-before: always;
+  * {
+    color: black !important;
+    background: white !important;
   }
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --border: 0 0% 0%;
-    --ring: 0 0% 0%;
+    --border: 0 0% 20%;
+    --ring: 262 100% 50%;
   }
-  
-  .dark {
-    --border: 0 0% 100%;
-    --ring: 0 0% 100%;
-  }
-}
-
-/* RTL Support */
-[dir="rtl"] {
-  direction: rtl;
-}
-
-[dir="rtl"] .text-left {
-  text-align: right;
-}
-
-[dir="rtl"] .text-right {
-  text-align: left;
-}
-
-[dir="rtl"] .flex {
-  flex-direction: row-reverse;
-}
-
-[dir="rtl"] .justify-start {
-  justify-content: flex-end;
-}
-
-[dir="rtl"] .justify-end {
-  justify-content: flex-start;
-}
-
-[dir="rtl"] .ml-auto {
-  margin-left: 0;
-  margin-right: auto;
-}
-
-[dir="rtl"] .mr-auto {
-  margin-right: 0;
-  margin-left: auto;
-}
-
-/* Arabic and Farsi font support */
-[lang="ar"], [lang="fa"] {
-  font-family: 'Arabic UI Display', 'SF Pro Display', system-ui, sans-serif;
-}
-
-/* Chinese font support */
-[lang="zh-CN"], [lang="zh-TW"] {
-  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', system-ui, sans-serif;
-}
-
-/* Japanese font support */
-[lang="ja"] {
-  font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', 'Meiryo', system-ui, sans-serif;
-}
-
-/* Korean font support */
-[lang="ko"] {
-  font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
-}
-
-/* Hindi font support */
-[lang="hi"] {
-  font-family: 'Devanagari Sangam MN', 'Noto Sans Devanagari', system-ui, sans-serif;
-}
-
-/* Bengali font support */
-[lang="bn"] {
-  font-family: 'Bangla Sangam MN', 'Noto Sans Bengali', system-ui, sans-serif;
-}
-
-/* Thai font support */
-[lang="th"] {
-  font-family: 'Thonburi', 'Sukhumvit Set', system-ui, sans-serif;
-}
-
-/* Vietnamese font support */
-[lang="vi"] {
-  font-family: 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
 }
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  
-  html {
-    scroll-behavior: auto;
+    scroll-behavior: auto !important;
   }
 }
