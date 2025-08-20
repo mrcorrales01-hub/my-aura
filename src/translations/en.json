@@ -368,7 +368,7 @@
     "difficulty": {
       "beginner": "Beginner",
       "intermediate": "Intermediate",
-      "advanced": "Advanced"
+      "advanced": "Advanced"  
     },
     "stats": {
       "completed": "Sessions Completed",
@@ -392,6 +392,149 @@
     "recommendations": {
       "title": "Get Personalized Recommendations",
       "subtitle": "Let our AI suggest exercises based on your mood and progress"
+    }
+  },
+  "lifestyle": {
+    "title": "AI Lifestyle Plans",
+    "subtitle": "Personalized daily routines for optimal wellness",
+    "createPlan": "Create Lifestyle Plan",
+    "focusAreas": "Focus Areas",
+    "sleep": "Sleep",
+    "diet": "Diet", 
+    "fitness": "Fitness",
+    "stress": "Stress Management",
+    "wearableSync": "Wearable Device Sync",
+    "progress": "Progress Dashboard",
+    "aiRecommendations": "AI Recommendations",
+    "syncDevices": "Sync Devices"
+  },
+  "groupTherapy": {
+    "title": "Group Therapy",
+    "subtitle": "Anonymous support groups with AI moderation",
+    "joinGroup": "Join Support Group", 
+    "createGroup": "Create Group Session",
+    "anonymous": "Anonymous Participation",
+    "topics": {
+      "anxiety": "Anxiety Support",
+      "depression": "Depression Support", 
+      "grief": "Grief & Loss",
+      "addiction": "Addiction Recovery",
+      "trauma": "Trauma Support"
+    },
+    "participants": "participants",
+    "facilitatedBy": "Facilitated by",
+    "aiModerated": "AI Moderated"
+  },
+  "microChallenges": {
+    "title": "Daily Healing Quests", 
+    "subtitle": "Gamified mental health micro-challenges",
+    "complete": "Complete Challenge",
+    "reward": "Reward",
+    "coins": "coins",
+    "gratitude": "Gratitude Practice",
+    "breathing": "Mindful Breathing",
+    "reflection": "Self Reflection",
+    "movement": "Gentle Movement"
+  },
+  "safetyNetwork": {
+    "title": "Safety Network",
+    "subtitle": "Your personal crisis support circle",
+    "addContact": "Add Safety Contact",
+    "emergencyContact": "Emergency Contact",
+    "crisisNotifications": "Crisis Notifications",
+    "relationship": "Relationship",
+    "verifyContact": "Verify Contact",
+    "contactTypes": {
+      "family": "Family",
+      "friend": "Friend", 
+      "partner": "Partner",
+      "therapist": "Therapist"
+    }
+  },
+  "assessment": {
+    "title": "Diagnosis Compass",
+    "subtitle": "Evidence-based mental health assessments",
+    "takeAssessment": "Take Assessment",
+    "results": "Results",
+    "recommendations": "Recommendations", 
+    "phq9": "Depression Screening (PHQ-9)",
+    "gad7": "Anxiety Assessment (GAD-7)",
+    "adhd": "ADHD Screening",
+    "ptsd": "PTSD Assessment",
+    "severity": {
+      "minimal": "Minimal",
+      "mild": "Mild",
+      "moderate": "Moderate", 
+      "severe": "Severe"
+    }
+  },
+  "aiRoles": {
+    "title": "AI Role Modes",
+    "subtitle": "Switch between different AI personalities",
+    "coach": "Coach Auri",
+    "coachDesc": "Motivational and goal-oriented",
+    "therapist": "Therapist Auri", 
+    "therapistDesc": "CBT and therapeutic techniques",
+    "friend": "Friend Auri",  
+    "friendDesc": "Empathetic and casual conversation",
+    "switchRole": "Switch Role"
+  },
+  "vrAr": {
+    "title": "Mindfulness AR/VR",
+    "subtitle": "Immersive relaxation environments", 
+    "startAR": "Start AR Session",
+    "startVR": "Start VR Session",
+    "environments": {
+      "forest": "Peaceful Forest",
+      "ocean": "Ocean Waves",
+      "mountain": "Mountain Peak",
+      "space": "Starry Space"
+    },
+    "exercises": {
+      "breathing": "Breathing Guidance",
+      "meditation": "Guided Meditation", 
+      "mindfulness": "Mindfulness Practice"
+    }
+  },
+  "financial": {
+    "title": "Financial Wellness",
+    "subtitle": "AI-powered budgeting and stress reduction",
+    "budgetTracker": "Budget Tracker",
+    "stressLevel": "Financial Stress Level",
+    "debtReduction": "Debt Reduction Plan",
+    "goals": "Financial Goals",
+    "aiAdvice": "AI Financial Advice",
+    "lowStress": "Low Stress",
+    "highStress": "High Stress"
+  },
+  "relationshipCoaching": {
+    "title": "Relationship Coaching", 
+    "subtitle": "AI-guided communication and conflict resolution",
+    "startCoaching": "Start Coaching Session",
+    "scenarios": {
+      "conflict": "Conflict Resolution",
+      "communication": "Communication Skills",
+      "boundaries": "Setting Boundaries"
+    },
+    "relationshipTypes": {
+      "romantic": "Romantic Partner",
+      "family": "Family Member",
+      "friendship": "Friend",
+      "professional": "Professional"
+    }
+  },
+  "crisisAI": {
+    "title": "24/7 Crisis AI-Line",
+    "subtitle": "Always-available emergency support", 
+    "startCrisis": "Start Crisis Session",
+    "anonymous": "Anonymous Support Available",
+    "escalate": "Connect to Human Therapist",
+    "emergency": "Emergency Services",
+    "crisisLevels": {
+      "low": "General Support",
+      "medium": "Moderate Crisis",
+      "high": "High Crisis", 
+      "emergency": "Emergency"
     }
   }
 }
