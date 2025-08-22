@@ -15,6 +15,19 @@ export interface Assessment {
   created_at: string;
 }
 
+// Temporary interface until database types are regenerated
+interface DiagnosisCompassAssessment {
+  id: string;
+  user_id: string;
+  assessment_type: string;
+  assessment_data: any;
+  score?: number;
+  severity_level?: string;
+  recommendations: string[];
+  completed_at: string;
+  created_at: string;
+}
+
 export const useDiagnosisCompass = () => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -75,7 +88,7 @@ export const useDiagnosisCompass = () => {
 
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('diagnosis_compass_assessments')
         .select('*')
         .eq('user_id', user.id)
@@ -143,7 +156,7 @@ export const useDiagnosisCompass = () => {
 
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('diagnosis_compass_assessments')
         .insert({
           user_id: user.id,

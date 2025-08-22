@@ -19,6 +19,23 @@ export interface RelationshipSession {
   created_at: string;
 }
 
+// Temporary interface until database types are regenerated
+interface RelationshipCoachingSession {
+  id: string;
+  user_id: string;
+  session_type: string;
+  partner_involved: boolean;
+  session_data: any;
+  roleplay_scenario?: string;
+  ai_feedback: any;
+  improvement_areas: string[];
+  exercises_completed: any[];
+  effectiveness_rating?: number;
+  duration_minutes?: number;
+  completed_at?: string;
+  created_at: string;
+}
+
 export const useRelationshipCoaching = () => {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -80,7 +97,7 @@ export const useRelationshipCoaching = () => {
 
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('relationship_coaching_sessions')
         .select('*')
         .eq('user_id', user.id)
@@ -115,7 +132,7 @@ export const useRelationshipCoaching = () => {
         current_exercise: 0
       };
 
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('relationship_coaching_sessions')
         .insert({
           user_id: user.id,
@@ -165,7 +182,7 @@ export const useRelationshipCoaching = () => {
       const updatedExercises = [...session.exercises_completed, exerciseData];
       const progress = Math.min(100, (updatedExercises.length / 5) * 100); // Assume 5 exercises per session
 
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('relationship_coaching_sessions')
         .update({
           session_data: {
@@ -208,7 +225,7 @@ export const useRelationshipCoaching = () => {
       const endTime = new Date();
       const durationMinutes = Math.round((endTime.getTime() - startTime.getTime()) / (1000 * 60));
 
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('relationship_coaching_sessions')
         .update({
           effectiveness_rating: effectivenessRating,
@@ -265,7 +282,7 @@ export const useRelationshipCoaching = () => {
         generated_at: new Date().toISOString()
       };
 
-      const { error } = await supabase
+      const { error } = await (supabase as any)
         .from('relationship_coaching_sessions')
         .update({ ai_feedback: feedback })
         .eq('id', sessionId);
