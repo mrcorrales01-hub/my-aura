@@ -1325,6 +1325,48 @@ export type Database = {
         }
         Relationships: []
       }
+      mobile_purchases: {
+        Row: {
+          amount_cents: number | null
+          created_at: string
+          currency: string | null
+          id: string
+          platform: string
+          product_id: string
+          purchase_token: string
+          receipt_data: Json
+          user_id: string | null
+          verification_status: string
+          verified_at: string | null
+        }
+        Insert: {
+          amount_cents?: number | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          platform: string
+          product_id: string
+          purchase_token: string
+          receipt_data?: Json
+          user_id?: string | null
+          verification_status?: string
+          verified_at?: string | null
+        }
+        Update: {
+          amount_cents?: number | null
+          created_at?: string
+          currency?: string | null
+          id?: string
+          platform?: string
+          product_id?: string
+          purchase_token?: string
+          receipt_data?: Json
+          user_id?: string | null
+          verification_status?: string
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
       mood_entries: {
         Row: {
           created_at: string
@@ -1451,6 +1493,141 @@ export type Database = {
           premium_only?: boolean | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      pay_per_play_transactions: {
+        Row: {
+          amount_cents: number
+          completed_at: string | null
+          content_id: string
+          content_type: string
+          created_at: string
+          currency: string
+          id: string
+          payment_method: string | null
+          payment_status: string
+          stripe_payment_intent_id: string | null
+          user_id: string | null
+        }
+        Insert: {
+          amount_cents: number
+          completed_at?: string | null
+          content_id: string
+          content_type: string
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_method?: string | null
+          payment_status?: string
+          stripe_payment_intent_id?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          completed_at?: string | null
+          content_id?: string
+          content_type?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          payment_method?: string | null
+          payment_status?: string
+          stripe_payment_intent_id?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      payment_analytics: {
+        Row: {
+          active_subscribers: number
+          apple_transactions: number
+          churned_subscribers: number
+          created_at: string
+          date: string
+          google_transactions: number
+          id: string
+          new_subscribers: number
+          pay_per_play_revenue_cents: number
+          refund_amount_cents: number
+          stripe_transactions: number
+          subscription_revenue_cents: number
+          total_revenue_cents: number
+        }
+        Insert: {
+          active_subscribers?: number
+          apple_transactions?: number
+          churned_subscribers?: number
+          created_at?: string
+          date?: string
+          google_transactions?: number
+          id?: string
+          new_subscribers?: number
+          pay_per_play_revenue_cents?: number
+          refund_amount_cents?: number
+          stripe_transactions?: number
+          subscription_revenue_cents?: number
+          total_revenue_cents?: number
+        }
+        Update: {
+          active_subscribers?: number
+          apple_transactions?: number
+          churned_subscribers?: number
+          created_at?: string
+          date?: string
+          google_transactions?: number
+          id?: string
+          new_subscribers?: number
+          pay_per_play_revenue_cents?: number
+          refund_amount_cents?: number
+          stripe_transactions?: number
+          subscription_revenue_cents?: number
+          total_revenue_cents?: number
+        }
+        Relationships: []
+      }
+      payment_receipts: {
+        Row: {
+          amount_cents: number
+          created_at: string
+          currency: string
+          email_sent: boolean | null
+          id: string
+          receipt_data: Json
+          receipt_number: string
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          transaction_id: string | null
+          transaction_type: string
+          user_id: string | null
+        }
+        Insert: {
+          amount_cents: number
+          created_at?: string
+          currency?: string
+          email_sent?: boolean | null
+          id?: string
+          receipt_data?: Json
+          receipt_number: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          transaction_id?: string | null
+          transaction_type: string
+          user_id?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          created_at?: string
+          currency?: string
+          email_sent?: boolean | null
+          id?: string
+          receipt_data?: Json
+          receipt_number?: string
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          transaction_id?: string | null
+          transaction_type?: string
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -2412,6 +2589,10 @@ export type Database = {
         Returns: undefined
       }
       generate_invite_code: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      generate_receipt_number: {
         Args: Record<PropertyKey, never>
         Returns: string
       }
