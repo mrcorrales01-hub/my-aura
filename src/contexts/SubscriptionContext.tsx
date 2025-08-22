@@ -3,26 +3,46 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './AuthContext';
 import { useToast } from '@/components/ui/use-toast';
 
+type PlanType = 'free' | 'premium_monthly' | 'premium_yearly' | 'enterprise';
+type ContentType = 'music' | 'video' | 'therapy_session';
+
 interface SubscriptionState {
   subscribed: boolean;
-  tier: string | null;
+  tier: PlanType;
   endDate: string | null;
   loading: boolean;
+  payPerPlayHistory: any[];
+}
+
+interface PayPerPlayOptions {
+  contentType: ContentType;
+  contentId: string;
+  amount?: number;
+}
+
+interface CheckoutOptions {
+  planType: PlanType;
+  paymentMethods?: string[];
+  countryCode?: string;
 }
 
 interface SubscriptionContextType extends SubscriptionState {
   checkSubscription: () => Promise<void>;
-  createCheckoutSession: (priceId?: string) => Promise<void>;
+  createCheckoutSession: (options: CheckoutOptions) => Promise<void>;
+  createPayPerPlaySession: (options: PayPerPlayOptions) => Promise<any>;
   openCustomerPortal: () => Promise<void>;
+  hasAccessToContent: (contentId: string, contentType: ContentType) => Promise<boolean>;
+  getUserReceipts: () => Promise<any[]>;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
 
 export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [subscribed, setSubscribed] = useState(false);
-  const [tier, setTier] = useState<string | null>(null);
+  const [tier, setTier] = useState<PlanType>('free');
   const [endDate, setEndDate] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [payPerPlayHistory, setPayPerPlayHistory] = useState<any[]>([]);
   
   const { user, session } = useAuth();
   const { toast } = useToast();
@@ -52,7 +72,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }
 
       setSubscribed(data.subscribed || false);
-      setTier(data.subscription_tier || null);
+      setTier(data.subscription_tier || 'free');
       setEndDate(data.subscription_end || null);
     } catch (error) {
       console.error('Error checking subscription:', error);
@@ -66,7 +86,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
     }
   };
 
-  const createCheckoutSession = async (priceId?: string) => {
+  const createCheckoutSession = async (options: CheckoutOptions) => {
     if (!session?.access_token) {
       toast({
         title: "Authentication Required",
@@ -78,8 +98,8 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
     try {
       setLoading(true);
-      const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { priceId },
+      const { data, error } = await supabase.functions.invoke('enhanced-create-checkout', {
+        body: options,
         headers: {
           Authorization: `Bearer ${session.access_token}`,
         },
@@ -108,6 +128,103 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const createPayPerPlaySession = async (options: PayPerPlayOptions) => {
+    if (!session?.access_token) {
+      toast({
+        title: "Authentication Required",
+        description: "Please sign in to access premium content",
+        variant: "destructive",
+      });
+      return null;
+    }
+
+    try {
+      setLoading(true);
+      const { data, error } = await supabase.functions.invoke('pay-per-play', {
+        body: options,
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (error) {
+        console.error('Error creating pay-per-play session:', error);
+        toast({
+          title: "Error",
+          description: "Failed to process payment",
+          variant: "destructive",
+        });
+        return null;
+      }
+
+      if (!data.requiresPayment) {
+        toast({
+          title: "Content Unlocked",
+          description: data.message,
+        });
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Error creating pay-per-play session:', error);
+      toast({
+        title: "Error",
+        description: "Failed to process payment",
+        variant: "destructive",
+      });
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const hasAccessToContent = async (contentId: string, contentType: ContentType): Promise<boolean> => {
+    if (!user) return false;
+    
+    // Premium users have access to all content
+    if (subscribed && ['premium_monthly', 'premium_yearly', 'enterprise'].includes(tier)) {
+      return true;
+    }
+
+    // Check if user paid for this specific content
+    try {
+      const { data, error } = await supabase
+        .from('pay_per_play_transactions')
+        .select('payment_status')
+        .eq('user_id', user.id)
+        .eq('content_id', contentId)
+        .eq('content_type', contentType)
+        .eq('payment_status', 'completed')
+        .single();
+
+      return !!data && !error;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const getUserReceipts = async (): Promise<any[]> => {
+    if (!user) return [];
+
+    try {
+      const { data, error } = await supabase
+        .from('payment_receipts')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching receipts:', error);
+        return [];
+      }
+
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching receipts:', error);
+      return [];
     }
   };
 
@@ -166,9 +283,13 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       tier,
       endDate,
       loading,
+      payPerPlayHistory,
       checkSubscription,
       createCheckoutSession,
+      createPayPerPlaySession,
       openCustomerPortal,
+      hasAccessToContent,
+      getUserReceipts,
     }}>
       {children}
     </SubscriptionContext.Provider>

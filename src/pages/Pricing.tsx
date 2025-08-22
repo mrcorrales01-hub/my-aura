@@ -48,7 +48,7 @@ const Pricing = () => {
       ],
       icon: Crown,
       popular: true,
-      current: subscribed && tier === 'Premium'
+      current: tier === 'premium_monthly'
     },
     {
       id: 'enterprise',
@@ -67,7 +67,7 @@ const Pricing = () => {
         'HIPAA compliance tools'
       ],
       icon: Shield,
-      current: subscribed && tier === 'Enterprise'
+      current: tier === 'enterprise'
     }
   ];
 
@@ -81,13 +81,17 @@ const Pricing = () => {
       return; // Already on free plan
     }
 
-    await createCheckoutSession();
+    await createCheckoutSession({ 
+      planType: planId as any,
+      paymentMethods: ['card', 'paypal'],
+      countryCode: 'US'
+    });
   };
 
   const getCurrentPlanId = () => {
     if (!subscribed) return 'free';
-    if (tier === 'Premium') return 'premium';
-    if (tier === 'Enterprise') return 'enterprise';
+    if (tier === 'premium_monthly') return 'premium';
+    if (tier === 'enterprise') return 'enterprise';
     return 'free';
   };
 

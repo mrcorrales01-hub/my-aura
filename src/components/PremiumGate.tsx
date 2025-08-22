@@ -10,7 +10,7 @@ interface PremiumGateProps {
   children: ReactNode;
   feature: string;
   description?: string;
-  requiredTier?: 'premium' | 'pro';
+  requiredTier?: 'premium_monthly' | 'premium_yearly' | 'enterprise';
   showPreview?: boolean;
 }
 
@@ -18,34 +18,37 @@ export const PremiumGate = ({
   children, 
   feature, 
   description,
-  requiredTier = 'premium',
+  requiredTier = 'premium_monthly',
   showPreview = false 
 }: PremiumGateProps) => {
   const { subscribed, tier: subscription_tier } = useSubscription();
   const navigate = useNavigate();
 
   // Check if user has required access
-  const hasAccess = subscribed && (
-    subscription_tier === 'premium' || subscription_tier === 'pro' || 
-    (requiredTier === 'premium' && subscription_tier === 'pro')
-  );
+  const hasAccess = subscribed && ['premium_monthly', 'premium_yearly', 'enterprise'].includes(subscription_tier);
 
   if (hasAccess) {
     return <>{children}</>;
   }
 
   const tierInfo = {
-    premium: {
+    premium_monthly: {
       icon: Crown,
-      name: 'Premium',
+      name: 'Premium Monthly',
       color: 'bg-gradient-to-r from-amber-500 to-yellow-500',
       benefits: ['Unlimited AI conversations', 'Advanced mood tracking', 'Personalized insights']
     },
-    pro: {
-      icon: Sparkles,
-      name: 'Pro',
+    premium_yearly: {
+      icon: Crown,
+      name: 'Premium Yearly',
       color: 'bg-gradient-to-r from-purple-500 to-pink-500',
-      benefits: ['Everything in Premium', 'Priority support', 'Early access to features']
+      benefits: ['Everything in Premium Monthly', 'Save 17%!', 'Priority support']
+    },
+    enterprise: {
+      icon: Sparkles,
+      name: 'Enterprise',
+      color: 'bg-gradient-to-r from-green-500 to-emerald-500',
+      benefits: ['Everything in Premium', 'Team features', 'Custom integrations', 'Dedicated support']
     }
   };
 
@@ -134,7 +137,7 @@ export const PremiumFeature = ({
   children, 
   feature, 
   description,
-  requiredTier = 'premium' 
+  requiredTier = 'premium_monthly'
 }: Omit<PremiumGateProps, 'showPreview'>) => (
   <PremiumGate
     feature={feature}
@@ -151,7 +154,7 @@ export const PremiumPreview = ({
   children, 
   feature, 
   description,
-  requiredTier = 'premium' 
+  requiredTier = 'premium_monthly' 
 }: Omit<PremiumGateProps, 'showPreview'>) => (
   <PremiumGate
     feature={feature}
