@@ -49,6 +49,10 @@ import GamificationStats from "@/components/GamificationStats";
 import HarmoniousMusic from "@/components/HarmoniousMusic";
 import VideoExercises from "@/components/VideoExercises";
 import WellnessShowcase from "@/components/WellnessShowcase";
+import TherapistMarketplace from "@/components/TherapistMarketplace";
+import CrisisHotline from "@/components/CrisisHotline";
+import MarketingDashboard from "@/components/MarketingDashboard";
+import Index from "@/pages/Index";
 
 const queryClient = new QueryClient();
 
