@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { useGlobalLanguage } from '@/hooks/useGlobalLanguage';
 import { useAuth } from '@/contexts/AuthContext';
 import Navigation from '@/components/Navigation';
-import GlobalLanguageSelector from '@/components/GlobalLanguageSelector';
+import { GlobalLanguageSelector } from '@/components/GlobalLanguageSelector';
 import { 
   Heart, 
   MessageCircle, 

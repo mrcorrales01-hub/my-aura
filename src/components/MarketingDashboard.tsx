@@ -295,7 +295,7 @@ const MarketingDashboard = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="all">All Users</SelectItem>
-                        <SelectItem value="new_users">New Users (< 7 days)</SelectItem>
+                        <SelectItem value="new_users">New Users (7 days)</SelectItem>
                         <SelectItem value="active_users">Active Users</SelectItem>
                         <SelectItem value="inactive_users">Inactive Users</SelectItem>
                         <SelectItem value="free_users">Free Tier Users</SelectItem>
