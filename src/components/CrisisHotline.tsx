@@ -159,7 +159,7 @@ const CrisisHotline = () => {
   const [emergencyDialogOpen, setEmergencyDialogOpen] = useState(false);
   const [chatDialogOpen, setChatDialogOpen] = useState(false);
 
-  const { t, currentLanguage } = useGlobalLanguage();
+  const { t, language } = useGlobalLanguage();
   const { user } = useAuth();
 
   useEffect(() => {

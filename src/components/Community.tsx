@@ -256,10 +256,10 @@ export const Community: React.FC = () => {
     const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60));
     
     if (diffInHours < 1) return t('justNow');
-    if (diffInHours < 24) return t('hoursAgo', { hours: diffInHours });
+    if (diffInHours < 24) return t('hoursAgo', { hours: diffInHours.toString() });
     
     const diffInDays = Math.floor(diffInHours / 24);
-    return t('daysAgo', { days: diffInDays });
+    return t('daysAgo', { days: diffInDays.toString() });
   };
 
   const renderPost = (post: CommunityPost) => (
