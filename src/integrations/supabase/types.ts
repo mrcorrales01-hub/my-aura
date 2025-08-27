@@ -2596,6 +2596,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_current_user_therapist_id: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
       get_therapist_patients_summary: {
         Args: { therapist_user_id: string }
         Returns: {
