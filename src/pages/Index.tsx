@@ -1,193 +1,194 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
-import Navigation from '@/components/Navigation';
+import { Heart, Music, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
-  MessageCircle,
-  Brain,
-  Video,
-  Music,
-  Users,
-  Award,
-  Globe,
-} from 'lucide-react';
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-/*
- * This component provides a cleaner, more focused landing page for the
- * Aura Wellness app. It features a bold hero section, a concise list
- * of core features, and a call‑to‑action. Replace the existing
- * Index.tsx file in src/pages with this file to improve the first
- * impression of your app. All strings are currently hard‑coded but can
- * easily be internationalized via your existing translation hooks.
+/**
+ * This component defines a polished landing page for the Aura application.
+ * It introduces visitors to the core features of the app and provides
+ * clear calls‑to‑action. The layout is fully responsive and
+ * emphasizes visual hierarchy and readability. Animations are added
+ * via Framer Motion to gently draw attention to key elements without
+ * being distracting.
  */
-
-const features = [
-  {
-    icon: MessageCircle,
-    title: 'AI Coach Auri',
-    description:
-      'Chat with an AI‑powered coach for real‑time guidance using CBT, DBT and ACT techniques.',
-    link: '/chat',
-  },
-  {
-    icon: Brain,
-    title: 'Mood Tracking',
-    description:
-      'Record your mood and visualize patterns over time. Gain insights with AI‑driven analysis.',
-    link: '/mood',
-  },
-  {
-    icon: Video,
-    title: 'Therapist Marketplace',
-    description:
-      'Connect with licensed therapists worldwide for secure video sessions with instant booking.',
-    link: '/therapist',
-  },
-  {
-    icon: Music,
-    title: 'Therapeutic Music',
-    description:
-      'Listen to curated music and nature sounds designed to help you relax and focus.',
-    link: '/music',
-  },
-  {
-    icon: Users,
-    title: 'Safe Community',
-    description:
-      'Join moderated forums and support groups. Share your journey and connect with others.',
-    link: '/community',
-  },
-  {
-    icon: Award,
-    title: 'Gamification',
-    description:
-      'Earn badges and rewards as you progress on your wellness journey.',
-    link: '/profile',
-  },
-  {
-    icon: Globe,
-    title: 'Multi‑Language',
-    description:
-      'Access the entire platform in 22 languages with culturally sensitive content.',
-    link: '/settings',
-  },
-];
-
 export default function ImprovedIndex() {
-  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  /**
+   * Each feature card is defined by a title, description, and an icon
+   * component. The icon is rendered dynamically to allow easy
+   * substitution or extension of the feature list in the future.
+   */
+  const features = [
+    {
+      title: "Humörloggning",
+      description:
+        "Logga ditt humör dagligen för att se mönster och få personliga insikter.",
+      icon: Heart,
+    },
+    {
+      title: "Guidad meditation",
+      description:
+        "Utforska ett bibliotek med meditationer som hjälper dig att hitta fokus och lugn.",
+      icon: Music,
+    },
+    {
+      title: "Gemenskap",
+      description:
+        "Anslut med likasinnade användare och dela dina framsteg i vår stödjande community.",
+      icon: Users,
+    },
+  ];
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Top navigation bar */}
-      <Navigation />
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-purple-700 via-indigo-600 to-blue-500 text-white overflow-hidden py-24">
-        <div className="container mx-auto px-6 md:px-12 flex flex-col items-center text-center space-y-6">
-          <h1 className="text-4xl md:text-6xl font-extrabold drop-shadow-xl">
-            My Aura
+    <div className="flex flex-col min-h-screen bg-white">
+      {/* Hero section */}
+      <section className="relative flex items-center justify-center h-[60vh] overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&w=1600')",
+          }}
+        />
+        <div className="absolute inset-0 bg-black/50" />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="z-10 text-center max-w-2xl px-4"
+        >
+          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-md">
+            Välkommen till Aura
           </h1>
-          <p className="text-lg md:text-2xl max-w-2xl">
-            Complete Mental Health & Wellness Platform
+          <p className="mt-4 text-lg md:text-xl text-gray-200">
+            Din partner för bättre mental hälsa genom daglig reflektions‑
+            spårning, guidad meditation och stödjande gemenskap.
           </p>
-          <p className="max-w-3xl text-sm md:text-base mt-2">
-            AI coaching, licensed therapists, mood tracking, crisis support, therapeutic
-            music, video exercises and safe community – all in one place.
-          </p>
-          {user ? (
-            <Link
-              to="/dashboard"
-              className="bg-white text-indigo-700 hover:bg-gray-100 font-medium px-6 py-3 rounded-full shadow-lg mt-4"
-            >
-              Go to Dashboard
-            </Link>
-          ) : (
-            <div className="flex flex-col md:flex-row gap-4 mt-4">
-              <Link
-                to="/signup"
-                className="bg-white text-indigo-700 hover:bg-gray-100 font-medium px-6 py-3 rounded-full shadow-lg"
-              >
-                Start Free Trial
-              </Link>
-              <Link
-                to="/pricing"
-                className="bg-indigo-100 text-white hover:bg-indigo-200 font-medium px-6 py-3 rounded-full shadow-lg"
-              >
-                View Pricing
-              </Link>
-            </div>
-          )}
-        </div>
-        {/* subtle background pattern */}
-        <div className="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1524594019417-340aaacb3f09?auto=format&fit=crop&w=800&q=60')] bg-cover bg-center"></div>
+          <Button
+            variant="secondary"
+            className="mt-8 px-6 py-3 text-lg"
+            onClick={() => navigate("/register")}
+          >
+            Kom igång gratis
+          </Button>
+        </motion.div>
       </section>
-      {/* Features Section */}
+
+      {/* Features section */}
       <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-6 md:px-12">
-          <h2 className="text-center text-3xl md:text-4xl font-bold mb-10">
-            Explore our key features
-          </h2>
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {features.map(({ icon: Icon, title, description, link }) => (
-              <Link
-                key={title}
-                to={link}
-                className="group flex flex-col items-start p-6 bg-white rounded-2xl shadow hover:shadow-xl transition-shadow duration-300"
+        <div className="max-w-6xl mx-auto px-6">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-3xl md:text-4xl font-semibold text-center mb-12"
+          >
+            Utforska funktionerna
+          </motion.h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {features.map((feature, idx) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
               >
-                <Icon className="h-8 w-8 text-indigo-600 mb-4 group-hover:text-indigo-800" />
-                <h3 className="text-xl font-semibold mb-2 group-hover:text-indigo-800">
-                  {title}
-                </h3>
-                <p className="text-sm text-gray-600 mb-4 flex-1">
-                  {description}
-                </p>
-                <span className="text-indigo-600 group-hover:text-indigo-800 font-medium inline-flex items-center">
-                  Explore
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="ml-1 h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 12h14m-6-6l6 6-6 6"
-                    />
-                  </svg>
-                </span>
-              </Link>
+                <Card className="h-full shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <CardHeader className="flex flex-col items-center text-center">
+                    <feature.icon className="h-12 w-12 text-indigo-500" />
+                    <CardTitle className="mt-4 text-xl font-medium">
+                      {feature.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 text-sm leading-relaxed text-center">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
-      {/* CTA Section */}
-      <section className="py-16 bg-indigo-600 text-white text-center">
-        <h2 className="text-2xl md:text-3xl font-bold mb-4">
-          Ready to start your wellness journey?
-        </h2>
-        <p className="max-w-lg mx-auto mb-6">
-          Join thousands who are transforming their mental health with AI‑powered
-          coaching and comprehensive wellness tools.
-        </p>
-        <div className="flex flex-col md:flex-row gap-4 justify-center">
-          <Link
-            to="/signup"
-            className="bg-white text-indigo-700 hover:bg-indigo-100 font-medium px-6 py-3 rounded-full shadow"
+
+      {/* About section */}
+      <section className="py-16">
+        <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex-1"
           >
-            Start Free Trial
-          </Link>
-          <Link
-            to="/pricing"
-            className="bg-indigo-200 text-indigo-900 hover:bg-indigo-300 font-medium px-6 py-3 rounded-full shadow"
+            <img
+              src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt="Person mediterar"
+              className="w-full h-64 object-cover rounded-lg shadow-md"
+            />
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="flex-1"
           >
-            View Plans
-          </Link>
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4">
+              Bättre balans börjar här
+            </h3>
+            <p className="text-gray-700 mb-6 leading-relaxed">
+              Aura är designad för att hjälpa dig förstå dina känslor och
+              hantera stress. Med våra verktyg kan du reflektera över
+              ditt välmående, hitta övningar som passar dig och uppleva
+              stöd från en varm community av användare som går igenom
+              liknande resor.
+            </p>
+            <Button
+              variant="outline"
+              className="px-5 py-2"
+              onClick={() => navigate("/about")}
+            >
+              Läs mer om Aura
+            </Button>
+          </motion.div>
         </div>
       </section>
-    </div>
-  );
-}
+
+      {/* Call to action section */}
+      <section className="py-16 bg-indigo-600 text-white text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto px-6"
+        >
+          <h4 className="text-3xl font-bold mb-4">
+            Börja din resa mot ett lugnare sinne idag
+          </h4>
+          <p className="mb-8 text-lg text-indigo-200">
+            Registrera dig för att få tillgång till vår fulla verktygslåda och
+            upptäck hur Aura kan hjälpa dig att hitta balans.
+          </p>
+          <Button
+            variant="secondary"
+            className="px-6 py-3 text-lg"
+            onClick={() => navigate("/register")}
+          >
+            Skapa konto
+          </Button>
+        </motion.div>
       </section>
     </div>
   );
