@@ -256,7 +256,7 @@ export const Community: React.FC = () => {
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => togglePostExpansion(post.id)}
+                  onClick={() => togglePostExpansion(post.id.toString())}
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <MessageCircle className="w-4 h-4 mr-1" />

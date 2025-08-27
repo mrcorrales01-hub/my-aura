@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { useGlobalLanguage } from '@/hooks/useGlobalLanguage';
+import { useGlobalLocalization } from '@/hooks/useGlobalLocalization';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { 
@@ -159,7 +159,7 @@ const CrisisHotline = () => {
   const [emergencyDialogOpen, setEmergencyDialogOpen] = useState(false);
   const [chatDialogOpen, setChatDialogOpen] = useState(false);
 
-  const { t, language } = useGlobalLanguage();
+  const { t, currentLanguage } = useGlobalLocalization();
   const { user } = useAuth();
 
   useEffect(() => {
