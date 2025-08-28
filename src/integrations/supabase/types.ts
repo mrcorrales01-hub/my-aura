@@ -260,6 +260,13 @@ export type Database = {
             foreignKeyName: "appointments_therapist_id_fkey"
             columns: ["therapist_id"]
             isOneToOne: false
+            referencedRelation: "therapist_public_view"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "appointments_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
             referencedRelation: "therapists"
             referencedColumns: ["id"]
           },
@@ -301,6 +308,42 @@ export type Database = {
           table_name?: string
           user_agent?: string | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      auth_rate_limits: {
+        Row: {
+          attempt_count: number | null
+          attempt_type: string
+          blocked_until: string | null
+          created_at: string | null
+          email: string | null
+          first_attempt_at: string | null
+          id: string
+          ip_address: unknown
+          last_attempt_at: string | null
+        }
+        Insert: {
+          attempt_count?: number | null
+          attempt_type: string
+          blocked_until?: string | null
+          created_at?: string | null
+          email?: string | null
+          first_attempt_at?: string | null
+          id?: string
+          ip_address: unknown
+          last_attempt_at?: string | null
+        }
+        Update: {
+          attempt_count?: number | null
+          attempt_type?: string
+          blocked_until?: string | null
+          created_at?: string | null
+          email?: string | null
+          first_attempt_at?: string | null
+          id?: string
+          ip_address?: unknown
+          last_attempt_at?: string | null
         }
         Relationships: []
       }
@@ -1956,6 +1999,13 @@ export type Database = {
             foreignKeyName: "therapist_reviews_therapist_id_fkey"
             columns: ["therapist_id"]
             isOneToOne: false
+            referencedRelation: "therapist_public_view"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "therapist_reviews_therapist_id_fkey"
+            columns: ["therapist_id"]
+            isOneToOne: false
             referencedRelation: "therapists"
             referencedColumns: ["id"]
           },
@@ -2573,7 +2623,25 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      therapist_public_view: {
+        Row: {
+          availability: Json | null
+          average_rating: number | null
+          bio: string | null
+          full_name: string | null
+          hourly_rate: number | null
+          id: string | null
+          is_active: boolean | null
+          is_verified: boolean | null
+          languages: string[] | null
+          profile_image_url: string | null
+          review_count: number | null
+          specializations: string[] | null
+          timezone: string | null
+          years_experience: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       award_achievement: {
@@ -2582,6 +2650,10 @@ export type Database = {
           p_points?: number
           p_user_id: string
         }
+        Returns: boolean
+      }
+      can_access_appointment: {
+        Args: { appointment_id: string }
         Returns: boolean
       }
       cleanup_old_conversations: {
@@ -2611,6 +2683,23 @@ export type Database = {
           total_conversations: number
         }[]
       }
+      get_therapist_public_info: {
+        Args: { therapist_id: string }
+        Returns: {
+          availability: Json
+          average_rating: number
+          bio: string
+          full_name: string
+          hourly_rate: number
+          id: string
+          languages: string[]
+          profile_image_url: string
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
+      }
       log_ai_interaction: {
         Args: {
           p_ai_tone?: string
@@ -2621,6 +2710,20 @@ export type Database = {
           p_user_id: string
         }
         Returns: string
+      }
+      log_security_event: {
+        Args: {
+          p_details?: Json
+          p_event_type: string
+          p_record_id?: string
+          p_table_name: string
+          p_user_id: string
+        }
+        Returns: undefined
+      }
+      moderate_content: {
+        Args: { content_text: string }
+        Returns: Json
       }
     }
     Enums: {
