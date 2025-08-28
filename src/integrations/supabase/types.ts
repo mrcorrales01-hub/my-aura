@@ -260,13 +260,6 @@ export type Database = {
             foreignKeyName: "appointments_therapist_id_fkey"
             columns: ["therapist_id"]
             isOneToOne: false
-            referencedRelation: "therapist_public_view"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "appointments_therapist_id_fkey"
-            columns: ["therapist_id"]
-            isOneToOne: false
             referencedRelation: "therapists"
             referencedColumns: ["id"]
           },
@@ -1999,13 +1992,6 @@ export type Database = {
             foreignKeyName: "therapist_reviews_therapist_id_fkey"
             columns: ["therapist_id"]
             isOneToOne: false
-            referencedRelation: "therapist_public_view"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "therapist_reviews_therapist_id_fkey"
-            columns: ["therapist_id"]
-            isOneToOne: false
             referencedRelation: "therapists"
             referencedColumns: ["id"]
           },
@@ -2623,25 +2609,7 @@ export type Database = {
       }
     }
     Views: {
-      therapist_public_view: {
-        Row: {
-          availability: Json | null
-          average_rating: number | null
-          bio: string | null
-          full_name: string | null
-          hourly_rate: number | null
-          id: string | null
-          is_active: boolean | null
-          is_verified: boolean | null
-          languages: string[] | null
-          profile_image_url: string | null
-          review_count: number | null
-          specializations: string[] | null
-          timezone: string | null
-          years_experience: number | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
       award_achievement: {
@@ -2668,6 +2636,23 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_all_therapists_public: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          availability: Json
+          average_rating: number
+          bio: string
+          full_name: string
+          hourly_rate: number
+          id: string
+          languages: string[]
+          profile_image_url: string
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
+      }
       get_current_user_therapist_id: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -2684,7 +2669,7 @@ export type Database = {
         }[]
       }
       get_therapist_public_info: {
-        Args: { therapist_id: string }
+        Args: { therapist_id?: string }
         Returns: {
           availability: Json
           average_rating: number
