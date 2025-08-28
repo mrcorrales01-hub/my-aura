@@ -1,6 +1,13 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+
+// Type for content moderation result
+interface ModerationResult {
+  flagged: boolean;
+  reasons: string[];
+}
 
 /**
  * Defines the shape of the authentication context exposed by the AuthProvider.
@@ -60,19 +67,88 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, []);
 
-  // Authentication helpers
+  // Helper function to check rate limits
+  const checkRateLimit = async (email: string, attemptType: 'login' | 'signup' | 'password_reset') => {
+    try {
+      const { data, error } = await supabase.functions.invoke('rate-limiter', {
+        body: { email, attemptType }
+      });
+
+      if (error) {
+        console.error('Rate limiter error:', error);
+        return { allowed: true }; // Fail open for availability
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Rate limiter connection error:', error);
+      return { allowed: true }; // Fail open for availability
+    }
+  };
+
+  // Authentication helpers with rate limiting and content moderation
   const signUp = async (email: string, password: string, metadata?: any) => {
+    // Check rate limit first
+    const rateLimitCheck = await checkRateLimit(email, 'signup');
+    if (!rateLimitCheck.allowed) {
+      const errorMessage = rateLimitCheck.reason === 'Rate limited' 
+        ? 'Too many signup attempts. Please try again later.'
+        : 'Account creation temporarily blocked due to too many attempts.';
+      
+      toast.error(errorMessage);
+      return { error: { message: errorMessage } };
+    }
+
+    // Moderate user-provided content
+    if (metadata?.full_name) {
+      try {
+        const { data: moderationResult } = await supabase.rpc('moderate_content', {
+          content_text: metadata.full_name
+        });
+        
+        const result = moderationResult as unknown as ModerationResult;
+        if (result?.flagged) {
+          toast.error('Name contains inappropriate content. Please use a different name.');
+          return { error: { message: 'Content moderation failed' } };
+        }
+      } catch (error) {
+        console.error('Content moderation error:', error);
+        // Continue with signup if moderation fails
+      }
+    }
+
     const redirectUrl = `${window.location.origin}/`;
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: { emailRedirectTo: redirectUrl, data: metadata },
     });
+
+    if (error) {
+      toast.error(error.message);
+    }
+
     return { error };
   };
 
   const signIn = async (email: string, password: string) => {
+    // Check rate limit first
+    const rateLimitCheck = await checkRateLimit(email, 'login');
+    if (!rateLimitCheck.allowed) {
+      const errorMessage = rateLimitCheck.reason === 'Rate limited'
+        ? 'Too many login attempts. Please try again later.'
+        : 'Account temporarily locked due to too many failed attempts.';
+      
+      toast.error(errorMessage);
+      return { error: { message: errorMessage } };
+    }
+
     const { error } = await supabase.auth.signInWithPassword({ email, password });
+    
+    if (error) {
+      toast.error(error.message);
+    }
+
     return { error };
   };
 
