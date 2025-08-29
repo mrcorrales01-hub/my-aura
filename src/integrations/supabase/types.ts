@@ -2612,6 +2612,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      audit_data_access: {
+        Args: { p_operation: string; p_record_id: string; p_table_name: string }
+        Returns: undefined
+      }
       award_achievement: {
         Args: {
           p_achievement_name: string
@@ -2656,6 +2660,23 @@ export type Database = {
       get_current_user_therapist_id: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      get_therapist_marketplace_data: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          availability: Json
+          average_rating: number
+          bio: string
+          full_name: string
+          hourly_rate: number
+          id: string
+          languages: string[]
+          profile_image_url: string
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
       }
       get_therapist_patients_summary: {
         Args: { therapist_user_id: string }
