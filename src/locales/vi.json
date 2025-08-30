@@ -1,0 +1,11 @@
+{
+  "app": {
+    "name": "My Aura"
+  },
+  "nav": {
+    "home": "Trang chủ"
+  },
+  "settings": {
+    "language": "Ngôn ngữ"
+  }
+}
