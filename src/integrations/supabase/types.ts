@@ -310,33 +310,45 @@ export type Database = {
           attempt_type: string
           blocked_until: string | null
           created_at: string | null
+          device_fingerprint: string | null
           email: string | null
           first_attempt_at: string | null
+          geographic_region: string | null
           id: string
           ip_address: unknown
           last_attempt_at: string | null
+          severity_level: string | null
+          user_agent: string | null
         }
         Insert: {
           attempt_count?: number | null
           attempt_type: string
           blocked_until?: string | null
           created_at?: string | null
+          device_fingerprint?: string | null
           email?: string | null
           first_attempt_at?: string | null
+          geographic_region?: string | null
           id?: string
           ip_address: unknown
           last_attempt_at?: string | null
+          severity_level?: string | null
+          user_agent?: string | null
         }
         Update: {
           attempt_count?: number | null
           attempt_type?: string
           blocked_until?: string | null
           created_at?: string | null
+          device_fingerprint?: string | null
           email?: string | null
           first_attempt_at?: string | null
+          geographic_region?: string | null
           id?: string
           ip_address?: unknown
           last_attempt_at?: string | null
+          severity_level?: string | null
+          user_agent?: string | null
         }
         Relationships: []
       }
@@ -2323,6 +2335,30 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          assigned_at: string | null
+          assigned_by: string | null
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          assigned_at?: string | null
+          assigned_by?: string | null
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_video_sessions: {
         Row: {
           completed: boolean | null
@@ -2632,6 +2668,10 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: undefined
       }
+      detect_suspicious_login: {
+        Args: { p_email: string; p_ip: unknown; p_user_agent?: string }
+        Returns: Json
+      }
       generate_invite_code: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -2660,6 +2700,21 @@ export type Database = {
       get_current_user_therapist_id: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      get_secure_therapist_marketplace: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          average_rating: number
+          bio: string
+          full_name: string
+          hourly_rate: number
+          id: string
+          languages: string[]
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
       }
       get_therapist_marketplace_data: {
         Args: Record<PropertyKey, never>
@@ -2706,6 +2761,10 @@ export type Database = {
           years_experience: number
         }[]
       }
+      is_system_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
       log_ai_interaction: {
         Args: {
           p_ai_tone?: string
@@ -2722,6 +2781,18 @@ export type Database = {
           p_details?: Json
           p_event_type: string
           p_record_id?: string
+          p_table_name: string
+          p_user_id: string
+        }
+        Returns: undefined
+      }
+      log_security_event_enhanced: {
+        Args: {
+          p_details?: Json
+          p_event_type: string
+          p_record_id?: string
+          p_severity?: string
+          p_source_ip?: unknown
           p_table_name: string
           p_user_id: string
         }
