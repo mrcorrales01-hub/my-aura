@@ -20,7 +20,7 @@ export async function loadLocale(lang: Lang) {
 }
 
 // Initialize i18next
-await i18n.use(initReactI18next).init({
+i18n.use(initReactI18next).init({
   resources: {}, // filled by loadLocale on demand
   lng: localStorage.getItem("aura.lang") ?? "sv",
   fallbackLng: "en",
@@ -40,13 +40,14 @@ export async function setLanguage(lang: Lang) {
   document.documentElement.lang = lang;
 }
 
-// Load initial language
-const initial = (localStorage.getItem("aura.lang") ?? "sv") as Lang;
-if (LANGS.includes(initial)) {
-  await loadLocale(initial);
-  await i18n.changeLanguage(initial);
-  document.documentElement.dir = RTL_LANGUAGES.includes(initial as any) ? "rtl" : "ltr";
-  document.documentElement.lang = initial;
+export async function initializeLanguage() {
+  const initial = (localStorage.getItem("aura.lang") ?? "sv") as Lang;
+  if (LANGS.includes(initial)) {
+    await loadLocale(initial);
+    await i18n.changeLanguage(initial);
+    document.documentElement.dir = RTL_LANGUAGES.includes(initial as any) ? "rtl" : "ltr";
+    document.documentElement.lang = initial;
+  }
 }
 
 export { LANGS };
