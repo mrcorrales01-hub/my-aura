@@ -19,69 +19,69 @@ import {
   Headphones,
   Play
 } from 'lucide-react';
-import { useI18n } from '@/hooks/useI18n';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const AuraHome = () => {
   const [currentMood, setCurrentMood] = useState<string>('');
-  const { t } = useI18n();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const moodOptions = [
-    { emoji: '😊', label: 'Happy', value: 'happy', color: 'bg-aura-secondary' },
-    { emoji: '😌', label: 'Calm', value: 'calm', color: 'bg-aura-serenity' },
-    { emoji: '😰', label: 'Anxious', value: 'anxious', color: 'bg-aura-warm' },
-    { emoji: '😔', label: 'Sad', value: 'sad', color: 'bg-aura-primary' },
-    { emoji: '😤', label: 'Stressed', value: 'stressed', color: 'bg-destructive' },
-    { emoji: '🤔', label: 'Confused', value: 'confused', color: 'bg-muted' }
+    { emoji: '😊', label: t('mood.happy'), value: 'happy', color: 'bg-aura-secondary' },
+    { emoji: '😌', label: t('mood.calm'), value: 'calm', color: 'bg-aura-serenity' },
+    { emoji: '😰', label: t('mood.anxious'), value: 'anxious', color: 'bg-aura-warm' },
+    { emoji: '😔', label: t('mood.sad'), value: 'sad', color: 'bg-aura-primary' },
+    { emoji: '😤', label: t('mood.stressed'), value: 'stressed', color: 'bg-destructive' },
+    { emoji: '🤔', label: t('mood.confused'), value: 'confused', color: 'bg-muted' }
   ];
 
   const quickActions = [
     {
-      title: 'Chat with Auri',
-      description: 'Your AI wellness coach is here 24/7',
+      title: t('home.chatWithAuri'),
+      description: t('home.aiCoachAvailable'),
       icon: MessageCircle,
       color: 'text-aura-primary',
       bgColor: 'bg-aura-primary/10',
       action: () => navigate('/chat')
     },
     {
-      title: 'Harmonious Music',
-      description: 'AI-curated music for relaxation & focus',
+      title: t('home.harmoniousMusic'),
+      description: t('home.aiCuratedMusic'),
       icon: Music,
       color: 'text-purple-600',
       bgColor: 'bg-purple-100',
       action: () => navigate('/music'),
-      badge: 'New!'
+      badge: t('common.new')
     },
     {
-      title: 'Video Exercises',
-      description: 'Guided mindfulness & movement sessions',
+      title: t('home.videoExercises'),
+      description: t('home.guidedSessions'),
       icon: Video,
       color: 'text-blue-600',
       bgColor: 'bg-blue-100',
       action: () => navigate('/videos'),
-      badge: 'New!'
+      badge: t('common.new')
     },
     {
-      title: 'Mood Check-in',
-      description: 'Track your emotional patterns',
+      title: t('home.moodCheckin'),
+      description: t('home.trackEmotions'),
       icon: Heart,
       color: 'text-aura-warm',
       bgColor: 'bg-aura-warm/10',
       action: () => navigate('/mood')
     },
     {
-      title: 'Daily Quests',
-      description: 'Complete wellness micro-tasks',
+      title: t('home.dailyQuests'),
+      description: t('home.wellnessTasks'),
       icon: Sparkles,
       color: 'text-aura-serenity',
       bgColor: 'bg-aura-serenity/10',
       action: () => navigate('/quests')
     },
     {
-      title: 'My Plan',
-      description: 'Goals, habits & life balance',
+      title: t('home.myPlan'),
+      description: t('home.goalsHabits'),
       icon: Target,
       color: 'text-aura-secondary',
       bgColor: 'bg-aura-secondary/10',
@@ -99,10 +99,10 @@ const AuraHome = () => {
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-aura-primary mb-1">
-              Welcome back! 👋
+              {t('home.welcomeBack')}
             </h1>
             <p className="text-foreground/70">
-              I'm Auri, your compassionate AI wellness coach. How can I support you today?
+              {t('home.auriIntro')}
             </p>
           </div>
         </div>
@@ -113,11 +113,11 @@ const AuraHome = () => {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-medium text-aura-primary flex items-center">
             <Smile className="w-5 h-5 mr-2" />
-            Quick Mood Check
+            {t('home.quickMoodCheck')}
           </h2>
           <Badge variant="secondary" className="bg-aura-secondary/20 text-aura-secondary border-0">
             <Clock className="w-3 h-3 mr-1" />
-            30 seconds
+            {t('home.thirtySeconds')}
           </Badge>
         </div>
         
@@ -142,14 +142,14 @@ const AuraHome = () => {
         {currentMood && (
           <div className="bg-aura-calm/50 rounded-lg p-4 animate-fade-in">
             <p className="text-sm text-foreground/80 mb-3">
-              Thank you for sharing. Would you like to talk about what's making you feel {currentMood} today?
+              {t('home.thankYouForSharing', { mood: currentMood })}
             </p>
             <Button 
               size="sm" 
               className="bg-aura-primary hover:bg-aura-primary/90 text-white"
               onClick={() => navigate('/chat')}
             >
-              Start Conversation
+              {t('home.startConversation')}
               <Send className="w-4 h-4 ml-2" />
             </Button>
           </div>
@@ -164,12 +164,12 @@ const AuraHome = () => {
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h2 className="text-lg font-medium text-foreground">New Wellness Modules!</h2>
-              <p className="text-sm text-muted-foreground">Harmonious Music & Video Exercises now available</p>
+              <h2 className="text-lg font-medium text-foreground">{t('home.newWellnessModules')}</h2>
+              <p className="text-sm text-muted-foreground">{t('home.musicAndVideoAvailable')}</p>
             </div>
           </div>
           <Badge className="bg-gradient-to-r from-purple-500 to-blue-500 text-white">
-            Just Released!
+            {t('home.justReleased')}
           </Badge>
         </div>
         
@@ -177,32 +177,32 @@ const AuraHome = () => {
           <div className="p-4 bg-white/60 rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
               <Music className="w-5 h-5 text-purple-600" />
-              <h3 className="font-medium">Harmonious Music</h3>
+              <h3 className="font-medium">{t('home.harmoniousMusic')}</h3>
             </div>
-            <p className="text-sm text-muted-foreground mb-3">AI-curated music that adapts to your mood and wellness goals</p>
+            <p className="text-sm text-muted-foreground mb-3">{t('home.aiMusicDescription')}</p>
             <Button 
               size="sm" 
               className="w-full bg-purple-600 hover:bg-purple-700 text-white"
               onClick={() => navigate('/music')}
             >
               <Headphones className="w-4 h-4 mr-2" />
-              Try Music
+              {t('home.tryMusic')}
             </Button>
           </div>
           
           <div className="p-4 bg-white/60 rounded-lg">
             <div className="flex items-center space-x-2 mb-2">
               <Video className="w-5 h-5 text-blue-600" />
-              <h3 className="font-medium">Video Exercises</h3>
+              <h3 className="font-medium">{t('home.videoExercises')}</h3>
             </div>
-            <p className="text-sm text-muted-foreground mb-3">Short guided videos for mindfulness, breathing, and movement</p>
+            <p className="text-sm text-muted-foreground mb-3">{t('home.videoDescription')}</p>
             <Button 
               size="sm" 
               className="w-full bg-blue-600 hover:bg-blue-700 text-white"
               onClick={() => navigate('/videos')}
             >
               <Play className="w-4 h-4 mr-2" />
-              Try Videos
+              {t('home.tryVideos')}
             </Button>
           </div>
         </div>
@@ -212,7 +212,7 @@ const AuraHome = () => {
           className="w-full border-purple-200 text-purple-600 hover:bg-purple-50"
           onClick={() => navigate('/wellness-showcase')}
         >
-          View Complete Feature Overview
+          {t('home.viewCompleteOverview')}
         </Button>
       </Card>
 
@@ -220,7 +220,7 @@ const AuraHome = () => {
       <div className="space-y-4">
         <h2 className="text-lg font-medium text-aura-primary flex items-center">
           <Sparkles className="w-5 h-5 mr-2" />
-          Wellness Features
+          {t('home.wellnessFeatures')}
         </h2>
         
         <div className="grid md:grid-cols-3 gap-4">
@@ -252,7 +252,7 @@ const AuraHome = () => {
                       className="w-full border-aura-primary/20 text-aura-primary hover:bg-aura-primary hover:text-white"
                     >
                       <Play className="w-3 h-3 mr-1" />
-                      Try Now
+                      {t('home.tryNow')}
                     </Button>
                   </div>
                 </div>
@@ -267,29 +267,29 @@ const AuraHome = () => {
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-medium text-aura-primary flex items-center">
             <TrendingUp className="w-5 h-5 mr-2" />
-            Your Wellness Journey
+            {t('home.wellnessJourney')}
           </h2>
           <Badge variant="secondary" className="bg-aura-growth/20 text-aura-growth border-0">
-            3 day streak!
+            {t('home.dayStreak', { days: 3 })}
           </Badge>
         </div>
         
         <div className="grid md:grid-cols-4 gap-4">
           <div className="text-center p-4 bg-aura-secondary/10 rounded-lg">
             <div className="text-2xl font-bold text-aura-secondary mb-1">7</div>
-            <div className="text-sm text-foreground/70">Check-ins this week</div>
+            <div className="text-sm text-foreground/70">{t('home.checkinsStat')}</div>
           </div>
           <div className="text-center p-4 bg-purple-100 rounded-lg">
             <div className="text-2xl font-bold text-purple-600 mb-1">3</div>
-            <div className="text-sm text-foreground/70">Music sessions</div>
+            <div className="text-sm text-foreground/70">{t('home.musicSessions')}</div>
           </div>
           <div className="text-center p-4 bg-blue-100 rounded-lg">
             <div className="text-2xl font-bold text-blue-600 mb-1">2</div>
-            <div className="text-sm text-foreground/70">Video exercises</div>
+            <div className="text-sm text-foreground/70">{t('home.videoExercisesStat')}</div>
           </div>
           <div className="text-center p-4 bg-aura-growth/10 rounded-lg">
             <div className="text-2xl font-bold text-aura-growth mb-1">4</div>
-            <div className="text-sm text-foreground/70">Goals achieved</div>
+            <div className="text-sm text-foreground/70">{t('home.goalsAchieved')}</div>
           </div>
         </div>
       </Card>
@@ -301,15 +301,15 @@ const AuraHome = () => {
             <Brain className="w-5 h-5 text-destructive" />
           </div>
           <div className="flex-1">
-            <h3 className="font-medium text-destructive mb-1">Need immediate support?</h3>
-            <p className="text-sm text-destructive/80">Crisis resources and human support available 24/7</p>
+            <h3 className="font-medium text-destructive mb-1">{t('home.needImmediateSupport')}</h3>
+            <p className="text-sm text-destructive/80">{t('home.crisisResourcesAvailable')}</p>
           </div>
           <Button 
             variant="destructive" 
             size="sm"
             onClick={() => navigate('/crisis')}
           >
-            Get Help Now
+            {t('home.getHelpNow')}
           </Button>
         </div>
       </Card>

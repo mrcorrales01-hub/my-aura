@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector22 from '@/components/LanguageSelector22';
 import { 
   MessageCircle, 
   Calendar, 
@@ -18,16 +20,17 @@ import {
 } from 'lucide-react';
 
 const AuraNavigation = () => {
+  const { t } = useTranslation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   const navItems = [
-    { name: 'Home', path: '/', icon: MessageCircle, color: 'text-aura-primary' },
-    { name: 'My Plan', path: '/plan', icon: Calendar, color: 'text-aura-secondary' },
-    { name: 'Music', path: '/music', icon: Music, color: 'text-purple-500' },
-    { name: 'Videos', path: '/videos', icon: Video, color: 'text-blue-500' },
-    { name: 'Community', path: '/community', icon: Users, color: 'text-aura-growth' },
-    { name: 'Profile', path: '/profile', icon: User, color: 'text-aura-warm' }
+    { name: t('nav.home'), path: '/', icon: MessageCircle, color: 'text-aura-primary' },
+    { name: t('nav.myPlan'), path: '/plan', icon: Calendar, color: 'text-aura-secondary' },
+    { name: t('nav.music'), path: '/music', icon: Music, color: 'text-purple-500' },
+    { name: t('nav.videos'), path: '/videos', icon: Video, color: 'text-blue-500' },
+    { name: t('nav.community'), path: '/community', icon: Users, color: 'text-aura-growth' },
+    { name: t('nav.profile'), path: '/profile', icon: User, color: 'text-aura-warm' }
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -43,7 +46,7 @@ const AuraNavigation = () => {
             </div>
             <span className="text-xl font-semibold text-aura-primary">Aura</span>
             <Badge variant="secondary" className="text-xs bg-aura-secondary/20 text-aura-secondary border-0">
-              AI Coach
+              {t('nav.aiCoach')}
             </Badge>
           </div>
         </div>
@@ -76,9 +79,10 @@ const AuraNavigation = () => {
         </div>
 
         <div className="flex items-center space-x-2">
+          <LanguageSelector22 />
           <Button variant="outline" size="sm" className="border-aura-primary/20 text-aura-primary hover:bg-aura-primary hover:text-white">
             <Shield className="w-4 h-4 mr-2" />
-            Crisis Support
+            {t('nav.crisisSupport')}
           </Button>
         </div>
       </Card>
@@ -132,13 +136,15 @@ const AuraNavigation = () => {
               
               <hr className="my-3 border-aura-calm" />
               
+              <LanguageSelector22 />
+              
               <Button 
                 variant="outline" 
                 className="w-full justify-start border-aura-primary/20 text-aura-primary hover:bg-aura-primary hover:text-white"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Shield className="w-4 h-4 mr-3" />
-                Crisis Support
+                {t('nav.crisisSupport')}
               </Button>
             </div>
           </Card>

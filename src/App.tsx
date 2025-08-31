@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { SubscriptionProvider } from "@/contexts/SubscriptionContext";
-import { I18nProvider } from "@/hooks/useI18n";
+// I18n is now initialized in main.tsx
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { UserPreferencesProvider } from "@/providers/UserPreferencesProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -59,11 +59,10 @@ const queryClient = new QueryClient();
 const App = () => (
   <ErrorBoundary>
     <QueryClientProvider client={queryClient}>
-      <I18nProvider>
-        <AuthProvider>
-          <ThemeProvider>
-            <SubscriptionProvider>
-              <UserPreferencesProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <SubscriptionProvider>
+            <UserPreferencesProvider>
                 <TooltipProvider>
                   <Toaster />
                   <Sonner />
@@ -132,11 +131,10 @@ const App = () => (
                     <PWAInstallPrompt />
                   </BrowserRouter>
                 </TooltipProvider>
-              </UserPreferencesProvider>
-            </SubscriptionProvider>
-          </ThemeProvider>
-        </AuthProvider>
-      </I18nProvider>
+            </UserPreferencesProvider>
+          </SubscriptionProvider>
+        </ThemeProvider>
+      </AuthProvider>
     </QueryClientProvider>
   </ErrorBoundary>
 );

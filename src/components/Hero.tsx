@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/aura-hero.jpg";
 import { Heart, Brain, Users } from "lucide-react";
-import { useLanguage } from "@/hooks/useLanguage";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
-  const { t } = useLanguage();
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -25,7 +25,7 @@ const Hero = () => {
         {/* Brand + SEO H1 */}
         <div className="mb-8">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-primary bg-clip-text text-transparent mb-4">
-            Aura Wellness — Mental Health & Relationship Coaching
+            {t('hero.title')}
           </h1>
           <p className="text-xl md:text-2xl text-foreground/80 font-light">
             {t('home.subtitle')}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { setLanguage, LANGS, type Lang } from '@/i18n';
+import { setLanguage, LANGS, type Lang } from '@/i18n/index';
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Languages, Globe } from "lucide-react";
@@ -113,3 +113,5 @@ export const LanguageSelector22 = ({ variant = "button" }: LanguageSelector22Pro
     </Dialog>
   );
 };
+
+export default LanguageSelector22;
