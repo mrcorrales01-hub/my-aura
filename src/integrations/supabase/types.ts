@@ -1328,6 +1328,41 @@ export type Database = {
         }
         Relationships: []
       }
+      messages: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          role: string
+          session_id: string
+          tokens: number | null
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          role: string
+          session_id: string
+          tokens?: number | null
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          role?: string
+          session_id?: string
+          tokens?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       micro_challenges: {
         Row: {
           challenge_date: string
@@ -1811,6 +1846,77 @@ export type Database = {
         }
         Relationships: []
       }
+      roleplay_runs: {
+        Row: {
+          created_at: string | null
+          current_step: number | null
+          id: string
+          script_id: string
+          state: Json | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          current_step?: number | null
+          id?: string
+          script_id: string
+          state?: Json | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          current_step?: number | null
+          id?: string
+          script_id?: string
+          state?: Json | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "roleplay_runs_script_id_fkey"
+            columns: ["script_id"]
+            isOneToOne: false
+            referencedRelation: "roleplay_scripts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      roleplay_scripts: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          language: string | null
+          slug: string
+          steps: Json
+          title: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          language?: string | null
+          slug: string
+          steps: Json
+          title: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          language?: string | null
+          slug?: string
+          steps?: Json
+          title?: string
+        }
+        Relationships: []
+      }
       roleplay_sessions: {
         Row: {
           completed_at: string | null
@@ -1921,6 +2027,27 @@ export type Database = {
           recommendations?: Json | null
           severity_level?: string | null
           total_score?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      sessions: {
+        Row: {
+          created_at: string | null
+          id: string
+          lang: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          lang?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          lang?: string | null
           user_id?: string
         }
         Relationships: []

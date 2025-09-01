@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { 
   Send, 
   Mic, 
@@ -12,47 +13,98 @@ import {
   Brain,
   Loader2,
   Volume2,
-  VolumeX
+  VolumeX,
+  Plus,
+  Download,
+  MessageCircle
 } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { useI18n } from '@/hooks/useEnhancedI18n';
+import { useTranslation } from 'react-i18next';
 import { useToast } from '@/components/ui/use-toast';
+import { auriService } from '@/services/auri';
+import { sessionsService, type ChatSession } from '@/services/sessions';
 
 interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
-  mood?: string;
 }
 
 const AuriChat = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'assistant',
-      content: "Hello! I'm Auri, your compassionate AI wellness coach. I'm here to listen, support, and help you on your mental health journey. How are you feeling today? 😌",
-      timestamp: new Date()
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+  const [sessions, setSessions] = useState<ChatSession[]>([]);
+  const [loadingSessions, setLoadingSessions] = useState(false);
+  const [streamingText, setStreamingText] = useState('');
+  
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
-  const { currentLanguage, t } = useI18n();
+  const { t, i18n } = useTranslation();
   const { toast } = useToast();
+
+  // Load sessions on mount
+  useEffect(() => {
+    if (user) {
+      loadSessions();
+    }
+  }, [user]);
+
+  // Initialize with welcome message
+  useEffect(() => {
+    if (messages.length === 0) {
+      setMessages([
+        {
+          id: '1',
+          role: 'assistant',
+          content: i18n.language === 'sv' 
+            ? "Hej! Jag är Auri, din medkänsliga AI-välmåendecoach. Jag är här för att lyssna, stötta och hjälpa dig på din resa mot bättre mental hälsa. Hur mår du idag? 😌"
+            : "Hello! I'm Auri, your compassionate AI wellness coach. I'm here to listen, support, and help you on your mental health journey. How are you feeling today? 😌",
+          timestamp: new Date()
+        }
+      ]);
+    }
+  }, [i18n.language]);
 
   // Scroll to bottom when new messages arrive
   useEffect(() => {
     if (scrollAreaRef.current) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [messages, streamingText]);
 
-  const sendMessage = async (content: string, mood?: string) => {
+  const loadSessions = async () => {
+    try {
+      setLoadingSessions(true);
+      const sessionList = await sessionsService.listSessions();
+      setSessions(sessionList);
+    } catch (error) {
+      console.error('Failed to load sessions:', error);
+    } finally {
+      setLoadingSessions(false);
+    }
+  };
+
+  const startNewChat = () => {
+    setMessages([
+      {
+        id: Date.now().toString(),
+        role: 'assistant',
+        content: i18n.language === 'sv' 
+          ? "Hej! Jag är Auri, din medkänsliga AI-välmåendecoach. Jag är här för att lyssna, stötta och hjälpa dig på din resa mot bättre mental hälsa. Hur mår du idag? 😌"
+          : "Hello! I'm Auri, your compassionate AI wellness coach. I'm here to listen, support, and help you on your mental health journey. How are you feeling today? 😌",
+        timestamp: new Date()
+      }
+    ]);
+    setCurrentSessionId(null);
+    setStreamingText('');
+  };
+
+  const sendMessage = async (content: string) => {
     if (!content.trim() || isLoading) return;
 
     const userMessage: Message = {
@@ -60,52 +112,73 @@ const AuriChat = () => {
       role: 'user',
       content: content.trim(),
       timestamp: new Date(),
-      mood
     };
 
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+    setStreamingText('');
+
+    // Add placeholder for assistant response
+    const assistantMessageId = (Date.now() + 1).toString();
+    setMessages(prev => [...prev, {
+      id: assistantMessageId,
+      role: 'assistant',
+      content: '',
+      timestamp: new Date()
+    }]);
 
     try {
-      const { data, error } = await supabase.functions.invoke('ai-coach', {
-        body: {
-          message: content,
-          language: currentLanguage,
-          context: 'general',
-          tone: 'empathetic',
-          mood: mood
+      await auriService.startOrSendMessage({
+        sessionId: currentSessionId || undefined,
+        text: content,
+        lang: i18n.language,
+        onSession: (sessionId) => {
+          setCurrentSessionId(sessionId);
+        },
+        onToken: (token) => {
+          setStreamingText(prev => prev + token);
+          // Update the assistant message with streaming text
+          setMessages(prev => prev.map(msg => 
+            msg.id === assistantMessageId 
+              ? { ...msg, content: streamingText + token }
+              : msg
+          ));
+        },
+        onDone: (sessionId) => {
+          setCurrentSessionId(sessionId);
+          setStreamingText('');
+          setIsLoading(false);
+          loadSessions(); // Refresh sessions list
+        },
+        onError: (error) => {
+          console.error('Chat error:', error);
+          setMessages(prev => prev.map(msg => 
+            msg.id === assistantMessageId 
+              ? { 
+                  ...msg, 
+                  content: i18n.language === 'sv'
+                    ? "Ursäkta, men jag har problem med anslutningen just nu. Ditt välbefinnande är viktigt för mig. Om du är i kris, kontakta akutsjukvården eller en krislinje."
+                    : "I apologize, but I'm having trouble connecting right now. Your wellbeing is important to me. If you're in crisis, please contact your local emergency services or a crisis helpline."
+                }
+              : msg
+          ));
+          
+          toast({
+            title: t('common.error'),
+            description: i18n.language === 'sv' 
+              ? "Problem med att ansluta till Auri. Försök igen."
+              : "Having trouble connecting to Auri. Please try again.",
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          setStreamingText('');
         }
       });
-
-      if (error) throw error;
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: data.response || "I'm here to listen. Could you tell me more about how you're feeling?",
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, assistantMessage]);
-
     } catch (error) {
-      console.error('Error sending message:', error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: "I apologize, but I'm having trouble connecting right now. Your wellbeing is important to me. If you're in crisis, please contact your local emergency services or a crisis helpline.",
-        timestamp: new Date()
-      };
-      setMessages(prev => [...prev, errorMessage]);
-      
-      toast({
-        title: "Connection Issue",
-        description: "Having trouble connecting to Auri. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
+      console.error('Send message error:', error);
       setIsLoading(false);
+      setStreamingText('');
     }
   };
 
@@ -114,44 +187,69 @@ const AuriChat = () => {
     sendMessage(input);
   };
 
+  const exportChat = async () => {
+    if (!currentSessionId) {
+      toast({
+        title: t('common.error'),
+        description: i18n.language === 'sv' ? "Ingen aktiv session att exportera" : "No active session to export",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      const exportText = await sessionsService.exportSessionAsText(currentSessionId);
+      const blob = new Blob([exportText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `auri-chat-${new Date().toISOString().split('T')[0]}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      toast({
+        title: t('common.success'),
+        description: i18n.language === 'sv' ? "Chatt exporterad" : "Chat exported",
+      });
+    } catch (error) {
+      console.error('Export error:', error);
+      toast({
+        title: t('common.error'),
+        description: i18n.language === 'sv' ? "Kunde inte exportera chatten" : "Failed to export chat",
+        variant: "destructive",
+      });
+    }
+  };
+
   const toggleListening = () => {
     if (!isListening) {
-      // Start voice recognition
       if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
         const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
         const recognition = new SpeechRecognition();
         recognition.continuous = false;
         recognition.interimResults = false;
-        recognition.lang = currentLanguage === 'en' ? 'en-US' : currentLanguage;
+        recognition.lang = i18n.language === 'en' ? 'en-US' : i18n.language;
 
-        recognition.onstart = () => {
-          setIsListening(true);
-        };
-
+        recognition.onstart = () => setIsListening(true);
         recognition.onresult = (event: any) => {
           const transcript = event.results[0][0].transcript;
           setInput(transcript);
         };
-
         recognition.onerror = (event: any) => {
           console.error('Speech recognition error:', event.error);
           setIsListening(false);
           toast({
-            title: "Voice Recognition Error",
-            description: "Couldn't hear you clearly. Please try again or type your message.",
+            title: t('common.error'),
+            description: i18n.language === 'sv' ? "Kunde inte höra dig tydligt. Försök igen eller skriv ditt meddelande." : "Couldn't hear you clearly. Please try again or type your message.",
             variant: "destructive",
           });
         };
-
-        recognition.onend = () => {
-          setIsListening(false);
-        };
-
+        recognition.onend = () => setIsListening(false);
         recognition.start();
       } else {
         toast({
-          title: "Voice Not Supported",
-          description: "Voice input isn't supported in your browser. Please type your message.",
+          title: t('common.error'),
+          description: i18n.language === 'sv' ? "Röstinmatning stöds inte i din webbläsare. Skriv ditt meddelande." : "Voice input isn't supported in your browser. Please type your message.",
           variant: "destructive",
         });
       }
@@ -164,18 +262,12 @@ const AuriChat = () => {
     if ('speechSynthesis' in window && !isSpeaking) {
       setIsSpeaking(true);
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = currentLanguage === 'en' ? 'en-US' : currentLanguage;
-      utterance.rate = 0.9; // Slightly slower for therapeutic feel
+      utterance.lang = i18n.language === 'en' ? 'en-US' : i18n.language;
+      utterance.rate = 0.9;
       utterance.pitch = 1.0;
       
-      utterance.onend = () => {
-        setIsSpeaking(false);
-      };
-
-      utterance.onerror = () => {
-        setIsSpeaking(false);
-      };
-
+      utterance.onend = () => setIsSpeaking(false);
+      utterance.onerror = () => setIsSpeaking(false);
       speechSynthesis.speak(utterance);
     }
   };
@@ -197,13 +289,23 @@ const AuriChat = () => {
               <Heart className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-aura-primary">{t('chat.title')}</h3>
+              <h3 className="font-semibold text-aura-primary">{t('auri.title')}</h3>
               <p className="text-sm text-foreground/70">
-                {isLoading ? t('chat.thinking') : t('chat.subtitle')}
+                {isLoading ? t('auri.thinking') : t('auri.subtitle')}
               </p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
+            <Button onClick={startNewChat} variant="outline" size="sm">
+              <Plus className="w-4 h-4 mr-2" />
+              {t('auri.newChat')}
+            </Button>
+            {currentSessionId && (
+              <Button onClick={exportChat} variant="outline" size="sm">
+                <Download className="w-4 h-4 mr-2" />
+                {t('auri.exportChat')}
+              </Button>
+            )}
             <Badge variant="secondary" className="bg-aura-secondary/20 text-aura-secondary border-0 flex items-center">
               <Brain className="w-3 h-3 mr-1" />
               AI Powered
@@ -261,7 +363,7 @@ const AuriChat = () => {
                 <div className="bg-aura-calm/50 p-4 rounded-lg border border-aura-calm">
                   <div className="flex items-center space-x-2">
                     <Loader2 className="w-4 h-4 animate-spin text-aura-primary" />
-                    <span className="text-sm text-aura-primary">Auri is thinking...</span>
+                    <span className="text-sm text-aura-primary">{t('auri.thinking')}</span>
                   </div>
                 </div>
               </div>
@@ -277,7 +379,7 @@ const AuriChat = () => {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={t('chat.placeholder')}
+              placeholder={t('auri.placeholder')}
               className="border-aura-calm/50 focus:ring-aura-primary focus:border-aura-primary"
               disabled={isLoading}
             />
@@ -312,7 +414,7 @@ const AuriChat = () => {
         </form>
         
         <p className="text-xs text-foreground/50 mt-2 text-center">
-          {t('chat.disclaimer')}
+          {t('auri.disclaimer')}
         </p>
       </Card>
     </div>

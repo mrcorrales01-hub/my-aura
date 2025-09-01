@@ -1,13 +1,13 @@
 import { useAuth } from '@/contexts/AuthContext';
-import { AIChat } from '@/components/AIChat';
+import AuriChat from '@/components/AuriChat';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { MessageCircle, Brain, Heart, Target, Users } from 'lucide-react';
-import { useI18n } from '@/hooks/useI18n';
+import { useTranslation } from 'react-i18next';
 
 export default function Coach() {
   const { user } = useAuth();
-  const { t } = useI18n();
+  const { t } = useTranslation();
 
   if (!user) {
     return (
@@ -97,9 +97,7 @@ export default function Coach() {
 
           {/* Main Chat Area */}
           <div className="lg:col-span-3">
-            <Card className="h-full">
-              <AIChat />
-            </Card>
+            <AuriChat />
           </div>
         </div>
       </div>

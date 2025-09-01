@@ -93,6 +93,27 @@
     "seconds30": "30 seconds",
     "shareFeeling": "Thank you for sharing. Would you like to talk about what's making you feel {mood} today?"
   },
+  "auri": {
+    "title": "Auri - Your AI Wellness Coach",
+    "subtitle": "I'm here to support you",
+    "thinking": "Auri is thinking...",
+    "placeholder": "Type your message here...",
+    "disclaimer": "Auri provides support but is not a replacement for professional help",
+    "newChat": "New Chat",
+    "exportChat": "Export Chat"
+  },
+  "roleplay": {
+    "title": "Practice Scenarios",
+    "subtitle": "Practice real-life situations in a safe environment",
+    "selectScript": "Choose a scenario",
+    "step": "Step",
+    "of": "of",
+    "choose": "Choose your response:",
+    "exitRoleplay": "Exit Roleplay",
+    "confirmExit": "Are you sure you want to exit this roleplay?",
+    "completed": "Scenario completed! Well done.",
+    "startOver": "Start Over"
+  },
   "mood": {
     "title": "Mood Tracking",
     "howFeeling": "How are you feeling right now?",

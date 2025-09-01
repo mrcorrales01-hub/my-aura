@@ -93,6 +93,27 @@
     "seconds30": "30 sekunder",
     "shareFeeling": "Tack för att du delade. Vill du prata om vad som får dig att känna dig {mood} idag?"
   },
+  "auri": {
+    "title": "Auri - Din AI Välmående-coach",
+    "subtitle": "Jag är här för att stötta dig",
+    "thinking": "Auri funderar...",
+    "placeholder": "Skriv ditt meddelande här...",
+    "disclaimer": "Auri ger stöd men ersätter inte professionell hjälp",
+    "newChat": "Ny chatt",
+    "exportChat": "Exportera chatt"
+  },
+  "roleplay": {
+    "title": "Övningsscenarier",
+    "subtitle": "Öva verkliga situationer i en trygg miljö",
+    "selectScript": "Välj ett scenario",
+    "step": "Steg",
+    "of": "av",
+    "choose": "Välj ditt svar:",
+    "exitRoleplay": "Avsluta rollspel",
+    "confirmExit": "Är du säker på att du vill avsluta detta rollspel?",
+    "completed": "Scenario avslutat! Bra jobbat.",
+    "startOver": "Börja om"
+  },
   "mood": {
     "title": "Humörspårning",
     "howFeeling": "Hur mår du just nu?",
