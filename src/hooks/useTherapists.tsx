@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
+import { logSecurityEvent } from '@/utils/security';
 
 export interface Therapist {
   id: string;
@@ -25,33 +26,50 @@ export interface Therapist {
   updated_at: string;
 }
 
+export interface TherapistMarketplaceData {
+  id: string;
+  full_name: string;
+  specializations: string[];
+  languages: string[];
+  hourly_rate: number;
+  years_experience: number;
+  bio: string;
+  timezone: string;
+  availability: any;
+  average_rating: number;
+  review_count: number;
+}
+
 export const useTherapists = () => {
-  const [therapists, setTherapists] = useState<Therapist[]>([]);
+  const [therapists, setTherapists] = useState<TherapistMarketplaceData[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
   const fetchTherapists = async () => {
     try {
-      const { data, error } = await supabase
-        .from('therapists')
-        .select('*')
-        .eq('is_active', true)
-        .eq('is_verified', true)
-        .order('created_at', { ascending: false });
-
-      if (error) {
-        console.error('Error fetching therapists:', error);
-        toast({
-          title: "Error",
-          description: "Failed to load therapists",
-          variant: "destructive"
-        });
-        return;
-      }
-
+      // Use the enhanced secure marketplace function
+      const { data, error } = await supabase.rpc('get_secure_therapist_marketplace_v2');
+      
+      if (error) throw error;
+      
       setTherapists(data || []);
+      
+      // Log secure access to therapist data
+      if (data && data.length > 0) {
+        await logSecurityEvent('therapist_marketplace_accessed', 'low', {
+          therapist_count: data.length,
+          timestamp: new Date().toISOString()
+        }, 20);
+      }
     } catch (error) {
       console.error('Error fetching therapists:', error);
+      
+      // Log security event for failed access
+      await logSecurityEvent('therapist_marketplace_access_failed', 'medium', {
+        error: error.message,
+        timestamp: new Date().toISOString()
+      }, 50);
+      
       toast({
         title: "Error",
         description: "Failed to load therapists",
@@ -68,24 +86,16 @@ export const useTherapists = () => {
     maxRate?: number;
   }) => {
     try {
-      let query = supabase
-        .from('therapists')
-        .select('*')
-        .eq('is_active', true)
-        .eq('is_verified', true);
-
-      if (filters.maxRate) {
-        query = query.lte('hourly_rate', filters.maxRate);
-      }
-
-      const { data, error } = await query.order('hourly_rate', { ascending: true });
-
-      if (error) {
-        console.error('Error searching therapists:', error);
-        return;
-      }
+      // Use secure marketplace function for search as well
+      const { data, error } = await supabase.rpc('get_secure_therapist_marketplace_v2');
+      
+      if (error) throw error;
 
       let filteredData = data || [];
+
+      if (filters.maxRate) {
+        filteredData = filteredData.filter(therapist => therapist.hourly_rate <= filters.maxRate);
+      }
 
       if (filters.specializations?.length) {
         filteredData = filteredData.filter(therapist =>
@@ -103,7 +113,7 @@ export const useTherapists = () => {
         );
       }
 
-      setTherapists(filteredData);
+      setTherapists(filteredData.sort((a, b) => a.hourly_rate - b.hourly_rate));
     } catch (error) {
       console.error('Error searching therapists:', error);
     }

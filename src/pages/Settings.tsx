@@ -1,7 +1,13 @@
 import { EnhancedSettings } from "@/components/EnhancedSettings";
+import { SecurityMonitor } from "@/components/SecurityMonitor";
 
 const Settings = () => {
-  return <EnhancedSettings />;
+  return (
+    <>
+      <SecurityMonitor />
+      <EnhancedSettings />
+    </>
+  );
 };
 
 export default Settings;

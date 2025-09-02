@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+import { validateContent, sanitizeInput, logSecurityEvent, checkRateLimit } from '@/utils/security';
 
 export interface CommunityPost {
   id: string;
@@ -129,43 +130,98 @@ export const useCommunity = () => {
   const createPost = async (content: string, postType: string = 'general', isAnonymous: boolean = true, displayName?: string, groupId?: string) => {
     if (!user) return null;
     
+    // Rate limiting check
+    if (!checkRateLimit('create_post', 3, 300000)) { // 3 posts per 5 minutes
+      toast({
+        title: "Rate Limited",
+        description: "Please wait before creating another post",
+        variant: "destructive"
+      });
+      return null;
+    }
+    
     try {
+      // Enhanced content validation before submission
+      const validation = await validateContent(content, 'post');
+      
+      if (!validation.isValid) {
+        toast({
+          title: "Content Validation Failed",
+          description: validation.issues.join(', '),
+          variant: "destructive"
+        });
+        return null;
+      }
+
+      if (validation.crisisDetected) {
+        toast({
+          title: "Crisis Support Available",
+          description: "We noticed you might be going through a difficult time. Please consider reaching out to our crisis support resources.",
+          variant: "destructive"
+        });
+        // Still allow post but with enhanced monitoring
+      }
+
+      const sanitizedContent = sanitizeInput(content);
+
       const { data, error } = await supabase
         .from('community_posts')
         .insert({
           user_id: user.id,
-          content,
+          content: sanitizedContent,
           post_type: postType,
           is_anonymous: isAnonymous,
           display_name: displayName,
           group_id: groupId || null,
-          moderation_status: 'pending'
+          moderation_status: validation.requiresReview ? 'pending' : 'approved'
         })
         .select()
         .single();
 
       if (error) throw error;
 
-      // Trigger AI moderation
-      await supabase.functions.invoke('content-moderation', {
-        body: {
-          content,
-          contentType: 'post',
-          contentId: data.id
-        }
+      // Enhanced content moderation
+      const { data: moderationResult } = await supabase.rpc('enhanced_content_moderation', {
+        content_text: sanitizedContent,
+        content_type: 'post'
       });
 
-      toast({
-        title: "Post submitted",
-        description: "Your post is being reviewed and will appear shortly.",
-      });
+      // Log post creation with security metadata
+      await logSecurityEvent('community_post_created', 'low', {
+        post_id: data.id,
+        content_length: content.length,
+        is_anonymous: isAnonymous,
+        group_id: groupId,
+        moderation_risk_score: (moderationResult as any)?.risk_score || 0,
+        crisis_detected: validation.crisisDetected,
+        requires_review: validation.requiresReview
+      }, (moderationResult as any)?.risk_score || 20);
 
-      // Refresh posts after a delay to allow moderation
-      setTimeout(() => fetchPosts(selectedGroupId), 2000);
+      const message = validation.requiresReview 
+        ? "Your post is being reviewed and will appear shortly."
+        : "Post created successfully";
       
+      toast({
+        title: validation.requiresReview ? "Post submitted" : "Success",
+        description: message,
+      });
+
+      // Refresh posts
+      if (!validation.requiresReview) {
+        await fetchPosts(selectedGroupId);
+      } else {
+        setTimeout(() => fetchPosts(selectedGroupId), 2000);
+      }
+
       return data;
     } catch (error) {
       console.error('Error creating post:', error);
+      
+      await logSecurityEvent('community_post_creation_failed', 'medium', {
+        error: error.message,
+        content_length: content.length
+      }, 60);
+      
       toast({
         title: "Error",
         description: "Failed to create post",
@@ -179,39 +235,80 @@ export const useCommunity = () => {
   const createComment = async (postId: string, content: string, isAnonymous: boolean = true, displayName?: string) => {
     if (!user) return null;
     
+    // Rate limiting check
+    if (!checkRateLimit('create_comment', 5, 60000)) { // 5 comments per minute
+      toast({
+        title: "Rate Limited",
+        description: "Please wait before creating another comment",
+        variant: "destructive"
+      });
+      return null;
+    }
+    
     try {
+      // Enhanced content validation
+      const validation = await validateContent(content, 'comment');
+      
+      if (!validation.isValid) {
+        toast({
+          title: "Content Validation Failed",
+          description: validation.issues.join(', '),
+          variant: "destructive"
+        });
+        return null;
+      }
+
+      if (validation.crisisDetected) {
+        toast({
+          title: "Crisis Support Available",
+          description: "We noticed you might be going through a difficult time. Please consider reaching out to our crisis support resources.",
+          variant: "destructive"
+        });
+      }
+
+      const sanitizedContent = sanitizeInput(content);
+
       const { data, error } = await supabase
         .from('community_comments')
         .insert({
           post_id: postId,
           user_id: user.id,
-          content,
+          content: sanitizedContent,
           is_anonymous: isAnonymous,
           display_name: displayName,
-          moderation_status: 'pending'
+          moderation_status: validation.requiresReview ? 'pending' : 'approved'
         })
         .select()
         .single();
 
       if (error) throw error;
 
-      // Trigger AI moderation
-      await supabase.functions.invoke('content-moderation', {
-        body: {
-          content,
-          contentType: 'comment',
-          contentId: data.id
-        }
-      });
+      // Log comment creation
+      await logSecurityEvent('community_comment_created', 'low', {
+        comment_id: data.id,
+        post_id: postId,
+        content_length: content.length,
+        crisis_detected: validation.crisisDetected
+      }, validation.riskScore);
+
+      const message = validation.requiresReview 
+        ? "Your comment is being reviewed and will appear shortly."
+        : "Comment created successfully";
 
       toast({
-        title: "Comment submitted",
-        description: "Your comment is being reviewed and will appear shortly.",
+        title: validation.requiresReview ? "Comment submitted" : "Success",
+        description: message,
       });
 
       return data;
     } catch (error) {
       console.error('Error creating comment:', error);
+      
+      await logSecurityEvent('community_comment_creation_failed', 'medium', {
+        error: error.message,
+        post_id: postId
+      }, 60);
+      
       toast({
         title: "Error",
         description: "Failed to create comment",
@@ -224,6 +321,16 @@ export const useCommunity = () => {
   // Toggle like on post or comment
   const toggleLike = async (itemId: string, itemType: 'post' | 'comment') => {
     if (!user) return;
+    
+    // Rate limiting for likes
+    if (!checkRateLimit('toggle_like', 10, 60000)) { // 10 likes per minute
+      toast({
+        title: "Rate Limited",
+        description: "Please wait before liking more content",
+        variant: "destructive"
+      });
+      return;
+    }
     
     try {
       const column = itemType === 'post' ? 'post_id' : 'comment_id';
@@ -242,6 +349,11 @@ export const useCommunity = () => {
           .from('community_likes')
           .delete()
           .eq('id', existingLike.id);
+          
+        await logSecurityEvent('content_unliked', 'low', {
+          item_id: itemId,
+          item_type: itemType
+        }, 10);
       } else {
         // Like
         await supabase
@@ -250,6 +362,11 @@ export const useCommunity = () => {
             user_id: user.id,
             [column]: itemId
           });
+          
+        await logSecurityEvent('content_liked', 'low', {
+          item_id: itemId,
+          item_type: itemType
+        }, 10);
       }
 
       // Refresh posts to update counts

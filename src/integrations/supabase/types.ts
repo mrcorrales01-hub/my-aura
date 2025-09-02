@@ -644,6 +644,8 @@ export type Database = {
           ai_tone: string | null
           context: string | null
           created_at: string
+          encrypted_content: string | null
+          encryption_key_id: string | null
           id: string
           language_preference: string | null
           message: string
@@ -654,6 +656,8 @@ export type Database = {
           ai_tone?: string | null
           context?: string | null
           created_at?: string
+          encrypted_content?: string | null
+          encryption_key_id?: string | null
           id?: string
           language_preference?: string | null
           message: string
@@ -664,6 +668,8 @@ export type Database = {
           ai_tone?: string | null
           context?: string | null
           created_at?: string
+          encrypted_content?: string | null
+          encryption_key_id?: string | null
           id?: string
           language_preference?: string | null
           message?: string
@@ -1453,6 +1459,8 @@ export type Database = {
       mood_entries: {
         Row: {
           created_at: string
+          encrypted_notes: string | null
+          encryption_key_id: string | null
           id: string
           mood_id: string
           mood_value: number
@@ -1462,6 +1470,8 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          encrypted_notes?: string | null
+          encryption_key_id?: string | null
           id?: string
           mood_id: string
           mood_value: number
@@ -1471,6 +1481,8 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          encrypted_notes?: string | null
+          encryption_key_id?: string | null
           id?: string
           mood_id?: string
           mood_value?: number
@@ -1576,6 +1588,33 @@ export type Database = {
           premium_only?: boolean | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      password_security_events: {
+        Row: {
+          created_at: string | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -1961,6 +2000,9 @@ export type Database = {
           created_at: string
           crisis_notifications: boolean | null
           emergency_contact: boolean | null
+          encrypted_email: string | null
+          encrypted_phone: string | null
+          encryption_key_id: string | null
           id: string
           relationship: string | null
           user_id: string
@@ -1973,6 +2015,9 @@ export type Database = {
           created_at?: string
           crisis_notifications?: boolean | null
           emergency_contact?: boolean | null
+          encrypted_email?: string | null
+          encrypted_phone?: string | null
+          encryption_key_id?: string | null
           id?: string
           relationship?: string | null
           user_id: string
@@ -1985,10 +2030,58 @@ export type Database = {
           created_at?: string
           crisis_notifications?: boolean | null
           emergency_contact?: boolean | null
+          encrypted_email?: string | null
+          encrypted_phone?: string | null
+          encryption_key_id?: string | null
           id?: string
           relationship?: string | null
           user_id?: string
           verification_status?: string | null
+        }
+        Relationships: []
+      }
+      security_events: {
+        Row: {
+          created_at: string | null
+          event_details: Json | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          record_id: string | null
+          risk_score: number | null
+          session_id: string | null
+          severity_level: string
+          table_name: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          event_details?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          record_id?: string | null
+          risk_score?: number | null
+          session_id?: string | null
+          severity_level?: string
+          table_name?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          event_details?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          record_id?: string | null
+          risk_score?: number | null
+          session_id?: string | null
+          severity_level?: string
+          table_name?: string | null
+          user_agent?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -2799,6 +2892,10 @@ export type Database = {
         Args: { p_email: string; p_ip: unknown; p_user_agent?: string }
         Returns: Json
       }
+      enhanced_content_moderation: {
+        Args: { content_text: string; content_type?: string }
+        Returns: Json
+      }
       generate_invite_code: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -2831,6 +2928,22 @@ export type Database = {
       get_secure_therapist_marketplace: {
         Args: Record<PropertyKey, never>
         Returns: {
+          average_rating: number
+          bio: string
+          full_name: string
+          hourly_rate: number
+          id: string
+          languages: string[]
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
+      }
+      get_secure_therapist_marketplace_v2: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          availability: Json
           average_rating: number
           bio: string
           full_name: string
@@ -2888,6 +3001,20 @@ export type Database = {
           years_experience: number
         }[]
       }
+      get_user_group_memberships: {
+        Args: { p_user_id: string }
+        Returns: {
+          group_id: string
+        }[]
+      }
+      is_group_member: {
+        Args: { p_group_id: string; p_user_id: string }
+        Returns: boolean
+      }
+      is_group_therapy_participant: {
+        Args: { p_session_id: string; p_user_id: string }
+        Returns: boolean
+      }
       is_system_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
@@ -2921,6 +3048,18 @@ export type Database = {
           p_severity?: string
           p_source_ip?: unknown
           p_table_name: string
+          p_user_id: string
+        }
+        Returns: undefined
+      }
+      log_security_event_v2: {
+        Args: {
+          p_event_details?: Json
+          p_event_type: string
+          p_record_id?: string
+          p_risk_score?: number
+          p_severity_level?: string
+          p_table_name?: string
           p_user_id: string
         }
         Returns: undefined
