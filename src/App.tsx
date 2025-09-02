@@ -17,6 +17,7 @@ import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 // Aura App Pages
 import AuraHome from "@/components/AuraHome";
 import AuriChat from "@/components/AuriChat";
+import Roleplay from "@/components/Roleplay";
 import MyPlan from "@/components/MyPlan";
 import MoodTracker from "@/components/MoodTracker";
 import DailyQuests from "@/components/DailyQuests";
@@ -75,11 +76,12 @@ const App = () => (
                           <Routes>
                             {/* Aura Mental Health App Routes */}
                             <Route path="/" element={<AuraHome />} />
+                            <Route path="/auri" element={<AuriChat />} />
                             <Route path="/chat" element={<AuriChat />} />
                             <Route path="/plan" element={<MyPlan />} />
                             <Route path="/mood" element={<MoodTracker />} />
                             <Route path="/quests" element={<DailyQuests />} />
-                            <Route path="/roleplay" element={<RoleplaySimulator />} />
+                            <Route path="/roleplay" element={<Roleplay />} />
                             <Route path="/crisis" element={<CrisisSupport />} />
                             <Route path="/community" element={<Community />} />
                             <Route path="/advanced" element={<AdvancedFeatures />} />

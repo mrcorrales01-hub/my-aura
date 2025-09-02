@@ -26,7 +26,8 @@ const AuraNavigation = () => {
 
   const navItems = [
     { name: t('nav.home'), path: '/', icon: MessageCircle, color: 'text-aura-primary' },
-    { name: t('nav.myPlan'), path: '/plan', icon: Calendar, color: 'text-aura-secondary' },
+    { name: t('auri.title', 'Auri'), path: '/auri', icon: Sparkles, color: 'text-aura-secondary' },
+    { name: t('roleplay.title', 'Roleplay'), path: '/roleplay', icon: Users, color: 'text-aura-growth' },
     { name: t('nav.music'), path: '/music', icon: Music, color: 'text-purple-500' },
     { name: t('nav.videos'), path: '/videos', icon: Video, color: 'text-blue-500' },
     { name: t('nav.community'), path: '/community', icon: Users, color: 'text-aura-growth' },

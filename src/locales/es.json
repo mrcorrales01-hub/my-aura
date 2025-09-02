@@ -1,4 +1,30 @@
 {
+  "auri": {
+    "title": "Auri - Entrenador IA",
+    "subtitle": "Habla con tu entrenador personal de salud mental",
+    "newChat": "Nueva conversación",
+    "exportChat": "Exportar conversación",
+    "typeMessage": "Escribe tu mensaje aquí...",
+    "send": "Enviar",
+    "selectSession": "Seleccionar sesión",
+    "createNew": "Crear nuevo",
+    "loading": "Cargando...",
+    "error": "Error ocurrido",
+    "you": "Tú",
+    "auri": "Auri"
+  },
+  "roleplay": {
+    "title": "Juego de Roles",
+    "subtitle": "Practica situaciones difíciles con IA",
+    "selectScenario": "Seleccionar escenario",
+    "startRoleplay": "Iniciar juego de roles",
+    "exitRoleplay": "Salir del juego de roles",
+    "step": "Paso",
+    "of": "de",
+    "loading": "Cargando...",
+    "error": "Error ocurrido",
+    "completed": "¡Completado!"
+  },
   "app": {
     "name": "My Aura",
     "tagline": "Coach de IA en tiempo real para salud mental y relaciones"

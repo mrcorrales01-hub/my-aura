@@ -1,4 +1,30 @@
 {
+  "auri": {
+    "title": "Auri - KI-Coach",
+    "subtitle": "Sprechen Sie mit Ihrem persönlichen Mental Health Coach",
+    "newChat": "Neuer Chat",
+    "exportChat": "Gespräch exportieren",
+    "typeMessage": "Nachricht eingeben...",
+    "send": "Senden",
+    "selectSession": "Sitzung auswählen",
+    "createNew": "Neu erstellen",
+    "loading": "Lädt...",
+    "error": "Fehler aufgetreten",
+    "you": "Sie",
+    "auri": "Auri"
+  },
+  "roleplay": {
+    "title": "Rollenspiel",
+    "subtitle": "Üben Sie schwierige Situationen mit KI",
+    "selectScenario": "Szenario auswählen",
+    "startRoleplay": "Rollenspiel starten",
+    "exitRoleplay": "Rollenspiel beenden",
+    "step": "Schritt",
+    "of": "von",
+    "loading": "Lädt...",
+    "error": "Fehler aufgetreten",
+    "completed": "Abgeschlossen!"
+  },
   "app": {
     "name": "My Aura",
     "tagline": "Echtzeit-KI-Coach für psychische Gesundheit und Beziehungen"
