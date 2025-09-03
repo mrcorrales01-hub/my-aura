@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Star, Clock, Globe, BookOpen } from 'lucide-react';
-import { Therapist } from '@/hooks/useTherapists';
+import { TherapistMarketplaceData } from '@/hooks/useTherapists';
 
 interface TherapistCardProps {
-  therapist: Therapist;
+  therapist: TherapistMarketplaceData;
   onBookSession: (therapistId: string) => void;
 }
 
@@ -31,7 +31,9 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ therapist, onBookSession 
             <div className="flex items-center gap-2 mt-1">
               <div className="flex items-center gap-1">
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                <span className="text-sm text-muted-foreground">4.8</span>
+                <span className="text-sm text-muted-foreground">
+                  {therapist.average_rating?.toFixed(1) || '4.8'}
+                </span>
               </div>
               <span className="text-sm text-muted-foreground">•</span>
               <span className="text-sm text-muted-foreground">

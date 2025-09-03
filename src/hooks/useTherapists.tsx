@@ -38,6 +38,7 @@ export interface TherapistMarketplaceData {
   availability: any;
   average_rating: number;
   review_count: number;
+  profile_image_url?: string;
 }
 
 export const useTherapists = () => {
