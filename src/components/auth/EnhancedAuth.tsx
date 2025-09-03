@@ -8,7 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Shield, AlertTriangle, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { validateField, logSecurityEvent, checkRateLimit } from '@/utils/security';
+import { validateField, logSecurityEvent, checkRateLimit, checkPasswordLeak } from '@/utils/security';
+import { PasswordStrength } from './PasswordStrength';
 
 interface AuthState {
   email: string;
@@ -24,6 +25,7 @@ interface SecurityState {
   isPasswordLeaked: boolean;
   securityScore: number;
   warnings: string[];
+  strengthData?: any;
 }
 
 export const EnhancedAuth: React.FC = () => {
@@ -60,42 +62,60 @@ export const EnhancedAuth: React.FC = () => {
     return Math.min(strength, 100);
   };
 
-  // Check for leaked passwords (simulation - in production use HaveIBeenPwned API)
-  const checkPasswordLeak = async (password: string): Promise<boolean> => {
-    // Simulate common passwords check
-    const commonPasswords = [
-      'password', '123456', '123456789', 'qwerty', 'abc123',
-      'password123', 'admin', 'letmein', 'welcome', '12345678'
-    ];
-    
-    return commonPasswords.includes(password.toLowerCase());
-  };
+  // Enhanced password validation with database function
+  const validatePasswordSecurity = async (password: string) => {
+    if (!password) return;
 
-  // Real-time password validation
-  useEffect(() => {
-    if (authState.password) {
-      const strength = calculatePasswordStrength(authState.password);
+    try {
+      const leakCheck = await checkPasswordLeak(password);
+      const strength = calculatePasswordStrength(password);
+      
       const warnings: string[] = [];
       
-      if (strength < 40) warnings.push('Password is too weak');
-      if (authState.password.length < 8) warnings.push('Password must be at least 8 characters');
-      if (!/[A-Z]/.test(authState.password)) warnings.push('Add uppercase letters');
-      if (!/[0-9]/.test(authState.password)) warnings.push('Add numbers');
-      if (!/[!@#$%^&*(),.?":{}|<>]/.test(authState.password)) warnings.push('Add special characters');
+      if (strength < 60) warnings.push('Password is too weak');
+      if (password.length < 8) warnings.push('Password must be at least 8 characters');
+      if (!/[A-Z]/.test(password)) warnings.push('Add uppercase letters');
+      if (!/[0-9]/.test(password)) warnings.push('Add numbers');
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) warnings.push('Add special characters');
       
-      if (activeTab === 'signup' && authState.confirmPassword && authState.password !== authState.confirmPassword) {
+      if (activeTab === 'signup' && authState.confirmPassword && password !== authState.confirmPassword) {
         warnings.push('Passwords do not match');
       }
 
-      // Check for leaked passwords
-      checkPasswordLeak(authState.password).then(isLeaked => {
-        setSecurityState(prev => ({
-          ...prev,
-          passwordStrength: strength,
-          isPasswordLeaked: isLeaked,
-          securityScore: isLeaked ? Math.max(strength - 50, 0) : strength,
-          warnings: isLeaked ? [...warnings, 'Password found in data breaches'] : warnings
-        }));
+      if (leakCheck.isLeaked) {
+        warnings.push('Password found in data breaches');
+      }
+
+      setSecurityState(prev => ({
+        ...prev,
+        passwordStrength: strength,
+        isPasswordLeaked: leakCheck.isLeaked,
+        securityScore: leakCheck.isLeaked ? Math.max(strength - 50, 0) : strength,
+        warnings,
+        strengthData: leakCheck.strengthAnalysis
+      }));
+    } catch (error) {
+      console.error('Password validation error:', error);
+    }
+  };
+
+  // Real-time password validation with enhanced security
+  useEffect(() => {
+    if (authState.password) {
+      // Debounce password validation to avoid excessive API calls
+      const timeoutId = setTimeout(() => {
+        validatePasswordSecurity(authState.password);
+      }, 500);
+
+      return () => clearTimeout(timeoutId);
+    } else {
+      // Reset security state when password is empty
+      setSecurityState({
+        passwordStrength: 0,
+        isPasswordLeaked: false,
+        securityScore: 0,
+        warnings: [],
+        strengthData: null
       });
     }
   }, [authState.password, authState.confirmPassword, activeTab]);
@@ -353,26 +373,12 @@ export const EnhancedAuth: React.FC = () => {
                   </Button>
                 </div>
 
-                {/* Password Strength Indicator */}
-                {authState.password && (
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-xs">
-                      <span>Password Strength:</span>
-                      <span className={`font-medium ${
-                        securityState.passwordStrength < 40 ? 'text-destructive' :
-                        securityState.passwordStrength < 70 ? 'text-warning' : 'text-primary'
-                      }`}>
-                        {getPasswordStrengthLabel(securityState.passwordStrength)}
-                      </span>
-                    </div>
-                    <div className="w-full bg-muted rounded-full h-2">
-                      <div
-                        className={`h-2 rounded-full transition-all duration-300 ${getPasswordStrengthColor(securityState.passwordStrength)}`}
-                        style={{ width: `${securityState.passwordStrength}%` }}
-                      />
-                    </div>
-                  </div>
-                )}
+                {/* Enhanced Password Strength Indicator */}
+                <PasswordStrength 
+                  password={authState.password}
+                  strengthData={securityState.strengthData}
+                  isLeaked={securityState.isPasswordLeaked}
+                />
               </div>
 
               <div className="space-y-2">

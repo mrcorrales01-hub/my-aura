@@ -2896,6 +2896,10 @@ export type Database = {
         Args: { content_text: string; content_type?: string }
         Returns: Json
       }
+      enhanced_crisis_detection: {
+        Args: { content_text: string; context_type?: string }
+        Returns: Json
+      }
       generate_invite_code: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -2924,6 +2928,22 @@ export type Database = {
       get_current_user_therapist_id: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      get_secure_therapist_data: {
+        Args: { p_therapist_id?: string }
+        Returns: {
+          availability: Json
+          average_rating: number
+          bio: string
+          full_name: string
+          hourly_rate: number
+          id: string
+          languages: string[]
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
       }
       get_secure_therapist_marketplace: {
         Args: Record<PropertyKey, never>
@@ -3066,6 +3086,10 @@ export type Database = {
       }
       moderate_content: {
         Args: { content_text: string }
+        Returns: Json
+      }
+      validate_password_strength: {
+        Args: { password_text: string }
         Returns: Json
       }
     }

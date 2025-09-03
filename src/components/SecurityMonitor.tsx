@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '@/components/auth/AuthContext';
 import { logSecurityEvent } from '@/utils/security';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Shield, AlertTriangle, Eye, EyeOff } from 'lucide-react';
