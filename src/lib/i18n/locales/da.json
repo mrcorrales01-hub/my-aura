@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Hjem",
+    "chat": "Chat",
+    "mood": "Humør",
+    "media": "Videoøvelser",
+    "settings": "Indstillinger"
+  },
+  "hero": {
+    "title": "Velkommen til My Aura 2.0",
+    "subtitle": "Din personlige AI-coach til mental sundhed og trivsel",
+    "cta": "Kom i gang"
+  },
+  "auth": {
+    "signin": "Log ind",
+    "signup": "Tilmeld dig",
+    "email": "E-mail",
+    "password": "Adgangskode",
+    "confirmPassword": "Bekræft adgangskode",
+    "signOut": "Log ud",
+    "welcome": "Velkommen!"
+  },
+  "mood": {
+    "title": "Humørsporing",
+    "howAreYou": "Hvordan har du det i dag?",
+    "rate": "Vurder dit humør",
+    "notes": "Noter (valgfrit)",
+    "save": "Gem humør",
+    "history": "Humørhistorik"
+  },
+  "chat": {
+    "title": "Chat med Auri",
+    "placeholder": "Skriv din besked her...",
+    "send": "Send",
+    "thinking": "Auri tænker..."
+  },
+  "media": {
+    "title": "Videoøvelser",
+    "favorites": "Favoritter",
+    "continue": "Fortsæt",
+    "recommended": "Anbefalet"
+  },
+  "settings": {
+    "title": "Indstillinger",
+    "language": "Sprog",
+    "selectLanguage": "Vælg sprog"
+  },
+  "language": {
+    "modal": {
+      "title": "Vælg dit sprog",
+      "description": "Vælg dit foretrukne sprog til My Aura",
+      "followSystem": "Følg systemsproget",
+      "confirm": "Bekræft"
+    },
+    "names": {
+      "sv": "Svenska",
+      "en": "English",
+      "es": "Español",
+      "da": "Dansk",
+      "no": "Norsk", 
+      "fi": "Suomi"
+    }
+  },
+  "common": {
+    "loading": "Indlæser...",
+    "error": "Der opstod en fejl",
+    "retry": "Prøv igen",
+    "cancel": "Annuller",
+    "save": "Gem",
+    "delete": "Slet",
+    "edit": "Rediger"
+  }
+}

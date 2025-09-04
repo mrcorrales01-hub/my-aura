@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Koti",
+    "chat": "Chat",
+    "mood": "Mieliala",
+    "media": "Videoharjoitukset",
+    "settings": "Asetukset"
+  },
+  "hero": {
+    "title": "Tervetuloa My Aura 2.0:aan",
+    "subtitle": "Henkilökohtainen AI-valmentajasi mielenterveyteen ja hyvinvointiin",
+    "cta": "Aloita"
+  },
+  "auth": {
+    "signin": "Kirjaudu sisään",
+    "signup": "Rekisteröidy",
+    "email": "Sähköposti",
+    "password": "Salasana", 
+    "confirmPassword": "Vahvista salasana",
+    "signOut": "Kirjaudu ulos",
+    "welcome": "Tervetuloa!"
+  },
+  "mood": {
+    "title": "Mielialan seuranta",
+    "howAreYou": "Miltä sinusta tuntuu tänään?",
+    "rate": "Arvioi mielialasi",
+    "notes": "Muistiinpanot (valinnainen)",
+    "save": "Tallenna mieliala",
+    "history": "Mielialahistoria"
+  },
+  "chat": {
+    "title": "Keskustele Aurin kanssa",
+    "placeholder": "Kirjoita viestisi tähän...",
+    "send": "Lähetä",
+    "thinking": "Auri miettii..."
+  },
+  "media": {
+    "title": "Videoharjoitukset",
+    "favorites": "Suosikit",
+    "continue": "Jatka",
+    "recommended": "Suositeltu"
+  },
+  "settings": {
+    "title": "Asetukset",
+    "language": "Kieli",
+    "selectLanguage": "Valitse kieli"
+  },
+  "language": {
+    "modal": {
+      "title": "Valitse kielesi",
+      "description": "Valitse ensisijainen kielesi My Auralle",
+      "followSystem": "Seuraa järjestelmän kieltä",
+      "confirm": "Vahvista"
+    },
+    "names": {
+      "sv": "Svenska",
+      "en": "English",
+      "es": "Español",
+      "da": "Dansk",
+      "no": "Norsk",
+      "fi": "Suomi"
+    }
+  },
+  "common": {
+    "loading": "Ladataan...",
+    "error": "Tapahtui virhe",
+    "retry": "Yritä uudelleen",
+    "cancel": "Peruuta",
+    "save": "Tallenna",
+    "delete": "Poista",
+    "edit": "Muokkaa"
+  }
+}

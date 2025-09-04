@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Home",
+    "chat": "Chat",
+    "mood": "Mood",
+    "media": "Video Exercises",
+    "settings": "Settings"
+  },
+  "hero": {
+    "title": "Welcome to My Aura 2.0",
+    "subtitle": "Your personal AI coach for mental health and wellbeing",
+    "cta": "Get Started"
+  },
+  "auth": {
+    "signin": "Sign In",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "signOut": "Sign Out",
+    "welcome": "Welcome!"
+  },
+  "mood": {
+    "title": "Mood Tracking",
+    "howAreYou": "How are you feeling today?",
+    "rate": "Rate your mood",
+    "notes": "Notes (optional)",
+    "save": "Save Mood",
+    "history": "Mood History"
+  },
+  "chat": {
+    "title": "Chat with Auri",
+    "placeholder": "Type your message here...",
+    "send": "Send",
+    "thinking": "Auri is thinking..."
+  },
+  "media": {
+    "title": "Video Exercises",
+    "favorites": "Favorites",
+    "continue": "Continue",
+    "recommended": "Recommended"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "selectLanguage": "Select Language"
+  },
+  "language": {
+    "modal": {
+      "title": "Choose Your Language",
+      "description": "Select your preferred language for My Aura",
+      "followSystem": "Follow system language",
+      "confirm": "Confirm"
+    },
+    "names": {
+      "sv": "Svenska",
+      "en": "English",
+      "es": "Español",
+      "da": "Dansk", 
+      "no": "Norsk",
+      "fi": "Suomi"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Hem",
+    "chat": "Chatt",
+    "mood": "Humör",
+    "media": "Videoövningar",
+    "settings": "Inställningar"
+  },
+  "hero": {
+    "title": "Välkommen till My Aura 2.0",
+    "subtitle": "Din personliga AI-coach för mental hälsa och välmående",
+    "cta": "Kom igång"
+  },
+  "auth": {
+    "signin": "Logga in",
+    "signup": "Registrera dig",
+    "email": "E-post",
+    "password": "Lösenord",
+    "confirmPassword": "Bekräfta lösenord",
+    "signOut": "Logga ut",
+    "welcome": "Välkommen!"
+  },
+  "mood": {
+    "title": "Humörspårning",
+    "howAreYou": "Hur mår du idag?",
+    "rate": "Betygsätt ditt humör",
+    "notes": "Anteckningar (valfritt)",
+    "save": "Spara humör",
+    "history": "Humörhistorik"
+  },
+  "chat": {
+    "title": "Chatta med Auri",
+    "placeholder": "Skriv ditt meddelande här...",
+    "send": "Skicka",
+    "thinking": "Auri funderar..."
+  },
+  "media": {
+    "title": "Videoövningar",
+    "favorites": "Favoriter",
+    "continue": "Fortsätt",
+    "recommended": "Rekommenderat"
+  },
+  "settings": {
+    "title": "Inställningar",
+    "language": "Språk",
+    "selectLanguage": "Välj språk"
+  },
+  "language": {
+    "modal": {
+      "title": "Välj ditt språk",
+      "description": "Välj det språk du föredrar för My Aura",
+      "followSystem": "Följ systemets språk",
+      "confirm": "Bekräfta"
+    },
+    "names": {
+      "sv": "Svenska",
+      "en": "English",
+      "es": "Español", 
+      "da": "Dansk",
+      "no": "Norsk",
+      "fi": "Suomi"
+    }
+  },
+  "common": {
+    "loading": "Laddar...",
+    "error": "Ett fel uppstod",
+    "retry": "Försök igen",
+    "cancel": "Avbryt",
+    "save": "Spara",
+    "delete": "Ta bort",
+    "edit": "Redigera"
+  }
+}

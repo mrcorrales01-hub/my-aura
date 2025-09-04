@@ -1,0 +1,73 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "chat": "Chat",
+    "mood": "Estado de ánimo", 
+    "media": "Ejercicios en video",
+    "settings": "Configuración"
+  },
+  "hero": {
+    "title": "Bienvenido a My Aura 2.0",
+    "subtitle": "Tu entrenador personal de IA para la salud mental y el bienestar",
+    "cta": "Comenzar"
+  },
+  "auth": {
+    "signin": "Iniciar sesión",
+    "signup": "Registrarse", 
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "signOut": "Cerrar sesión",
+    "welcome": "¡Bienvenido!"
+  },
+  "mood": {
+    "title": "Seguimiento del estado de ánimo",
+    "howAreYou": "¿Cómo te sientes hoy?",
+    "rate": "Califica tu estado de ánimo",
+    "notes": "Notas (opcional)",
+    "save": "Guardar estado de ánimo",
+    "history": "Historial de estado de ánimo"
+  },
+  "chat": {
+    "title": "Chatea con Auri",
+    "placeholder": "Escribe tu mensaje aquí...",
+    "send": "Enviar",
+    "thinking": "Auri está pensando..."
+  },
+  "media": {
+    "title": "Ejercicios en video",
+    "favorites": "Favoritos",
+    "continue": "Continuar",
+    "recommended": "Recomendado"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar idioma"
+  },
+  "language": {
+    "modal": {
+      "title": "Elige tu idioma",
+      "description": "Selecciona tu idioma preferido para My Aura",
+      "followSystem": "Seguir idioma del sistema",
+      "confirm": "Confirmar"
+    },
+    "names": {
+      "sv": "Svenska",
+      "en": "English", 
+      "es": "Español",
+      "da": "Dansk",
+      "no": "Norsk",
+      "fi": "Suomi"
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error",
+    "retry": "Intentar de nuevo",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar"
+  }
+}
