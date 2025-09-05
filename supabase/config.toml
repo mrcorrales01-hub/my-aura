@@ -24,6 +24,7 @@ port = 54328
 site_url = "http://localhost:3000"
 additional_redirect_urls = ["https://ad75c518-0b07-43a9-ab8c-a632301b859c.lovableproject.com"]
 jwt_expiry = 3600
+password_leaked_protection = true
 
 [edge_functions]
 enabled = true
