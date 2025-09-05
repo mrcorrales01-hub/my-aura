@@ -11,8 +11,7 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Check, Globe } from 'lucide-react';
-import { loadLocale, SUPPORTED_LANGUAGES } from '@/lib/i18n';
-import type { SupportedLanguage } from '@/lib/i18n';
+import { loadLocale, SUPPORTED_LANGUAGES, type SupportedLanguage } from '@/lib/i18n';
 
 const LANGUAGE_FLAGS: Record<SupportedLanguage, string> = {
   sv: '🇸🇪',
