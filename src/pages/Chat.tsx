@@ -4,7 +4,7 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ChatBox } from '@/features/chat/ChatBox';
 
-export function Chat() {
+const Chat = () => {
   const { t } = useTranslation();
 
   return (
@@ -19,4 +19,6 @@ export function Chat() {
       <Footer />
     </div>
   );
-}
+};
+
+export default Chat;

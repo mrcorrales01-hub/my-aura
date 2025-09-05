@@ -2231,11 +2231,16 @@ export type Database = {
       }
       therapists: {
         Row: {
+          anonymized_id: string | null
           availability: Json | null
           bio: string | null
           created_at: string
+          display_name: string | null
           education: string | null
           email: string
+          encrypted_email: string | null
+          encrypted_license_number: string | null
+          encrypted_phone: string | null
           full_name: string
           hourly_rate: number
           id: string
@@ -2245,6 +2250,7 @@ export type Database = {
           license_number: string
           license_state: string
           phone: string | null
+          professional_title: string | null
           profile_image_url: string | null
           specializations: string[]
           timezone: string
@@ -2253,11 +2259,16 @@ export type Database = {
           years_experience: number | null
         }
         Insert: {
+          anonymized_id?: string | null
           availability?: Json | null
           bio?: string | null
           created_at?: string
+          display_name?: string | null
           education?: string | null
           email: string
+          encrypted_email?: string | null
+          encrypted_license_number?: string | null
+          encrypted_phone?: string | null
           full_name: string
           hourly_rate: number
           id?: string
@@ -2267,6 +2278,7 @@ export type Database = {
           license_number: string
           license_state: string
           phone?: string | null
+          professional_title?: string | null
           profile_image_url?: string | null
           specializations?: string[]
           timezone?: string
@@ -2275,11 +2287,16 @@ export type Database = {
           years_experience?: number | null
         }
         Update: {
+          anonymized_id?: string | null
           availability?: Json | null
           bio?: string | null
           created_at?: string
+          display_name?: string | null
           education?: string | null
           email?: string
+          encrypted_email?: string | null
+          encrypted_license_number?: string | null
+          encrypted_phone?: string | null
           full_name?: string
           hourly_rate?: number
           id?: string
@@ -2289,6 +2306,7 @@ export type Database = {
           license_number?: string
           license_state?: string
           phone?: string | null
+          professional_title?: string | null
           profile_image_url?: string | null
           specializations?: string[]
           timezone?: string
@@ -2925,6 +2943,23 @@ export type Database = {
           years_experience: number
         }[]
       }
+      get_anonymous_therapist_marketplace: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          anonymous_id: string
+          average_rating: number
+          bio_preview: string
+          display_name: string
+          hourly_rate: number
+          is_available: boolean
+          languages: string[]
+          professional_title: string
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
+      }
       get_current_user_therapist_id: {
         Args: Record<PropertyKey, never>
         Returns: string
@@ -3081,6 +3116,14 @@ export type Database = {
           p_severity_level?: string
           p_table_name?: string
           p_user_id: string
+        }
+        Returns: undefined
+      }
+      log_therapist_data_access: {
+        Args: {
+          p_access_type: string
+          p_context?: string
+          p_therapist_count?: number
         }
         Returns: undefined
       }

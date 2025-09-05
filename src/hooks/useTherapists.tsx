@@ -27,18 +27,18 @@ export interface Therapist {
 }
 
 export interface TherapistMarketplaceData {
-  id: string;
-  full_name: string;
+  anonymous_id: string;
+  display_name: string;
+  professional_title: string;
   specializations: string[];
   languages: string[];
   hourly_rate: number;
   years_experience: number;
-  bio: string;
+  bio_preview: string;
   timezone: string;
-  availability: any;
   average_rating: number;
   review_count: number;
-  profile_image_url?: string;
+  is_available: boolean;
 }
 
 export const useTherapists = () => {
@@ -48,19 +48,20 @@ export const useTherapists = () => {
 
   const fetchTherapists = async () => {
     try {
-      // Use the enhanced secure marketplace function
-      const { data, error } = await supabase.rpc('get_secure_therapist_marketplace_v2');
+      // Use the ultra-secure anonymous marketplace function
+      const { data, error } = await supabase.rpc('get_anonymous_therapist_marketplace');
       
       if (error) throw error;
       
       setTherapists(data || []);
       
-      // Log secure access to therapist data
+      // Enhanced security logging
       if (data && data.length > 0) {
-        await logSecurityEvent('therapist_marketplace_accessed', 'low', {
-          therapist_count: data.length,
-          timestamp: new Date().toISOString()
-        }, 20);
+        await supabase.rpc('log_therapist_data_access', {
+          p_access_type: 'marketplace_view',
+          p_therapist_count: data.length,
+          p_context: 'anonymous_marketplace'
+        });
       }
     } catch (error) {
       console.error('Error fetching therapists:', error);
@@ -87,8 +88,8 @@ export const useTherapists = () => {
     maxRate?: number;
   }) => {
     try {
-      // Use secure marketplace function for search as well
-      const { data, error } = await supabase.rpc('get_secure_therapist_marketplace_v2');
+      // Use secure anonymous marketplace function for search
+      const { data, error } = await supabase.rpc('get_anonymous_therapist_marketplace');
       
       if (error) throw error;
 
@@ -115,6 +116,13 @@ export const useTherapists = () => {
       }
 
       setTherapists(filteredData.sort((a, b) => a.hourly_rate - b.hourly_rate));
+      
+      // Log filtered search
+      await supabase.rpc('log_therapist_data_access', {
+        p_access_type: 'marketplace_search',
+        p_therapist_count: filteredData.length,
+        p_context: 'anonymous_search'
+      });
     } catch (error) {
       console.error('Error searching therapists:', error);
     }

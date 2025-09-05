@@ -54,8 +54,8 @@ const Therapy: React.FC = () => {
     searchTherapists(searchFilters);
   };
 
-  const handleBookSession = (therapistId: string) => {
-    const therapist = therapists.find(t => t.id === therapistId);
+  const handleBookSession = (anonymousId: string) => {
+    const therapist = therapists.find(t => t.anonymous_id === anonymousId);
     setSelectedTherapist(therapist);
     setShowBooking(true);
   };
@@ -169,7 +169,7 @@ const Therapy: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {therapists.map((therapist) => (
                 <TherapistCard
-                  key={therapist.id}
+                  key={therapist.anonymous_id}
                   therapist={therapist}
                   onBookSession={handleBookSession}
                 />

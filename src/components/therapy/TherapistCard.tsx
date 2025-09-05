@@ -21,13 +21,14 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ therapist, onBookSession 
       <CardHeader className="pb-4">
         <div className="flex items-start gap-4">
           <Avatar className="h-16 w-16">
-            <AvatarImage src={therapist.profile_image_url} alt={therapist.full_name} />
+            <AvatarImage src="/placeholder-therapist.jpg" alt={therapist.display_name} />
             <AvatarFallback className="bg-primary/10 text-primary">
-              {getInitials(therapist.full_name)}
+              {getInitials(therapist.display_name)}
             </AvatarFallback>
           </Avatar>
           <div className="flex-1">
-            <CardTitle className="text-lg">{therapist.full_name}</CardTitle>
+            <CardTitle className="text-lg">{therapist.display_name}</CardTitle>
+            <p className="text-xs text-muted-foreground">{therapist.professional_title}</p>
             <div className="flex items-center gap-2 mt-1">
               <div className="flex items-center gap-1">
                 <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
@@ -78,11 +79,11 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ therapist, onBookSession 
           </div>
         </div>
 
-        {therapist.bio && (
+        {therapist.bio_preview && (
           <div>
             <h4 className="font-medium mb-2">About</h4>
             <p className="text-sm text-muted-foreground line-clamp-3">
-              {therapist.bio}
+              {therapist.bio_preview}
             </p>
           </div>
         )}
@@ -95,7 +96,8 @@ const TherapistCard: React.FC<TherapistCardProps> = ({ therapist, onBookSession 
         <div className="pt-2">
           <Button 
             className="w-full" 
-            onClick={() => onBookSession(therapist.id)}
+            onClick={() => onBookSession(therapist.anonymous_id)}
+            disabled={!therapist.is_available}
           >
             Book Session
           </Button>
