@@ -11,7 +11,10 @@ import {
 import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Check, Globe } from 'lucide-react';
-import { loadLocale, SUPPORTED_LANGUAGES, type SupportedLanguage } from '@/lib/i18n';
+
+// Define types and constants locally
+const SUPPORTED_LANGUAGES = ["sv", "en", "es", "da", "no", "fi"] as const;
+type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 const LANGUAGE_FLAGS: Record<SupportedLanguage, string> = {
   sv: '🇸🇪',
@@ -22,16 +25,25 @@ const LANGUAGE_FLAGS: Record<SupportedLanguage, string> = {
   fi: '🇫🇮',
 };
 
+const LANGUAGE_NAMES: Record<SupportedLanguage, string> = {
+  sv: 'Svenska',
+  en: 'English',
+  es: 'Español',
+  da: 'Dansk',
+  no: 'Norsk',
+  fi: 'Suomi',
+};
+
 interface LanguageSwitcherProps {
   showAsModal?: boolean;
   onClose?: () => void;
 }
 
 export function LanguageSwitcher({ showAsModal = false, onClose }: LanguageSwitcherProps) {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const [followSystem, setFollowSystem] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(
-    i18n.language as SupportedLanguage
+    (i18n.language as SupportedLanguage) || 'en'
   );
 
   useEffect(() => {
@@ -39,6 +51,22 @@ export function LanguageSwitcher({ showAsModal = false, onClose }: LanguageSwitc
     const systemPref = localStorage.getItem('aura-follow-system-language');
     setFollowSystem(systemPref === 'true');
   }, []);
+
+  const loadLocale = async (language: SupportedLanguage): Promise<boolean> => {
+    try {
+      const module = await import(`@/lib/i18n/locales/${language}.json`);
+      i18n.addResourceBundle(language, "translation", module.default, true, true);
+      
+      // Update document attributes
+      document.documentElement.lang = language;
+      document.documentElement.dir = "ltr";
+      
+      return true;
+    } catch (error) {
+      console.warn(`Failed to load locale ${language}:`, error);
+      return false;
+    }
+  };
 
   const handleLanguageChange = async (language: SupportedLanguage) => {
     setSelectedLanguage(language);
@@ -75,7 +103,7 @@ export function LanguageSwitcher({ showAsModal = false, onClose }: LanguageSwitc
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h4 className="text-sm font-medium">{t('language.modal.followSystem')}</h4>
+          <h4 className="text-sm font-medium">Follow System Language</h4>
           <p className="text-sm text-muted-foreground">
             Automatically use your device's language setting
           </p>
@@ -101,7 +129,7 @@ export function LanguageSwitcher({ showAsModal = false, onClose }: LanguageSwitc
                   {LANGUAGE_FLAGS[language]}
                 </span>
                 <span className="font-medium">
-                  {t(`language.names.${language}`)}
+                  {LANGUAGE_NAMES[language]}
                 </span>
               </div>
               {selectedLanguage === language && (
@@ -118,7 +146,7 @@ export function LanguageSwitcher({ showAsModal = false, onClose }: LanguageSwitc
           className="w-full"
           size="lg"
         >
-          {t('language.modal.confirm')}
+          Confirm
         </Button>
       )}
     </div>
@@ -131,10 +159,10 @@ export function LanguageSwitcher({ showAsModal = false, onClose }: LanguageSwitc
           <DialogHeader>
             <DialogTitle className="flex items-center space-x-2">
               <Globe className="h-5 w-5" />
-              <span>{t('language.modal.title')}</span>
+              <span>Choose Language</span>
             </DialogTitle>
             <DialogDescription>
-              {t('language.modal.description')}
+              Select your preferred language for the application
             </DialogDescription>
           </DialogHeader>
           {content}
@@ -148,7 +176,7 @@ export function LanguageSwitcher({ showAsModal = false, onClose }: LanguageSwitc
       <CardContent className="p-6">
         <h3 className="text-lg font-semibold mb-4 flex items-center space-x-2">
           <Globe className="h-5 w-5" />
-          <span>{t('settings.language')}</span>
+          <span>Language Settings</span>
         </h3>
         {content}
       </CardContent>

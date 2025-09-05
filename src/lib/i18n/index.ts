@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
 export const SUPPORTED_LANGUAGES = ["sv", "en", "es", "da", "no", "fi"] as const;
-export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number];
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
 // Detect initial language based on location/timezone/browser
 const detectInitialLanguage = (): SupportedLanguage => {
@@ -23,7 +23,7 @@ const detectInitialLanguage = (): SupportedLanguage => {
   return "en"; // Default fallback
 };
 
-export const loadLocale = async (language: SupportedLanguage) => {
+export const loadLocale = async (language: SupportedLanguage): Promise<boolean> => {
   try {
     const module = await import(`./locales/${language}.json`);
     i18n.addResourceBundle(language, "translation", module.default, true, true);
@@ -37,8 +37,12 @@ export const loadLocale = async (language: SupportedLanguage) => {
     console.warn(`Failed to load locale ${language}:`, error);
     // Fallback to English
     if (language !== "en") {
-      const fallback = await import(`./locales/en.json`);
-      i18n.addResourceBundle(language, "translation", fallback.default, true, true);
+      try {
+        const fallback = await import(`./locales/en.json`);
+        i18n.addResourceBundle(language, "translation", fallback.default, true, true);
+      } catch (fallbackError) {
+        console.error('Failed to load fallback English locale:', fallbackError);
+      }
     }
     return false;
   }

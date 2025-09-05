@@ -1760,15 +1760,23 @@ export type Database = {
           bio: string | null
           birth_year: number | null
           created_at: string
+          data_encryption_version: number | null
           date_of_birth: string | null
+          display_name: string | null
           email: string
           emergency_contact_name: string | null
           emergency_contact_phone: string | null
+          encrypted_date_of_birth: string | null
+          encrypted_emergency_contact_name: string | null
+          encrypted_emergency_contact_phone: string | null
+          encrypted_full_name: string | null
+          encrypted_phone: string | null
           family_account_id: string | null
           full_name: string | null
           id: string
           language_preference: string | null
           phone: string | null
+          profile_visibility: string | null
           relationship_type: string | null
           timezone: string | null
           updated_at: string
@@ -1779,15 +1787,23 @@ export type Database = {
           bio?: string | null
           birth_year?: number | null
           created_at?: string
+          data_encryption_version?: number | null
           date_of_birth?: string | null
+          display_name?: string | null
           email: string
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
+          encrypted_date_of_birth?: string | null
+          encrypted_emergency_contact_name?: string | null
+          encrypted_emergency_contact_phone?: string | null
+          encrypted_full_name?: string | null
+          encrypted_phone?: string | null
           family_account_id?: string | null
           full_name?: string | null
           id: string
           language_preference?: string | null
           phone?: string | null
+          profile_visibility?: string | null
           relationship_type?: string | null
           timezone?: string | null
           updated_at?: string
@@ -1798,15 +1814,23 @@ export type Database = {
           bio?: string | null
           birth_year?: number | null
           created_at?: string
+          data_encryption_version?: number | null
           date_of_birth?: string | null
+          display_name?: string | null
           email?: string
           emergency_contact_name?: string | null
           emergency_contact_phone?: string | null
+          encrypted_date_of_birth?: string | null
+          encrypted_emergency_contact_name?: string | null
+          encrypted_emergency_contact_phone?: string | null
+          encrypted_full_name?: string | null
+          encrypted_phone?: string | null
           family_account_id?: string | null
           full_name?: string | null
           id?: string
           language_preference?: string | null
           phone?: string | null
+          profile_visibility?: string | null
           relationship_type?: string | null
           timezone?: string | null
           updated_at?: string
@@ -1999,7 +2023,9 @@ export type Database = {
           contact_phone: string | null
           created_at: string
           crisis_notifications: boolean | null
+          data_encryption_version: number | null
           emergency_contact: boolean | null
+          encrypted_contact_name: string | null
           encrypted_email: string | null
           encrypted_phone: string | null
           encryption_key_id: string | null
@@ -2014,7 +2040,9 @@ export type Database = {
           contact_phone?: string | null
           created_at?: string
           crisis_notifications?: boolean | null
+          data_encryption_version?: number | null
           emergency_contact?: boolean | null
+          encrypted_contact_name?: string | null
           encrypted_email?: string | null
           encrypted_phone?: string | null
           encryption_key_id?: string | null
@@ -2029,7 +2057,9 @@ export type Database = {
           contact_phone?: string | null
           created_at?: string
           crisis_notifications?: boolean | null
+          data_encryption_version?: number | null
           emergency_contact?: boolean | null
+          encrypted_contact_name?: string | null
           encrypted_email?: string | null
           encrypted_phone?: string | null
           encryption_key_id?: string | null
@@ -2964,6 +2994,53 @@ export type Database = {
         Args: Record<PropertyKey, never>
         Returns: string
       }
+      get_emergency_contacts: {
+        Args: { p_user_id?: string }
+        Returns: {
+          contact_name: string
+          crisis_notifications: boolean
+          relationship: string
+          verification_status: string
+        }[]
+      }
+      get_full_profile_data: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          age_group: string
+          avatar_url: string
+          bio: string
+          birth_year: number
+          created_at: string
+          date_of_birth: string
+          display_name: string
+          email: string
+          emergency_contact_name: string
+          emergency_contact_phone: string
+          family_account_id: string
+          full_name: string
+          id: string
+          language_preference: string
+          phone: string
+          profile_visibility: string
+          relationship_type: string
+          timezone: string
+          updated_at: string
+        }[]
+      }
+      get_secure_profile_data: {
+        Args: { p_user_id?: string }
+        Returns: {
+          age_group: string
+          avatar_url: string
+          bio: string
+          created_at: string
+          display_name: string
+          id: string
+          language_preference: string
+          profile_visibility: string
+          timezone: string
+        }[]
+      }
       get_secure_therapist_data: {
         Args: { p_therapist_id?: string }
         Returns: {
@@ -3084,6 +3161,15 @@ export type Database = {
           p_user_id: string
         }
         Returns: string
+      }
+      log_profile_data_access: {
+        Args: {
+          p_access_type: string
+          p_accessed_user_id: string
+          p_context?: string
+          p_data_fields?: string[]
+        }
+        Returns: undefined
       }
       log_security_event: {
         Args: {
