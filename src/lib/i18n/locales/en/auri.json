@@ -1,0 +1,33 @@
+{
+  "title": "Auri - Your AI Coach", 
+  "subtitle": "Chat with your personal AI coach for mental health",
+  "placeholder": "Type your message here...",
+  "send": "Send",
+  "thinking": "Auri is thinking...",
+  "typing": "Auri is typing...",
+  "error": "Something went wrong. Please try again later.",
+  "welcome": "Hi! I'm Auri, your personal AI coach. How are you feeling today?",
+  "suggestions": {
+    "mood": "I'm feeling a bit down",
+    "stress": "I'm stressed about work",
+    "anxiety": "I'm feeling anxious", 
+    "sleep": "I'm having trouble sleeping",
+    "general": "I need someone to talk to"
+  },
+  "roleplay": {
+    "title": "Role-play Scenarios",
+    "description": "Practice important conversations in a safe environment",
+    "scenarios": {
+      "job_interview": "Job Interview",
+      "difficult_conversation": "Difficult Conversation", 
+      "public_speaking": "Public Speaking",
+      "social_anxiety": "Social Anxiety"
+    }
+  },
+  "features": {
+    "chat": "Chat",
+    "voice": "Voice", 
+    "video": "Video",
+    "roleplay": "Role-play"
+  }
+}

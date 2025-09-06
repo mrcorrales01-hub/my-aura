@@ -1,0 +1,33 @@
+{
+  "title": "Auri - Din AI-coach",
+  "subtitle": "Prata med din personliga AI-coach för mental hälsa",
+  "placeholder": "Skriv ditt meddelande här...",
+  "send": "Skicka",
+  "thinking": "Auri funderar...",
+  "typing": "Auri skriver...",
+  "error": "Något gick fel. Försök igen senare.",
+  "welcome": "Hej! Jag är Auri, din personliga AI-coach. Hur mår du idag?",
+  "suggestions": {
+    "mood": "Jag känner mig lite nedstämd",
+    "stress": "Jag är stressad på jobbet", 
+    "anxiety": "Jag känner mig orolig",
+    "sleep": "Jag har problem med sömnen",
+    "general": "Jag behöver någon att prata med"
+  },
+  "roleplay": {
+    "title": "Rollspelsscenarier",
+    "description": "Öva viktiga samtal i en trygg miljö",
+    "scenarios": {
+      "job_interview": "Jobbintervju",
+      "difficult_conversation": "Svårt samtal",
+      "public_speaking": "Offentligt tal",
+      "social_anxiety": "Social ångest"
+    }
+  },
+  "features": {
+    "chat": "Chatt",
+    "voice": "Röst",
+    "video": "Video",
+    "roleplay": "Rollspel"
+  }
+}

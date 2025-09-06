@@ -1,0 +1,53 @@
+{
+  "title": "Mood Tracking",
+  "subtitle": "Keep track of your mood over time", 
+  "today": "How are you feeling today?",
+  "rate": "Rate your mood (1-10)",
+  "scale": {
+    "1": "Very bad",
+    "2": "Bad",
+    "3": "Pretty bad", 
+    "4": "A bit bad",
+    "5": "Okay",
+    "6": "Pretty good",
+    "7": "Good",
+    "8": "Very good",
+    "9": "Excellent",
+    "10": "Amazing"
+  },
+  "tags": {
+    "happy": "Happy",
+    "sad": "Sad",
+    "anxious": "Anxious",
+    "stressed": "Stressed", 
+    "calm": "Calm",
+    "energetic": "Energetic",
+    "tired": "Tired",
+    "angry": "Angry",
+    "excited": "Excited",
+    "peaceful": "Peaceful"
+  },
+  "notes": "Notes (optional)",
+  "notesPlaceholder": "What's affecting your mood today?",
+  "save": "Save mood",
+  "history": "Mood History",
+  "chart": {
+    "title": "Your mood over time",
+    "weekly": "Weekly",
+    "monthly": "Monthly",
+    "daily": "Daily"  
+  },
+  "insights": {
+    "title": "Insights",
+    "average": "Average mood", 
+    "trend": "Trend",
+    "improving": "Improving",
+    "stable": "Stable",
+    "declining": "Declining"
+  },
+  "empty": {
+    "title": "No mood data yet",
+    "description": "Start tracking your mood to see patterns and insights.",
+    "action": "Add mood"
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "title": "Humörspårning",
+  "subtitle": "Håll koll på ditt humör över tid",
+  "today": "Hur mår du idag?",
+  "rate": "Betygsätt ditt humör (1-10)",
+  "scale": {
+    "1": "Mycket dåligt",
+    "2": "Dåligt", 
+    "3": "Ganska dåligt",
+    "4": "Lite dåligt",
+    "5": "Okej",
+    "6": "Ganska bra",
+    "7": "Bra",
+    "8": "Mycket bra",
+    "9": "Utmärkt",
+    "10": "Fantastiskt"
+  },
+  "tags": {
+    "happy": "Glad",
+    "sad": "Ledsen",
+    "anxious": "Orolig", 
+    "stressed": "Stressad",
+    "calm": "Lugn",
+    "energetic": "Energisk",
+    "tired": "Trött",
+    "angry": "Arg",
+    "excited": "Upphetsad",
+    "peaceful": "Fridfull"
+  },
+  "notes": "Anteckningar (valfritt)",
+  "notesPlaceholder": "Vad påverkar ditt humör idag?",
+  "save": "Spara humör",
+  "history": "Humörhistorik",
+  "chart": {
+    "title": "Ditt humör över tid",
+    "weekly": "Veckovis",
+    "monthly": "Månadsvis", 
+    "daily": "Dagligen"
+  },
+  "insights": {
+    "title": "Insikter",
+    "average": "Genomsnittligt humör",
+    "trend": "Trend",
+    "improving": "Förbättras",
+    "stable": "Stabilt", 
+    "declining": "Försämras"
+  },
+  "empty": {
+    "title": "Ingen humördata än",
+    "description": "Börja spåra ditt humör för att se mönster och insikter.",
+    "action": "Lägg till humör"
+  }
+}

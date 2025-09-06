@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Hem",
+    "chat": "Chatt",
+    "mood": "Humör", 
+    "journal": "Dagbok",
+    "plan": "Min Plan",
+    "exercises": "Övningar",
+    "crisis": "Kris",
+    "settings": "Inställningar",
+    "profile": "Profil",
+    "community": "Gemenskap"
+  },
+  "actions": {
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Ta bort",
+    "edit": "Redigera",
+    "share": "Dela",
+    "copy": "Kopiera",
+    "close": "Stäng",
+    "back": "Tillbaka",
+    "next": "Nästa",
+    "previous": "Föregående",
+    "submit": "Skicka",
+    "confirm": "Bekräfta",
+    "retry": "Försök igen"
+  },
+  "status": {
+    "loading": "Laddar...",
+    "saving": "Sparar...",
+    "saved": "Sparad",
+    "error": "Ett fel uppstod",
+    "success": "Framgång",
+    "warning": "Varning",
+    "info": "Information",
+    "offline": "Offline",
+    "online": "Online"
+  },
+  "time": {
+    "today": "Idag",
+    "yesterday": "Igår",
+    "tomorrow": "Imorgon",
+    "thisWeek": "Denna vecka",
+    "thisMonth": "Denna månad",
+    "morning": "Morgon",
+    "afternoon": "Eftermiddag",
+    "evening": "Kväll",
+    "night": "Natt"
+  },
+  "validation": {
+    "required": "Detta fält är obligatoriskt",
+    "email": "Ange en giltig e-postadress",
+    "minLength": "Minst {{count}} tecken krävs",
+    "maxLength": "Maximalt {{count}} tecken tillåtna",
+    "numeric": "Endast siffror tillåtna",
+    "passwordMatch": "Lösenorden matchar inte"
+  },
+  "empty": {
+    "title": "Inget att visa",
+    "description": "Det finns inget innehåll här än.",
+    "action": "Kom igång"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "home": "Home",
+    "chat": "Chat",
+    "mood": "Mood",
+    "journal": "Journal", 
+    "plan": "My Plan",
+    "exercises": "Exercises",
+    "crisis": "Crisis",
+    "settings": "Settings",
+    "profile": "Profile",
+    "community": "Community"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "share": "Share",
+    "copy": "Copy",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "retry": "Try Again"
+  },
+  "status": {
+    "loading": "Loading...",
+    "saving": "Saving...",
+    "saved": "Saved",
+    "error": "An error occurred",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Information",
+    "offline": "Offline",
+    "online": "Online"
+  },
+  "time": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This week",
+    "thisMonth": "This month",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "night": "Night"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "minLength": "At least {{count}} characters required",
+    "maxLength": "Maximum {{count}} characters allowed",
+    "numeric": "Only numbers allowed",
+    "passwordMatch": "Passwords do not match"
+  },
+  "empty": {
+    "title": "Nothing to show",
+    "description": "There's no content here yet.",
+    "action": "Get started"
+  }
+}
