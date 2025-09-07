@@ -1,8 +1,19 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-export const SUPPORTED_LANGUAGES = ['sv', 'en', 'es', 'no', 'da', 'fi'] as const;
-export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number];
+const SUPPORTED_LANGUAGES_ARRAY = ['sv', 'en', 'es', 'no', 'da', 'fi'] as const;
+export type SupportedLanguage = typeof SUPPORTED_LANGUAGES_ARRAY[number];
+
+export const SUPPORTED_LANGUAGES = [
+  { code: 'sv', name: 'Svenska' },
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'no', name: 'Norsk' },
+  { code: 'da', name: 'Dansk' },
+  { code: 'fi', name: 'Suomi' }
+];
+
+export const DEFAULT_LANGUAGE = 'sv';
 
 export const NAMESPACES = [
   'common',
@@ -20,7 +31,7 @@ export type Namespace = typeof NAMESPACES[number];
 // Detect initial language based on location/timezone/browser
 const detectInitialLanguage = (): SupportedLanguage => {
   const stored = localStorage.getItem('aura-lang');
-  if (stored && SUPPORTED_LANGUAGES.includes(stored as SupportedLanguage)) {
+  if (stored && SUPPORTED_LANGUAGES_ARRAY.includes(stored as SupportedLanguage)) {
     return stored as SupportedLanguage;
   }
 

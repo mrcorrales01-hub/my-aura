@@ -27,7 +27,7 @@ export const useAuriChat = (sessionId?: string) => {
       if (!user) return [];
       
       const query = supabase
-        .from('messages')
+        .from('messages' as any)
         .select('*')
         .eq('user_id', user.id)
         .order('created_at', { ascending: true });
@@ -40,7 +40,7 @@ export const useAuriChat = (sessionId?: string) => {
       
       if (error) throw error;
       
-      return data?.map(msg => ({
+      return (data as any)?.map((msg: any) => ({
         id: msg.id,
         role: msg.role as 'user' | 'assistant',
         content: msg.content,
@@ -83,14 +83,14 @@ export const useAuriChat = (sessionId?: string) => {
 
         // Save both messages to database
         await Promise.all([
-          supabase.from('messages').insert({
+          supabase.from('messages' as any).insert({
             user_id: user.id,
             session_id: sessionId,
             role: 'user',
             content: content,
             language: 'sv'
           }),
-          supabase.from('messages').insert({
+          supabase.from('messages' as any).insert({
             user_id: user.id,
             session_id: sessionId,
             role: 'assistant',

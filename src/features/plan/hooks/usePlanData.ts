@@ -36,14 +36,14 @@ export const usePlanData = () => {
       if (!user) return [];
       
       const { data, error } = await supabase
-        .from('plans')
+        .from('plans' as any)
         .select('*')
         .eq('user_id', user.id)
         .eq('status', 'active')
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as Plan[];
+      return (data as any) as Plan[];
     },
     enabled: !!user
   });
@@ -56,7 +56,7 @@ export const usePlanData = () => {
       
       const today = new Date().toISOString().split('T')[0];
       const { count, error } = await supabase
-        .from('plan_tasks')
+        .from('plan_tasks' as any)
         .select('*', { count: 'exact', head: true })
         .eq('user_id', user.id)
         .eq('status', 'completed')

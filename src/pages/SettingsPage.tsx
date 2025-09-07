@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Settings, Globe, Bell, Shield, Download, LogOut } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { SUPPORTED_LANGUAGES } from '@/lib/i18n';
+import { SUPPORTED_LANGUAGES } from '@/lib/i18n/index';
 
 const SettingsPage = () => {
   const { t, i18n } = useTranslation(['settings', 'common']);
@@ -67,8 +67,8 @@ const SettingsPage = () => {
                   </SelectTrigger>
                   <SelectContent>
                     {SUPPORTED_LANGUAGES.map(lang => (
-                      <SelectItem key={lang} value={lang}>
-                        {languageNames[lang]}
+                      <SelectItem key={lang.code} value={lang.code}>
+                        {lang.name}
                       </SelectItem>
                     ))}
                   </SelectContent>

@@ -1256,6 +1256,72 @@ export type Database = {
           },
         ]
       }
+      journal_entries: {
+        Row: {
+          content: string | null
+          content_text: string | null
+          created_at: string
+          id: string
+          is_private: boolean | null
+          mood_tags: string[] | null
+          tags: string[] | null
+          title: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content?: string | null
+          content_text?: string | null
+          created_at?: string
+          id?: string
+          is_private?: boolean | null
+          mood_tags?: string[] | null
+          tags?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string | null
+          content_text?: string | null
+          created_at?: string
+          id?: string
+          is_private?: boolean | null
+          mood_tags?: string[] | null
+          tags?: string[] | null
+          title?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      journal_entries_backup: {
+        Row: {
+          category: string | null
+          content: string | null
+          created_at: string | null
+          id: string | null
+          title: string | null
+          user_id: string | null
+        }
+        Insert: {
+          category?: string | null
+          content?: string | null
+          created_at?: string | null
+          id?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          category?: string | null
+          content?: string | null
+          created_at?: string | null
+          id?: string | null
+          title?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       mental_health_coins: {
         Row: {
           amount: number
@@ -1337,27 +1403,36 @@ export type Database = {
       messages: {
         Row: {
           content: string
+          context: Json | null
           created_at: string | null
           id: string
+          language: string | null
           role: string
           session_id: string
           tokens: number | null
+          user_id: string | null
         }
         Insert: {
           content: string
+          context?: Json | null
           created_at?: string | null
           id?: string
+          language?: string | null
           role: string
           session_id: string
           tokens?: number | null
+          user_id?: string | null
         }
         Update: {
           content?: string
+          context?: Json | null
           created_at?: string | null
           id?: string
+          language?: string | null
           role?: string
           session_id?: string
           tokens?: number | null
+          user_id?: string | null
         }
         Relationships: [
           {
@@ -1488,6 +1563,33 @@ export type Database = {
           mood_value?: number
           notes?: string | null
           updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      moods: {
+        Row: {
+          created_at: string | null
+          id: string
+          note: string | null
+          score: number
+          tags: string[] | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          note?: string | null
+          score: number
+          tags?: string[] | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          note?: string | null
+          score?: number
+          tags?: string[] | null
           user_id?: string
         }
         Relationships: []

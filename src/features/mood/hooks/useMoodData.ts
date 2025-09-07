@@ -31,16 +31,16 @@ export const useMoodData = () => {
       
       const today = new Date().toISOString().split('T')[0];
       const { data, error } = await supabase
-        .from('moods')
+        .from('moods' as any)
         .select('*')
         .eq('user_id', user.id)
         .gte('recorded_at', today)
         .order('recorded_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
       
-      if (error && error.code !== 'PGRST116') throw error;
-      return data;
+      if (error) throw error;
+      return (data as any) as MoodEntry | null;
     },
     enabled: !!user
   });
@@ -52,14 +52,14 @@ export const useMoodData = () => {
       if (!user) return [];
       
       const { data, error } = await supabase
-        .from('moods')
+        .from('moods' as any)
         .select('*')
         .eq('user_id', user.id)
         .order('recorded_at', { ascending: false })
         .limit(30);
       
       if (error) throw error;
-      return data as MoodEntry[];
+      return (data as any) as MoodEntry[];
     },
     enabled: !!user
   });
@@ -86,7 +86,7 @@ export const useMoodData = () => {
       if (!user) throw new Error('User not authenticated');
       
       const { data, error } = await supabase
-        .from('moods')
+        .from('moods' as any)
         .insert({
           user_id: user.id,
           mood_value: moodData.mood_value,
@@ -98,7 +98,7 @@ export const useMoodData = () => {
         .single();
       
       if (error) throw error;
-      return data;
+      return (data as any) as MoodEntry;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['mood'] });
