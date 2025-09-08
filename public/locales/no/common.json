@@ -56,5 +56,48 @@
     "norwegian": "Norsk",
     "danish": "Dansk",
     "finnish": "Suomi"
+  },
+  "health": {
+    "title": "Systemhelse",
+    "description": "Sjekk at alle komponenter fungerer riktig",
+    "runChecks": "Kjør Sjekker",
+    "copyDiagnostics": "Kopier Diagnostikk",
+    "diagnosticsCopied": "Diagnostikk Kopiert",
+    "diagnosticsCopiedDesc": "Diagnostikkdata har blitt kopiert til utklippstavlen",
+    "running": "Kjører helsesjekker...",
+    "error": "Helsesjekk feil",
+    "showDetails": "Vis detaljer",
+    "howToFix": "Hvordan fikse",
+    "status": {
+      "ok": "OK",
+      "warn": "ADVARSEL",
+      "fail": "FEIL"
+    },
+    "checks": {
+      "i18n": {
+        "title": "Oversettelser",
+        "description": "Sjekker at alle språkfiler lastes"
+      },
+      "env": {
+        "title": "Miljøvariabler",
+        "description": "Verifiserer nødvendige konfigurasjoner"
+      },
+      "supabase": {
+        "title": "Supabase",
+        "description": "Tester databaseforbindelse og RLS"
+      },
+      "auriChat": {
+        "title": "Auri Chat",
+        "description": "Tester AI-chattfunksjon"
+      },
+      "auriRoleplay": {
+        "title": "Auri Rollespill",
+        "description": "Tester AI-rollespillfunksjon"
+      }
+    },
+    "fixI18n": "Sjekk at alle språkfiler finnes i /locales/",
+    "fixEnv": "Legg til manglende miljøvariabler i .env",
+    "fixSupabase": "Sjekk Supabase-forbindelse og tillatelser",
+    "fixEdgeFunction": "Legg til OPENAI_API_KEY i Supabase-hemmeligheter"
   }
 }

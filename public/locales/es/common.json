@@ -56,5 +56,48 @@
     "norwegian": "Norsk",
     "danish": "Dansk",
     "finnish": "Suomi"
+  },
+  "health": {
+    "title": "Salud del Sistema",
+    "description": "Verificar que todos los componentes funcionen correctamente",
+    "runChecks": "Ejecutar Verificaciones",
+    "copyDiagnostics": "Copiar Diagnósticos",
+    "diagnosticsCopied": "Diagnósticos Copiados",
+    "diagnosticsCopiedDesc": "Los datos de diagnóstico se han copiado al portapapeles",
+    "running": "Ejecutando verificaciones de salud...",
+    "error": "Error de verificación de salud",
+    "showDetails": "Mostrar detalles",
+    "howToFix": "Cómo solucionarlo",
+    "status": {
+      "ok": "OK",
+      "warn": "AVISO",
+      "fail": "FALLO"
+    },
+    "checks": {
+      "i18n": {
+        "title": "Traducciones",
+        "description": "Verifica que todos los archivos de idioma se carguen"
+      },
+      "env": {
+        "title": "Variables de Entorno",
+        "description": "Verifica las configuraciones necesarias"
+      },
+      "supabase": {
+        "title": "Supabase",
+        "description": "Prueba la conexión a la base de datos y RLS"
+      },
+      "auriChat": {
+        "title": "Auri Chat",
+        "description": "Prueba la función de chat AI"
+      },
+      "auriRoleplay": {
+        "title": "Auri Roleplay",
+        "description": "Prueba la función de roleplay AI"
+      }
+    },
+    "fixI18n": "Verificar que todos los archivos de idioma existan en /locales/",
+    "fixEnv": "Agregar variables de entorno faltantes a .env",
+    "fixSupabase": "Verificar la conexión y permisos de Supabase",
+    "fixEdgeFunction": "Agregar OPENAI_API_KEY a los secretos de Supabase"
   }
 }

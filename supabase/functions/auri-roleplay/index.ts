@@ -89,6 +89,22 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Health check mode - no token spend
+  const url = new URL(req.url);
+  if (url.searchParams.get('mode') === 'health') {
+    const hasOpenAIKey = !!Deno.env.get('OPENAI_API_KEY');
+    return new Response(
+      JSON.stringify({ ok: true, hasOpenAIKey }),
+      {
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json',
+          'x-demo-mode': hasOpenAIKey ? '0' : '1'
+        }
+      }
+    );
+  }
+
   try {
     const authHeader = req.headers.get('Authorization');
     if (!authHeader) {

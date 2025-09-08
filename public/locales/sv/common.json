@@ -51,11 +51,54 @@
   },
   "langSwitcher": {
     "title": "Välj språk",
-    "swedish": "Svenska", 
+    "swedish": "Svenska",
     "english": "English",
     "spanish": "Español",
     "norwegian": "Norsk",
     "danish": "Dansk",
     "finnish": "Suomi"
+  },
+  "health": {
+    "title": "Systemhälsa",
+    "description": "Kontrollera att alla komponenter fungerar korrekt",
+    "runChecks": "Kör kontroller",
+    "copyDiagnostics": "Kopiera diagnostik",
+    "diagnosticsCopied": "Diagnostik kopierad",
+    "diagnosticsCopiedDesc": "Diagnostikdata har kopierats till urklipp",
+    "running": "Kör hälsokontroller...",
+    "error": "Fel vid hälsokontroll",
+    "showDetails": "Visa detaljer",
+    "howToFix": "Hur man fixar",
+    "status": {
+      "ok": "OK",
+      "warn": "VARNING",
+      "fail": "FEL"
+    },
+    "checks": {
+      "i18n": {
+        "title": "Översättningar",
+        "description": "Kontrollerar att alla språkfiler laddas"
+      },
+      "env": {
+        "title": "Miljövariabler",
+        "description": "Verifierar nödvändiga konfigurationer"
+      },
+      "supabase": {
+        "title": "Supabase",
+        "description": "Testar databasanslutning och RLS"
+      },
+      "auriChat": {
+        "title": "Auri Chat",
+        "description": "Testar AI-chattfunktion"
+      },
+      "auriRoleplay": {
+        "title": "Auri Rollspel",
+        "description": "Testar AI-rollspelsfunktion"
+      }
+    },
+    "fixI18n": "Kontrollera att alla språkfiler finns i /locales/",
+    "fixEnv": "Lägg till saknade miljövariabler i .env",
+    "fixSupabase": "Kontrollera Supabase-anslutning och behörigheter",
+    "fixEdgeFunction": "Lägg till OPENAI_API_KEY i Supabase-hemligheter"
   }
 }

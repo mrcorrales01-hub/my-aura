@@ -56,5 +56,48 @@
     "norwegian": "Norsk",
     "danish": "Dansk",
     "finnish": "Suomi"
+  },
+  "health": {
+    "title": "System Health",
+    "description": "Check that all components are working correctly",
+    "runChecks": "Run Checks",
+    "copyDiagnostics": "Copy Diagnostics",
+    "diagnosticsCopied": "Diagnostics Copied",
+    "diagnosticsCopiedDesc": "Diagnostic data has been copied to clipboard",
+    "running": "Running health checks...",
+    "error": "Health check error",
+    "showDetails": "Show details",
+    "howToFix": "How to fix",
+    "status": {
+      "ok": "OK",
+      "warn": "WARN",
+      "fail": "FAIL"
+    },
+    "checks": {
+      "i18n": {
+        "title": "Translations",
+        "description": "Checks that all language files load"
+      },
+      "env": {
+        "title": "Environment Variables",
+        "description": "Verifies necessary configurations"
+      },
+      "supabase": {
+        "title": "Supabase",
+        "description": "Tests database connection and RLS"
+      },
+      "auriChat": {
+        "title": "Auri Chat",
+        "description": "Tests AI chat function"
+      },
+      "auriRoleplay": {
+        "title": "Auri Roleplay",
+        "description": "Tests AI roleplay function"
+      }
+    },
+    "fixI18n": "Check that all language files exist in /locales/",
+    "fixEnv": "Add missing environment variables to .env",
+    "fixSupabase": "Check Supabase connection and permissions",
+    "fixEdgeFunction": "Add OPENAI_API_KEY to Supabase secrets"
   }
 }

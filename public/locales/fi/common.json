@@ -56,5 +56,48 @@
     "norwegian": "Norsk",
     "danish": "Dansk",
     "finnish": "Suomi"
+  },
+  "health": {
+    "title": "Järjestelmän Tila",
+    "description": "Tarkista että kaikki komponentit toimivat oikein",
+    "runChecks": "Suorita Tarkistukset",
+    "copyDiagnostics": "Kopioi Diagnostiikka",
+    "diagnosticsCopied": "Diagnostiikka Kopioitu",
+    "diagnosticsCopiedDesc": "Diagnostiikkadata on kopioitu leikepöydälle",
+    "running": "Suoritetaan terveystarkistuksia...",
+    "error": "Terveystarkistus virhe",
+    "showDetails": "Näytä yksityiskohdat",
+    "howToFix": "Kuinka korjata",
+    "status": {
+      "ok": "OK",
+      "warn": "VAROITUS",
+      "fail": "VIRHE"
+    },
+    "checks": {
+      "i18n": {
+        "title": "Käännökset",
+        "description": "Tarkistaa että kaikki kielitiedostot latautuvat"
+      },
+      "env": {
+        "title": "Ympäristömuuttujat",
+        "description": "Varmistaa tarvittavat konfiguraatiot"
+      },
+      "supabase": {
+        "title": "Supabase",
+        "description": "Testaa tietokantayhteys ja RLS"
+      },
+      "auriChat": {
+        "title": "Auri Chat",
+        "description": "Testaa AI-chat toiminto"
+      },
+      "auriRoleplay": {
+        "title": "Auri Roolipeli",
+        "description": "Testaa AI-roolipeli toiminto"
+      }
+    },
+    "fixI18n": "Tarkista että kaikki kielitiedostot löytyvät /locales/ hakemistosta",
+    "fixEnv": "Lisää puuttuvat ympäristömuuttujat .env tiedostoon",
+    "fixSupabase": "Tarkista Supabase-yhteys ja käyttöoikeudet",
+    "fixEdgeFunction": "Lisää OPENAI_API_KEY Supabase-salaisuuksiin"
   }
 }
