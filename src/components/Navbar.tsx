@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
-import { Home, MessageCircle, Heart, Video, Settings, Users } from 'lucide-react';
+import { Home, MessageCircle, Heart, Settings, Users } from 'lucide-react';
 
 export function Navbar() {
   const { t } = useTranslation();
@@ -13,7 +13,6 @@ export function Navbar() {
     { href: '/chat', label: t('nav.chat'), icon: MessageCircle },
     { href: '/roleplay', label: 'Roleplay', icon: Users },
     { href: '/mood', label: t('nav.mood'), icon: Heart },
-    { href: '/media', label: t('nav.media'), icon: Video },
     { href: '/settings', label: t('nav.settings'), icon: Settings },
   ];
 

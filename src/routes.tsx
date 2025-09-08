@@ -3,7 +3,6 @@ import Index from '@/pages/Index';
 import Auth from '@/pages/Auth';
 import Chat from '@/pages/Chat';
 import Mood from '@/pages/Mood';
-import Media from '@/pages/Media';
 import Settings from '@/pages/Settings';
 import NotFound from '@/pages/NotFound';
 import Health from '@/pages/Health';
@@ -18,7 +17,6 @@ export const router = createBrowserRouter([
   { path: '/roleplay', element: <RoleplayPage /> },
   { path: '/health', element: <Health /> },
   { path: '/mood', element: <Mood /> },
-  { path: '/media', element: <Media /> },
   { path: '/settings', element: <Settings /> },
   { path: '/exercises/:slug', element: <ExercisePlayer /> },
   { path: '*', element: <NotFound /> },

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useTranslation } from 'react-i18next';
-import LanguageSelector22 from '@/components/LanguageSelector22';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { 
   MessageCircle, 
   Calendar, 
@@ -14,9 +14,7 @@ import {
   Menu, 
   X,
   Heart,
-  Shield,
-  Music,
-  Video
+  Shield
 } from 'lucide-react';
 
 const AuraNavigation = () => {
@@ -28,8 +26,6 @@ const AuraNavigation = () => {
     { name: t('nav.home'), path: '/', icon: MessageCircle, color: 'text-aura-primary' },
     { name: t('auri.title', 'Auri'), path: '/auri', icon: Sparkles, color: 'text-aura-secondary' },
     { name: t('roleplay.title', 'Roleplay'), path: '/roleplay', icon: Users, color: 'text-aura-growth' },
-    { name: t('nav.music'), path: '/music', icon: Music, color: 'text-purple-500' },
-    { name: t('nav.videos'), path: '/videos', icon: Video, color: 'text-blue-500' },
     { name: t('nav.community'), path: '/community', icon: Users, color: 'text-aura-growth' },
     { name: t('nav.profile'), path: '/profile', icon: User, color: 'text-aura-warm' }
   ];
@@ -80,7 +76,7 @@ const AuraNavigation = () => {
         </div>
 
         <div className="flex items-center space-x-2">
-          <LanguageSelector22 />
+          <LanguageSwitcher />
           <Button variant="outline" size="sm" className="border-aura-primary/20 text-aura-primary hover:bg-aura-primary hover:text-white">
             <Shield className="w-4 h-4 mr-2" />
             {t('nav.crisisSupport')}
@@ -137,7 +133,7 @@ const AuraNavigation = () => {
               
               <hr className="my-3 border-aura-calm" />
               
-              <LanguageSelector22 />
+              <LanguageSwitcher />
               
               <Button 
                 variant="outline" 

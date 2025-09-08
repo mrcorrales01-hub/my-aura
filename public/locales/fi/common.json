@@ -21,9 +21,7 @@
     "resources": "Resurssit",
     "profile": "Profiili",
     "community": "Yhteisö",
-    "music": "Musiikki",
-    "videos": "Videot",
-    "aiCoach": "AI-Valmentaja",
+    "aiCoach": "AI-valmentaja",
     "crisisSupport": "Kriisituki"
   },
   "auth": {

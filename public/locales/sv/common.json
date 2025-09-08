@@ -21,9 +21,7 @@
     "resources": "Resurser",
     "profile": "Profil",
     "community": "Gemenskap",
-    "music": "Musik",
-    "videos": "Videor",
-    "aiCoach": "AI-Coach",
+    "aiCoach": "AI-coach",
     "crisisSupport": "Krisstöd"
   },
   "auth": {

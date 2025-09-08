@@ -21,10 +21,8 @@
     "resources": "Recursos",
     "profile": "Perfil",
     "community": "Comunidad",
-    "music": "Música",
-    "videos": "Videos",
-    "aiCoach": "Coach IA",
-    "crisisSupport": "Apoyo de Crisis"
+    "aiCoach": "Coach de IA",
+    "crisisSupport": "Apoyo en Crisis"
   },
   "auth": {
     "login": "Iniciar sesión",

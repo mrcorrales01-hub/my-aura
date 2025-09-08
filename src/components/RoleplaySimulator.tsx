@@ -23,7 +23,7 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import { useI18n } from '@/hooks/useEnhancedI18n';
+import { useTranslation } from 'react-i18next';
 import { useGamification } from '@/hooks/useGamification';
 
 interface RoleplayScenario {
@@ -62,7 +62,7 @@ const RoleplaySimulator = () => {
   const { user } = useAuth();
   const { toast } = useToast();
   const { completeRoleplaySession } = useGamification();
-  const { currentLanguage, t } = useI18n();
+  const { t } = useTranslation();
 
   const scenarios: RoleplayScenario[] = [
     {
@@ -212,7 +212,7 @@ const RoleplaySimulator = () => {
           scenario: selectedScenario.title,
           persona: selectedScenario.aiPersona,
           conversationHistory: messages.slice(-6), // Keep last 6 messages for context
-          language: currentLanguage,
+          language: 'en', // Use English as default since we removed multi-language support
           userId: user?.id
         }
       });

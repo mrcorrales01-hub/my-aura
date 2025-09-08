@@ -46,10 +46,6 @@ import PaymentCancel from "@/pages/PaymentCancel";
 import NotFound from "@/pages/NotFound";
 import TherapistDashboard from "@/components/therapy/TherapistDashboard";
 import GamificationStats from "@/components/GamificationStats";
-// New Modules
-import HarmoniousMusic from "@/components/HarmoniousMusic";
-import VideoExercises from "@/components/VideoExercises";
-import WellnessShowcase from "@/components/WellnessShowcase";
 import TherapistMarketplace from "@/components/TherapistMarketplace";
 import CrisisHotline from "@/components/CrisisHotline";
 import MarketingDashboard from "@/components/MarketingDashboard";
@@ -98,9 +94,6 @@ const App = () => (
                                 </div>
                               </div>
                             } />
-                            <Route path="/music" element={<HarmoniousMusic />} />
-                            <Route path="/videos" element={<VideoExercises />} />
-                            <Route path="/wellness-showcase" element={<WellnessShowcase />} />
                             <Route path="/profile" element={
                               <GamificationStats />
                             } />

@@ -6,12 +6,11 @@ import PredictiveAIPanel from '@/components/PredictiveAIPanel';
 import TranslationWidget from '@/components/TranslationWidget';
 import ChildTeenMode from '@/components/ChildTeenMode';
 import FamilyModePanel from '@/components/FamilyModePanel';
-import { MultilingualAI } from '@/components/MultilingualAI';
-import { useI18n } from '@/hooks/useMultilingualI18n';
+import { useTranslation } from 'react-i18next';
 import { Brain, Languages, GamepadIcon, Users, Sparkles, Globe } from 'lucide-react';
 
 const AdvancedFeatures: React.FC = () => {
-  const { t } = useI18n();
+  const { t } = useTranslation();
   
   return (
     <div className="min-h-screen bg-gradient-subtle p-6">
@@ -78,7 +77,15 @@ const AdvancedFeatures: React.FC = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="h-[600px]">
-                <MultilingualAI />
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center space-y-4">
+                    <Globe className="w-16 h-16 mx-auto text-muted-foreground" />
+                    <h3 className="text-lg font-semibold">Multilingual AI</h3>
+                    <p className="text-muted-foreground max-w-md">
+                      Advanced multilingual AI features are currently being developed for future releases.
+                    </p>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

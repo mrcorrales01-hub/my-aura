@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { GlobalLanguageSelector } from '@/components/GlobalLanguageSelector';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { useGlobalLocalization } from '@/hooks/useGlobalLocalization';
 import { usePWA } from '@/hooks/usePWA';
 import { Globe, Smartphone, Heart, Brain, Users, Shield, Sparkles, Download } from 'lucide-react';
@@ -103,7 +103,7 @@ const GlobalWelcome = () => {
                 Your language choice enables cultural context and local resources
               </p>
             </div>
-            <GlobalLanguageSelector variant="card" />
+            <LanguageSwitcher />
             
             {currentLanguage !== 'en' && (
               <div className="mt-6 p-4 bg-white/10 rounded-lg">
