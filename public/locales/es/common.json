@@ -99,5 +99,26 @@
     "fixEnv": "Agregar variables de entorno faltantes a .env",
     "fixSupabase": "Verificar la conexión y permisos de Supabase",
     "fixEdgeFunction": "Agregar OPENAI_API_KEY a los secretos de Supabase"
+  },
+  "demo": {
+    "title": "Datos Demo",
+    "description": "Gestionar datos demo para probar la app o reiniciar tus datos personales.",
+    "seedButton": "Crear Datos Demo",
+    "resetButton": "Reiniciar Mis Datos",
+    "seedSuccess": "¡Datos demo creados exitosamente!",
+    "seedError": "Error al crear datos demo",
+    "resetSuccess": "¡Datos reiniciados exitosamente!",
+    "resetError": "Error al reiniciar datos",
+    "resetConfirmTitle": "¿Reiniciar Todos Tus Datos?",
+    "resetConfirmDescription": "Esto eliminará permanentemente todos tus registros de estado de ánimo, entradas de diario, mensajes y otros datos personales. Esto no se puede deshacer.",
+    "resetConfirm": "Sí, Reiniciar Datos",
+    "created": "Creado",
+    "deleted": "Eliminado",
+    "records": "registros",
+    "seedIncludes": "Los datos demo incluyen",
+    "seedItem1": "1 perfil demo con información básica",
+    "seedItem2": "5 registros de estado de ánimo distribuidos en los últimos 7 días",
+    "seedItem3": "2 entradas de diario con contenido de muestra",
+    "seedItem4": "3 ejercicios (si la tabla está vacía)"
   }
 }

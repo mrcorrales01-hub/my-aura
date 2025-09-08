@@ -99,5 +99,26 @@
     "fixEnv": "Add missing environment variables to .env",
     "fixSupabase": "Check Supabase connection and permissions",
     "fixEdgeFunction": "Add OPENAI_API_KEY to Supabase secrets"
+  },
+  "demo": {
+    "title": "Demo Data",
+    "description": "Manage demo data to test the app or reset your personal data.",
+    "seedButton": "Seed Demo Data",
+    "resetButton": "Reset My Data",
+    "seedSuccess": "Demo data seeded successfully!",
+    "seedError": "Failed to seed demo data",
+    "resetSuccess": "Data reset successfully!",
+    "resetError": "Failed to reset data",
+    "resetConfirmTitle": "Reset All Your Data?",
+    "resetConfirmDescription": "This will permanently delete all your mood logs, journal entries, messages, and other personal data. This cannot be undone.",
+    "resetConfirm": "Yes, Reset Data",
+    "created": "Created",
+    "deleted": "Deleted",
+    "records": "records",
+    "seedIncludes": "Demo data includes",
+    "seedItem1": "1 demo profile with basic information",
+    "seedItem2": "5 mood logs spread over the last 7 days",
+    "seedItem3": "2 journal entries with sample content",
+    "seedItem4": "3 exercises (if table is empty)"
   }
 }

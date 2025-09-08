@@ -100,5 +100,26 @@
     "fixEnv": "Lägg till saknade miljövariabler i .env",
     "fixSupabase": "Kontrollera Supabase-anslutning och behörigheter",
     "fixEdgeFunction": "Lägg till OPENAI_API_KEY i Supabase-hemligheter"
+  },
+  "demo": {
+    "title": "Demo Data",
+    "description": "Hantera demo-data för att testa appen eller återställa dina data.",
+    "seedButton": "Skapa Demo Data",
+    "resetButton": "Återställ Mina Data",
+    "seedSuccess": "Demo-data skapad framgångsrikt!",
+    "seedError": "Kunde inte skapa demo-data",
+    "resetSuccess": "Data återställd framgångsrikt!",
+    "resetError": "Kunde inte återställa data",
+    "resetConfirmTitle": "Återställ All Din Data?",
+    "resetConfirmDescription": "Detta kommer permanent radera alla dina humörloggar, journalanteckningar, meddelanden och annan personlig data. Detta kan inte ångras.",
+    "resetConfirm": "Ja, Återställ Data",
+    "created": "Skapad",
+    "deleted": "Raderad",
+    "records": "poster",
+    "seedIncludes": "Demo-data inkluderar",
+    "seedItem1": "1 demoprofil med grundläggande information",
+    "seedItem2": "5 humörloggar spridda över de senaste 7 dagarna",
+    "seedItem3": "2 journalanteckningar med exempelinnehåll",
+    "seedItem4": "3 övningar (om tabellen är tom)"
   }
 }

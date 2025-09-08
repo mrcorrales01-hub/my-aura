@@ -99,5 +99,26 @@
     "fixEnv": "Lisää puuttuvat ympäristömuuttujat .env tiedostoon",
     "fixSupabase": "Tarkista Supabase-yhteys ja käyttöoikeudet",
     "fixEdgeFunction": "Lisää OPENAI_API_KEY Supabase-salaisuuksiin"
+  },
+  "demo": {
+    "title": "Demo Data",
+    "description": "Hallitse demo-dataa sovelluksen testaamiseksi tai henkilökohtaisten tietojen nollaamiseksi.",
+    "seedButton": "Luo Demo Data",
+    "resetButton": "Nollaa Datani",
+    "seedSuccess": "Demo-data luotu onnistuneesti!",
+    "seedError": "Demo-datan luominen epäonnistui",
+    "resetSuccess": "Data nollattu onnistuneesti!",
+    "resetError": "Datan nollaus epäonnistui",
+    "resetConfirmTitle": "Nollaa Kaikki Datasi?",
+    "resetConfirmDescription": "Tämä poistaa pysyvästi kaikki mielialalokit, päiväkirjamerkinnät, viestit ja muut henkilökohtaiset tiedot. Tätä ei voi perua.",
+    "resetConfirm": "Kyllä, Nollaa Data",
+    "created": "Luotu",
+    "deleted": "Poistettu",
+    "records": "tietuetta",
+    "seedIncludes": "Demo-data sisältää",
+    "seedItem1": "1 demo-profiilin perustiedoilla",
+    "seedItem2": "5 mielialalogia jaettuna viimeisten 7 päivän ajalle",
+    "seedItem3": "2 päiväkirjamerkintää esimerkkisisällöllä",
+    "seedItem4": "3 harjoitusta (jos taulukko on tyhjä)"
   }
 }

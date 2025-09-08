@@ -99,5 +99,26 @@
     "fixEnv": "Legg til manglende miljøvariabler i .env",
     "fixSupabase": "Sjekk Supabase-forbindelse og tillatelser",
     "fixEdgeFunction": "Legg til OPENAI_API_KEY i Supabase-hemmeligheter"
+  },
+  "demo": {
+    "title": "Demo Data",
+    "description": "Administrer demo-data for å teste appen eller tilbakestille dine personlige data.",
+    "seedButton": "Opprett Demo Data",
+    "resetButton": "Tilbakestill Mine Data",
+    "seedSuccess": "Demo-data opprettet!",
+    "seedError": "Kunne ikke opprette demo-data",
+    "resetSuccess": "Data tilbakestilt!",
+    "resetError": "Kunne ikke tilbakestille data",
+    "resetConfirmTitle": "Tilbakestill All Din Data?",
+    "resetConfirmDescription": "Dette vil permanent slette alle dine humørlogger, dagboknotater, meldinger og andre personlige data. Dette kan ikke angres.",
+    "resetConfirm": "Ja, Tilbakestill Data",
+    "created": "Opprettet",
+    "deleted": "Slettet",
+    "records": "poster",
+    "seedIncludes": "Demo-data inkluderer",
+    "seedItem1": "1 demo-profil med grunnleggende informasjon",
+    "seedItem2": "5 humørlogger spredt over de siste 7 dagene",
+    "seedItem3": "2 dagboknotater med eksempelinnhold",
+    "seedItem4": "3 øvelser (hvis tabellen er tom)"
   }
 }
