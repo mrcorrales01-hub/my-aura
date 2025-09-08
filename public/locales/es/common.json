@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "loginRequired": "Se requiere inicio de sesión",
+    "checkin": "Registro diario",
+    "coach": "Coach",
+    "therapy": "Terapia",
+    "roleplay": "Juego de roles",
+    "home": "Inicio",
+    "chat": "Chat",
+    "mood": "Estado de ánimo",
+    "journal": "Diario",
+    "plan": "Mi Plan",
+    "exercises": "Ejercicios",
+    "crisis": "Crisis",
+    "settings": "Configuración",
+    "therapists": "Terapeutas",
+    "live": "Sesión en vivo",
+    "goals": "Objetivos",
+    "relationships": "Relaciones",
+    "resources": "Recursos",
+    "profile": "Perfil",
+    "community": "Comunidad"
+  },
+  "auth": {
+    "login": "Iniciar sesión",
+    "logout": "Cerrar sesión",
+    "signup": "Registrarse"
+  },
+  "app": {
+    "name": "My Aura"
+  }
+}

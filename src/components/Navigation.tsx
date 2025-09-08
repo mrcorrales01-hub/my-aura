@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { LanguageSelector } from '@/components/LanguageSelector';
-import { useI18n } from '@/hooks/useI18n';
-import { useAuth } from '@/contexts/AuthContext';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { useAuthContext } from '@/contexts/AuthContext';
 import { 
   Menu, 
   X, 
@@ -20,8 +20,8 @@ import {
 } from 'lucide-react';
 
 export const Navigation = () => {
-  const { t } = useI18n();
-  const { user, signOut } = useAuth();
+  const { t } = useTranslation('common');
+  const { user, signOut } = useAuthContext();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -80,7 +80,7 @@ export const Navigation = () => {
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
-            <LanguageSelector variant="compact" />
+            <LanguageSwitcher />
             
             {user ? (
               <Button onClick={signOut} variant="outline" size="sm">

@@ -1,10 +1,7 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Globe } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { SUPPORTED_LANGUAGES } from '@/lib/i18n/index';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 
 export const HomeHeader = () => {
   const { t, i18n } = useTranslation(['home', 'common']);
@@ -49,21 +46,7 @@ export const HomeHeader = () => {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Globe className="h-4 w-4 text-muted-foreground" />
-          <Select value={i18n.language} onValueChange={handleLanguageChange}>
-            <SelectTrigger className="w-32" data-testid="language-select">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {SUPPORTED_LANGUAGES.map((lang) => (
-                <SelectItem key={lang.code} value={lang.code}>
-                  {lang.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
+        <LanguageSwitcher />
       </div>
     </header>
   );

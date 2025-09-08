@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "loginRequired": "Login required",
+    "checkin": "Check-in",
+    "coach": "Coach",
+    "therapy": "Therapy",
+    "roleplay": "Roleplay",
+    "home": "Home",
+    "chat": "Chat",
+    "mood": "Mood",
+    "journal": "Journal",
+    "plan": "My Plan",
+    "exercises": "Exercises",
+    "crisis": "Crisis",
+    "settings": "Settings",
+    "therapists": "Therapists",
+    "live": "Live Session",
+    "goals": "Goals",
+    "relationships": "Relationships",
+    "resources": "Resources",
+    "profile": "Profile",
+    "community": "Community"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "signup": "Sign Up"
+  },
+  "app": {
+    "name": "My Aura"
+  }
+}

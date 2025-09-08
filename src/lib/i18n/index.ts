@@ -1,8 +1,19 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import HttpBackend from 'i18next-http-backend';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
-const SUPPORTED_LANGUAGES_ARRAY = ['sv', 'en', 'es', 'no', 'da', 'fi'] as const;
-export type SupportedLanguage = typeof SUPPORTED_LANGUAGES_ARRAY[number];
+// Get supported languages from env or fallback to these six
+const getSupportedLanguages = (): string[] => {
+  const envLangs = import.meta.env.VITE_SUPPORTED_LANGS;
+  if (envLangs) {
+    return envLangs.split(',').map((lang: string) => lang.trim());
+  }
+  return ['sv', 'en', 'es', 'no', 'da', 'fi'];
+};
+
+export const supportedLanguages = getSupportedLanguages();
+export type SupportedLanguage = 'sv' | 'en' | 'es' | 'no' | 'da' | 'fi';
 
 export const SUPPORTED_LANGUAGES = [
   { code: 'sv', name: 'Svenska' },
@@ -13,96 +24,34 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'fi', name: 'Suomi' }
 ];
 
-export const DEFAULT_LANGUAGE = 'sv';
-
-export const NAMESPACES = [
-  'common',
-  'auth', 
-  'auri',
-  'mood',
-  'journal',
-  'plan',
-  'crisis',
-  'exercises',
-  'settings'
-] as const;
-export type Namespace = typeof NAMESPACES[number];
-
-// Detect initial language based on location/timezone/browser
-const detectInitialLanguage = (): SupportedLanguage => {
-  const stored = localStorage.getItem('aura-lang');
-  if (stored && SUPPORTED_LANGUAGES_ARRAY.includes(stored as SupportedLanguage)) {
-    return stored as SupportedLanguage;
-  }
-
-  const browserLang = navigator.language;
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  
-  if (browserLang.startsWith('sv') || timezone === 'Europe/Stockholm') {
-    return 'sv';
-  }
-  
-  if (browserLang.startsWith('es')) return 'es';
-  if (browserLang.startsWith('da')) return 'da';
-  if (browserLang.startsWith('no') || browserLang.startsWith('nb') || browserLang.startsWith('nn')) return 'no';
-  if (browserLang.startsWith('fi')) return 'fi';
-  
-  return 'sv'; // Default to Swedish
-};
-
-// Load translation namespace
-export const loadNamespace = async (language: SupportedLanguage, namespace: Namespace): Promise<boolean> => {
-  try {
-    const module = await import(`./locales/${language}/${namespace}.json`);
-    i18n.addResourceBundle(language, namespace, module.default, true, true);
-    return true;
-  } catch (error) {
-    console.warn(`Failed to load ${namespace} for ${language}:`, error);
+i18n
+  .use(HttpBackend)
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
+    supportedLngs: supportedLanguages,
+    fallbackLng: ['en', 'sv'],
+    defaultNS: 'common',
+    ns: ['common'],
+    debug: import.meta.env.DEV,
     
-    // Fallback to English
-    if (language !== 'en') {
-      try {
-        const fallback = await import(`./locales/en/${namespace}.json`);
-        i18n.addResourceBundle(language, namespace, fallback.default, true, true);
-      } catch (fallbackError) {
-        console.error('Failed to load fallback English namespace:', fallbackError);
-      }
-    }
-    return false;
-  }
-};
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
+    },
+    
+    react: {
+      useSuspense: true,
+    },
+    
+    interpolation: {
+      escapeValue: false,
+    },
+    
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      lookupLocalStorage: 'aura-lang',
+      caches: ['localStorage'],
+    },
+  });
 
-// Load all namespaces for a language
-export const loadLanguage = async (language: SupportedLanguage): Promise<void> => {
-  const promises = NAMESPACES.map(ns => loadNamespace(language, ns));
-  await Promise.all(promises);
-  
-  // Update document attributes
-  document.documentElement.lang = language;
-  document.documentElement.dir = 'ltr'; // All supported languages are LTR
-  localStorage.setItem('aura-lang', language);
-};
-
-// Initialize i18n
-const initialLanguage = detectInitialLanguage();
-
-i18n.use(initReactI18next).init({
-  lng: initialLanguage,
-  fallbackLng: ['en', 'sv'],
-  defaultNS: 'common',
-  ns: NAMESPACES,
-  debug: import.meta.env.DEV,
-  interpolation: {
-    escapeValue: false,
-  },
-  react: {
-    useSuspense: false,
-  },
-  resources: {}, // Will be loaded dynamically
-});
-
-// Load initial namespaces
-loadLanguage(initialLanguage);
-
-export { i18n };
 export default i18n;

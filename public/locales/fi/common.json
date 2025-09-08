@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "dashboard": "Koontinäyttö",
+    "loginRequired": "Kirjautuminen vaaditaan",
+    "checkin": "Pikakirjaus",
+    "coach": "Valmentaja",
+    "therapy": "Terapia",
+    "roleplay": "Roolipeli",
+    "home": "Koti",
+    "chat": "Chat",
+    "mood": "Mieliala",
+    "journal": "Päiväkirja",
+    "plan": "Minun Suunnitelma",
+    "exercises": "Harjoitukset",
+    "crisis": "Kriisi",
+    "settings": "Asetukset",
+    "therapists": "Terapeutit",
+    "live": "Live-istunto",
+    "goals": "Tavoitteet",
+    "relationships": "Suhteet",
+    "resources": "Resurssit",
+    "profile": "Profiili",
+    "community": "Yhteisö"
+  },
+  "auth": {
+    "login": "Kirjaudu sisään",
+    "logout": "Kirjaudu ulos",
+    "signup": "Rekisteröidy"
+  },
+  "app": {
+    "name": "My Aura"
+  }
+}

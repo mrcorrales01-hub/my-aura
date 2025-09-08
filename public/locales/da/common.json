@@ -1,0 +1,33 @@
+{
+  "nav": {
+    "dashboard": "Oversigt",
+    "loginRequired": "Login påkrævet",
+    "checkin": "Tjek ind",
+    "coach": "Coach",
+    "therapy": "Terapi",
+    "roleplay": "Rollespil",
+    "home": "Hjem",
+    "chat": "Chat",
+    "mood": "Humør",
+    "journal": "Dagbog",
+    "plan": "Min Plan",
+    "exercises": "Øvelser",
+    "crisis": "Krise",
+    "settings": "Indstillinger",
+    "therapists": "Terapeuter",
+    "live": "Live-session",
+    "goals": "Mål",
+    "relationships": "Forhold",
+    "resources": "Ressourcer",
+    "profile": "Profil",
+    "community": "Fællesskab"
+  },
+  "auth": {
+    "login": "Log ind",
+    "logout": "Log ud",
+    "signup": "Tilmeld dig"
+  },
+  "app": {
+    "name": "My Aura"
+  }
+}
