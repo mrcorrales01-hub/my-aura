@@ -1,0 +1,14 @@
+{
+  "title": "Auri - Your AI Coach",
+  "subtitle": "Chat with your personal AI coach for mental health",
+  "inputPlaceholder": "Type your message here...",
+  "send": "Send",
+  "typing": "Auri is typing...",
+  "thinking": "Auri is thinking...",
+  "costWarning": "This conversation may incur costs. Continue?",
+  "systemNotice": "System Notice",
+  "demoMode": "Demo Mode: OpenAI API key missing",
+  "newChat": "New Chat",
+  "exportChat": "Export Chat",
+  "disclaimer": "Auri is not a substitute for professional medical advice. In emergencies, contact healthcare services."
+}

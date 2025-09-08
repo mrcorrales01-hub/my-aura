@@ -1,0 +1,20 @@
+{
+  "title": "Rollspelscenarier",
+  "selectScenario": "Välj scenario",
+  "start": "Starta",
+  "next": "Nästa",
+  "finish": "Avsluta",
+  "score": "Poäng",
+  "hint": "Tips",
+  "coachNote": "Coachens anteckning",
+  "language": "Språk",
+  "reset": "Återställ",
+  "step": "Steg {{current}} av {{total}}",
+  "finalScore": "Slutpoäng: {{score}}/5",
+  "exportTranscript": "Exportera transkript",
+  "showHint": "Visa tips",
+  "hideHint": "Dölj tips",
+  "complete": "Komplett!",
+  "wellDone": "Bra jobbat!",
+  "tryAgain": "Försök igen"
+}

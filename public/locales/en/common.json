@@ -41,6 +41,20 @@
     "title": "Roleplay"
   },
   "common": {
-    "new": "New"
+    "new": "New",
+    "error": "An error occurred",
+    "retry": "Try Again",
+    "cancel": "Cancel",
+    "save": "Save", 
+    "required": "This field is required"
+  },
+  "langSwitcher": {
+    "title": "Select Language",
+    "swedish": "Svenska", 
+    "english": "English",
+    "spanish": "Español",
+    "norwegian": "Norsk",
+    "danish": "Dansk",
+    "finnish": "Suomi"
   }
 }

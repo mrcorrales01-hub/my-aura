@@ -1,0 +1,14 @@
+{
+  "title": "Auri - Sinun AI-valmentajasi",
+  "subtitle": "Keskustele henkilökohtaisen AI-valmentajasi kanssa mielenterveydestä",
+  "inputPlaceholder": "Kirjoita viestisi tähän...",
+  "send": "Lähetä",
+  "typing": "Auri kirjoittaa...",
+  "thinking": "Auri ajattelee...",
+  "costWarning": "Tämä keskustelu voi aiheuttaa kustannuksia. Jatka?",
+  "systemNotice": "Järjestelmäilmoitus",
+  "demoMode": "Demo-tila: OpenAI API-avain puuttuu",
+  "newChat": "Uusi keskustelu",
+  "exportChat": "Vie keskustelu",
+  "disclaimer": "Auri ei korvaa ammattimaista lääketieteellistä neuvontaa. Hätätilanteissa ota yhteyttä terveyspalveluihin."
+}

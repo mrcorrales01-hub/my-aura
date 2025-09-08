@@ -41,6 +41,20 @@
     "title": "Rollspel"
   },
   "common": {
-    "new": "Ny"
+    "new": "Ny",
+    "error": "Ett fel uppstod",
+    "retry": "Försök igen", 
+    "cancel": "Avbryt",
+    "save": "Spara",
+    "required": "Detta fält är obligatoriskt"
+  },
+  "langSwitcher": {
+    "title": "Välj språk",
+    "swedish": "Svenska", 
+    "english": "English",
+    "spanish": "Español",
+    "norwegian": "Norsk",
+    "danish": "Dansk",
+    "finnish": "Suomi"
   }
 }

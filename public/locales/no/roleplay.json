@@ -1,0 +1,20 @@
+{
+  "title": "Rollespillscenarioer",
+  "selectScenario": "Velg scenario",
+  "start": "Start",
+  "next": "Neste",
+  "finish": "Fullfør",
+  "score": "Poeng",
+  "hint": "Tips",
+  "coachNote": "Trenerens notat",
+  "language": "Språk",
+  "reset": "Tilbakestill",
+  "step": "Steg {{current}} av {{total}}",
+  "finalScore": "Sluttpoeng: {{score}}/5",
+  "exportTranscript": "Eksporter transkripsjon",
+  "showHint": "Vis tips",
+  "hideHint": "Skjul tips",
+  "complete": "Fullført!",
+  "wellDone": "Godt gjort!",
+  "tryAgain": "Prøv igjen"
+}

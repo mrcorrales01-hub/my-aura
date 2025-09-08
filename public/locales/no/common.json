@@ -41,6 +41,20 @@
     "title": "Rollespill"
   },
   "common": {
-    "new": "Ny"
+    "new": "Ny",
+    "error": "En feil oppstod",
+    "retry": "Prøv igjen",
+    "cancel": "Avbryt",
+    "save": "Lagre",
+    "required": "Dette feltet er påkrevd"
+  },
+  "langSwitcher": {
+    "title": "Velg språk",
+    "swedish": "Svenska",
+    "english": "English",
+    "spanish": "Español",
+    "norwegian": "Norsk",
+    "danish": "Dansk",
+    "finnish": "Suomi"
   }
 }

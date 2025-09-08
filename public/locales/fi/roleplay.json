@@ -1,0 +1,20 @@
+{
+  "title": "Roolipeli-skenaariot",
+  "selectScenario": "Valitse skenaario",
+  "start": "Aloita",
+  "next": "Seuraava",
+  "finish": "Lopeta",
+  "score": "Pisteet",
+  "hint": "Vihje",
+  "coachNote": "Valmentajan huomautus",
+  "language": "Kieli",
+  "reset": "Nollaa",
+  "step": "Vaihe {{current}}/{{total}}",
+  "finalScore": "Lopullinen pistemäärä: {{score}}/5",
+  "exportTranscript": "Vie käsikirjoitus",
+  "showHint": "Näytä vihje",
+  "hideHint": "Piilota vihje",
+  "complete": "Valmis!",
+  "wellDone": "Hyvin tehty!",
+  "tryAgain": "Yritä uudelleen"
+}

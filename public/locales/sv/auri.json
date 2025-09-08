@@ -1,0 +1,14 @@
+{
+  "title": "Auri - Din AI-coach",
+  "subtitle": "Prata med din personliga AI-coach för mental hälsa",
+  "inputPlaceholder": "Skriv ditt meddelande här...",
+  "send": "Skicka",
+  "typing": "Auri skriver...",
+  "thinking": "Auri funderar...",
+  "costWarning": "Denna konversation kan generera kostnader. Fortsätt?",
+  "systemNotice": "Systemmeddelande",
+  "demoMode": "Demo-läge: OpenAI API-nyckel saknas",
+  "newChat": "Ny chatt",
+  "exportChat": "Exportera chatt",
+  "disclaimer": "Auri är inte en ersättning för professionell medicinsk rådgivning. Vid akuta situationer, kontakta sjukvården."
+}

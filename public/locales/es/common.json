@@ -41,6 +41,20 @@
     "title": "Juego de Roles"
   },
   "common": {
-    "new": "Nuevo"
+    "new": "Nuevo",
+    "error": "Ocurrió un error",
+    "retry": "Intentar Otra Vez",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "required": "Este campo es obligatorio"
+  },
+  "langSwitcher": {
+    "title": "Seleccionar Idioma",
+    "swedish": "Svenska",
+    "english": "English",
+    "spanish": "Español",
+    "norwegian": "Norsk",
+    "danish": "Dansk",
+    "finnish": "Suomi"
   }
 }

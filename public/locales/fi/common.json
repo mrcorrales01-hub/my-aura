@@ -41,6 +41,20 @@
     "title": "Roolipeli"
   },
   "common": {
-    "new": "Uusi"
+    "new": "Uusi", 
+    "error": "Tapahtui virhe",
+    "retry": "Yritä uudelleen",
+    "cancel": "Peruuta",
+    "save": "Tallenna",
+    "required": "Tämä kenttä on pakollinen"
+  },
+  "langSwitcher": {
+    "title": "Valitse kieli",
+    "swedish": "Svenska",
+    "english": "English",
+    "spanish": "Español",
+    "norwegian": "Norsk",
+    "danish": "Dansk",
+    "finnish": "Suomi"
   }
 }

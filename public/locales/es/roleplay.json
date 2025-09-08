@@ -1,0 +1,20 @@
+{
+  "title": "Escenarios de Juego de Roles",
+  "selectScenario": "Seleccionar Escenario",
+  "start": "Comenzar",
+  "next": "Siguiente",
+  "finish": "Finalizar",
+  "score": "Puntuación",
+  "hint": "Pista",
+  "coachNote": "Nota del Coach",
+  "language": "Idioma",
+  "reset": "Reiniciar",
+  "step": "Paso {{current}} de {{total}}",
+  "finalScore": "Puntuación Final: {{score}}/5",
+  "exportTranscript": "Exportar Transcripción",
+  "showHint": "Mostrar Pista",
+  "hideHint": "Ocultar Pista",
+  "complete": "¡Completo!",
+  "wellDone": "¡Bien hecho!",
+  "tryAgain": "Intentar Otra Vez"
+}

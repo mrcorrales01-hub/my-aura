@@ -5,8 +5,6 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Cache-Control': 'no-cache',
-  'Connection': 'keep-alive',
 };
 
 interface ChatMessage {
@@ -42,89 +40,95 @@ serve(async (req) => {
       });
     }
 
-    const { session_id, user_text, lang = 'sv' } = await req.json();
-
-    let sessionId = session_id;
-
-    // Create new session if none provided
-    if (!sessionId) {
-      const { data: newSession, error: sessionError } = await supabaseClient
-        .from('sessions')
-        .insert({ user_id: user.id, lang })
-        .select('id')
-        .single();
-
-      if (sessionError) {
-        console.error('Session creation error:', sessionError);
-        throw new Error('Failed to create session');
-      }
-      sessionId = newSession.id;
+    const { messages, lang = 'sv', system, temperature = 0.7, max_tokens = 500 } = await req.json();
+    
+    if (!messages || !Array.isArray(messages)) {
+      throw new Error('Messages array is required');
     }
 
-    // Get recent messages for context (last 30 days, max 20 messages)
-    const { data: recentMessages, error: messagesError } = await supabaseClient
-      .from('messages')
-      .select('role, content')
-      .eq('session_id', sessionId)
-      .gte('created_at', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString())
-      .order('created_at', { ascending: true })
-      .limit(20);
+    const openaiApiKey = Deno.env.get('OPENAI_API_KEY');
+    
+    // Demo mode if no API key
+    if (!openaiApiKey) {
+      console.log('Demo mode: No OpenAI API key found');
+      
+      const demoResponse = lang === 'sv' 
+        ? "Hej! Jag är i demo-läge eftersom OpenAI API-nyckeln saknas. I den riktiga versionen skulle jag ge personlig vägledning för mental hälsa. Lägg till din OpenAI API-nyckel i Supabase Edge Function Secrets för att aktivera full funktionalitet."
+        : "Hello! I'm in demo mode because the OpenAI API key is missing. In the full version, I would provide personalized mental health guidance. Add your OpenAI API key to Supabase Edge Function Secrets to enable full functionality.";
 
-    if (messagesError) {
-      console.error('Messages fetch error:', messagesError);
-    }
-
-    // Save user message
-    await supabaseClient
-      .from('messages')
-      .insert({
-        session_id: sessionId,
-        role: 'user',
-        content: user_text,
-        tokens: user_text.split(/\s+/).length
+      const encoder = new TextEncoder();
+      const stream = new ReadableStream({
+        start(controller) {
+          // Send response in chunks to simulate streaming
+          const words = demoResponse.split(' ');
+          let index = 0;
+          
+          const sendNext = () => {
+            if (index < words.length) {
+              const token = words[index] + (index < words.length - 1 ? ' ' : '');
+              const tokenData = `data: ${JSON.stringify({ type: 'token', content: token })}\n\n`;
+              controller.enqueue(encoder.encode(tokenData));
+              index++;
+              setTimeout(sendNext, 50); // Simulate typing delay
+            } else {
+              const doneData = `data: ${JSON.stringify({ type: 'done' })}\n\n`;
+              controller.enqueue(encoder.encode(doneData));
+              controller.close();
+            }
+          };
+          
+          sendNext();
+        }
       });
 
-    // Crisis detection
-    const crisisKeywords = ['suicide', 'kill myself', 'end it all', 'hurt myself', 'self harm', 'självmord', 'döda mig', 'skada mig'];
-    const isCrisis = crisisKeywords.some(keyword => 
-      user_text.toLowerCase().includes(keyword.toLowerCase())
-    );
+      return new Response(stream, {
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'text/event-stream',
+          'x-demo-mode': '1'
+        },
+      });
+    }
 
-    // Build messages for OpenAI
+    // Create system message with safety instructions
+    const defaultSystem = `You are Auri, a compassionate AI wellness coach. Respond in ${lang === 'sv' ? 'Swedish' : lang === 'es' ? 'Spanish' : lang === 'no' ? 'Norwegian' : lang === 'da' ? 'Danish' : lang === 'fi' ? 'Finnish' : 'English'}. 
+
+IMPORTANT: You are not a substitute for professional medical advice. In emergencies, always direct users to contact emergency services or crisis helplines.
+
+Be supportive, empathetic, and concise (2-3 sentences typically). Help with mental health, relationships, and emotional wellbeing. If you detect crisis keywords, be extra supportive and gently suggest professional help.
+
+Maintain a warm, non-judgmental tone while being helpful and encouraging.`;
+
     const systemMessage: ChatMessage = {
       role: 'system',
-      content: `You are Auri, a compassionate AI wellness coach. Respond in ${lang === 'sv' ? 'Swedish' : 'English'}. Be supportive, empathetic, and concise. ${
-        isCrisis 
-          ? 'IMPORTANT: The user may be in crisis. Be extra supportive and gently suggest professional help or emergency services if needed. Show empathy but prioritize their safety.'
-          : 'Help users with mental health, relationships, and emotional wellbeing.'
-      }`
+      content: system || defaultSystem
     };
 
     const conversationMessages: ChatMessage[] = [
       systemMessage,
-      ...(recentMessages || []).slice(-10), // Last 10 messages for context
-      { role: 'user', content: user_text }
+      ...messages.slice(-10) // Keep last 10 messages for context
     ];
 
     // Call OpenAI streaming API
     const openAiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${Deno.env.get('OPENAI_API_KEY')}`,
+        'Authorization': `Bearer ${openaiApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini',
         messages: conversationMessages,
-        max_tokens: 500,
-        temperature: 0.7,
+        max_tokens,
+        temperature,
         stream: true,
       }),
     });
 
     if (!openAiResponse.ok) {
-      console.error('OpenAI API error:', await openAiResponse.text());
-      throw new Error('OpenAI API failed');
+      const errorText = await openAiResponse.text();
+      console.error('OpenAI API error:', errorText);
+      throw new Error(`OpenAI API failed: ${openAiResponse.status}`);
     }
 
     // Create streaming response
@@ -136,10 +140,6 @@ serve(async (req) => {
     const stream = new ReadableStream({
       async start(controller) {
         try {
-          // Send session_id first
-          const sessionData = `data: ${JSON.stringify({ session_id: sessionId, type: 'session' })}\n\n`;
-          controller.enqueue(encoder.encode(sessionData));
-
           const reader = openAiResponse.body?.getReader();
           if (!reader) throw new Error('No response body');
 
@@ -154,19 +154,39 @@ serve(async (req) => {
               if (line.startsWith('data: ')) {
                 const data = line.slice(6);
                 if (data === '[DONE]') {
-                  // Save assistant response
-                  if (fullResponse.trim()) {
-                    await supabaseClient
-                      .from('messages')
-                      .insert({
-                        session_id: sessionId,
-                        role: 'assistant',
-                        content: fullResponse.trim(),
-                        tokens: fullResponse.split(/\s+/).length
-                      });
+                  // Save messages to database
+                  try {
+                    // Save user message
+                    if (messages.length > 0) {
+                      const userMessage = messages[messages.length - 1];
+                      await supabaseClient
+                        .from('messages')
+                        .insert({
+                          user_id: user.id,
+                          session_id: null, // Will be updated when sessions are implemented
+                          role: 'user',
+                          content: userMessage.content,
+                          language: lang
+                        });
+                    }
+
+                    // Save assistant response
+                    if (fullResponse.trim()) {
+                      await supabaseClient
+                        .from('messages')
+                        .insert({
+                          user_id: user.id,
+                          session_id: null,
+                          role: 'assistant',
+                          content: fullResponse.trim(),
+                          language: lang
+                        });
+                    }
+                  } catch (dbError) {
+                    console.error('Database save error:', dbError);
                   }
                   
-                  const doneData = `data: ${JSON.stringify({ type: 'done', session_id: sessionId })}\n\n`;
+                  const doneData = `data: ${JSON.stringify({ type: 'done' })}\n\n`;
                   controller.enqueue(encoder.encode(doneData));
                   controller.close();
                   return;
@@ -177,7 +197,7 @@ serve(async (req) => {
                   const content = parsed.choices?.[0]?.delta?.content;
                   if (content) {
                     fullResponse += content;
-                    const tokenData = `data: ${JSON.stringify({ type: 'token', content, session_id: sessionId })}\n\n`;
+                    const tokenData = `data: ${JSON.stringify({ type: 'token', content })}\n\n`;
                     controller.enqueue(encoder.encode(tokenData));
                   }
                 } catch (e) {
@@ -199,8 +219,6 @@ serve(async (req) => {
       headers: {
         ...corsHeaders,
         'Content-Type': 'text/event-stream',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
       },
     });
 
