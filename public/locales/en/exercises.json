@@ -1,0 +1,18 @@
+{
+  "suggested": "Suggested Exercises",
+  "basedOnMood": "Based on your recent mood check-ins",
+  "start": "Start",
+  "started": "Started",
+  "finished": "Finished",
+  "completed": "Exercise Complete!",
+  "wellDone": "Well done! You've taken a step for your wellbeing.",
+  "min": "min",
+  "empty": "No suggestions yet. Log your moods for better recommendations.",
+  "viewAll": "View all exercises",
+  "pause": "Pause",
+  "resume": "Resume",
+  "reset": "Reset",
+  "finish": "Finish",
+  "steps": "Steps",
+  "notFound": "Exercise not found"
+}

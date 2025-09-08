@@ -1,0 +1,18 @@
+{
+  "suggested": "Ehdotetut Harjoitukset",
+  "basedOnMood": "Perustuen viimeaikaisiin mielialatarkistuksiisi",
+  "start": "Aloita",
+  "started": "Aloitettu",
+  "finished": "Valmis",
+  "completed": "Harjoitus Valmis!",
+  "wellDone": "Hienoa! Olet ottanut askeleen hyvinvointisi eteen.",
+  "min": "min",
+  "empty": "Ei ehdotuksia vielä. Kirjaa mielialojasi parempia suosituksia varten.",
+  "viewAll": "Näytä kaikki harjoitukset",
+  "pause": "Keskeytä",
+  "resume": "Jatka",
+  "reset": "Nollaa",
+  "finish": "Viimeistele",
+  "steps": "Vaiheet",
+  "notFound": "Harjoitusta ei löytynyt"
+}

@@ -32,7 +32,7 @@ i18n
     supportedLngs: supportedLanguages,
     fallbackLng: ['en', 'sv'],
     defaultNS: 'common',
-    ns: ['common', 'auri', 'roleplay'],
+    ns: ['common', 'auri', 'roleplay', 'exercises'],
     debug: import.meta.env.DEV,
     
     backend: {

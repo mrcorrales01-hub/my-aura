@@ -7,6 +7,7 @@ import Media from '@/pages/Media';
 import Settings from '@/pages/Settings';
 import NotFound from '@/pages/NotFound';
 import Health from '@/pages/Health';
+import ExercisePlayer from '@/pages/ExercisePlayer';
 import ChatBox from '@/features/auri/components/ChatBox';
 import RoleplayPage from '@/features/auri/roleplays/RoleplayPage';
 
@@ -19,5 +20,6 @@ export const router = createBrowserRouter([
   { path: '/mood', element: <Mood /> },
   { path: '/media', element: <Media /> },
   { path: '/settings', element: <Settings /> },
+  { path: '/exercises/:slug', element: <ExercisePlayer /> },
   { path: '*', element: <NotFound /> },
 ]);

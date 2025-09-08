@@ -1,0 +1,18 @@
+{
+  "suggested": "Foreslåede Øvelser",
+  "basedOnMood": "Baseret på dine seneste humør-tjek",
+  "start": "Start",
+  "started": "Startet",
+  "finished": "Færdig",
+  "completed": "Øvelse Gennemført!",
+  "wellDone": "Godt klaret! Du har taget et skridt for dit velvære.",
+  "min": "min",
+  "empty": "Ingen forslag endnu. Log dit humør for bedre anbefalinger.",
+  "viewAll": "Se alle øvelser",
+  "pause": "Pause",
+  "resume": "Genoptag",
+  "reset": "Nulstil",
+  "finish": "Afslut",
+  "steps": "Trin",
+  "notFound": "Øvelse ikke fundet"
+}

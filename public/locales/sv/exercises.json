@@ -1,0 +1,18 @@
+{
+  "suggested": "Föreslagna övningar",
+  "basedOnMood": "Baserat på dina senaste humör-checkins",
+  "start": "Starta",
+  "started": "Startad",
+  "finished": "Klar",
+  "completed": "Övningen är klar!",
+  "wellDone": "Bra jobbat! Du har tagit ett steg för ditt välbefinnande.",
+  "min": "min",
+  "empty": "Inga förslag ännu. Logga dina humör för bättre rekommendationer.",
+  "viewAll": "Visa alla övningar",
+  "pause": "Pausa",
+  "resume": "Återuppta",
+  "reset": "Återställ",
+  "finish": "Slutför",
+  "steps": "Steg",
+  "notFound": "Övningen hittades inte"
+}

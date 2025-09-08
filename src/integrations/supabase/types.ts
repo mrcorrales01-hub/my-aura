@@ -831,6 +831,68 @@ export type Database = {
         }
         Relationships: []
       }
+      exercise_sessions: {
+        Row: {
+          completed_at: string
+          created_at: string
+          exercise_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          created_at?: string
+          exercise_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          created_at?: string
+          exercise_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exercise_sessions_exercise_id_fkey"
+            columns: ["exercise_id"]
+            isOneToOne: false
+            referencedRelation: "exercises"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exercises: {
+        Row: {
+          created_at: string
+          description: Json
+          duration_seconds: number
+          id: string
+          slug: string
+          tags: string[]
+          title: Json
+        }
+        Insert: {
+          created_at?: string
+          description?: Json
+          duration_seconds?: number
+          id?: string
+          slug: string
+          tags?: string[]
+          title?: Json
+        }
+        Update: {
+          created_at?: string
+          description?: Json
+          duration_seconds?: number
+          id?: string
+          slug?: string
+          tags?: string[]
+          title?: Json
+        }
+        Relationships: []
+      }
       family_accounts: {
         Row: {
           account_type: string

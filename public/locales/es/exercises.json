@@ -1,0 +1,18 @@
+{
+  "suggested": "Ejercicios Sugeridos",
+  "basedOnMood": "Basado en tus registros de ánimo recientes",
+  "start": "Empezar",
+  "started": "Iniciado",
+  "finished": "Terminado",
+  "completed": "¡Ejercicio Completado!",
+  "wellDone": "¡Bien hecho! Has dado un paso por tu bienestar.",
+  "min": "min",
+  "empty": "Aún no hay sugerencias. Registra tus estados de ánimo para mejores recomendaciones.",
+  "viewAll": "Ver todos los ejercicios",
+  "pause": "Pausar",
+  "resume": "Reanudar",
+  "reset": "Reiniciar",
+  "finish": "Terminar",
+  "steps": "Pasos",
+  "notFound": "Ejercicio no encontrado"
+}
