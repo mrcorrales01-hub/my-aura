@@ -46,7 +46,8 @@
     "retry": "Försök igen", 
     "cancel": "Avbryt",
     "save": "Spara",
-    "required": "Detta fält är obligatoriskt"
+    "required": "Detta fält är obligatoriskt",
+    "type_message": "Skriv ett meddelande..."
   },
   "langSwitcher": {
     "title": "Välj språk",

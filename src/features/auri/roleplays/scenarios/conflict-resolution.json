@@ -1,0 +1,43 @@
+{
+  "id": "conflict-resolution",
+  "title": {
+    "sv": "Konfliktlösning",
+    "en": "Conflict Resolution",
+    "es": "Resolución de Conflictos",
+    "no": "Konfliktløsning",
+    "da": "Konfliktløsning",
+    "fi": "Konfliktien ratkaiseminen"
+  },
+  "description": {
+    "sv": "Utveckla färdigheter för att hantera konflikter på ett konstruktivt sätt",
+    "en": "Develop skills to handle conflicts in a constructive way",
+    "es": "Desarrolla habilidades para manejar conflictos de manera constructiva",
+    "no": "Utvikle ferdigheter for å håndtere konflikter på en konstruktiv måte",
+    "da": "Udvikl færdigheder til at håndtere konflikter på en konstruktiv måde",
+    "fi": "Kehitä taitoja käsitellä konflikteja rakentavasti"
+  },
+  "persona": "You are Auri, a skilled conflict resolution coach. Help the user practice de-escalation techniques and constructive communication.",
+  "languageStyle": "Calm, solution-focused, 2-3 sentences. Guide through practical techniques.",
+  "steps": [
+    {
+      "id": 1,
+      "goal": {
+        "sv": "Förstå alla perspektiv i konflikten",
+        "en": "Understand all perspectives in the conflict",
+        "es": "Entender todas las perspectivas del conflicto",
+        "no": "Forstå alle perspektiver i konflikten",
+        "da": "Forstå alle perspektiver i konflikten",
+        "fi": "Ymmärrä kaikki konfliktissa olevat näkökulmat"
+      },
+      "hints": {
+        "sv": ["Lyssna aktivt", "Försök se från andras synvinkel"],
+        "en": ["Listen actively", "Try to see from others' perspective"],
+        "es": ["Escucha activamente", "Trata de ver desde la perspectiva de otros"],
+        "no": ["Lytt aktivt", "Prøv å se fra andres perspektiv"],
+        "da": ["Lyt aktivt", "Prøv at se fra andres perspektiv"],
+        "fi": ["Kuuntele aktiivisesti", "Yritä nähdä muiden näkökulmasta"]
+      },
+      "rubric": "Score 0-5 based on empathy shown, perspective-taking ability, and understanding of multiple viewpoints."
+    }
+  ]
+}

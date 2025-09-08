@@ -1,0 +1,63 @@
+{
+  "id": "boundary-setting",
+  "title": {
+    "sv": "Sätta gränser",
+    "en": "Setting Boundaries",
+    "es": "Establecer Límites",
+    "no": "Sette grenser",
+    "da": "Sætte grænser",
+    "fi": "Rajojen asettaminen"
+  },
+  "description": {
+    "sv": "Lär dig att sätta hälsosamma gränser i relationer och arbete",
+    "en": "Learn to set healthy boundaries in relationships and work",
+    "es": "Aprende a establecer límites saludables en relaciones y trabajo",
+    "no": "Lær å sette sunne grenser i forhold og arbeid",
+    "da": "Lær at sætte sunde grænser i forhold og arbejde",
+    "fi": "Opi asettamaan terveitä rajoja ihmissuhteissa ja työssä"
+  },
+  "persona": "You are Auri, a supportive wellness coach helping someone practice setting healthy boundaries. You are empathetic, encouraging, and provide realistic scenarios.",
+  "languageStyle": "Simple, warm, 2–3 sentences per turn. Ask open-ended questions to guide reflection.",
+  "steps": [
+    {
+      "id": 1,
+      "goal": {
+        "sv": "Identifiera situationen där gränser behövs",
+        "en": "Identify the situation where boundaries are needed",
+        "es": "Identificar la situación donde se necesitan límites",
+        "no": "Identifiser situasjonen der grenser trengs",
+        "da": "Identificer situationen hvor grænser er nødvendige",
+        "fi": "Tunnista tilanne jossa rajoja tarvitaan"
+      },
+      "hints": {
+        "sv": ["Fråga om specifika exempel", "Utforska känslor kring situationen"],
+        "en": ["Ask for specific examples", "Explore feelings about the situation"],
+        "es": ["Pide ejemplos específicos", "Explora sentimientos sobre la situación"],
+        "no": ["Spør om spesifikke eksempler", "Utforsk følelser rundt situasjonen"],
+        "da": ["Spørg om specifikke eksempler", "Udforsk følelser omkring situationen"],
+        "fi": ["Kysy konkreettisia esimerkkejä", "Tutki tunteita tilanteesta"]
+      },
+      "rubric": "Score 0-5 based on clarity of situation identification, emotional awareness, and specificity of examples provided."
+    },
+    {
+      "id": 2,
+      "goal": {
+        "sv": "Formulera tydliga gränser",
+        "en": "Formulate clear boundaries",
+        "es": "Formular límites claros",
+        "no": "Formuler klare grenser",
+        "da": "Formuler klare grænser",
+        "fi": "Muotoile selkeät rajat"
+      },
+      "hints": {
+        "sv": ["Använd 'jag'-meddelanden", "Var specifik och tydlig"],
+        "en": ["Use 'I' statements", "Be specific and clear"],
+        "es": ["Usa declaraciones 'yo'", "Sé específico y claro"],
+        "no": ["Bruk 'jeg'-utsagn", "Vær spesifikk og tydelig"],
+        "da": ["Brug 'jeg'-udsagn", "Vær specifik og klar"],
+        "fi": ["Käytä 'minä'-lauseita", "Ole tarkka ja selkeä"]
+      },
+      "rubric": "Score 0-5 based on clarity of boundary statement, use of assertive language, and appropriateness to the situation."
+    }
+  ]
+}

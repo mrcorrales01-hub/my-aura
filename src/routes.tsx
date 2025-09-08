@@ -6,11 +6,14 @@ import Mood from '@/pages/Mood';
 import Media from '@/pages/Media';
 import Settings from '@/pages/Settings';
 import NotFound from '@/pages/NotFound';
+import ChatBox from '@/features/auri/components/ChatBox';
+import RoleplayPage from '@/features/auri/roleplays/RoleplayPage';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
   { path: '/auth', element: <Auth /> },
-  { path: '/chat', element: <Chat /> },
+  { path: '/chat', element: <ChatBox /> },
+  { path: '/roleplay', element: <RoleplayPage /> },
   { path: '/mood', element: <Mood /> },
   { path: '/media', element: <Media /> },
   { path: '/settings', element: <Settings /> },
