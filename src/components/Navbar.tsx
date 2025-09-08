@@ -1,20 +1,22 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { cn } from '@/lib/utils';
-import { Home, MessageCircle, Heart, Settings, Users } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { HeaderStatusBadge } from '@/components/HeaderStatusBadge';
 
 export function Navbar() {
-  const { t } = useTranslation();
-  const location = useLocation();
+  const { user, signOut } = useAuthContext();
+  const navigate = useNavigate();
 
-  const navItems = [
-    { href: '/', label: t('nav.home'), icon: Home },
-    { href: '/chat', label: t('nav.chat'), icon: MessageCircle },
-    { href: '/roleplay', label: 'Roleplay', icon: Users },
-    { href: '/mood', label: t('nav.mood'), icon: Heart },
-    { href: '/settings', label: t('nav.settings'), icon: Settings },
-  ];
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/');
+    } catch (error) {
+      console.error('Sign out error:', error);
+    }
+  };
 
   return (
     <nav className="bg-card border-b border-border">
@@ -24,27 +26,18 @@ export function Navbar() {
             My Aura 2.0
           </Link>
           
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = location.pathname === item.href;
-              
-              return (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  className={cn(
-                    "flex items-center space-x-2 px-3 py-2 rounded-md transition-colors",
-                    isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                  )}
-                >
-                  <Icon size={18} />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
+          <div className="flex items-center space-x-4">
+            <HeaderStatusBadge />
+            <LanguageSwitcher />
+            {user ? (
+              <Button onClick={handleSignOut} variant="outline" size="sm">
+                Logout
+              </Button>
+            ) : (
+              <Button asChild variant="outline" size="sm">
+                <Link to="/auth">Login</Link>
+              </Button>
+            )}
           </div>
         </div>
       </div>

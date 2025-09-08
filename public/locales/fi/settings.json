@@ -1,0 +1,11 @@
+{
+  "title": "Asetukset",
+  "dataExport": "Vie Datani",
+  "dataExportDescription": "Lataa kaikki henkilökohtaiset tietosi JSON-muodossa mukaan lukien mielialat, päiväkirjamerkinnät, tehtävät, harjoitukset ja viestit.",
+  "exportButton": "Lataa Datani",
+  "exportSuccess": "Data viety onnistuneesti",
+  "exportDescription": "Tietosi on ladattu laitteellesi.",
+  "exportError": "Vienti epäonnistui",
+  "exportFailed": "Tietojen vienti epäonnistui. Yritä uudelleen.",
+  "notAuthenticated": "Sinun täytyy olla kirjautunut sisään viedäksesi tietoja."
+}

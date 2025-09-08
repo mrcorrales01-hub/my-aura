@@ -81,9 +81,9 @@ export default function RoleplayPage() {
     try {
       const stream = await streamRoleplay({
         scenarioId: selectedScenario.id,
-        step: currentStep,
-        transcript: [...transcript, userMessage],
-        lang: language
+        step: currentStep.toString(),
+        transcript: JSON.stringify([...transcript, userMessage]),
+        language: language
       });
 
       let fullResponse = '';

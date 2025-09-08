@@ -1,0 +1,11 @@
+{
+  "title": "Inställningar",
+  "dataExport": "Exportera Min Data",
+  "dataExportDescription": "Ladda ner all din personliga data i JSON-format inklusive humör, dagboksinlägg, uppgifter, övningar och meddelanden.",
+  "exportButton": "Ladda Ner Min Data",
+  "exportSuccess": "Data exporterad framgångsrikt",
+  "exportDescription": "Din data har laddats ner till din enhet.",
+  "exportError": "Export misslyckades",
+  "exportFailed": "Misslyckades att exportera din data. Försök igen.",
+  "notAuthenticated": "Du måste vara inloggad för att exportera data."
+}

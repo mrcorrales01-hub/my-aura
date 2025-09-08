@@ -1,0 +1,11 @@
+{
+  "title": "Configuración",
+  "dataExport": "Exportar Mis Datos",
+  "dataExportDescription": "Descarga todos tus datos personales en formato JSON incluyendo estados de ánimo, entradas de diario, tareas, ejercicios y mensajes.",
+  "exportButton": "Descargar Mis Datos",
+  "exportSuccess": "Datos exportados exitosamente",
+  "exportDescription": "Tus datos han sido descargados a tu dispositivo.",
+  "exportError": "Falló la exportación",
+  "exportFailed": "No se pudieron exportar tus datos. Inténtalo de nuevo.",
+  "notAuthenticated": "Debes estar conectado para exportar datos."
+}

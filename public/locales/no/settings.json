@@ -1,0 +1,11 @@
+{
+  "title": "Innstillinger",
+  "dataExport": "Eksporter Mine Data",
+  "dataExportDescription": "Last ned alle dine personlige data i JSON-format inkludert humør, dagboknotater, oppgaver, øvelser og meldinger.",
+  "exportButton": "Last Ned Mine Data",
+  "exportSuccess": "Data eksportert vellykket",
+  "exportDescription": "Dine data har blitt lastet ned til enheten din.",
+  "exportError": "Eksport mislyktes",
+  "exportFailed": "Kunne ikke eksportere dine data. Prøv igjen.",
+  "notAuthenticated": "Du må være innlogget for å eksportere data."
+}

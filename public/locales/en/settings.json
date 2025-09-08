@@ -1,0 +1,11 @@
+{
+  "title": "Settings",
+  "dataExport": "Export My Data",
+  "dataExportDescription": "Download all your personal data in JSON format including moods, journal entries, tasks, exercises, and messages.",
+  "exportButton": "Download My Data",
+  "exportSuccess": "Data exported successfully",
+  "exportDescription": "Your data has been downloaded to your device.",
+  "exportError": "Export failed",
+  "exportFailed": "Failed to export your data. Please try again.",
+  "notAuthenticated": "You must be logged in to export data."
+}

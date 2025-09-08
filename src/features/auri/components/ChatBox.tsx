@@ -60,8 +60,8 @@ export const ChatBox = () => {
 
     try {
       const { stream, isDemoMode: demo } = await streamAuriChat({
-        messages: [{ role: 'user', content }],
-        lang: i18n.language
+        message: content,
+        language: i18n.language
       });
 
       setIsDemoMode(demo);

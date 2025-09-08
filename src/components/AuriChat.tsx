@@ -129,52 +129,12 @@ const AuriChat = () => {
     }]);
 
     try {
-      await auriService.startOrSendMessage({
-        sessionId: currentSessionId || undefined,
-        text: content,
-        lang: i18n.language,
-        onSession: (sessionId) => {
-          setCurrentSessionId(sessionId);
-        },
-        onToken: (token) => {
-          setStreamingText(prev => prev + token);
-          // Update the assistant message with streaming text
-          setMessages(prev => prev.map(msg => 
-            msg.id === assistantMessageId 
-              ? { ...msg, content: streamingText + token }
-              : msg
-          ));
-        },
-        onDone: (sessionId) => {
-          setCurrentSessionId(sessionId);
-          setStreamingText('');
-          setIsLoading(false);
-          loadSessions(); // Refresh sessions list
-        },
-        onError: (error) => {
-          console.error('Chat error:', error);
-          setMessages(prev => prev.map(msg => 
-            msg.id === assistantMessageId 
-              ? { 
-                  ...msg, 
-                  content: i18n.language === 'sv'
-                    ? "Ursäkta, men jag har problem med anslutningen just nu. Ditt välbefinnande är viktigt för mig. Om du är i kris, kontakta akutsjukvården eller en krislinje."
-                    : "I apologize, but I'm having trouble connecting right now. Your wellbeing is important to me. If you're in crisis, please contact your local emergency services or a crisis helpline."
-                }
-              : msg
-          ));
-          
-          toast({
-            title: t('common.error'),
-            description: i18n.language === 'sv' 
-              ? "Problem med att ansluta till Auri. Försök igen."
-              : "Having trouble connecting to Auri. Please try again.",
-            variant: "destructive",
-          });
-          setIsLoading(false);
-          setStreamingText('');
-        }
-      });
+      await auriService.startOrSendMessage(
+        content,
+        (data) => handleStreamData(data),
+        currentSessionId || undefined,
+        i18n.language
+      );
     } catch (error) {
       console.error('Send message error:', error);
       setIsLoading(false);

@@ -5,6 +5,7 @@ import Chat from '@/pages/Chat';
 import Mood from '@/pages/Mood';
 import Settings from '@/pages/Settings';
 import NotFound from '@/pages/NotFound';
+import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
 import Health from '@/pages/Health';
 import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/features/auri/roleplays/RoleplayPage';
@@ -12,11 +13,12 @@ import RoleplayPage from '@/features/auri/roleplays/RoleplayPage';
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
   { path: '/auth', element: <Auth /> },
-  { path: '/chat', element: <Chat /> },
-  { path: '/roleplay', element: <RoleplayPage /> },
+  { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
+  { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/health', element: <Health /> },
-  { path: '/mood', element: <Mood /> },
-  { path: '/settings', element: <Settings /> },
-  { path: '/exercises/:slug', element: <ExercisePlayer /> },
+  { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },
+  { path: '/settings', element: <ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper> },
+  { path: '/exercises/:slug', element: <ErrorBoundaryWrapper><ExercisePlayer /></ErrorBoundaryWrapper> },
+  { path: '/404', element: <NotFound /> },
   { path: '*', element: <NotFound /> },
 ]);
