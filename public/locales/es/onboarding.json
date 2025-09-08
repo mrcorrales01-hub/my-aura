@@ -1,0 +1,74 @@
+{
+  "step": "Paso",
+  "of": "de",
+  "language": {
+    "title": "Elige tu idioma",
+    "description": "Selecciona tu idioma preferido para la aplicación"
+  },
+  "intention": {
+    "title": "¿Cuál es tu objetivo principal?",
+    "description": "Cuéntanos en qué te gustaría enfocarte con Auri"
+  },
+  "intentions": {
+    "emotional": {
+      "title": "Bienestar emocional",
+      "description": "Desarrollar resistencia emocional y mindfulness"
+    },
+    "relationships": {
+      "title": "Mejores relaciones",
+      "description": "Mejorar la comunicación y conexión con otros"
+    },
+    "confidence": {
+      "title": "Desarrollar confianza",
+      "description": "Desarrollar autoestima y fortaleza personal"
+    }
+  },
+  "time": {
+    "title": "Hora de check-in diario",
+    "description": "¿Cuándo te gustaría recibir tus recordatorios de bienestar diarios?"
+  },
+  "times": {
+    "morning": "Mañana",
+    "midday": "Mediodía",
+    "evening": "Tarde",
+    "night": "Noche"
+  },
+  "complete": {
+    "title": "¡Bienvenido a Auri!",
+    "description": "Tu viaje personalizado de bienestar comienza ahora",
+    "button": "Comenzar"
+  },
+  "error": "Algo salió mal. Por favor intenta de nuevo.",
+  "tasks": {
+    "emotional": {
+      "mood": {
+        "title": "Rastrea tu estado de ánimo diariamente",
+        "description": "Registra cómo te sientes para desarrollar autoconciencia"
+      },
+      "breathing": {
+        "title": "Practica ejercicios de respiración",
+        "description": "Toma 5 minutos para respiración consciente"
+      }
+    },
+    "relationships": {
+      "communication": {
+        "title": "Practica escucha activa",
+        "description": "Enfócate en entender mejor a otros"
+      },
+      "boundary": {
+        "title": "Establece límites saludables",
+        "description": "Aprende a decir no cuando sea necesario"
+      }
+    },
+    "confidence": {
+      "journal": {
+        "title": "Escribe afirmaciones diarias",
+        "description": "Documenta tus fortalezas y logros"
+      },
+      "affirmation": {
+        "title": "Practica autodiálogo positivo",
+        "description": "Desafía pensamientos negativos con bondad"
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "step": "Steg",
+  "of": "av",
+  "language": {
+    "title": "Välj ditt språk",
+    "description": "Välj vilket språk du föredrar för appen"
+  },
+  "intention": {
+    "title": "Vad är ditt huvudmål?",
+    "description": "Berätta vad du skulle vilja fokusera på med Auri"
+  },
+  "intentions": {
+    "emotional": {
+      "title": "Emotionellt välmående",
+      "description": "Bygg emotionell motståndskraft och mindfulness"
+    },
+    "relationships": {
+      "title": "Bättre relationer",
+      "description": "Förbättra kommunikation och koppling med andra"
+    },
+    "confidence": {
+      "title": "Bygg självförtroende",
+      "description": "Utveckla självkänsla och personlig styrka"
+    }
+  },
+  "time": {
+    "title": "Daglig check-in tid",
+    "description": "När vill du ha dina dagliga välmående-påminnelser?"
+  },
+  "times": {
+    "morning": "Morgon",
+    "midday": "Middag",
+    "evening": "Kväll",
+    "night": "Natt"
+  },
+  "complete": {
+    "title": "Välkommen till Auri!",
+    "description": "Din personliga välmående-resa börjar nu",
+    "button": "Kom igång"
+  },
+  "error": "Något gick fel. Försök igen.",
+  "tasks": {
+    "emotional": {
+      "mood": {
+        "title": "Spåra ditt humör dagligen",
+        "description": "Logga hur du mår för att bygga självmedvetenhet"
+      },
+      "breathing": {
+        "title": "Öva andningsövning",
+        "description": "Ta 5 minuter för mindful andning"
+      }
+    },
+    "relationships": {
+      "communication": {
+        "title": "Öva aktivt lyssnande",
+        "description": "Fokusera på att förstå andra bättre"
+      },
+      "boundary": {
+        "title": "Sätt hälsosamma gränser",
+        "description": "Lär dig säga nej när det behövs"
+      }
+    },
+    "confidence": {
+      "journal": {
+        "title": "Skriv dagliga bekräftelser",
+        "description": "Dokumentera dina styrkor och prestationer"
+      },
+      "affirmation": {
+        "title": "Öva positivt självsamtal",
+        "description": "Utmana negativa tankar med vänlighet"
+      }
+    }
+  }
+}

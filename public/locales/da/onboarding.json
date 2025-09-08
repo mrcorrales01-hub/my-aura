@@ -1,0 +1,74 @@
+{
+  "step": "Trin",
+  "of": "af",
+  "language": {
+    "title": "Vælg dit sprog",
+    "description": "Vælg dit foretrukne sprog til appen"
+  },
+  "intention": {
+    "title": "Hvad er dit hovedmål?",
+    "description": "Fortæl os hvad du gerne vil fokusere på med Auri"
+  },
+  "intentions": {
+    "emotional": {
+      "title": "Følelsesmæssigt velvære",
+      "description": "Byg følelsesmæssig modstandskraft og mindfulness"
+    },
+    "relationships": {
+      "title": "Bedre relationer",
+      "description": "Forbedre kommunikation og forbindelse med andre"
+    },
+    "confidence": {
+      "title": "Byg selvtillid",
+      "description": "Udvikle selvværd og personlig styrke"
+    }
+  },
+  "time": {
+    "title": "Daglig check-in tid",
+    "description": "Hvornår vil du have dine daglige velvære-påmindelser?"
+  },
+  "times": {
+    "morning": "Morgen",
+    "midday": "Middag",
+    "evening": "Aften",
+    "night": "Nat"
+  },
+  "complete": {
+    "title": "Velkommen til Auri!",
+    "description": "Din personlige velvære-rejse begynder nu",
+    "button": "Kom i gang"
+  },
+  "error": "Noget gik galt. Prøv igen.",
+  "tasks": {
+    "emotional": {
+      "mood": {
+        "title": "Spor dit humør dagligt",
+        "description": "Log hvordan du har det for at opbygge selvbevidsthed"
+      },
+      "breathing": {
+        "title": "Øv åndedrætsøvelse",
+        "description": "Tag 5 minutter til mindful vejrtrækning"
+      }
+    },
+    "relationships": {
+      "communication": {
+        "title": "Øv aktiv lytning",
+        "description": "Fokuser på at forstå andre bedre"
+      },
+      "boundary": {
+        "title": "Sæt sunde grænser",
+        "description": "Lær at sige nej når det er nødvendigt"
+      }
+    },
+    "confidence": {
+      "journal": {
+        "title": "Skriv daglige bekræftelser",
+        "description": "Dokumenter dine styrker og præstationer"
+      },
+      "affirmation": {
+        "title": "Øv positivt selvsamtale",
+        "description": "Udfordre negative tanker med venlighed"
+      }
+    }
+  }
+}

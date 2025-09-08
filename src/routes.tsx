@@ -5,6 +5,7 @@ import Chat from '@/pages/Chat';
 import Mood from '@/pages/Mood';
 import Settings from '@/pages/Settings';
 import NotFound from '@/pages/NotFound';
+import Onboarding from '@/pages/Onboarding';
 import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
 import Health from '@/pages/Health';
 import ExercisePlayer from '@/pages/ExercisePlayer';
@@ -13,6 +14,7 @@ import RoleplayPage from '@/features/auri/roleplays/RoleplayPage';
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
   { path: '/auth', element: <Auth /> },
+  { path: '/onboarding', element: <Onboarding /> },
   { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/health', element: <Health /> },

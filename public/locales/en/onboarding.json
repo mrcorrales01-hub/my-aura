@@ -1,0 +1,74 @@
+{
+  "step": "Step",
+  "of": "of",
+  "language": {
+    "title": "Choose Your Language",
+    "description": "Select your preferred language for the app"
+  },
+  "intention": {
+    "title": "What's Your Main Goal?",
+    "description": "Tell us what you'd like to focus on with Auri"
+  },
+  "intentions": {
+    "emotional": {
+      "title": "Emotional Wellbeing",
+      "description": "Build emotional resilience and mindfulness"
+    },
+    "relationships": {
+      "title": "Better Relationships",
+      "description": "Improve communication and connection with others"
+    },
+    "confidence": {
+      "title": "Build Confidence",
+      "description": "Develop self-esteem and personal strength"
+    }
+  },
+  "time": {
+    "title": "Daily Check-in Time",
+    "description": "When would you like your daily wellness reminders?"
+  },
+  "times": {
+    "morning": "Morning",
+    "midday": "Midday",
+    "evening": "Evening",
+    "night": "Night"
+  },
+  "complete": {
+    "title": "Welcome to Auri!",
+    "description": "Your personalized wellness journey starts now",
+    "button": "Get Started"
+  },
+  "error": "Something went wrong. Please try again.",
+  "tasks": {
+    "emotional": {
+      "mood": {
+        "title": "Track your mood daily",
+        "description": "Log how you're feeling to build self-awareness"
+      },
+      "breathing": {
+        "title": "Practice breathing exercise",
+        "description": "Take 5 minutes for mindful breathing"
+      }
+    },
+    "relationships": {
+      "communication": {
+        "title": "Practice active listening",
+        "description": "Focus on understanding others better"
+      },
+      "boundary": {
+        "title": "Set healthy boundaries",
+        "description": "Learn to say no when needed"
+      }
+    },
+    "confidence": {
+      "journal": {
+        "title": "Write daily affirmations",
+        "description": "Document your strengths and achievements"
+      },
+      "affirmation": {
+        "title": "Practice positive self-talk",
+        "description": "Challenge negative thoughts with kindness"
+      }
+    }
+  }
+}

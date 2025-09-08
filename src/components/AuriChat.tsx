@@ -20,6 +20,9 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { TrustBadge } from '@/components/TrustBadge';
+import { QuickActions } from '@/features/auri/components/QuickActions';
+import { BreathingRing } from '@/features/exercises/components/BreathingRing';
 import { useToast } from '@/components/ui/use-toast';
 import { auriService } from '@/services/auri';
 import { sessionsService, type ChatSession } from '@/services/sessions';
@@ -41,6 +44,10 @@ const AuriChat = () => {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [loadingSessions, setLoadingSessions] = useState(false);
   const [streamingText, setStreamingText] = useState('');
+  const [exerciseMode, setExerciseMode] = useState<string | null>(null);
+  const [ttsEnabled, setTtsEnabled] = useState(() => {
+    return localStorage.getItem('tts-enabled') === 'true';
+  });
   
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
@@ -131,7 +138,25 @@ const AuriChat = () => {
     try {
       await auriService.startOrSendMessage(
         content,
-        (data) => handleStreamData(data),
+        (data) => {
+          if (data.type === 'token') {
+            setStreamingText(prev => prev + data.content);
+          } else if (data.type === 'complete') {
+            setMessages(prev => prev.map(msg => 
+              msg.id === assistantMessageId 
+                ? { ...msg, content: data.full_response }
+                : msg
+            ));
+            setStreamingText('');
+            setIsLoading(false);
+            setCurrentSessionId(data.sessionId);
+            
+            // Text-to-speech for assistant messages
+            if (ttsEnabled && data.full_response) {
+              speakMessage(data.full_response);
+            }
+          }
+        },
         currentSessionId || undefined,
         i18n.language
       );
@@ -239,8 +264,38 @@ const AuriChat = () => {
     }
   };
 
-  return (
-    <div className="flex flex-col h-[80vh] max-w-4xl mx-auto">
+  const handleExerciseStart = (exerciseType: string) => {
+    setExerciseMode(exerciseType);
+  };
+
+  const handleExerciseComplete = () => {
+    setExerciseMode(null);
+    toast({
+      title: t('common.success'),
+      description: i18n.language === 'sv' ? "Övning slutförd!" : "Exercise completed!",
+    });
+  };
+
+  if (exerciseMode) {
+    return (
+      <div className="max-w-md mx-auto p-4">
+        <div className="mb-4">
+          <Button 
+            variant="outline" 
+            onClick={() => setExerciseMode(null)}
+            className="mb-4"
+          >
+            ← {t('common.back')}
+          </Button>
+        </div>
+        <BreathingRing 
+          onComplete={handleExerciseComplete}
+          duration={exerciseMode === 'breathing' ? 60 : 120}
+          autoStart={true}
+        />
+      </div>
+    );
+  }
       {/* Chat Header */}
       <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-aura mb-4">
         <div className="flex items-center justify-between">
@@ -256,6 +311,7 @@ const AuriChat = () => {
             </div>
           </div>
           <div className="flex items-center space-x-2">
+            <TrustBadge variant="chat" />
             <Button onClick={startNewChat} variant="outline" size="sm">
               <Plus className="w-4 h-4 mr-2" />
               {t('auri.newChat')}
@@ -274,7 +330,8 @@ const AuriChat = () => {
         </div>
       </Card>
 
-      {/* Messages */}
+      {/* Quick Actions */}
+      <QuickActions onExerciseStart={handleExerciseStart} />
       <Card className="flex-1 p-0 bg-white/80 backdrop-blur-sm border-0 shadow-aura overflow-hidden">
         <ScrollArea className="h-full p-4" ref={scrollAreaRef}>
           <div className="space-y-4">

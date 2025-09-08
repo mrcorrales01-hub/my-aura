@@ -1,0 +1,74 @@
+{
+  "step": "Steg",
+  "of": "av",
+  "language": {
+    "title": "Velg ditt språk",
+    "description": "Velg ønsket språk for appen"
+  },
+  "intention": {
+    "title": "Hva er hovedmålet ditt?",
+    "description": "Fortell oss hva du vil fokusere på med Auri"
+  },
+  "intentions": {
+    "emotional": {
+      "title": "Emosjonell velvære",
+      "description": "Bygg emosjonell motstandskraft og mindfulness"
+    },
+    "relationships": {
+      "title": "Bedre relasjoner",
+      "description": "Forbedre kommunikasjon og forbindelse med andre"
+    },
+    "confidence": {
+      "title": "Bygg selvtillit",
+      "description": "Utvikle selvfølelse og personlig styrke"
+    }
+  },
+  "time": {
+    "title": "Daglig check-in tid",
+    "description": "Når vil du ha dine daglige velvære-påminnelser?"
+  },
+  "times": {
+    "morning": "Morgen",
+    "midday": "Middag",
+    "evening": "Kveld",
+    "night": "Natt"
+  },
+  "complete": {
+    "title": "Velkommen til Auri!",
+    "description": "Din personlige velvære-reise begynner nå",
+    "button": "Kom i gang"
+  },
+  "error": "Noe gikk galt. Prøv igjen.",
+  "tasks": {
+    "emotional": {
+      "mood": {
+        "title": "Spor humøret ditt daglig",
+        "description": "Logg hvordan du føler deg for å bygge selvbevissthet"
+      },
+      "breathing": {
+        "title": "Øv pusteøvelse",
+        "description": "Ta 5 minutter for mindful pust"
+      }
+    },
+    "relationships": {
+      "communication": {
+        "title": "Øv aktiv lytting",
+        "description": "Fokuser på å forstå andre bedre"
+      },
+      "boundary": {
+        "title": "Sett sunne grenser",
+        "description": "Lær å si nei når det trengs"
+      }
+    },
+    "confidence": {
+      "journal": {
+        "title": "Skriv daglige bekreftelser",
+        "description": "Dokumenter dine styrker og prestasjoner"
+      },
+      "affirmation": {
+        "title": "Øv positivt selvsnakk",
+        "description": "Utfordre negative tanker med vennlighet"
+      }
+    }
+  }
+}

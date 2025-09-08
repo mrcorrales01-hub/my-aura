@@ -1,0 +1,74 @@
+{
+  "step": "Vaihe",
+  "of": "/",
+  "language": {
+    "title": "Valitse kielesi",
+    "description": "Valitse haluamasi kieli sovellukselle"
+  },
+  "intention": {
+    "title": "Mikä on päätavoitteesi?",
+    "description": "Kerro meille, mihin haluaisit keskittyä Aurin kanssa"
+  },
+  "intentions": {
+    "emotional": {
+      "title": "Emotionaalinen hyvinvointi",
+      "description": "Rakenna emotionaalista sietokykyä ja tietoisuutta"
+    },
+    "relationships": {
+      "title": "Paremmat suhteet",
+      "description": "Paranna kommunikaatiota ja yhteyttä muihin"
+    },
+    "confidence": {
+      "title": "Rakenna itseluottamusta",
+      "description": "Kehitä itsetuntoa ja henkilökohtaista voimaa"
+    }
+  },
+  "time": {
+    "title": "Päivittäinen check-in aika",
+    "description": "Milloin haluaisit päivittäiset hyvinvointi-muistutuksesi?"
+  },
+  "times": {
+    "morning": "Aamu",
+    "midday": "Keskipäivä",
+    "evening": "Ilta",
+    "night": "Yö"
+  },
+  "complete": {
+    "title": "Tervetuloa Auriin!",
+    "description": "Henkilökohtainen hyvinvointimatkasi alkaa nyt",
+    "button": "Aloita"
+  },
+  "error": "Jotain meni pieleen. Yritä uudelleen.",
+  "tasks": {
+    "emotional": {
+      "mood": {
+        "title": "Seuraa mielialasi päivittäin",
+        "description": "Kirjaa tuntemuksesi rakentaaksesi itsetuntemusta"
+      },
+      "breathing": {
+        "title": "Harjoittele hengitysharjoitusta",
+        "description": "Ota 5 minuuttia tietoiselle hengitykselle"
+      }
+    },
+    "relationships": {
+      "communication": {
+        "title": "Harjoittele aktiivista kuuntelemista",
+        "description": "Keskity ymmärtämään muita paremmin"
+      },
+      "boundary": {
+        "title": "Aseta terveitä rajoja",
+        "description": "Opi sanomaan ei tarvittaessa"
+      }
+    },
+    "confidence": {
+      "journal": {
+        "title": "Kirjoita päivittäisiä vahvistuksia",
+        "description": "Dokumentoi vahvuutesi ja saavutuksesi"
+      },
+      "affirmation": {
+        "title": "Harjoittele positiivista itsekantelua",
+        "description": "Haasta negatiiviset ajatukset ystävällisyydellä"
+      }
+    }
+  }
+}
