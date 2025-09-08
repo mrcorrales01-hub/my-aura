@@ -20,7 +20,11 @@
     "relationships": "Forhold",
     "resources": "Ressourcer",
     "profile": "Profil",
-    "community": "Fællesskab"
+    "community": "Fællesskab",
+    "music": "Musik",
+    "videos": "Videoer",
+    "aiCoach": "AI-Coach",
+    "crisisSupport": "Krisestøtte"
   },
   "auth": {
     "login": "Log ind",
@@ -29,5 +33,14 @@
   },
   "app": {
     "name": "My Aura"
+  },
+  "auri": {
+    "title": "Auri"
+  },
+  "roleplay": {
+    "title": "Rollespil"
+  },
+  "common": {
+    "new": "Ny"
   }
 }

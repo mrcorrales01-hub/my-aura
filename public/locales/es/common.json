@@ -20,7 +20,11 @@
     "relationships": "Relaciones",
     "resources": "Recursos",
     "profile": "Perfil",
-    "community": "Comunidad"
+    "community": "Comunidad",
+    "music": "Música",
+    "videos": "Videos",
+    "aiCoach": "Coach IA",
+    "crisisSupport": "Apoyo de Crisis"
   },
   "auth": {
     "login": "Iniciar sesión",
@@ -29,5 +33,14 @@
   },
   "app": {
     "name": "My Aura"
+  },
+  "auri": {
+    "title": "Auri"
+  },
+  "roleplay": {
+    "title": "Juego de Roles"
+  },
+  "common": {
+    "new": "Nuevo"
   }
 }

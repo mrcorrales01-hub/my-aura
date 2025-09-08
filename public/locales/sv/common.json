@@ -20,7 +20,11 @@
     "relationships": "Relationer",
     "resources": "Resurser",
     "profile": "Profil",
-    "community": "Gemenskap"
+    "community": "Gemenskap",
+    "music": "Musik",
+    "videos": "Videor",
+    "aiCoach": "AI-Coach",
+    "crisisSupport": "Krisstöd"
   },
   "auth": {
     "login": "Logga in",
@@ -29,5 +33,14 @@
   },
   "app": {
     "name": "My Aura"
+  },
+  "auri": {
+    "title": "Auri"
+  },
+  "roleplay": {
+    "title": "Rollspel"
+  },
+  "common": {
+    "new": "Ny"
   }
 }

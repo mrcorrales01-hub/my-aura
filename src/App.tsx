@@ -15,7 +15,7 @@ import AuraNavigation from "@/components/AuraNavigation";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
 
 // Aura App Pages
-import AuraHome from "@/components/AuraHome";
+import AuraHome from "@/pages/AuraHome";
 import AuriChat from "@/components/AuriChat";
 import Roleplay from "@/components/Roleplay";
 import MyPlan from "@/components/MyPlan";

@@ -20,7 +20,11 @@
     "relationships": "Suhteet",
     "resources": "Resurssit",
     "profile": "Profiili",
-    "community": "Yhteisö"
+    "community": "Yhteisö",
+    "music": "Musiikki",
+    "videos": "Videot",
+    "aiCoach": "AI-Valmentaja",
+    "crisisSupport": "Kriisituki"
   },
   "auth": {
     "login": "Kirjaudu sisään",
@@ -29,5 +33,14 @@
   },
   "app": {
     "name": "My Aura"
+  },
+  "auri": {
+    "title": "Auri"
+  },
+  "roleplay": {
+    "title": "Roolipeli"
+  },
+  "common": {
+    "new": "Uusi"
   }
 }

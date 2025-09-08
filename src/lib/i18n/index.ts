@@ -32,7 +32,7 @@ i18n
     supportedLngs: supportedLanguages,
     fallbackLng: ['en', 'sv'],
     defaultNS: 'common',
-    ns: ['common'],
+    ns: ['common', 'home', 'mood'],
     debug: import.meta.env.DEV,
     
     backend: {
