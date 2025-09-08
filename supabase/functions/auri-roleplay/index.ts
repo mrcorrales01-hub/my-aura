@@ -1,84 +1,90 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.53.0';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-interface ChatMessage {
-  role: 'user' | 'assistant' | 'system';
-  content: string;
+interface RoleplayStep {
+  id: string;
+  goal: Record<string, string>;
+  hints: Record<string, string>;
+  rubric: string[];
 }
 
 interface RoleplayScenario {
   id: string;
   title: Record<string, string>;
+  description: Record<string, string>;
   persona: string;
   languageStyle: string;
-  steps: Array<{
-    id: number;
-    goal: Record<string, string>;
-    hints: Record<string, string[]>;
-    rubric: string;
-  }>;
+  steps: RoleplayStep[];
 }
 
-// Hardcoded scenarios for now - in production these would come from database
+// Mock scenario data - in production, this would come from database
 const scenarios: RoleplayScenario[] = [
   {
     id: 'boundary-setting',
     title: {
-      sv: 'Sätta gränser',
-      en: 'Setting Boundaries',
+      sv: 'Sätta Gränser',
+      en: 'Setting Boundaries', 
       es: 'Establecer Límites',
-      no: 'Sette grenser',
-      da: 'Sætte grænser',
-      fi: 'Rajojen asettaminen'
+      no: 'Sette Grenser',
+      da: 'Sætte Grænser',
+      fi: 'Rajojen Asettaminen'
     },
-    persona: 'You are Auri, a supportive wellness coach helping someone practice setting healthy boundaries. You are empathetic, encouraging, and provide realistic scenarios.',
-    languageStyle: 'Simple, warm, 2–3 sentences per turn. Ask open-ended questions to guide reflection.',
+    description: {
+      sv: 'Lär dig att sätta hälsosamma gränser i relationer',
+      en: 'Learn to set healthy boundaries in relationships',
+      es: 'Aprende a establecer límites saludables en las relaciones', 
+      no: 'Lær å sette sunne grenser i relasjoner',
+      da: 'Lær at sætte sunde grænser i forhold',
+      fi: 'Opi asettamaan terveellisiä rajoja ihmissuhteissa'
+    },
+    persona: 'You are Auri, a supportive communication coach specializing in healthy boundary-setting.',
+    languageStyle: 'Use warm, encouraging language with specific examples and actionable steps.',
     steps: [
       {
-        id: 1,
+        id: 'identify',
         goal: {
-          sv: 'Identifiera situationen där gränser behövs',
-          en: 'Identify the situation where boundaries are needed',
-          es: 'Identificar la situación donde se necesitan límites',
-          no: 'Identifiser situasjonen der grenser trengs',
-          da: 'Identificer situationen hvor grænser er nødvendige',
-          fi: 'Tunnista tilanne jossa rajoja tarvitaan'
+          sv: 'Identifiera när gränser behöver sättas',
+          en: 'Identify when boundaries need to be set',
+          es: 'Identificar cuándo se necesitan establecer límites',
+          no: 'Identifiser når grenser må settes',
+          da: 'Identificer hvornår grænser skal sættes',
+          fi: 'Tunnista milloin rajat on asetettava'
         },
         hints: {
-          sv: ['Fråga om specifika exempel', 'Utforska känslor kring situationen'],
-          en: ['Ask for specific examples', 'Explore feelings about the situation'],
-          es: ['Pide ejemplos específicos', 'Explora sentimientos sobre la situación'],
-          no: ['Spør om spesifikke eksempler', 'Utforsk følelser rundt situasjonen'],
-          da: ['Spørg om specifikke eksempler', 'Udforsk følelser omkring situationen'],
-          fi: ['Kysy konkreettisia esimerkkejä', 'Tutki tunteita tilanteesta']
+          sv: 'Känn efter tecken på stress, obehag eller utmattning',
+          en: 'Notice signs of stress, discomfort, or exhaustion',
+          es: 'Nota señales de estrés, incomodidad o agotamiento',
+          no: 'Legg merke til tegn på stress, ubehag eller utmattelse', 
+          da: 'Bemærk tegn på stress, ubehag eller udmattelse',
+          fi: 'Huomaa stressin, epämukavuuden tai uupumuksen merkit'
         },
-        rubric: 'Score 0-5 based on clarity of situation identification, emotional awareness, and specificity of examples provided.'
+        rubric: ['Shows awareness of personal limits', 'Identifies specific triggers', 'Recognizes emotional responses']
       },
       {
-        id: 2,
+        id: 'communicate',
         goal: {
-          sv: 'Formulera tydliga gränser',
-          en: 'Formulate clear boundaries',
-          es: 'Formular límites claros',
-          no: 'Formuler klare grenser',
-          da: 'Formuler klare grænser',
-          fi: 'Muotoile selkeät rajat'
+          sv: 'Kommunicera gränsen tydligt och vänligt',
+          en: 'Communicate the boundary clearly and kindly',
+          es: 'Comunicar el límite de manera clara y amable',
+          no: 'Kommuniser grensen tydelig og vennlig',
+          da: 'Kommuniker grænsen klart og venligt', 
+          fi: 'Viesti rajasta selkeästi ja ystävällisesti'
         },
         hints: {
-          sv: ['Använd "jag"-meddelanden', 'Var specifik och tydlig'],
-          en: ['Use "I" statements', 'Be specific and clear'],
-          es: ['Usa declaraciones "yo"', 'Sé específico y claro'],
-          no: ['Bruk "jeg"-utsagn', 'Vær spesifikk og tydelig'],
-          da: ['Brug "jeg"-udsagn', 'Vær specifik og klar'],
-          fi: ['Käytä "minä"-lauseita', 'Ole tarkka ja selkeä']
+          sv: 'Använd "Jag"-satser och var konkret om vad du behöver',
+          en: 'Use "I" statements and be specific about what you need',
+          es: 'Usa declaraciones con "yo" y sé específico sobre lo que necesitas',
+          no: 'Bruk "jeg"-setninger og vær spesifikk om hva du trenger',
+          da: 'Brug "jeg"-sætninger og vær specifik om hvad du har brug for',
+          fi: 'Käytä "minä"-lauseita ja ole täsmällinen siitä, mitä tarvitset'
         },
-        rubric: 'Score 0-5 based on clarity of boundary statement, use of assertive language, and appropriateness to the situation.'
+        rubric: ['Uses clear, direct language', 'Maintains respectful tone', 'Explains reasoning when appropriate']
       }
     ]
   }
@@ -89,210 +95,141 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Health check mode - no token spend
-  const url = new URL(req.url);
-  if (url.searchParams.get('mode') === 'health') {
-    const hasOpenAIKey = !!Deno.env.get('OPENAI_API_KEY');
-    return new Response(
-      JSON.stringify({ ok: true, hasOpenAIKey }),
-      {
-        headers: {
-          ...corsHeaders,
-          'Content-Type': 'application/json',
-          'x-demo-mode': hasOpenAIKey ? '0' : '1'
-        }
-      }
-    );
-  }
-
   try {
-    const authHeader = req.headers.get('Authorization');
-    if (!authHeader) {
-      throw new Error('No authorization header');
+    const url = new URL(req.url);
+    const mode = url.searchParams.get('mode');
+    
+    // Health mode
+    if (mode === 'health') {
+      const hasOpenAIKey = !!Deno.env.get('OPENAI_API_KEY');
+      return new Response(
+        JSON.stringify({ ok: true, hasOpenAIKey }),
+        { 
+          headers: { 
+            ...corsHeaders, 
+            'Content-Type': 'application/json',
+            'x-demo-mode': hasOpenAIKey ? '0' : '1'
+          }
+        }
+      );
     }
 
-    const token = authHeader.replace('Bearer ', '');
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL') ?? '',
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
-      { global: { headers: { Authorization: `Bearer ${token}` } } }
+      Deno.env.get('SUPABASE_ANON_KEY') ?? '',
+      {
+        global: {
+          headers: { Authorization: req.headers.get('Authorization')! },
+        },
+      }
     );
 
-    const { data: { user }, error: authError } = await supabaseClient.auth.getUser(token);
+    const {
+      data: { user },
+      error: authError,
+    } = await supabaseClient.auth.getUser();
+
     if (authError || !user) {
-      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
-        status: 401,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      });
+      return new Response('Unauthorized', { status: 401, headers: corsHeaders });
     }
 
-    const { scenarioId, step, transcript, lang = 'en' } = await req.json();
+    const { scenarioId, step, transcript, language = 'sv' } = await req.json();
     
-    if (!scenarioId || step === undefined || !transcript) {
-      throw new Error('Missing required fields: scenarioId, step, transcript');
-    }
-
     const scenario = scenarios.find(s => s.id === scenarioId);
     if (!scenario) {
-      throw new Error(`Scenario not found: ${scenarioId}`);
+      return new Response('Scenario not found', { status: 404, headers: corsHeaders });
     }
 
     const currentStep = scenario.steps.find(s => s.id === step);
     if (!currentStep) {
-      throw new Error(`Step not found: ${step}`);
+      return new Response('Step not found', { status: 404, headers: corsHeaders });
     }
 
-    const openaiApiKey = Deno.env.get('OPENAI_API_KEY');
-    
-    // Demo mode if no API key
-    if (!openaiApiKey) {
-      const demoResponse = lang === 'sv' 
-        ? 'Demo-läge: Rollspelscoach aktiverad. Lägg till OpenAI API-nyckel för full funktionalitet.'
-        : 'Demo mode: Roleplay coach activated. Add OpenAI API key for full functionality.';
+    const openAIApiKey = Deno.env.get('OPENAI_API_KEY');
 
-      const encoder = new TextEncoder();
-      const stream = new ReadableStream({
-        start(controller) {
-          const tokenData = `data: ${JSON.stringify({ type: 'token', content: demoResponse })}\n\n`;
-          controller.enqueue(encoder.encode(tokenData));
-          
-          const resultData = `data: ${JSON.stringify({ 
-            type: 'step_result', 
-            stepScore: 3, 
-            coachNote: 'Demo feedback', 
-            nextStep: step < scenario.steps.length ? step + 1 : null, 
-            finished: step >= scenario.steps.length 
-          })}\n\n`;
-          controller.enqueue(encoder.encode(resultData));
-          
-          const doneData = `data: ${JSON.stringify({ type: 'done' })}\n\n`;
-          controller.enqueue(encoder.encode(doneData));
-          controller.close();
+    // Demo mode response
+    if (!openAIApiKey) {
+      const demoResponse = {
+        stepScore: Math.floor(Math.random() * 3) + 3, // Random score 3-5
+        coachNote: {
+          sv: `Demo: Bra jobbat med att ${currentStep.id === 'identify' ? 'identifiera situationen' : 'kommunicera gränser'}! Fortsätt träna.`,
+          en: `Demo: Good work ${currentStep.id === 'identify' ? 'identifying the situation' : 'communicating boundaries'}! Keep practicing.`,
+          es: `Demo: ¡Buen trabajo ${currentStep.id === 'identify' ? 'identificando la situación' : 'comunicando límites'}! Sigue practicando.`,
+          no: `Demo: Godt jobbet med å ${currentStep.id === 'identify' ? 'identifisere situasjonen' : 'kommunisere grenser'}! Fortsett å øve.`,
+          da: `Demo: Godt arbejde med at ${currentStep.id === 'identify' ? 'identificere situationen' : 'kommunikere grænser'}! Fortsæt med at øve.`,
+          fi: `Demo: Hyvää työtä ${currentStep.id === 'identify' ? 'tilanteen tunnistamisessa' : 'rajojen viestinnässä'}! Jatka harjoittelua.`
+        },
+        nextStep: step === 'identify' ? 'communicate' : null,
+        finished: step !== 'identify'
+      };
+
+      return new Response(
+        `data: ${JSON.stringify({ response: JSON.stringify(demoResponse), done: true })}\n\n`,
+        {
+          headers: {
+            ...corsHeaders,
+            'Content-Type': 'text/event-stream',
+            'x-demo-mode': '1'
+          },
         }
-      });
-
-      return new Response(stream, {
-        headers: { ...corsHeaders, 'Content-Type': 'text/event-stream', 'x-demo-mode': '1' },
-      });
+      );
     }
 
-    // Build system prompt for roleplay
-    const stepGoal = currentStep.goal[lang] || currentStep.goal.en;
-    const systemPrompt = `${scenario.persona}
+    // Build system prompt for OpenAI
+    const systemPrompt = `${scenario.persona} ${scenario.languageStyle}
+    
+Current step goal: ${currentStep.goal[language]}
+Evaluation rubric: ${currentStep.rubric.join(', ')}
 
-Current step goal: ${stepGoal}
+Analyze the user's response and provide:
+1. A step score (0-5) based on the rubric
+2. A brief coach note in ${language} explaining the score
+3. Whether to move to the next step
 
-${scenario.languageStyle}
+Response format: JSON with stepScore, coachNote, nextStep, finished fields.`;
 
-Evaluation rubric for this step: ${currentStep.rubric}
-
-Respond in ${lang === 'sv' ? 'Swedish' : lang === 'es' ? 'Spanish' : lang === 'no' ? 'Norwegian' : lang === 'da' ? 'Danish' : lang === 'fi' ? 'Finnish' : 'English'}.
-
-After the conversation, you will need to evaluate the user's performance on this step and provide a score (0-5) and brief coaching note.`;
-
-    const messages: ChatMessage[] = [
-      { role: 'system', content: systemPrompt },
-      ...transcript.slice(-10) // Keep last 10 messages for context
-    ];
-
-    // Call OpenAI streaming API
-    const openAiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${openaiApiKey}`,
+        'Authorization': `Bearer ${openAIApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         model: 'gpt-4o-mini',
-        messages,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: transcript }
+        ],
         max_tokens: 300,
-        temperature: 0.7,
-        stream: true,
+        temperature: 0.3,
+        stream: true
       }),
     });
 
-    if (!openAiResponse.ok) {
-      const errorText = await openAiResponse.text();
-      console.error('OpenAI API error:', errorText);
-      throw new Error(`OpenAI API failed: ${openAiResponse.status}`);
+    if (!response.ok) {
+      throw new Error(`OpenAI API error: ${response.status}`);
     }
 
-    // Create streaming response
-    const encoder = new TextEncoder();
-    const decoder = new TextDecoder();
-    
-    let fullResponse = '';
-    
-    const stream = new ReadableStream({
+    const readable = new ReadableStream({
       async start(controller) {
-        try {
-          const reader = openAiResponse.body?.getReader();
-          if (!reader) throw new Error('No response body');
+        const reader = response.body?.getReader();
+        if (!reader) return;
+        
+        let fullResponse = '';
 
+        try {
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            const chunk = decoder.decode(value);
+            const chunk = new TextDecoder().decode(value);
             const lines = chunk.split('\n');
 
             for (const line of lines) {
               if (line.startsWith('data: ')) {
                 const data = line.slice(6);
                 if (data === '[DONE]') {
-                  // Generate step score and coach note
-                  const stepScore = Math.floor(Math.random() * 3) + 3; // Demo scoring 3-5
-                  const coachNote = lang === 'sv' 
-                    ? 'Bra jobbat! Fortsätt utveckla dina färdigheter.'
-                    : 'Good work! Keep developing your skills.';
-                  
-                  const nextStep = step < scenario.steps.length ? step + 1 : null;
-                  const finished = step >= scenario.steps.length;
-
-                  // Save messages to database
-                  try {
-                    if (transcript.length > 0) {
-                      const lastUserMessage = transcript[transcript.length - 1];
-                      if (lastUserMessage.role === 'user') {
-                        await supabaseClient
-                          .from('messages')
-                          .insert({
-                            user_id: user.id,
-                            session_id: null,
-                            role: 'user',
-                            content: lastUserMessage.content,
-                            language: lang
-                          });
-                      }
-                    }
-
-                    if (fullResponse.trim()) {
-                      await supabaseClient
-                        .from('messages')
-                        .insert({
-                          user_id: user.id,
-                          session_id: null,
-                          role: 'assistant',
-                          content: fullResponse.trim(),
-                          language: lang
-                        });
-                    }
-                  } catch (dbError) {
-                    console.error('Database save error:', dbError);
-                  }
-
-                  const resultData = `data: ${JSON.stringify({ 
-                    type: 'step_result', 
-                    stepScore, 
-                    coachNote, 
-                    nextStep, 
-                    finished 
-                  })}\n\n`;
-                  controller.enqueue(encoder.encode(resultData));
-                  
-                  const doneData = `data: ${JSON.stringify({ type: 'done' })}\n\n`;
-                  controller.enqueue(encoder.encode(doneData));
-                  controller.close();
+                  controller.enqueue(`data: ${JSON.stringify({ response: fullResponse, done: true })}\n\n`);
                   return;
                 }
 
@@ -301,8 +238,7 @@ After the conversation, you will need to evaluate the user's performance on this
                   const content = parsed.choices?.[0]?.delta?.content;
                   if (content) {
                     fullResponse += content;
-                    const tokenData = `data: ${JSON.stringify({ type: 'token', content })}\n\n`;
-                    controller.enqueue(encoder.encode(tokenData));
+                    controller.enqueue(`data: ${JSON.stringify({ content })}\n\n`);
                   }
                 } catch (e) {
                   // Skip invalid JSON
@@ -310,27 +246,30 @@ After the conversation, you will need to evaluate the user's performance on this
               }
             }
           }
-        } catch (error) {
-          console.error('Stream error:', error);
-          const errorData = `data: ${JSON.stringify({ type: 'error', error: error.message })}\n\n`;
-          controller.enqueue(encoder.encode(errorData));
+        } finally {
+          reader.releaseLock();
           controller.close();
         }
       },
     });
 
-    return new Response(stream, {
+    return new Response(readable, {
       headers: {
         ...corsHeaders,
         'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'x-demo-mode': '0'
       },
     });
 
   } catch (error) {
-    console.error('Error in auri-roleplay:', error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-    });
+    console.error('Error in auri-roleplay function:', error);
+    return new Response(
+      JSON.stringify({ error: error.message }),
+      { 
+        status: 500, 
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
+      }
+    );
   }
 });

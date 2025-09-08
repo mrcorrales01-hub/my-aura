@@ -1,68 +1,252 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Navbar } from '@/components/Navbar';
+import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { CheckCircle, AlertCircle, XCircle, Copy, RefreshCw } from 'lucide-react';
+import { Loader2, CheckCircle, AlertTriangle, XCircle, Copy, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { runHealthChecks, type HealthReport, type HealthCheck } from '@/features/health/api';
+import { supabase } from '@/integrations/supabase/client';
 
-export default function Health() {
-  const { t } = useTranslation('common');
+interface HealthCheck {
+  name: string;
+  status: 'ok' | 'warn' | 'fail';
+  message: string;
+  details?: string;
+}
+
+interface HealthReport {
+  timestamp: string;
+  checks: HealthCheck[];
+}
+
+const Health = () => {
+  const { t, i18n } = useTranslation(['common']);
   const { toast } = useToast();
+  
   const [report, setReport] = useState<HealthReport | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const runChecks = async () => {
-    setLoading(true);
+  const runHealthChecks = async (): Promise<HealthReport> => {
+    const checks: HealthCheck[] = [];
+    const supportedLangs = ['sv', 'en', 'es', 'no', 'da', 'fi'];
+
+    // 1. Check i18n bundles
     try {
-      const newReport = await runHealthChecks();
-      setReport(newReport);
+      const bundleChecks = await Promise.all(
+        supportedLangs.map(async (lang) => {
+          try {
+            const response = await fetch(`/locales/${lang}/common.json`);
+            return { lang, ok: response.ok };
+          } catch {
+            return { lang, ok: false };
+          }
+        })
+      );
+
+      const missingBundles = bundleChecks.filter(check => !check.ok).map(check => check.lang);
+      
+      checks.push({
+        name: 'i18n_bundles',
+        status: missingBundles.length === 0 ? 'ok' : 'warn',
+        message: missingBundles.length === 0 
+          ? 'All 6 language bundles are available'
+          : `Missing bundles: ${missingBundles.join(', ')}`,
+        details: `Checked languages: ${supportedLangs.join(', ')}`
+      });
+    } catch (error) {
+      checks.push({
+        name: 'i18n_bundles',
+        status: 'fail',
+        message: 'Failed to check i18n bundles',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+
+    // 2. Check environment variables
+    const envVars = ['VITE_SUPABASE_URL', 'VITE_SUPABASE_ANON_KEY'];
+    const missingEnv = envVars.filter(key => !import.meta.env[key]);
+    
+    checks.push({
+      name: 'environment',
+      status: missingEnv.length === 0 ? 'ok' : 'fail',
+      message: missingEnv.length === 0 
+        ? 'All required environment variables are set'
+        : `Missing environment variables: ${missingEnv.join(', ')}`,
+      details: `Required: ${envVars.join(', ')}`
+    });
+
+    // 3. Check Supabase connection
+    try {
+      const { data, error } = await supabase.from('exercises').select('id').limit(1);
+      
+      checks.push({
+        name: 'supabase_connection',
+        status: error ? 'fail' : 'ok',
+        message: error ? 'Supabase connection failed' : 'Supabase connection successful',
+        details: error ? error.message : 'Successfully read from exercises table'
+      });
+    } catch (error) {
+      checks.push({
+        name: 'supabase_connection', 
+        status: 'fail',
+        message: 'Supabase connection error',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+
+    // 4. Check auri-chat edge function
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const authHeader = session?.access_token ? `Bearer ${session.access_token}` : '';
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auri-chat?mode=health`,
+        {
+          headers: authHeader ? { 'Authorization': authHeader } : {}
+        }
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        const demoMode = response.headers.get('x-demo-mode') === '1';
+        
+        checks.push({
+          name: 'auri_chat_function',
+          status: data.hasOpenAIKey ? 'ok' : 'warn',
+          message: data.hasOpenAIKey 
+            ? 'Auri chat function ready with OpenAI key'
+            : 'Auri chat function in demo mode (no OpenAI key)',
+          details: `Demo mode: ${demoMode ? 'enabled' : 'disabled'}`
+        });
+      } else {
+        checks.push({
+          name: 'auri_chat_function',
+          status: 'fail', 
+          message: `Auri chat function error: ${response.status}`,
+          details: await response.text()
+        });
+      }
+    } catch (error) {
+      checks.push({
+        name: 'auri_chat_function',
+        status: 'fail',
+        message: 'Failed to check auri-chat function',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+
+    // 5. Check auri-roleplay edge function
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const authHeader = session?.access_token ? `Bearer ${session.access_token}` : '';
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auri-roleplay?mode=health`,
+        {
+          headers: authHeader ? { 'Authorization': authHeader } : {}
+        }
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        const demoMode = response.headers.get('x-demo-mode') === '1';
+        
+        checks.push({
+          name: 'auri_roleplay_function',
+          status: data.hasOpenAIKey ? 'ok' : 'warn', 
+          message: data.hasOpenAIKey
+            ? 'Auri roleplay function ready with OpenAI key'
+            : 'Auri roleplay function in demo mode (no OpenAI key)',
+          details: `Demo mode: ${demoMode ? 'enabled' : 'disabled'}`
+        });
+      } else {
+        checks.push({
+          name: 'auri_roleplay_function',
+          status: 'fail',
+          message: `Auri roleplay function error: ${response.status}`,
+          details: await response.text()
+        });
+      }
+    } catch (error) {
+      checks.push({
+        name: 'auri_roleplay_function', 
+        status: 'fail',
+        message: 'Failed to check auri-roleplay function',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+
+    // 6. Check authentication status
+    try {
+      const { data: { user }, error } = await supabase.auth.getUser();
+      
+      checks.push({
+        name: 'authentication',
+        status: 'ok',
+        message: user ? 'User authenticated' : 'No user session (not an error)',
+        details: user ? `User ID: ${user.id}` : 'Authentication system working'
+      });
+    } catch (error) {
+      checks.push({
+        name: 'authentication',
+        status: 'warn',
+        message: 'Authentication check failed',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+
+    return {
+      timestamp: new Date().toISOString(),
+      checks
+    };
+  };
+
+  const fetchHealthReport = async () => {
+    setIsLoading(true);
+    try {
+      const healthReport = await runHealthChecks();
+      setReport(healthReport);
     } catch (error) {
       toast({
-        title: t('health.error'),
+        title: 'Health Check Failed',
         description: error instanceof Error ? error.message : 'Unknown error',
-        variant: 'destructive',
+        variant: 'destructive'
       });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    runChecks();
+    fetchHealthReport();
   }, []);
 
-  const getStatusIcon = (status: HealthCheck['status']) => {
+  const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'OK':
-        return <CheckCircle className="h-5 w-5 text-green-600" />;
-      case 'WARN':
-        return <AlertCircle className="h-5 w-5 text-yellow-600" />;
-      case 'FAIL':
-        return <XCircle className="h-5 w-5 text-red-600" />;
+      case 'ok': return <CheckCircle className="h-5 w-5 text-green-500" />;
+      case 'warn': return <AlertTriangle className="h-5 w-5 text-yellow-500" />;
+      case 'fail': return <XCircle className="h-5 w-5 text-red-500" />;
+      default: return <XCircle className="h-5 w-5 text-gray-500" />;
     }
   };
 
-  const getStatusColor = (status: HealthCheck['status']) => {
+  const getStatusColor = (status: string) => {
     switch (status) {
-      case 'OK':
-        return 'bg-green-50 border-green-200';
-      case 'WARN':
-        return 'bg-yellow-50 border-yellow-200';
-      case 'FAIL':
-        return 'bg-red-50 border-red-200';
+      case 'ok': return 'text-green-700 bg-green-50 border-green-200';
+      case 'warn': return 'text-yellow-700 bg-yellow-50 border-yellow-200'; 
+      case 'fail': return 'text-red-700 bg-red-50 border-red-200';
+      default: return 'text-gray-700 bg-gray-50 border-gray-200';
     }
   };
 
-  const getStatusBadgeVariant = (status: HealthCheck['status']) => {
+  const getStatusBadgeVariant = (status: string) => {
     switch (status) {
-      case 'OK':
-        return 'default' as const;
-      case 'WARN':
-        return 'secondary' as const;
-      case 'FAIL':
-        return 'destructive' as const;
+      case 'ok': return 'default';
+      case 'warn': return 'secondary';
+      case 'fail': return 'destructive';
+      default: return 'outline';
     }
   };
 
@@ -70,116 +254,121 @@ export default function Health() {
     if (!report) return;
     
     const diagnostics = {
-      timestamp: new Date().toISOString(),
-      checks: Object.entries(report).map(([key, check]) => ({
-        name: key,
+      timestamp: report.timestamp,
+      language: i18n.language,
+      userAgent: navigator.userAgent,
+      url: window.location.href,
+      checks: report.checks.map(check => ({
+        name: check.name,
         status: check.status,
         message: check.message,
         details: check.details
       }))
     };
-    
+
     navigator.clipboard.writeText(JSON.stringify(diagnostics, null, 2));
     toast({
-      title: t('health.diagnosticsCopied'),
-      description: t('health.diagnosticsCopiedDesc'),
+      title: 'Diagnostics Copied',
+      description: 'Diagnostic information has been copied to clipboard'
     });
   };
 
-  const getFixSuggestion = (checkName: string, status: HealthCheck['status']) => {
-    if (status === 'OK') return null;
+  const getFixSuggestion = (checkName: string, status: string) => {
+    if (status === 'ok') return null;
     
     const suggestions: Record<string, string> = {
-      i18n: t('health.fixI18n'),
-      env: t('health.fixEnv'),
-      supabase: t('health.fixSupabase'),
-      auriChat: t('health.fixEdgeFunction'),
-      auriRoleplay: t('health.fixEdgeFunction')
+      'i18n_bundles': 'Check that translation files exist in public/locales/[lang]/ directories',
+      'environment': 'Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set in your environment',
+      'supabase_connection': 'Verify your Supabase project is running and credentials are correct', 
+      'auri_chat_function': status === 'warn' ? 'Set OPENAI_API_KEY in Supabase secrets to enable full functionality' : 'Check that the auri-chat edge function is deployed',
+      'auri_roleplay_function': status === 'warn' ? 'Set OPENAI_API_KEY in Supabase secrets to enable full functionality' : 'Check that the auri-roleplay edge function is deployed',
+      'authentication': 'Authentication system may need attention - check Supabase auth configuration'
     };
-    
+
     return suggestions[checkName];
   };
 
   return (
-    <div className="container mx-auto py-8 px-4">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight mb-2">{t('health.title')}</h1>
-        <p className="text-muted-foreground">{t('health.description')}</p>
-      </div>
+    <div className="min-h-screen">
+      <Navbar />
+      
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-3xl font-bold">System Health</h1>
+              <p className="text-muted-foreground mt-2">Monitor application health and configuration</p>
+            </div>
+            
+            <div className="flex space-x-2">
+              <Button onClick={copyDiagnostics} variant="outline" disabled={!report}>
+                <Copy className="h-4 w-4 mr-2" />
+                Copy Diagnostics
+              </Button>
+              <Button onClick={fetchHealthReport} disabled={isLoading}>
+                {isLoading ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                )}
+                Re-run Checks
+              </Button>
+            </div>
+          </div>
 
-      <div className="flex gap-4 mb-6">
-        <Button onClick={runChecks} disabled={loading}>
-          {loading && <RefreshCw className="mr-2 h-4 w-4 animate-spin" />}
-          {t('health.runChecks')}
-        </Button>
-        
-        {report && (
-          <Button variant="outline" onClick={copyDiagnostics}>
-            <Copy className="mr-2 h-4 w-4" />
-            {t('health.copyDiagnostics')}
-          </Button>
-        )}
-      </div>
+          {isLoading && !report && (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+            </div>
+          )}
 
-      {loading && !report && (
-        <div className="text-center py-8">
-          <RefreshCw className="mx-auto h-8 w-8 animate-spin text-muted-foreground" />
-          <p className="mt-2 text-muted-foreground">{t('health.running')}</p>
+          {report && (
+            <div className="space-y-4">
+              <div className="text-sm text-muted-foreground mb-4">
+                Last checked: {new Date(report.timestamp).toLocaleString()}
+              </div>
+              
+              <div className="grid gap-4 md:grid-cols-2">
+                {report.checks.map((check) => (
+                  <Card key={check.name} className={`border ${getStatusColor(check.status)}`}>
+                    <CardHeader className="pb-3">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-base font-medium flex items-center">
+                          {getStatusIcon(check.status)}
+                          <span className="ml-2 capitalize">{check.name.replace(/_/g, ' ')}</span>
+                        </CardTitle>
+                        <Badge variant={getStatusBadgeVariant(check.status) as any}>
+                          {check.status.toUpperCase()}
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <p className="text-sm mb-2">{check.message}</p>
+                      
+                      {check.details && (
+                        <details className="text-xs text-muted-foreground">
+                          <summary className="cursor-pointer hover:text-foreground">Details</summary>
+                          <pre className="mt-2 whitespace-pre-wrap">{check.details}</pre>
+                        </details>
+                      )}
+                      
+                      {getFixSuggestion(check.name, check.status) && (
+                        <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-800">
+                          💡 {getFixSuggestion(check.name, check.status)}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
-      )}
-
-      {report && (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {Object.entries(report).map(([key, check]) => (
-            <Card key={key} className={`${getStatusColor(check.status)}`}>
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">{t(`health.checks.${key}.title`)}</CardTitle>
-                  {getStatusIcon(check.status)}
-                </div>
-                <CardDescription>
-                  {t(`health.checks.${key}.description`)}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2">
-                    <Badge variant={getStatusBadgeVariant(check.status)}>
-                      {t(`health.status.${check.status.toLowerCase()}`)}
-                    </Badge>
-                  </div>
-                  
-                  <p className="text-sm text-muted-foreground">
-                    {check.message}
-                  </p>
-                  
-                  {check.details && (
-                    <details className="text-xs">
-                      <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
-                        {t('health.showDetails')}
-                      </summary>
-                      <pre className="mt-2 p-2 bg-muted rounded text-xs overflow-auto">
-                        {JSON.stringify(check.details, null, 2)}
-                      </pre>
-                    </details>
-                  )}
-                  
-                  {getFixSuggestion(key, check.status) && (
-                    <div className="mt-3 p-2 bg-muted rounded">
-                      <p className="text-xs font-medium text-muted-foreground">
-                        {t('health.howToFix')}:
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {getFixSuggestion(key, check.status)}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      )}
+      </main>
+      
+      <Footer />
     </div>
   );
-}
+};
+
+export default Health;
