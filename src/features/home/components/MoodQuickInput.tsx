@@ -5,10 +5,12 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { SecureTextArea } from '@/components/forms/SecureTextArea';
 import { useSaveMood } from '../api/homeQueries';
+import { useSecureValidation } from '@/hooks/useSecureValidation';
+import { sanitizeInput } from '@/utils/security';
 
 interface MoodQuickInputProps {
   open: boolean;
@@ -21,14 +23,28 @@ export const MoodQuickInput = ({ open, onOpenChange }: MoodQuickInputProps) => {
   const [tags, setTags] = useState('');
   const [notes, setNotes] = useState('');
   const saveMood = useSaveMood();
+  const { validateSecurely, isValidating, lastValidation } = useSecureValidation();
 
   const handleSave = async () => {
-    const tagsArray = tags.split(',').map(tag => tag.trim()).filter(Boolean);
+    // Validate and sanitize inputs
+    const sanitizedTags = sanitizeInput(tags);
+    const sanitizedNotes = sanitizeInput(notes);
+    
+    // Validate content for security issues
+    if (sanitizedNotes) {
+      const validation = await validateSecurely(sanitizedNotes, 'message');
+      if (!validation.isValid || validation.crisisDetected) {
+        // If crisis detected, allow save but ensure proper handling in backend
+        console.log('Content flagged for review:', validation);
+      }
+    }
+    
+    const tagsArray = sanitizedTags.split(',').map(tag => sanitizeInput(tag.trim())).filter(Boolean);
     
     await saveMood.mutateAsync({
       mood_value: moodValue[0],
       tags: tagsArray.length > 0 ? tagsArray : undefined,
-      notes: notes.trim() || undefined,
+      notes: sanitizedNotes.trim() || undefined,
     });
 
     // Reset form
@@ -95,19 +111,21 @@ export const MoodQuickInput = ({ open, onOpenChange }: MoodQuickInputProps) => {
             <Input
               id="tags"
               value={tags}
-              onChange={(e) => setTags(e.target.value)}
+              onChange={(e) => setTags(sanitizeInput(e.target.value))}
               placeholder="happy, energetic, stressed"
+              maxLength={200}
             />
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="notes">{t('mood.notes')}</Label>
-            <Textarea
-              id="notes"
+            <SecureTextArea
               value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              onChange={setNotes}
               placeholder="How are you feeling today?"
-              rows={3}
+              contentType="message"
+              maxLength={1000}
+              showSecurityIndicator={true}
             />
           </div>
 
@@ -121,9 +139,9 @@ export const MoodQuickInput = ({ open, onOpenChange }: MoodQuickInputProps) => {
             </Button>
             <Button 
               onClick={handleSave}
-              disabled={saveMood.isPending}
+              disabled={saveMood.isPending || isValidating}
             >
-              {saveMood.isPending ? t('loading') : t('mood.save')}
+              {saveMood.isPending || isValidating ? t('loading') : t('mood.save')}
             </Button>
           </div>
         </div>
