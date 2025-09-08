@@ -24,9 +24,42 @@
   "thankYouForSharing": "Thank you for sharing how you feel",
   "startConversation": "Start conversation",
   "greeting": "Hello {{name}}!",
+  "greetingMorning": "Good morning, {{name}}",
+  "greetingAfternoon": "Good afternoon, {{name}}",
+  "greetingEvening": "Good evening, {{name}}",
+  "today": "Today",
   "streakCounter": "Streak: {{days}} days",
   "last7Days": "Last 7 days",
   "avgMood": "Average mood",
   "tasksCompleted": "Tasks completed",
-  "exercisesCompleted": "Exercises completed"
+  "exercisesCompleted": "Exercises completed",
+  "journal": {
+    "recent": "Recent Journal",
+    "noEntries": "No journal entries yet",
+    "emptyDescription": "Start writing to track your thoughts and feelings.",
+    "createFirst": "Create first entry",
+    "viewAll": "View all"
+  },
+  "tasks": {
+    "today": "Today's Tasks",
+    "noTasks": "No tasks for today",
+    "emptyDescription": "Create a wellness plan to get personalized daily tasks.",
+    "createPlan": "Create Plan",
+    "completed": "{{count}} of {{total}} completed",
+    "taskMarkedComplete": "Task completed",
+    "taskMarkedIncomplete": "Task marked as incomplete", 
+    "greatJob": "Great job!",
+    "toggleError": "Failed to update task"
+  },
+  "streak": {
+    "title": "Mood Streak",
+    "currentStreak": "Current streak: {{count}} days",
+    "longestStreak": "Longest streak: {{count}} days",
+    "keepGoing": "Keep it up!",
+    "getStarted": "Start tracking your mood daily to build a streak"
+  },
+  "error": {
+    "failed": "Failed to load data",
+    "retry": "Try again"
+  }
 }

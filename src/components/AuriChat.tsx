@@ -296,6 +296,9 @@ const AuriChat = () => {
       </div>
     );
   }
+
+  return (
+    <div className="flex flex-col h-full max-w-4xl mx-auto">
       {/* Chat Header */}
       <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-aura mb-4">
         <div className="flex items-center justify-between">

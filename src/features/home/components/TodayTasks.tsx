@@ -5,11 +5,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Skeleton } from '@/components/ui/skeleton';
+import { EmptyState } from '@/components/EmptyState';
+import { useToast } from '@/hooks/use-toast';
 import { useActivePlan, useTodayTasks, useToggleTask } from '../api/homeQueries';
 
 export const TodayTasks = () => {
   const { t } = useTranslation('home');
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { data: activePlan, isLoading: planLoading } = useActivePlan();
   const { data: tasks, isLoading: tasksLoading, error, refetch } = useTodayTasks(activePlan?.id);
   const toggleTask = useToggleTask();
@@ -19,7 +22,19 @@ export const TodayTasks = () => {
   const totalCount = tasks?.length || 0;
 
   const handleToggleTask = async (taskId: string, currentDone: boolean) => {
-    await toggleTask.mutateAsync({ taskId, done: !currentDone });
+    try {
+      await toggleTask.mutateAsync({ taskId, done: !currentDone });
+      toast({
+        title: currentDone ? t('tasks.taskMarkedIncomplete') : t('tasks.taskMarkedComplete'),
+        description: !currentDone ? t('tasks.greatJob') : undefined,
+      });
+    } catch (error) {
+      toast({
+        title: t('common.error'),
+        description: t('tasks.toggleError'),
+        variant: 'destructive',
+      });
+    }
   };
 
   if (isLoading) {
@@ -72,21 +87,23 @@ export const TodayTasks = () => {
           <CardTitle className="text-sm font-medium">{t('tasks.today')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-6">
-            <CheckSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-            <p className="text-sm text-muted-foreground mb-3">
-              {t('tasks.noTasks')}
-            </p>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/plan')}
-              className="gap-1"
-            >
-              <Plus className="h-3 w-3" />
-              {t('tasks.createPlan')}
-            </Button>
-          </div>
+          <EmptyState
+            icon={CheckSquare}
+            titleKey="tasks.noTasks"
+            descriptionKey="tasks.emptyDescription"
+            namespace="home"
+            action={
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/plan')}
+                className="gap-1"
+              >
+                <Plus className="h-3 w-3" />
+                {t('tasks.createPlan')}
+              </Button>
+            }
+          />
         </CardContent>
       </Card>
     );

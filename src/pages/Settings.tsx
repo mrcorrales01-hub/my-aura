@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from '@/features/settings/LanguageSwitcher';
+import { TTSSettings } from '@/features/settings/components/TTSSettings';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { DemoControls } from '@/components/DemoControls';
@@ -12,6 +13,15 @@ import { useDataExport } from '@/hooks/useDataExport';
 const Settings = () => {
   const { t } = useTranslation(['settings']);
   const { exportUserData, isExporting } = useDataExport();
+  
+  const [ttsEnabled, setTtsEnabled] = React.useState(() => {
+    return localStorage.getItem('tts-enabled') === 'true';
+  });
+
+  const handleTTSChange = (enabled: boolean) => {
+    setTtsEnabled(enabled);
+    localStorage.setItem('tts-enabled', enabled.toString());
+  };
 
   return (
     <div className="min-h-screen">
@@ -21,6 +31,7 @@ const Settings = () => {
         
         <div className="max-w-2xl space-y-6">
           <LanguageSwitcher />
+          <TTSSettings enabled={ttsEnabled} onEnabledChange={handleTTSChange} />
           <DemoControls />
           
           <Card>

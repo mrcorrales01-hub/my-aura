@@ -41,10 +41,12 @@
   "common": {
     "new": "New",
     "error": "An error occurred",
+    "success": "Success",
     "retry": "Try Again",
     "cancel": "Cancel",
     "save": "Save", 
-    "required": "This field is required"
+    "required": "This field is required",
+    "back": "Back"
   },
   "langSwitcher": {
     "title": "Select Language",
@@ -118,5 +120,16 @@
     "seedItem2": "5 mood logs spread over the last 7 days",
     "seedItem3": "2 journal entries with sample content",
     "seedItem4": "3 exercises (if table is empty)"
+  },
+  "healthOk": "System online",
+  "healthDemo": "Demo mode - limited functionality",
+  "healthError": "System error - some features may not work",
+  "systemHealth": "System Health",
+  "loading": "Loading...",
+  "trust": {
+    "secure": "Secure",
+    "title": "Your Privacy Matters",
+    "description": "Your data is protected with row-level security and encryption.", 
+    "actions": "Click to view settings and export data."
   }
 }

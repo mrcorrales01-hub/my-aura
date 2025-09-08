@@ -8,6 +8,8 @@ import { RecentJournal } from '@/features/home/components/RecentJournal';
 import { TodayTasks } from '@/features/home/components/TodayTasks';
 import { ExerciseCard } from '@/features/home/components/ExerciseCard';
 import { CrisisCard } from '@/features/home/components/CrisisCard';
+import { StreakHeatmap } from '@/features/mood/components/StreakHeatmap';
+import RecommendedExercises from '@/features/reco/RecommendedExercises';
 
 const AuraHome = () => {
   const { user, loading } = useAuthContext();
@@ -46,6 +48,11 @@ const AuraHome = () => {
 
         {/* Data Panels - Responsive Grid */}
         <div className="grid gap-4 md:gap-6">
+          {/* Streak Heatmap - Full width on mobile, positioned prominently */}
+          <div className="col-span-full">
+            <StreakHeatmap />
+          </div>
+          
           {/* Mobile: Stack all cards */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {/* Mood Chart - Spans 2 columns on larger screens */}
@@ -63,9 +70,9 @@ const AuraHome = () => {
               <TodayTasks />
             </div>
 
-            {/* Exercise Card */}
+            {/* Recommended Exercises */}
             <div className="lg:col-span-1">
-              <ExerciseCard />
+              <RecommendedExercises />
             </div>
           </div>
 

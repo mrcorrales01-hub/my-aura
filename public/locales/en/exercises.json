@@ -8,11 +8,25 @@
   "wellDone": "Well done! You've taken a step for your wellbeing.",
   "min": "min",
   "empty": "No suggestions yet. Log your moods for better recommendations.",
+  "emptyDescription": "Check back later for personalized exercise recommendations.",
+  "browse": "Browse all exercises",
+  "enjoy": "Enjoy your wellness practice!",
+  "startError": "Failed to start exercise. Please try again.",
   "viewAll": "View all exercises",
   "pause": "Pause",
   "resume": "Resume",
   "reset": "Reset",
   "finish": "Finish",
   "steps": "Steps",
-  "notFound": "Exercise not found"
+  "notFound": "Exercise not found",
+  "breathing": {
+    "phases": {
+      "inhale": "Inhale",
+      "hold1": "Hold",
+      "exhale": "Exhale", 
+      "hold2": "Hold"
+    },
+    "progress": "Progress",
+    "start": "Start"
+  }
 }

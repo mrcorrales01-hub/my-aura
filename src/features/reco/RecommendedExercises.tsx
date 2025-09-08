@@ -5,11 +5,15 @@ import { Play, Clock, CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { EmptyState } from '@/components/EmptyState';
+import { BreathingRing } from '@/features/exercises/components/BreathingRing';
+import { useToast } from '@/hooks/use-toast';
 import { useRecommendedExercises, useLogExerciseSession } from './api';
 
 const RecommendedExercises: React.FC = () => {
   const { t, i18n } = useTranslation(['exercises', 'common']);
   const navigate = useNavigate();
+  const { toast } = useToast();
   const { data: exercises, isLoading, error } = useRecommendedExercises();
   const logExerciseSession = useLogExerciseSession();
 
@@ -25,10 +29,19 @@ const RecommendedExercises: React.FC = () => {
   const handleStartExercise = async (exerciseId: string, slug: string) => {
     try {
       await logExerciseSession.mutateAsync(exerciseId);
+      toast({
+        title: t('exercises:started'),
+        description: t('exercises:enjoy'),
+      });
       // Navigate to exercise player
       navigate(`/exercises/${slug}`);
     } catch (error) {
       console.error('Failed to start exercise:', error);
+      toast({
+        title: t('common:error'),
+        description: t('exercises:startError'),
+        variant: 'destructive',
+      });
     }
   };
 
@@ -70,9 +83,21 @@ const RecommendedExercises: React.FC = () => {
           <CardTitle>{t('exercises:suggested')}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground text-sm">
-            {t('exercises:empty')}
-          </p>
+          <EmptyState
+            icon={Play}
+            titleKey="exercises.empty"
+            descriptionKey="exercises.emptyDescription"
+            namespace="exercises"
+            action={
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/exercises')}
+              >
+                {t('exercises:browse')}
+              </Button>
+            }
+          />
         </CardContent>
       </Card>
     );

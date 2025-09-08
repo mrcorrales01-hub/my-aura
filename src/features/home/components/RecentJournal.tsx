@@ -4,6 +4,7 @@ import { BookOpen, Plus } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { EmptyState } from '@/components/EmptyState';
 import { useRecentJournalEntries } from '../api/homeQueries';
 
 export const RecentJournal = () => {
@@ -78,21 +79,23 @@ export const RecentJournal = () => {
       </CardHeader>
       <CardContent>
         {!entries || entries.length === 0 ? (
-          <div className="text-center py-6">
-            <BookOpen className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-            <p className="text-sm text-muted-foreground mb-3">
-              {t('journal.noEntries')}
-            </p>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => navigate('/journal')}
-              className="gap-1"
-            >
-              <Plus className="h-3 w-3" />
-              {t('journal.createFirst')}
-            </Button>
-          </div>
+          <EmptyState
+            icon={BookOpen}
+            titleKey="journal.noEntries"
+            descriptionKey="journal.emptyDescription"
+            namespace="home"
+            action={
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate('/journal')}
+                className="gap-1"
+              >
+                <Plus className="h-3 w-3" />
+                {t('journal.createFirst')}
+              </Button>
+            }
+          />
         ) : (
           <div className="space-y-3">
             {entries.map((entry) => (

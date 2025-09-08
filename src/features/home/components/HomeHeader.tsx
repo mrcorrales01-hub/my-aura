@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
+import { TrustBadge } from '@/components/TrustBadge';
 
 export const HomeHeader = () => {
   const { t, i18n } = useTranslation(['home', 'common']);
@@ -46,7 +47,10 @@ export const HomeHeader = () => {
           </p>
         </div>
 
-        <LanguageSwitcher />
+        <div className="flex items-center gap-2">
+          <TrustBadge variant="header" />
+          <LanguageSwitcher />
+        </div>
       </div>
     </header>
   );
