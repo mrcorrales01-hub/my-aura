@@ -303,13 +303,13 @@ const AuriChat = () => {
       <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-aura mb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-aura-gradient flex items-center justify-center aura-glow">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center">
               <Heart className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="font-semibold text-aura-primary">{t('auri.title')}</h3>
-              <p className="text-sm text-foreground/70">
-                {isLoading ? t('auri.thinking') : t('auri.subtitle')}
+              <h3 className="font-semibold text-primary">{t('auri:title') || 'Auri'}</h3>
+              <p className="text-sm text-muted-foreground">
+                {isLoading ? (t('auri:thinking') || 'Thinking...') : (t('auri:subtitle') || 'Your AI wellness coach')}
               </p>
             </div>
           </div>
@@ -317,15 +317,15 @@ const AuriChat = () => {
             <TrustBadge variant="chat" />
             <Button onClick={startNewChat} variant="outline" size="sm">
               <Plus className="w-4 h-4 mr-2" />
-              {t('auri.newChat')}
+              {t('auri:newChat') || 'New Chat'}
             </Button>
             {currentSessionId && (
               <Button onClick={exportChat} variant="outline" size="sm">
                 <Download className="w-4 h-4 mr-2" />
-                {t('auri.exportChat')}
+                {t('auri:exportChat') || 'Export'}
               </Button>
             )}
-            <Badge variant="secondary" className="bg-aura-secondary/20 text-aura-secondary border-0 flex items-center">
+            <Badge variant="secondary" className="flex items-center">
               <Brain className="w-3 h-3 mr-1" />
               AI Powered
             </Badge>
@@ -335,7 +335,9 @@ const AuriChat = () => {
 
       {/* Quick Actions */}
       <QuickActions onExerciseStart={handleExerciseStart} />
-      <Card className="flex-1 p-0 bg-white/80 backdrop-blur-sm border-0 shadow-aura overflow-hidden">
+      
+      {/* Chat Messages */}
+      <Card className="flex-1 p-0 bg-white/80 backdrop-blur-sm border-0 shadow-lg overflow-hidden">
         <ScrollArea className="h-full p-4" ref={scrollAreaRef}>
           <div className="space-y-4">
             {messages.map((message) => (
@@ -346,32 +348,30 @@ const AuriChat = () => {
                 <div
                   className={`max-w-[70%] p-4 rounded-lg ${
                     message.role === 'user'
-                      ? 'bg-aura-primary text-white shadow-aura'
-                      : 'bg-aura-calm/50 text-foreground border border-aura-calm'
+                      ? 'bg-primary text-primary-foreground shadow-md'
+                      : 'bg-muted text-foreground border'
                   }`}
                 >
                   {message.role === 'assistant' && (
                     <div className="flex items-center space-x-2 mb-2">
-                      <Heart className="w-4 h-4 text-aura-primary" />
-                      <span className="text-sm font-medium text-aura-primary">Auri</span>
+                      <Heart className="w-4 h-4 text-primary" />
+                      <span className="text-sm font-medium text-primary">Auri</span>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => isSpeaking ? stopSpeaking() : speakMessage(message.content)}
-                        className="h-6 w-6 p-0 hover:bg-aura-primary/10"
+                        className="h-6 w-6 p-0 hover:bg-primary/10"
                       >
                         {isSpeaking ? (
-                          <VolumeX className="w-3 h-3 text-aura-primary" />
+                          <VolumeX className="w-3 h-3 text-primary" />
                         ) : (
-                          <Volume2 className="w-3 h-3 text-aura-primary" />
+                          <Volume2 className="w-3 h-3 text-primary" />
                         )}
                       </Button>
                     </div>
                   )}
-                  <p className="text-sm leading-relaxed">{message.content}</p>
-                  <p className={`text-xs mt-2 ${
-                    message.role === 'user' ? 'text-white/70' : 'text-foreground/50'
-                  }`}>
+                  <p className="text-sm leading-relaxed">{message.content || streamingText}</p>
+                  <p className={`text-xs mt-2 opacity-70`}>
                     {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                   </p>
                 </div>
@@ -380,10 +380,10 @@ const AuriChat = () => {
             
             {isLoading && (
               <div className="flex justify-start">
-                <div className="bg-aura-calm/50 p-4 rounded-lg border border-aura-calm">
+                <div className="bg-muted p-4 rounded-lg border">
                   <div className="flex items-center space-x-2">
-                    <Loader2 className="w-4 h-4 animate-spin text-aura-primary" />
-                    <span className="text-sm text-aura-primary">{t('auri.thinking')}</span>
+                    <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                    <span className="text-sm text-primary">{t('auri:thinking') || 'Thinking...'}</span>
                   </div>
                 </div>
               </div>
@@ -393,14 +393,14 @@ const AuriChat = () => {
       </Card>
 
       {/* Input */}
-      <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-aura mt-4">
+      <Card className="p-4 bg-white/80 backdrop-blur-sm border-0 shadow-lg mt-4">
         <form onSubmit={handleSubmit} className="flex items-center space-x-2">
           <div className="flex-1">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={t('auri.placeholder')}
-              className="border-aura-calm/50 focus:ring-aura-primary focus:border-aura-primary"
+              placeholder={t('auri:placeholder') || 'Type your message...'}
+              className="focus:ring-primary focus:border-primary"
               disabled={isLoading}
             />
           </div>
@@ -411,11 +411,7 @@ const AuriChat = () => {
             size="sm"
             onClick={toggleListening}
             disabled={isLoading}
-            className={`border-aura-primary/20 ${
-              isListening 
-                ? 'bg-aura-primary text-white' 
-                : 'text-aura-primary hover:bg-aura-primary hover:text-white'
-            }`}
+            className={isListening ? 'bg-primary text-primary-foreground' : ''}
           >
             {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
           </Button>
@@ -423,7 +419,7 @@ const AuriChat = () => {
           <Button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="bg-aura-primary hover:bg-aura-primary/90 text-white"
+            className="bg-primary hover:bg-primary/90"
           >
             {isLoading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -433,8 +429,8 @@ const AuriChat = () => {
           </Button>
         </form>
         
-        <p className="text-xs text-foreground/50 mt-2 text-center">
-          {t('auri.disclaimer')}
+        <p className="text-xs text-muted-foreground mt-2 text-center">
+          {t('auri:disclaimer') || 'AI responses are for informational purposes only'}
         </p>
       </Card>
     </div>
