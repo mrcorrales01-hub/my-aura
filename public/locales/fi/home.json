@@ -24,9 +24,20 @@
   "thankYouForSharing": "Kiitos että jaat miltä sinusta tuntuu",
   "startConversation": "Aloita keskustelu",
   "greeting": "Hei {{name}}!",
+  "greetingMorning": "Hyvää huomenta, {{name}}",
+  "greetingAfternoon": "Hyvää iltapäivää, {{name}}",
+  "greetingEvening": "Hyvää iltaa, {{name}}",
+  "today": "Tänään",
   "streakCounter": "Putki: {{days}} päivää",
   "last7Days": "Viimeiset 7 päivää",
   "avgMood": "Keskimääräinen mieliala",
   "tasksCompleted": "Tehtävät valmiit",
-  "exercisesCompleted": "Harjoitukset valmiit"
+  "exercisesCompleted": "Harjoitukset valmiit",
+  "quickMood": "Nopea check-in",
+  "recommended": "Suositellut harjoitukset",
+  "recentJournal": "Viimeaikainen päiväkirja",
+  "todaysTasks": "Tämän päivän tehtävät",
+  "crisisHelp": "Tarvitsetko tukea nyt?",
+  "openCrisis": "Avaa kriisituki",
+  "startRoleplay": "Aloita roolipeli"
 }

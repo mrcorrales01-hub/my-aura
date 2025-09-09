@@ -33,6 +33,13 @@
   "avgMood": "Average mood",
   "tasksCompleted": "Tasks completed",
   "exercisesCompleted": "Exercises completed",
+  "quickMood": "Quick check-in",
+  "recommended": "Recommended exercises",
+  "recentJournal": "Recent journal",
+  "todaysTasks": "Today's tasks",
+  "crisisHelp": "Need support now?",
+  "openCrisis": "Open crisis support",
+  "startRoleplay": "Start roleplay",
   "journal": {
     "recent": "Recent Journal",
     "noEntries": "No journal entries yet",

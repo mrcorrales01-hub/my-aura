@@ -24,9 +24,20 @@
   "thankYouForSharing": "Gracias por compartir cómo te sientes",
   "startConversation": "Iniciar conversación",
   "greeting": "¡Hola {{name}}!",
+  "greetingMorning": "Buenos días, {{name}}",
+  "greetingAfternoon": "Buenas tardes, {{name}}",
+  "greetingEvening": "Buenas noches, {{name}}",
+  "today": "Hoy",
   "streakCounter": "Racha: {{days}} días",
   "last7Days": "Últimos 7 días",
   "avgMood": "Estado de ánimo promedio",
   "tasksCompleted": "Tareas completadas",
-  "exercisesCompleted": "Ejercicios completados"
+  "exercisesCompleted": "Ejercicios completados",
+  "quickMood": "Check-in rápido",
+  "recommended": "Ejercicios recomendados",
+  "recentJournal": "Diario reciente",
+  "todaysTasks": "Tareas de hoy", 
+  "crisisHelp": "¿Necesitas apoyo ahora?",
+  "openCrisis": "Abrir apoyo de crisis",
+  "startRoleplay": "Iniciar juego de rol"
 }

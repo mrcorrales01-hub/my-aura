@@ -3,12 +3,13 @@ import { Card } from '@/components/Card';
 import { Button } from '@/components/ui/button';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
-import { Heart, MessageCircle, BookOpen, CheckSquare, Phone } from 'lucide-react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { Heart, MessageCircle, BookOpen, CheckSquare, Phone, Users } from 'lucide-react';
 
 const NewAuraHome = () => {
   const { t } = useTranslation(['home', 'common']);
   const { user, loading } = useAuthContext();
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -34,9 +35,31 @@ const NewAuraHome = () => {
         </p>
       </div>
 
+      {/* Hero Cards - Auri & Roleplay */}
+      <div className="grid gap-4 md:grid-cols-2">
+        <Card className="hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-lg font-semibold">{t('home:chatWithAuri')}</h3>
+              <p className="text-sm text-muted-foreground">AI coach i realtid</p>
+            </div>
+            <Button onClick={() => navigate('/chat')}>{t('home:tryNow')}</Button>
+          </div>
+        </Card>
+
+        <Card className="hover:shadow-md transition-shadow">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <h3 className="text-lg font-semibold">{t('home:startRoleplay')}</h3>
+              <p className="text-sm text-muted-foreground">Öva svåra samtal – stegvis</p>
+            </div>
+            <Button onClick={() => navigate('/roleplay')}>{t('home:tryNow')}</Button>
+          </div>
+        </Card>
+      </div>
+
       {/* Grid Layout */}
       <div className="grid gap-4 md:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        
         {/* Quick Mood Check */}
         <Card className="hover:shadow-md transition-shadow">
           <div className="flex items-center gap-3 mb-3">
@@ -121,6 +144,7 @@ const NewAuraHome = () => {
           <Button 
             className="w-full bg-red-600 hover:bg-red-700 text-white"
             size="sm"
+            onClick={() => navigate('/crisis')}
           >
             {t('home:openCrisis')}
           </Button>

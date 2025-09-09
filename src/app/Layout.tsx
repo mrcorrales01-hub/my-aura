@@ -7,6 +7,7 @@ import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { HeaderNav } from '@/components/HeaderNav';
 import { HeaderAuthStatus } from '@/components/HeaderAuthStatus';
 import AppBrand from '@/components/AppBrand';
+import BottomTabBar from '@/components/BottomTabBar';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -77,9 +78,11 @@ export const Layout = ({ children }: LayoutProps) => {
         </div>
       </header>
 
-      <main id="main-content" className="container mx-auto px-4 py-6">
+      <main id="main-content" className="container mx-auto px-4 py-6 pb-20 md:pb-6">
         {children}
       </main>
+      
+      <BottomTabBar t={t} />
     </div>
   );
 };

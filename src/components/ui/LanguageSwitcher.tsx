@@ -2,12 +2,18 @@ import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { SUPPORTED_LANGUAGES } from '@/lib/i18n/index';
+import { supabase } from '@/integrations/supabase/client';
 
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
 
-  const handleLanguageChange = (language: string) => {
-    i18n.changeLanguage(language);
+  const handleLanguageChange = async (language: string) => {
+    await i18n.changeLanguage(language);
+    localStorage.setItem('aura.lang', language);
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session?.user) {
+      await supabase.from('profiles').update({ language_preference: language }).eq('id', session.user.id);
+    }
   };
 
   return (

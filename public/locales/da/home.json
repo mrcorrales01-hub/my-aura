@@ -24,9 +24,20 @@
   "thankYouForSharing": "Tak for at dele, hvordan du har det",
   "startConversation": "Start samtale",
   "greeting": "Hej {{name}}!",
+  "greetingMorning": "God morgen, {{name}}",
+  "greetingAfternoon": "God eftermiddag, {{name}}",
+  "greetingEvening": "God aften, {{name}}",
+  "today": "I dag",
   "streakCounter": "Streak: {{days}} dage",
   "last7Days": "Seneste 7 dage",
   "avgMood": "Gennemsnitligt humør",
   "tasksCompleted": "Opgaver færdige",
-  "exercisesCompleted": "Øvelser færdige"
+  "exercisesCompleted": "Øvelser færdige",
+  "quickMood": "Hurtig check-in",
+  "recommended": "Anbefalede øvelser",
+  "recentJournal": "Seneste dagbok",
+  "todaysTasks": "Dagens opgaver",
+  "crisisHelp": "Har du brug for støtte nu?",
+  "openCrisis": "Åbn krisestøtte",
+  "startRoleplay": "Start rollespil"
 }

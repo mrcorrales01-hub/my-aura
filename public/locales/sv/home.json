@@ -28,5 +28,16 @@
   "last7Days": "Senaste 7 dagarna",
   "avgMood": "Genomsnittligt humör",
   "tasksCompleted": "Uppgifter klara",
-  "exercisesCompleted": "Övningar klara"
+  "exercisesCompleted": "Övningar klara",
+  "greetingMorning": "God morgon, {{name}}",
+  "greetingAfternoon": "God eftermiddag, {{name}}",
+  "greetingEvening": "God kväll, {{name}}",
+  "today": "Idag",
+  "quickMood": "Snabb check-in",
+  "recommended": "Rekommenderade övningar",
+  "recentJournal": "Senaste dagbok",
+  "todaysTasks": "Dagens uppgifter",
+  "crisisHelp": "Behöver du stöd nu?",
+  "openCrisis": "Öppna krisstöd",
+  "startRoleplay": "Starta rollspel"
 }
