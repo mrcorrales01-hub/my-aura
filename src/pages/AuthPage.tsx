@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { AlertCircle } from 'lucide-react';
+import AppBrand from '@/components/AppBrand';
 
 const AuthPage = () => {
   const { t } = useTranslation(['common', 'auth']);
@@ -87,7 +88,7 @@ const AuthPage = () => {
             <span className="text-white font-bold text-2xl">A</span>
           </div>
           <CardTitle className="text-2xl">
-            {isSignUp ? t('auth:signupTitle') : t('auth:signinTitle')}
+            <AppBrand />
           </CardTitle>
           <CardDescription>
             {isSignUp 

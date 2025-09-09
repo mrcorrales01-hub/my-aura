@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { HeaderStatusBadge } from '@/components/HeaderStatusBadge';
+import AppBrand from '@/components/AppBrand';
 
 export function Navbar() {
   const { user, signOut } = useAuthContext();
@@ -23,7 +24,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link to="/" className="text-xl font-bold text-primary">
-            My Aura 2.0
+            <AppBrand />
           </Link>
           
           <div className="flex items-center space-x-4">

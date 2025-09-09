@@ -1,4 +1,10 @@
 {
+  "appName": "My Aura",
+  "authStatus": {
+    "loggedOut": "Login required",
+    "loggedIn": "Signed in"
+  },
+  "language": "Language",
   "nav": {
     "dashboard": "Dashboard",
     "loginRequired": "Login required",
@@ -28,9 +34,6 @@
     "login": "Login",
     "logout": "Logout",
     "signup": "Sign Up"
-  },
-  "app": {
-    "name": "My Aura"
   },
   "auri": {
     "title": "Auri"

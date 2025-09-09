@@ -1,4 +1,10 @@
 {
+  "appName": "My Aura",
+  "authStatus": {
+    "loggedOut": "Inloggning krävs",
+    "loggedIn": "Inloggad"
+  },
+  "language": "Språk",
   "nav": {
     "dashboard": "Översikt",
     "loginRequired": "Inloggning krävs",
@@ -28,9 +34,6 @@
     "login": "Logga in",
     "logout": "Logga ut",
     "signup": "Registrera dig"
-  },
-  "app": {
-    "name": "My Aura"
   },
   "auri": {
     "title": "Auri"

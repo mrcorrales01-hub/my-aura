@@ -9,6 +9,7 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { supabase } from '@/lib/supabase';
 import { useNavigate } from 'react-router-dom';
+import AppBrand from '@/components/AppBrand';
 
 export function AuthForm() {
   const { t } = useTranslation(['auth', 'common']);
@@ -74,7 +75,9 @@ export function AuthForm() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/10 to-secondary/10">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-primary">{t('common:appName')}</CardTitle>
+          <CardTitle className="text-2xl font-bold text-primary">
+            <AppBrand />
+          </CardTitle>
           <CardDescription>{t('auth:welcome')}</CardDescription>
         </CardHeader>
         <CardContent>

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { HeaderNav } from '@/components/HeaderNav';
 import { HeaderAuthStatus } from '@/components/HeaderAuthStatus';
+import AppBrand from '@/components/AppBrand';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -39,7 +40,7 @@ export const Layout = ({ children }: LayoutProps) => {
               className="inline-flex items-center gap-2 text-lg font-semibold text-foreground hover:text-primary transition-colors"
             >
               <Heart className="h-5 w-5 text-primary" />
-              {t('common:appName')}
+              <AppBrand />
             </Link>
 
             {/* Navigation */}
