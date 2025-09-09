@@ -122,5 +122,10 @@
     "seedItem2": "5 mielialalogia jaettuna viimeisten 7 päivän ajalle",
     "seedItem3": "2 päiväkirjamerkintää esimerkkisisällöllä",
     "seedItem4": "3 harjoitusta (jos taulukko on tyhjä)"
-  }
+  },
+  "authStatus": {
+    "loggedOut": "Kirjautuminen vaaditaan",
+    "loggedIn": "Kirjautunut sisään"
+  },
+  "appName": "My Aura"
 }

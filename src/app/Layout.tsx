@@ -5,13 +5,14 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { HeaderNav } from '@/components/HeaderNav';
+import { HeaderAuthStatus } from '@/components/HeaderAuthStatus';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout = ({ children }: LayoutProps) => {
-  const { t } = useTranslation(['common', 'nav']);
+  const { t } = useTranslation(['common', 'nav', 'auth']);
   const { user, signOut } = useAuthContext();
   const location = useLocation();
 
@@ -38,7 +39,7 @@ export const Layout = ({ children }: LayoutProps) => {
               className="inline-flex items-center gap-2 text-lg font-semibold text-foreground hover:text-primary transition-colors"
             >
               <Heart className="h-5 w-5 text-primary" />
-              Aura
+              {t('common:appName')}
             </Link>
 
             {/* Navigation */}
@@ -47,6 +48,7 @@ export const Layout = ({ children }: LayoutProps) => {
             {/* Right side */}
             <div className="flex items-center gap-2">
               <LanguageSwitcher />
+              <HeaderAuthStatus />
               
               <Button 
                 asChild 
@@ -59,7 +61,7 @@ export const Layout = ({ children }: LayoutProps) => {
                 </Link>
               </Button>
               
-              {user ? (
+              {user && (
                 <Button 
                   onClick={handleSignOut} 
                   variant="ghost" 
@@ -67,17 +69,6 @@ export const Layout = ({ children }: LayoutProps) => {
                   className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-muted"
                 >
                   {t('auth:logout')}
-                </Button>
-              ) : (
-                <Button 
-                  asChild 
-                  variant="default" 
-                  size="sm"
-                  className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm"
-                >
-                  <Link to="/auth">
-                    {t('auth:signin')}
-                  </Link>
                 </Button>
               )}
             </div>

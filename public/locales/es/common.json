@@ -122,5 +122,10 @@
     "seedItem2": "5 registros de estado de ánimo distribuidos en los últimos 7 días",
     "seedItem3": "2 entradas de diario con contenido de muestra",
     "seedItem4": "3 ejercicios (si la tabla está vacía)"
-  }
+  },
+  "authStatus": {
+    "loggedOut": "Inicio de sesión requerido",
+    "loggedIn": "Conectado"
+  },
+  "appName": "My Aura"
 }

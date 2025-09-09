@@ -122,5 +122,10 @@
     "seedItem2": "5 humørlogger fordelt over de sidste 7 dage",
     "seedItem3": "2 dagbogsindtastninger med eksempelindhold",
     "seedItem4": "3 øvelser (hvis tabellen er tom)"
-  }
+  },
+  "authStatus": {
+    "loggedOut": "Login påkrævet",
+    "loggedIn": "Logget ind"
+  },
+  "appName": "My Aura"
 }

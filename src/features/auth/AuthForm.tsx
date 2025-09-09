@@ -11,7 +11,7 @@ import { supabase } from '@/lib/supabase';
 import { useNavigate } from 'react-router-dom';
 
 export function AuthForm() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['auth', 'common']);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -74,20 +74,20 @@ export function AuthForm() {
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-primary/10 to-secondary/10">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl font-bold text-primary">My Aura 2.0</CardTitle>
-          <CardDescription>{t('auth.welcome')}</CardDescription>
+          <CardTitle className="text-2xl font-bold text-primary">{t('common:appName')}</CardTitle>
+          <CardDescription>{t('auth:welcome')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="signin" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">{t('auth.signin')}</TabsTrigger>
-              <TabsTrigger value="signup">{t('auth.signup')}</TabsTrigger>
+              <TabsTrigger value="signin">{t('auth:signin')}</TabsTrigger>
+              <TabsTrigger value="signup">{t('auth:signup')}</TabsTrigger>
             </TabsList>
             
             <TabsContent value="signin" className="space-y-4 mt-6">
               <form onSubmit={handleSignIn} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">{t('auth.email')}</Label>
+                  <Label htmlFor="email">{t('auth:email')}</Label>
                   <Input
                     id="email"
                     type="email"
@@ -97,7 +97,7 @@ export function AuthForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="password">{t('auth.password')}</Label>
+                  <Label htmlFor="password">{t('auth:password')}</Label>
                   <Input
                     id="password"
                     type="password"
@@ -108,7 +108,7 @@ export function AuthForm() {
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {t('auth.signin')}
+                  {t('auth:signin')}
                 </Button>
               </form>
             </TabsContent>
@@ -116,7 +116,7 @@ export function AuthForm() {
             <TabsContent value="signup" className="space-y-4 mt-6">
               <form onSubmit={handleSignUp} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">{t('auth.email')}</Label>
+                  <Label htmlFor="signup-email">{t('auth:email')}</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -126,7 +126,7 @@ export function AuthForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">{t('auth.password')}</Label>
+                  <Label htmlFor="signup-password">{t('auth:password')}</Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -136,7 +136,7 @@ export function AuthForm() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password">{t('auth.confirmPassword')}</Label>
+                  <Label htmlFor="confirm-password">{t('auth:confirmPassword')}</Label>
                   <Input
                     id="confirm-password"
                     type="password"
@@ -147,7 +147,7 @@ export function AuthForm() {
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
                   {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  {t('auth.signup')}
+                  {t('auth:signup')}
                 </Button>
               </form>
             </TabsContent>

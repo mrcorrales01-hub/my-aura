@@ -48,24 +48,24 @@ const AuthPage = () => {
         });
         
         if (error) {
-          if (error.message.includes('already registered')) {
-            setError('Den här e-postadressen är redan registrerad. Försök logga in istället.');
-          } else {
-            setError(error.message);
-          }
+        if (error.message.includes('already registered')) {
+          setError(t('common:validation.userExists'));
+        } else {
+          setError(error.message);
+        }
         }
       } else {
         const { error } = await signIn(email, password);
         if (error) {
-          if (error.message.includes('Invalid login credentials')) {
-            setError('Fel e-postadress eller lösenord. Försök igen.');
-          } else {
-            setError(error.message);
-          }
+        if (error.message.includes('Invalid login credentials')) {
+          setError(t('common:validation.invalidCredentials'));
+        } else {
+          setError(error.message);
+        }
         }
       }
     } catch (err: any) {
-      setError(err.message || 'Ett oväntat fel uppstod');
+      setError(err.message || t('common:status.error'));
     } finally {
       setIsSubmitting(false);
     }
@@ -87,12 +87,12 @@ const AuthPage = () => {
             <span className="text-white font-bold text-2xl">A</span>
           </div>
           <CardTitle className="text-2xl">
-            {isSignUp ? 'Skapa konto' : 'Välkommen tillbaka'}
+            {isSignUp ? t('auth:signupTitle') : t('auth:signinTitle')}
           </CardTitle>
           <CardDescription>
             {isSignUp 
-              ? 'Börja din mentala hälsoresan med My Aura' 
-              : 'Logga in på ditt My Aura-konto'
+              ? t('auth:signupDesc')
+              : t('auth:signinDesc')
             }
           </CardDescription>
         </CardHeader>
@@ -101,13 +101,13 @@ const AuthPage = () => {
           <form onSubmit={handleSubmit} className="space-y-4">
             {isSignUp && (
               <div className="space-y-2">
-                <Label htmlFor="fullName">Fullständigt namn</Label>
+                <Label htmlFor="fullName">{t('auth:fullName')}</Label>
                 <Input
                   id="fullName"
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  placeholder="Ditt namn"
+                  placeholder={t('auth:fullName')}
                 />
               </div>
             )}
@@ -165,7 +165,7 @@ const AuthPage = () => {
               {isSubmitting ? (
                 <>
                   <LoadingSpinner size="sm" className="mr-2" />
-                  {isSignUp ? 'Skapar konto...' : 'Loggar in...'}
+                  {isSignUp ? t('common:status.saving') : t('common:status.loading')}
                 </>
               ) : (
                 isSignUp ? t('auth:signup') : t('auth:signin')
@@ -185,8 +185,8 @@ const AuthPage = () => {
               className="text-sm"
             >
               {isSignUp 
-                ? 'Har du redan ett konto? Logga in' 
-                : 'Inget konto? Skapa ett nu'
+                ? t('auth:haveAccount') + ' ' + t('auth:signin')
+                : t('auth:needAccount') + ' ' + t('auth:signup')
               }
             </Button>
           </div>
