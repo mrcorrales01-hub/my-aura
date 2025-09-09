@@ -1,0 +1,9 @@
+{
+  "title": "My Aura 2.0 Terveys",
+  "edgeChat": "Auri chat-toiminto",
+  "edgeRoleplay": "Roolipeli-toiminto",
+  "i18n": "Kielipaketit",
+  "env": "Ympäristö",
+  "db": "Tietokantayhteys",
+  "demoMode": "Demo-tila"
+}

@@ -1,0 +1,9 @@
+{
+  "title": "My Aura 2.0 Health",
+  "edgeChat": "Auri chat function",
+  "edgeRoleplay": "Roleplay function",
+  "i18n": "Language bundles",
+  "env": "Environment",
+  "db": "Database access",
+  "demoMode": "Demo mode"
+}

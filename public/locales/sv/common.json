@@ -45,7 +45,11 @@
     "cancel": "Avbryt",
     "save": "Spara",
     "required": "Detta fält är obligatoriskt",
-    "type_message": "Skriv ett meddelande..."
+    "type_message": "Skriv ett meddelande...",
+    "language": "Språk",
+    "healthOk": "Alla system OK",
+    "healthError": "Något behöver uppmärksamhet",
+    "loading": "Laddar…"
   },
   "langSwitcher": {
     "title": "Välj språk",

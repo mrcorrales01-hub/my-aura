@@ -44,7 +44,11 @@
     "retry": "Intentar Otra Vez",
     "cancel": "Cancelar",
     "save": "Guardar",
-    "required": "Este campo es obligatorio"
+    "required": "Este campo es obligatorio",
+    "language": "Idioma",
+    "healthOk": "Todos los sistemas OK",
+    "healthError": "Algo necesita atención",
+    "loading": "Cargando…"
   },
   "langSwitcher": {
     "title": "Seleccionar Idioma",

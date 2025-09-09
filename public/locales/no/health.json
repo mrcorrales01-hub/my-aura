@@ -1,0 +1,9 @@
+{
+  "title": "My Aura 2.0 Helse",
+  "edgeChat": "Auri chat-funksjon",
+  "edgeRoleplay": "Rollespill-funksjon",
+  "i18n": "Språkpakker",
+  "env": "Miljø",
+  "db": "Databasetilgang",
+  "demoMode": "Demo-modus"
+}

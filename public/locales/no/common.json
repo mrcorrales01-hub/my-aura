@@ -44,7 +44,11 @@
     "retry": "Prøv igjen",
     "cancel": "Avbryt",
     "save": "Lagre",
-    "required": "Dette feltet er påkrevd"
+    "required": "Dette feltet er påkrevd",
+    "language": "Språk",
+    "healthOk": "Alle systemer OK",
+    "healthError": "Noe trenger oppmerksomhet",
+    "loading": "Laster…"
   },
   "langSwitcher": {
     "title": "Velg språk",

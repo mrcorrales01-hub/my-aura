@@ -1,0 +1,9 @@
+{
+  "title": "Salud de My Aura 2.0",
+  "edgeChat": "Función de chat Auri",
+  "edgeRoleplay": "Función de juego de rol",
+  "i18n": "Paquetes de idiomas",
+  "env": "Entorno",
+  "db": "Acceso a base de datos",
+  "demoMode": "Modo demo"
+}

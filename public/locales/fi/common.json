@@ -44,7 +44,11 @@
     "retry": "Yritä uudelleen",
     "cancel": "Peruuta",
     "save": "Tallenna",
-    "required": "Tämä kenttä on pakollinen"
+    "required": "Tämä kenttä on pakollinen",
+    "language": "Kieli",
+    "healthOk": "Kaikki järjestelmät OK",
+    "healthError": "Jokin vaatii huomiota",
+    "loading": "Ladataan…"
   },
   "langSwitcher": {
     "title": "Valitse kieli",

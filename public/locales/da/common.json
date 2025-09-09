@@ -44,7 +44,11 @@
     "retry": "Prøv igen",
     "cancel": "Annuller",
     "save": "Gem",
-    "required": "Dette felt er påkrævet"
+    "required": "Dette felt er påkrævet",
+    "language": "Sprog",
+    "healthOk": "Alle systemer OK",
+    "healthError": "Noget kræver opmærksomhed",
+    "loading": "Indlæser…"
   },
   "langSwitcher": {
     "title": "Vælg sprog",
