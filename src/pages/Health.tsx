@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, CheckCircle, AlertTriangle, XCircle, Copy, RefreshCw } from 'lucide-react';
+import { Loader2, CheckCircle, AlertTriangle, XCircle, Copy, RefreshCw, ExternalLink } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -22,8 +23,9 @@ interface HealthReport {
 }
 
 const Health = () => {
-  const { t, i18n } = useTranslation(['common']);
+  const { t, i18n } = useTranslation(['health', 'common']);
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const [report, setReport] = useState<HealthReport | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +76,9 @@ const Health = () => {
       message: missingEnv.length === 0 
         ? 'All required environment variables are set'
         : `Missing environment variables: ${missingEnv.join(', ')}`,
-      details: `Required: ${envVars.join(', ')}`
+      details: missingEnv.length > 0 ? 
+        `${t('health:envMissing')}\n${envVars.join('\n')}` : 
+        `Required: ${envVars.join(', ')}`
     });
 
     // 3. Check Supabase connection
@@ -96,16 +100,10 @@ const Health = () => {
       });
     }
 
-    // 4. Check auri-chat edge function
+    // 4. Always run health-mode probes first (auth-optional)
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      const authHeader = session?.access_token ? `Bearer ${session.access_token}` : '';
-      
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auri-chat?mode=health`,
-        {
-          headers: authHeader ? { 'Authorization': authHeader } : {}
-        }
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auri-chat?mode=health`
       );
       
       if (response.ok) {
@@ -117,7 +115,7 @@ const Health = () => {
           status: data.hasOpenAIKey ? 'ok' : 'warn',
           message: data.hasOpenAIKey 
             ? 'Auri chat function ready with OpenAI key'
-            : 'Auri chat function in demo mode (no OpenAI key)',
+            : t('health:demoMode'),
           details: `Demo mode: ${demoMode ? 'enabled' : 'disabled'}`
         });
       } else {
@@ -137,16 +135,10 @@ const Health = () => {
       });
     }
 
-    // 5. Check auri-roleplay edge function
+    // 5. Check auri-roleplay health
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      const authHeader = session?.access_token ? `Bearer ${session.access_token}` : '';
-      
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auri-roleplay?mode=health`,
-        {
-          headers: authHeader ? { 'Authorization': authHeader } : {}
-        }
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auri-roleplay?mode=health`
       );
       
       if (response.ok) {
@@ -158,7 +150,7 @@ const Health = () => {
           status: data.hasOpenAIKey ? 'ok' : 'warn', 
           message: data.hasOpenAIKey
             ? 'Auri roleplay function ready with OpenAI key'
-            : 'Auri roleplay function in demo mode (no OpenAI key)',
+            : t('health:demoMode'),
           details: `Demo mode: ${demoMode ? 'enabled' : 'disabled'}`
         });
       } else {
@@ -184,9 +176,9 @@ const Health = () => {
       
       checks.push({
         name: 'authentication',
-        status: 'ok',
-        message: user ? 'User authenticated' : 'No user session (not an error)',
-        details: user ? `User ID: ${user.id}` : 'Authentication system working'
+        status: user ? 'ok' : 'warn',
+        message: user ? 'User authenticated' : t('health:notLoggedIn'),
+        details: user ? `User ID: ${user.id}` : t('health:signIn')
       });
     } catch (error) {
       checks.push({
@@ -296,7 +288,7 @@ const Health = () => {
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold">System Health</h1>
+              <h1 className="text-3xl font-bold">{t('health:title')}</h1>
               <p className="text-muted-foreground mt-2">Monitor application health and configuration</p>
             </div>
             
@@ -352,7 +344,47 @@ const Health = () => {
                         </details>
                       )}
                       
-                      {getFixSuggestion(check.name, check.status) && (
+                      {/* Special handling for auth and env errors */}
+                      {check.name === 'authentication' && check.status === 'warn' && (
+                        <div className="mt-3">
+                          <Button 
+                            onClick={() => navigate('/auth/login')} 
+                            size="sm"
+                            className="bg-yellow-600 hover:bg-yellow-500 text-white"
+                          >
+                            {t('health:openLogin')}
+                          </Button>
+                        </div>
+                      )}
+                      
+                      {check.name === 'environment' && check.status === 'fail' && (
+                        <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded text-sm">
+                          <p className="text-red-800 font-medium mb-2">{t('health:fixEnv')}</p>
+                          <code className="text-xs bg-red-100 p-1 rounded block">
+                            VITE_SUPABASE_URL<br/>
+                            VITE_SUPABASE_ANON_KEY
+                          </code>
+                        </div>
+                      )}
+                      
+                      {(check.name === 'auri_chat_function' || check.name === 'auri_roleplay_function') && check.status === 'warn' && (
+                        <div className="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
+                          <p className="text-yellow-800">
+                            💡 {t('health:demoMode')}
+                            <a 
+                              href="https://supabase.com/dashboard/project/rggohnwmajmrvxgfmimk/settings/functions"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="ml-2 inline-flex items-center text-yellow-700 underline hover:text-yellow-900"
+                            >
+                              Open Supabase Secrets <ExternalLink className="h-3 w-3 ml-1" />
+                            </a>
+                          </p>
+                        </div>
+                      )}
+                      
+                      {getFixSuggestion(check.name, check.status) && 
+                       !['authentication', 'environment', 'auri_chat_function', 'auri_roleplay_function'].includes(check.name) && (
                         <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-800">
                           💡 {getFixSuggestion(check.name, check.status)}
                         </div>

@@ -5,5 +5,11 @@
   "i18n": "Paquetes de idiomas",
   "env": "Entorno",
   "db": "Acceso a base de datos",
-  "demoMode": "Modo demo"
+  "demoMode": "Modo demo",
+  "notLoggedIn": "No conectado",
+  "signIn": "Iniciar sesión para probar completamente las funciones de Auri",
+  "envMissing": "Agregar estas variables de entorno en tu entorno de construcción:",
+  "demoMode": "Modo demo activo (OPENAI_API_KEY falta en Supabase Secrets)",
+  "fixEnv": "Agregar variables de entorno",
+  "openLogin": "Iniciar sesión"
 }

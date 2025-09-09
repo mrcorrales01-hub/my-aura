@@ -5,5 +5,11 @@
   "i18n": "Language bundles",
   "env": "Environment",
   "db": "Database access",
-  "demoMode": "Demo mode"
+  "demoMode": "Demo mode",
+  "notLoggedIn": "Not logged in",
+  "signIn": "Sign in to fully test Auri functions",
+  "envMissing": "Add these environment variables in your build environment:",
+  "demoMode": "Demo mode active (OPENAI_API_KEY missing in Supabase Secrets)",
+  "fixEnv": "Add environment variables",
+  "openLogin": "Sign in"
 }

@@ -5,5 +5,11 @@
   "i18n": "Språkpakker",
   "env": "Miljø",
   "db": "Databasetilgang",
-  "demoMode": "Demo-modus"
+  "demoMode": "Demo-modus",
+  "notLoggedIn": "Ikke logget inn",
+  "signIn": "Logg inn for å teste Auri-funksjonene fullt ut",
+  "envMissing": "Legg til disse miljøvariablene i byggemiljøet ditt:",
+  "demoMode": "Demo-modus aktiv (OPENAI_API_KEY mangler i Supabase Secrets)",
+  "fixEnv": "Legg til miljøvariabler",
+  "openLogin": "Logg inn"
 }

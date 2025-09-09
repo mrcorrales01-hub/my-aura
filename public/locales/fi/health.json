@@ -5,5 +5,11 @@
   "i18n": "Kielipaketit",
   "env": "Ympäristö",
   "db": "Tietokantayhteys",
-  "demoMode": "Demo-tila"
+  "demoMode": "Demo-tila",
+  "notLoggedIn": "Ei kirjautunut",
+  "signIn": "Kirjaudu sisään testataksesi Auri-toimintoja täysin",
+  "envMissing": "Lisää nämä ympäristömuuttujat rakennusympäristöösi:",
+  "demoMode": "Demo-tila aktiivinen (OPENAI_API_KEY puuttuu Supabase Secretsista)",
+  "fixEnv": "Lisää ympäristömuuttujat",
+  "openLogin": "Kirjaudu sisään"
 }
