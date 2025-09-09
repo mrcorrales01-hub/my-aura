@@ -1,143 +1,83 @@
 {
   "id": "productive-disagreement",
   "title": {
-    "sv": "Produktiv Oenighet",
+    "sv": "Konstruktiva meningsskiljaktigheter",
     "en": "Productive Disagreement",
     "es": "Desacuerdo Productivo",
-    "no": "Produktiv Uenighet",
-    "da": "Produktiv Uenighed",
-    "fi": "Tuottava Erimielisyys"
+    "no": "Produktiv uenighet",
+    "da": "Produktiv uenighed",
+    "fi": "Rakentava erimielisyys"
   },
   "description": {
-    "sv": "Lär dig att hantera meningsskiljaktigheter konstruktivt med 'jag-meddelanden' och aktiv lyssning",
-    "en": "Learn to handle disagreements constructively using I-statements and active listening",
-    "es": "Aprende a manejar desacuerdos de manera constructiva usando declaraciones en primera persona y escucha activa",
-    "no": "Lær å håndtere uenigheter konstruktivt ved å bruke jeg-utsagn og aktiv lytting",
-    "da": "Lær at håndtere uenigheder konstruktivt ved at bruge jeg-udsagn og aktiv lytning",
-    "fi": "Opi käsittelemään erimielisyyksiä rakentavasti käyttämällä minä-viestejä ja aktiivista kuuntelua"
+    "sv": "Lär dig att navigera meningsskiljaktigheter på ett konstruktivt sätt",
+    "en": "Learn to navigate disagreements constructively",
+    "es": "Aprende a navegar los desacuerdos de manera constructiva",
+    "no": "Lær å navigere uenigheter på en konstruktiv måte",
+    "da": "Lær at navigere uenigheder konstruktivt",
+    "fi": "Opi navigoimaan erimielisyyksiä rakentavasti"
   },
-  "persona": "You are Auri, a skilled communication coach who helps people navigate difficult conversations. You focus on emotional regulation and constructive dialogue techniques.",
-  "languageStyle": "Use clear, supportive language. Provide specific examples and techniques. Keep responses focused and actionable (2-3 sentences).",
+  "persona": "You are Auri, a communication coach specializing in emotional regulation and constructive dialogue.",
+  "languageStyle": "Clear, supportive, example-driven. Focus on actionable communication techniques.",
   "steps": [
     {
       "id": 1,
       "goal": {
-        "sv": "Identifiera känslor och pausar innan du reagerar",
-        "en": "Identify emotions and pause before reacting",
-        "es": "Identificar emociones y hacer una pausa antes de reaccionar",
-        "no": "Identifiser følelser og ta en pause før du reagerer",
-        "da": "Identificer følelser og tag en pause før du reagerer",
-        "fi": "Tunnista tunteet ja pysähdy ennen reagointia"
+        "sv": "Lyssna aktivt och validera den andres perspektiv",
+        "en": "Listen actively and validate the other person's perspective",
+        "es": "Escuchar activamente y validar la perspectiva de la otra persona",
+        "no": "Lytt aktivt og valider den andre personens perspektiv",
+        "da": "Lyt aktivt og valider den anden persons perspektiv",
+        "fi": "Kuuntele aktiivisesti ja tunnusta toisen henkilön näkökulma"
       },
       "hints": {
-        "sv": ["Vad känner du just nu?", "Ta tre djupa andetag", "Säg: 'Jag behöver ett ögonblick att tänka'"],
-        "en": ["What are you feeling right now?", "Take three deep breaths", "Say: 'I need a moment to think'"],
-        "es": ["¿Qué estás sintiendo ahora mismo?", "Toma tres respiraciones profundas", "Di: 'Necesito un momento para pensar'"],
-        "no": ["Hva føler du akkurat nå?", "Ta tre dype pust", "Si: 'Jeg trenger et øyeblikk å tenke'"],
-        "da": ["Hvad føler du lige nu?", "Tag tre dybe vejrtrækninger", "Sig: 'Jeg har brug for et øjeblik at tænke'"],
-        "fi": ["Mitä tunnet juuri nyt?", "Ota kolme syvää henkeä", "Sano: 'Tarvitsen hetken aikaa miettiä'"]
+        "sv": ["Jag förstår att du känner...", "Det låter som att du menar..."],
+        "en": ["I understand that you feel...", "It sounds like you mean..."],
+        "es": ["Entiendo que sientes...", "Parece que quieres decir..."],
+        "no": ["Jeg forstår at du føler...", "Det høres ut som du mener..."],
+        "da": ["Jeg forstår at du føler...", "Det lyder som om du mener..."],
+        "fi": ["Ymmärrän, että tunnet...", "Kuulostaa siltä, että tarkoitat..."]
       },
-      "rubric": "Score 0-5 based on: emotion awareness (1-2), self-regulation attempt (1-2), pause before reacting (1-2). Higher scores for specific emotion naming and effective self-regulation."
+      "rubric": "Score 0-5 based on empathetic responses, paraphrasing, and acknowledgment without agreement."
     },
     {
       "id": 2,
       "goal": {
-        "sv": "Använd 'jag-meddelanden' istället för anklagelser",
-        "en": "Use 'I-statements' instead of accusations",
-        "es": "Usar 'declaraciones en primera persona' en lugar de acusaciones",
-        "no": "Bruk 'jeg-utsagn' i stedet for anklager",
-        "da": "Brug 'jeg-udsagn' i stedet for anklager",
-        "fi": "Käytä 'minä-viestejä' syytösten sijaan"
+        "sv": "Uttryck din synpunkt med 'jag'-meddelanden och utan anklagelser",
+        "en": "Express your viewpoint using 'I' statements without accusations",
+        "es": "Expresa tu punto de vista usando declaraciones 'Yo' sin acusaciones",
+        "no": "Uttrykk ditt synspunkt ved å bruke 'jeg'-utsagn uten anklager",
+        "da": "Udtryk dit synspunkt ved hjælp af 'jeg'-udsagn uden anklager",
+        "fi": "Ilmaise näkökulmasi käyttämällä 'minä'-lauseita ilman syytöksiä"
       },
       "hints": {
-        "sv": ["Börja med 'Jag känner...'", "Fokusera på dina egna upplevelser", "Undvik ord som 'du gör alltid' eller 'du är'"],
-        "en": ["Start with 'I feel...'", "Focus on your own experiences", "Avoid words like 'you always' or 'you are'"],
-        "es": ["Comienza con 'Yo siento...'", "Enfócate en tus propias experiencias", "Evita palabras como 'tú siempre' o 'tú eres'"],
-        "no": ["Begynn med 'Jeg føler...'", "Fokuser på dine egne opplevelser", "Unngå ord som 'du gjør alltid' eller 'du er'"],
-        "da": ["Begynd med 'Jeg føler...'", "Fokuser på dine egne oplevelser", "Undgå ord som 'du gør altid' eller 'du er'"],
-        "fi": ["Aloita sanoin 'Minä tunnen...'", "Keskity omiin kokemuksiisi", "Vältä sanoja kuten 'sinä aina' tai 'sinä olet'"]
+        "sv": ["Jag upplever det annorlunda...", "Från mitt perspektiv..."],
+        "en": ["I experience it differently...", "From my perspective..."],
+        "es": ["Lo experimento de manera diferente...", "Desde mi perspectiva..."],
+        "no": ["Jeg opplever det annerledes...", "Fra mitt perspektiv..."],
+        "da": ["Jeg oplever det anderledes...", "Fra mit perspektiv..."],
+        "fi": ["Koen sen eri tavalla...", "Omasta näkökulmastani..."]
       },
-      "rubric": "Score 0-5 based on: correct I-statement format (1-2), avoidance of blame language (1-2), focus on own experience vs other's character (1-2). Higher scores for clear, non-accusatory statements."
+      "rubric": "Score 0-5 based on non-defensive language, ownership of feelings, and respectful disagreement."
     },
     {
       "id": 3,
       "goal": {
-        "sv": "Praktisera aktiv lyssning och reflektion",
-        "en": "Practice active listening and reflection",
-        "es": "Practicar escucha activa y reflexión",
-        "no": "Øv på aktiv lytting og refleksjon",
-        "da": "Øv aktiv lytning og reflektion",
-        "fi": "Harjoittele aktiivista kuuntelua ja reflektointia"
+        "sv": "Hitta gemensam grund och föreslå nästa steg framåt",
+        "en": "Find common ground and suggest next steps forward",
+        "es": "Encontrar puntos en común y sugerir próximos pasos",
+        "no": "Finn felles grunnlag og foreslå neste steg fremover",
+        "da": "Find fælles grund og foreslå næste skridt fremad",
+        "fi": "Löydä yhteistä pohjaa ja ehdota seuraavia askeleita"
       },
       "hints": {
-        "sv": ["Upprepa vad du hörde: 'Så du menar...'", "Ställ öppna frågor", "Vänta med att försvara dig"],
-        "en": ["Repeat what you heard: 'So you mean...'", "Ask open questions", "Wait before defending yourself"],
-        "es": ["Repite lo que escuchaste: 'Así que quieres decir...'", "Haz preguntas abiertas", "Espera antes de defenderte"],
-        "no": ["Gjenta det du hørte: 'Så du mener...'", "Still åpne spørsmål", "Vent før du forsvarer deg"],
-        "da": ["Gentag hvad du hørte: 'Så du mener...'", "Stil åbne spørgsmål", "Vent før du forsvarer dig"],
-        "fi": ["Toista kuulemasi: 'Eli tarkoitat...'", "Esitä avoimia kysymyksiä", "Odota ennen puolustautumista"]
+        "sv": ["Vi är båda överens om att...", "Kanske kan vi..."],
+        "en": ["We both agree that...", "Perhaps we could..."],
+        "es": ["Ambos estamos de acuerdo en que...", "Tal vez podríamos..."],
+        "no": ["Vi er begge enige om at...", "Kanskje vi kunne..."],
+        "da": ["Vi er begge enige om at...", "Måske kunne vi..."],
+        "fi": ["Olemme molemmat samaa mieltä siitä, että...", "Ehkä voisimme..."]
       },
-      "rubric": "Score 0-5 based on: accurate reflection/paraphrasing (1-2), asking clarifying questions (1-2), avoiding immediate defensiveness (1-2). Higher scores for genuine understanding attempts."
-    },
-    {
-      "id": 4,
-      "goal": {
-        "sv": "Hitta gemensam grund och dela perspektiv",
-        "en": "Find common ground and share perspectives",
-        "es": "Encontrar puntos en común y compartir perspectivas",
-        "no": "Finn felles grunnlag og del perspektiver",
-        "da": "Find fælles grund og del perspektiver",
-        "fi": "Löydä yhteinen pohja ja jaa näkökulmia"
-      },
-      "hints": {
-        "sv": ["Vad är vi eniga om?", "Säg: 'Jag förstår din synvinkel...'", "Förklara ditt perspektiv lugnt"],
-        "en": ["What do we agree on?", "Say: 'I understand your perspective...'", "Explain your viewpoint calmly"],
-        "es": ["¿En qué estamos de acuerdo?", "Di: 'Entiendo tu perspectiva...'", "Explica tu punto de vista con calma"],
-        "no": ["Hva er vi enige om?", "Si: 'Jeg forstår ditt perspektiv...'", "Forklar ditt synspunkt rolig"],
-        "da": ["Hvad er vi enige om?", "Sig: 'Jeg forstår dit perspektiv...'", "Forklar dit synspunkt roligt"],
-        "fi": ["Mistä olemme samaa mieltä?", "Sano: 'Ymmärrän näkökulmasi...'", "Selitä oma näkökantasi rauhallisesti"]
-      },
-      "rubric": "Score 0-5 based on: identification of shared values/goals (1-2), acknowledgment of other's perspective (1-2), clear explanation of own view without attacking (1-2). Higher scores for genuine bridge-building."
-    },
-    {
-      "id": 5,
-      "goal": {
-        "sv": "Föreslå lösningar och kompromisser",
-        "en": "Propose solutions and compromises",
-        "es": "Proponer soluciones y compromisos",
-        "no": "Foreslå løsninger og kompromisser",
-        "da": "Foreslå løsninger og kompromiser",
-        "fi": "Ehdota ratkaisuja ja kompromisseja"
-      },
-      "hints": {
-        "sv": ["Vad skulle fungera för oss båda?", "Föreslå att testa en lösning", "Fråga: 'Vad tror du om detta?'"],
-        "en": ["What would work for both of us?", "Suggest trying a solution", "Ask: 'What do you think about this?'"],
-        "es": ["¿Qué funcionaría para ambos?", "Sugiere probar una solución", "Pregunta: '¿Qué piensas sobre esto?'"],
-        "no": ["Hva ville fungere for oss begge?", "Foreslå å prøve en løsning", "Spør: 'Hva tenker du om dette?'"],
-        "da": ["Hvad ville fungere for os begge?", "Foreslå at prøve en løsning", "Spørg: 'Hvad tænker du om dette?'"],
-        "fi": ["Mikä toimisi meille molemmille?", "Ehdota ratkaisun kokeilemista", "Kysy: 'Mitä ajattelet tästä?'"]
-      },
-      "rubric": "Score 0-5 based on: creative solution thinking (1-2), willingness to compromise (1-2), collaborative approach vs winning mentality (1-2). Higher scores for win-win solutions and flexibility."
-    },
-    {
-      "id": 6,
-      "goal": {
-        "sv": "Avsluta konstruktivt och planera framsteg",
-        "en": "End constructively and plan next steps",
-        "es": "Terminar constructivamente y planificar próximos pasos",
-        "no": "Avslutt konstruktivt og planlegg neste steg",
-        "da": "Afslut konstruktivt og planlæg næste skridt",
-        "fi": "Päätä rakentavasti ja suunnittele seuraavat askeleet"
-      },
-      "hints": {
-        "sv": ["Sammanfatta vad ni kommit överens om", "Sätt en tid för uppföljning", "Tacka för samtalet"],
-        "en": ["Summarize what you've agreed on", "Set a time for follow-up", "Thank them for the conversation"],
-        "es": ["Resume en lo que han acordado", "Establece un tiempo para seguimiento", "Agradece por la conversación"],
-        "no": ["Oppsummer hva dere har blitt enige om", "Sett en tid for oppfølging", "Takk for samtalen"],
-        "da": ["Opsummér hvad I er blevet enige om", "Sæt et tidspunkt for opfølgning", "Tak for samtalen"],
-        "fi": ["Tiivistä mistä olette sopineet", "Aseta aika seurantaa varten", "Kiitä keskustelusta"]
-      },
-      "rubric": "Score 0-5 based on: clear summary of agreements (1-2), concrete next steps or follow-up plan (1-2), positive relationship maintenance (1-2). Higher scores for clear closure and relationship preservation."
+      "rubric": "Score 0-5 based on collaborative language, solution-oriented thinking, and mutual respect."
     }
   ]
 }

@@ -1,7 +1,9 @@
 {
   "title": "Auri - Sinun AI-valmentajasi",
   "subtitle": "Keskustele henkilökohtaisen AI-valmentajasi kanssa mielenterveydestä",
+  "welcome": "Hei! Olen Auri, henkilökohtainen AI-valmentajasi. Miltä sinusta tuntuu tänään?",
   "inputPlaceholder": "Kirjoita viestisi tähän...",
+  "placeholder": "Kirjoita viestisi tähän...",
   "send": "Lähetä",
   "typing": "Auri kirjoittaa...",
   "thinking": "Auri ajattelee...",
@@ -10,5 +12,12 @@
   "demoMode": "Demo-tila: OpenAI API-avain puuttuu",
   "newChat": "Uusi keskustelu",
   "exportChat": "Vie keskustelu",
-  "disclaimer": "Auri ei korvaa ammattimaista lääketieteellistä neuvontaa. Hätätilanteissa ota yhteyttä terveyspalveluihin."
+  "disclaimer": "Auri ei korvaa ammattimaista lääketieteellistä neuvontaa. Hätätilanteissa ota yhteyttä terveyspalveluihin.",
+  "suggestions": {
+    "mood": "Puhua mielialastani",
+    "stress": "Vähentää stressiä",
+    "anxiety": "Hallita ahdistusta",
+    "sleep": "Nukkua tänä yönä",
+    "general": "Nopea hyvinvointirutiini"
+  }
 }

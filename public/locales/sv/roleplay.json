@@ -1,6 +1,6 @@
 {
   "title": "Rollspel",
-  "subtitle": "Öva viktiga livsfärdigheter med AI-stödd rollspelsträning",
+  "subtitle": "Säkra, guidande övningar",
   "selectScenario": "Välj scenario",
   "chooseScenario": "Välj ett scenario...",
   "setupSession": "Sätt upp session",
@@ -23,6 +23,7 @@
   "exportTranscript": "Exportera transkript",
   "progressOverview": "Framstegöversikt",
   "welcomeMessage": "Välkommen till {{scenario}}! Låt oss börja öva tillsammans.",
+  "noScripts": "Inga scenarier hittades",
   "languages": {
     "sv": "Svenska",
     "en": "English", 

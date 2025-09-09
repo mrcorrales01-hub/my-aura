@@ -1,7 +1,9 @@
 {
   "title": "Auri - Tu Coach IA",
   "subtitle": "Chatea con tu coach personal de IA para salud mental",
+  "welcome": "¡Hola! Soy Auri, tu coach personal de IA. ¿Cómo te sientes hoy?",
   "inputPlaceholder": "Escribe tu mensaje aquí...",
+  "placeholder": "Escribe tu mensaje aquí...",
   "send": "Enviar",
   "typing": "Auri está escribiendo...",
   "thinking": "Auri está pensando...",
@@ -10,5 +12,12 @@
   "demoMode": "Modo Demo: Falta clave API de OpenAI",
   "newChat": "Nuevo Chat",
   "exportChat": "Exportar Chat",
-  "disclaimer": "Auri no es un sustituto del consejo médico profesional. En emergencias, contacta servicios de salud."
+  "disclaimer": "Auri no es un sustituto del consejo médico profesional. En emergencias, contacta servicios de salud.",
+  "suggestions": {
+    "mood": "Hablar sobre mi estado de ánimo",
+    "stress": "Reducir estrés",
+    "anxiety": "Manejar ansiedad",
+    "sleep": "Dormir esta noche",
+    "general": "Rutina de bienestar rápida"
+  }
 }

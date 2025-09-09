@@ -9,55 +9,55 @@
     "fi": "Rajojen asettaminen"
   },
   "description": {
-    "sv": "Lär dig att sätta hälsosamma gränser i relationer och arbete",
-    "en": "Learn to set healthy boundaries in relationships and work",
-    "es": "Aprende a establecer límites saludables en relaciones y trabajo",
-    "no": "Lær å sette sunne grenser i forhold og arbeid",
-    "da": "Lær at sætte sunde grænser i forhold og arbejde",
-    "fi": "Opi asettamaan terveitä rajoja ihmissuhteissa ja työssä"
+    "sv": "Lär dig att sätta hälsosamma gränser i relationer",
+    "en": "Learn to set healthy boundaries in relationships",
+    "es": "Aprende a establecer límites saludables en las relaciones",
+    "no": "Lær å sette sunne grenser i relasjoner",
+    "da": "Lær at sætte sunde grænser i relationer",
+    "fi": "Opi asettamaan terveitä rajoja ihmissuhteissa"
   },
-  "persona": "You are Auri, a supportive wellness coach helping someone practice setting healthy boundaries. You are empathetic, encouraging, and provide realistic scenarios.",
-  "languageStyle": "Simple, warm, 2–3 sentences per turn. Ask open-ended questions to guide reflection.",
+  "persona": "You are Auri, a supportive wellness coach helping someone practice boundary-setting.",
+  "languageStyle": "Simple, warm, short sentences. Ask open-ended questions.",
   "steps": [
     {
       "id": 1,
       "goal": {
-        "sv": "Identifiera situationen där gränser behövs",
-        "en": "Identify the situation where boundaries are needed",
-        "es": "Identificar la situación donde se necesitan límites",
-        "no": "Identifiser situasjonen der grenser trengs",
-        "da": "Identificer situationen hvor grænser er nødvendige",
-        "fi": "Tunnista tilanne jossa rajoja tarvitaan"
+        "sv": "Identifiera situationer där du behöver sätta gränser",
+        "en": "Identify situations where you need to set boundaries",
+        "es": "Identifica situaciones donde necesitas establecer límites",
+        "no": "Identifiser situasjoner der du trenger å sette grenser",
+        "da": "Identificer situationer hvor du har brug for at sætte grænser",
+        "fi": "Tunnista tilanteet, joissa sinun on asetettava rajoja"
       },
       "hints": {
-        "sv": ["Fråga om specifika exempel", "Utforska känslor kring situationen"],
-        "en": ["Ask for specific examples", "Explore feelings about the situation"],
-        "es": ["Pide ejemplos específicos", "Explora sentimientos sobre la situación"],
-        "no": ["Spør om spesifikke eksempler", "Utforsk følelser rundt situasjonen"],
-        "da": ["Spørg om specifikke eksempler", "Udforsk følelser omkring situationen"],
-        "fi": ["Kysy konkreettisia esimerkkejä", "Tutki tunteita tilanteesta"]
+        "sv": ["Tänk på när du känner dig obekväm", "När säger du ja fast du vill säga nej?"],
+        "en": ["Think about when you feel uncomfortable", "When do you say yes but want to say no?"],
+        "es": ["Piensa en cuándo te sientes incómodo", "¿Cuándo dices sí pero quieres decir no?"],
+        "no": ["Tenk på når du føler deg ukomfortabel", "Når sier du ja men vil si nei?"],
+        "da": ["Tænk på hvornår du føler dig utilpas", "Hvornår siger du ja, men vil sige nej?"],
+        "fi": ["Ajattele, milloin tunnet olosi epämukavaksi", "Milloin sanot kyllä mutta haluat sanoa ei?"]
       },
-      "rubric": "Score 0-5 based on clarity of situation identification, emotional awareness, and specificity of examples provided."
+      "rubric": "Score 0-5 based on self-awareness and ability to identify boundary needs."
     },
     {
       "id": 2,
       "goal": {
-        "sv": "Formulera tydliga gränser",
-        "en": "Formulate clear boundaries",
-        "es": "Formular límites claros",
-        "no": "Formuler klare grenser",
-        "da": "Formuler klare grænser",
-        "fi": "Muotoile selkeät rajat"
+        "sv": "Formulera tydliga gränser med 'jag'-meddelanden",
+        "en": "Formulate clear boundaries using 'I' statements",
+        "es": "Formula límites claros usando declaraciones 'Yo'",
+        "no": "Formuler tydelige grenser ved hjelp av 'jeg'-utsagn",
+        "da": "Formuler tydelige grænser ved hjælp af 'jeg'-udsagn",
+        "fi": "Muotoile selkeät rajat käyttämällä 'minä'-lauseita"
       },
       "hints": {
-        "sv": ["Använd 'jag'-meddelanden", "Var specifik och tydlig"],
-        "en": ["Use 'I' statements", "Be specific and clear"],
-        "es": ["Usa declaraciones 'yo'", "Sé específico y claro"],
-        "no": ["Bruk 'jeg'-utsagn", "Vær spesifikk og tydelig"],
-        "da": ["Brug 'jeg'-udsagn", "Vær specifik og klar"],
-        "fi": ["Käytä 'minä'-lauseita", "Ole tarkka ja selkeä"]
+        "sv": ["Börja med 'Jag känner...'", "Var specifik om vad du behöver"],
+        "en": ["Start with 'I feel...'", "Be specific about what you need"],
+        "es": ["Comienza con 'Yo siento...'", "Sé específico sobre lo que necesitas"],
+        "no": ["Begynn med 'Jeg føler...'", "Vær spesifikk om hva du trenger"],
+        "da": ["Begynd med 'Jeg føler...'", "Vær specifik om, hvad du har brug for"],
+        "fi": ["Aloita sanoilla 'Minä tunnen...'", "Ole täsmällinen siitä, mitä tarvitset"]
       },
-      "rubric": "Score 0-5 based on clarity of boundary statement, use of assertive language, and appropriateness to the situation."
+      "rubric": "Score 0-5 based on clarity, assertiveness without aggression, and use of 'I' statements."
     }
   ]
 }

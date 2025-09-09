@@ -16,5 +16,6 @@
   "hideHint": "Ocultar Pista",
   "complete": "¡Completo!",
   "wellDone": "¡Bien hecho!",
-  "tryAgain": "Intentar Otra Vez"
+  "tryAgain": "Intentar Otra Vez",
+  "noScripts": "No se encontraron escenarios"
 }

@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuriChat } from '@/features/auri/hooks/useAuriChat';
+import { SuggestionButtons } from '@/features/auri/components/SuggestionButtons';
 import { Send, Bot, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -29,13 +30,10 @@ const AuriChat = () => {
     }
   };
 
-  const suggestions = [
-    t('auri:suggestions.mood'),
-    t('auri:suggestions.stress'),
-    t('auri:suggestions.anxiety'),
-    t('auri:suggestions.sleep'),
-    t('auri:suggestions.general')
-  ];
+  const handleSuggestionClick = (prompt: string) => {
+    setInputMessage(prompt);
+    sendMessage(prompt);
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -72,18 +70,8 @@ const AuriChat = () => {
                     <p className="text-muted-foreground mb-6">{t('auri:welcome')}</p>
                     
                     {/* Quick Suggestions */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-w-md mx-auto">
-                      {suggestions.map((suggestion, index) => (
-                        <Button
-                          key={index}
-                          variant="outline"
-                          size="sm"
-                          className="text-left h-auto p-3"
-                          onClick={() => setInputMessage(suggestion)}
-                        >
-                          {suggestion}
-                        </Button>
-                      ))}
+                    <div className="max-w-md mx-auto">
+                      <SuggestionButtons onUse={handleSuggestionClick} />
                     </div>
                   </div>
                 )}

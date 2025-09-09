@@ -16,5 +16,6 @@
   "hideHint": "Skjul tips",
   "complete": "Fullført!",
   "wellDone": "Godt gjort!",
-  "tryAgain": "Prøv igjen"
+  "tryAgain": "Prøv igjen",
+  "noScripts": "Ingen scenarier funnet"
 }

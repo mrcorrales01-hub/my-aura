@@ -16,5 +16,6 @@
   "hideHint": "Piilota vihje",
   "complete": "Valmis!",
   "wellDone": "Hyvin tehty!",
-  "tryAgain": "Yritä uudelleen"
+  "tryAgain": "Yritä uudelleen",
+  "noScripts": "Skenaarioita ei löytynyt"
 }

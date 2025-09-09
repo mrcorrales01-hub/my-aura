@@ -78,7 +78,7 @@ export const Layout = ({ children }: LayoutProps) => {
         </div>
       </header>
 
-      <main id="main-content" className="container mx-auto px-4 py-6 pb-20 md:pb-6">
+      <main id="main-content" className="main-shell container mx-auto px-4 py-6">
         {children}
       </main>
       

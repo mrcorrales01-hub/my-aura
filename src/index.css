@@ -435,6 +435,40 @@
   }
 }
 
+:root { 
+  --tabbar-h: 72px; 
+}
+
+/* Make sure content isn't hidden under the tab bar on mobile */
+.main-shell { 
+  padding-bottom: var(--tabbar-h); 
+}
+
+/* Any banners should not block clicks below */
+.app-banner { 
+  position: static; 
+  pointer-events: none; 
+}
+.app-banner * { 
+  pointer-events: auto; 
+}
+
+/* Defensive: kill accidental full-screen overlays from custom wrappers */
+.app-overlay, .page-overlay, .glass-overlay { 
+  pointer-events: none; 
+}
+
+/* Ensure card/btns can always receive taps */
+button, a, [role="button"] { 
+  pointer-events: auto; 
+}
+
+/* Give main stacking context so fixed bars don't eat events */
+main, #root { 
+  position: relative; 
+  z-index: 0; 
+}
+
 /* Print styles */
 @media print {
   .no-print {

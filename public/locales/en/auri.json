@@ -1,6 +1,7 @@
 {
   "title": "Auri - Your AI Coach",
   "subtitle": "Chat with your personal AI coach for mental health",
+  "welcome": "Hi! I'm Auri, your personal AI coach. How are you feeling today?",
   "inputPlaceholder": "Type your message here...",
   "placeholder": "Type your message here...",
   "send": "Send",
@@ -17,5 +18,12 @@
     "grounding": "Grounding 5-4-3-2-1", 
     "journal": "New journal entry",
     "tasks": "Open today's tasks"
+  },
+  "suggestions": {
+    "mood": "Talk about my mood",
+    "stress": "Reduce stress",
+    "anxiety": "Manage anxiety",
+    "sleep": "Sleep tonight",
+    "general": "Quick wellness routine"
   }
 }

@@ -1,123 +1,83 @@
 {
   "id": "panic-grounding",
   "title": {
-    "sv": "Panikhantering & Grounding",
-    "en": "Panic Management & Grounding",
-    "es": "Manejo del Pánico y Grounding",
-    "no": "Panikkhåndtering & Grounding",
-    "da": "Panikhåndtering & Grounding",
-    "fi": "Paniikkihallinta & Grounding"
+    "sv": "Hantera panik",
+    "en": "Managing Panic",
+    "es": "Manejar el Pánico",
+    "no": "Håndtere panikk",
+    "da": "Håndtere panik",
+    "fi": "Paniikkikohtausten hallinta"
   },
   "description": {
-    "sv": "Lär dig tekniker för att hantera panik och ångest genom grounding-övningar",
-    "en": "Learn techniques to manage panic and anxiety through grounding exercises",
-    "es": "Aprende técnicas para manejar el pánico y la ansiedad a través de ejercicios de grounding",
-    "no": "Lær teknikker for å håndtere panikk og angst gjennom grounding-øvelser",
-    "da": "Lær teknikker til at håndtere panik og angst gennem grounding-øvelser",
-    "fi": "Opi tekniikoita panikin ja ahdistuksen hallintaan grounding-harjoitusten avulla"
+    "sv": "Lär dig grundningstekniker för panikattacker",
+    "en": "Learn grounding techniques for panic attacks",
+    "es": "Aprende técnicas de conexión a tierra para ataques de pánico",
+    "no": "Lær grunningsteknikker for panikkanfall",
+    "da": "Lær grundingsteknikker til panikangst",
+    "fi": "Opi maadoitustekniikoita paniikkikohtauksia varten"
   },
-  "persona": "You are Auri, a calm and experienced mental health coach specialized in panic and anxiety management. You guide users through grounding techniques with patience and understanding.",
-  "languageStyle": "Use calm, reassuring language. Keep responses to 2-3 sentences. Focus on immediate, actionable steps.",
+  "persona": "You are Auri, a calm mental health coach specializing in panic and anxiety.",
+  "languageStyle": "Calm, reassuring, short responses. Focus on actionable steps.",
   "steps": [
     {
       "id": 1,
       "goal": {
-        "sv": "Identifiera paniksymptom och bekräfta att du är säker",
-        "en": "Identify panic symptoms and confirm you are safe",
-        "es": "Identificar síntomas de pánico y confirmar que estás seguro",
-        "no": "Identifiser panikksymptomer og bekreft at du er trygg",
-        "da": "Identificer paniksymptomer og bekræft at du er sikker",
-        "fi": "Tunnista paniikkioireet ja vahvista että olet turvassa"
+        "sv": "Identifiera panikkänslor och symptom",
+        "en": "Identify panic feelings and symptoms",
+        "es": "Identificar sentimientos y síntomas de pánico",
+        "no": "Identifiser panikktanker og symptomer",
+        "da": "Identificer panikfølelser og symptomer",
+        "fi": "Tunnista paniikkitunteet ja oireet"
       },
       "hints": {
-        "sv": ["Beskriv vad du känner i kroppen", "Titta dig omkring - var befinner du dig?", "Påminn dig själv: 'Jag är säker här och nu'"],
-        "en": ["Describe what you feel in your body", "Look around - where are you?", "Remind yourself: 'I am safe here and now'"],
-        "es": ["Describe lo que sientes en tu cuerpo", "Mira a tu alrededor - ¿dónde estás?", "Recuérdate: 'Estoy seguro aquí y ahora'"],
-        "no": ["Beskriv hva du føler i kroppen", "Se deg omkring - hvor er du?", "Påminn deg selv: 'Jeg er trygg her og nå'"],
-        "da": ["Beskriv hvad du føler i kroppen", "Kig dig omkring - hvor er du?", "Påmind dig selv: 'Jeg er sikker her og nu'"],
-        "fi": ["Kuvaile mitä tunnet kehossasi", "Katso ympärillesi - missä olet?", "Muistuta itseäsi: 'Olen turvassa tässä ja nyt'"]
+        "sv": ["Hjärtklappning", "Andningssvårigheter", "Känslor av fara"],
+        "en": ["Racing heart", "Breathing difficulty", "Feelings of danger"],
+        "es": ["Corazón acelerado", "Dificultad para respirar", "Sensación de peligro"],
+        "no": ["Hjertebank", "Pusteproblemer", "Følelse av fare"],
+        "da": ["Hjertebanken", "Vejrtrækningsbesvær", "Følelse af fare"],
+        "fi": ["Sydämen tykytys", "Hengitysvaikeudet", "Vaarantunne"]
       },
-      "rubric": "Score 0-5 based on: awareness of symptoms (1-2), location recognition (1-2), safety affirmation (1-2). Higher scores for detailed descriptions and clear safety awareness."
+      "rubric": "Score 0-5 based on recognition of physical and emotional panic symptoms."
     },
     {
       "id": 2,
       "goal": {
-        "sv": "Använd 5-4-3-2-1 grounding-tekniken",
-        "en": "Use the 5-4-3-2-1 grounding technique",
-        "es": "Usar la técnica de grounding 5-4-3-2-1",
-        "no": "Bruk 5-4-3-2-1 grounding-teknikken",
-        "da": "Brug 5-4-3-2-1 grounding-teknikken",
-        "fi": "Käytä 5-4-3-2-1 grounding-tekniikkaa"
+        "sv": "Använd 5-4-3-2-1 grundningsteknik",
+        "en": "Use 5-4-3-2-1 grounding technique",
+        "es": "Usar técnica de conexión a tierra 5-4-3-2-1",
+        "no": "Bruk 5-4-3-2-1 grunningsteknikk",
+        "da": "Brug 5-4-3-2-1 grundingsteknik",
+        "fi": "Käytä 5-4-3-2-1 maadoitustekniikkaa"
       },
       "hints": {
-        "sv": ["Nämn 5 saker du kan se", "Nämn 4 saker du kan röra", "Nämn 3 saker du kan höra"],
-        "en": ["Name 5 things you can see", "Name 4 things you can touch", "Name 3 things you can hear"],
-        "es": ["Nombra 5 cosas que puedes ver", "Nombra 4 cosas que puedes tocar", "Nombra 3 cosas que puedes oír"],
-        "no": ["Nevn 5 ting du kan se", "Nevn 4 ting du kan berøre", "Nevn 3 ting du kan høre"],
-        "da": ["Nævn 5 ting du kan se", "Nævn 4 ting du kan røre", "Nævn 3 ting du kan høre"],
-        "fi": ["Nimeä 5 asiaa joita näet", "Nimeä 4 asiaa joita voit koskettaa", "Nimeä 3 asiaa joita kuulet"]
+        "sv": ["5 saker du ser", "4 saker du kan röra", "3 ljud du hör"],
+        "en": ["5 things you see", "4 things you can touch", "3 sounds you hear"],
+        "es": ["5 cosas que ves", "4 cosas que puedes tocar", "3 sonidos que escuchas"],
+        "no": ["5 ting du ser", "4 ting du kan berøre", "3 lyder du hører"],
+        "da": ["5 ting du ser", "4 ting du kan røre", "3 lyde du hører"],
+        "fi": ["5 asiaa, jotka näet", "4 asiaa, joihin voit koskea", "3 ääntä, jotka kuulet"]
       },
-      "rubric": "Score 0-5 based on: completion of 5-see (1), 4-touch (1), 3-hear (1), 2-smell (1), 1-taste (1). Full completion = 5, partial completion = 2-4."
+      "rubric": "Score 0-5 based on engagement with sensory grounding and present-moment awareness."
     },
     {
       "id": 3,
       "goal": {
-        "sv": "Praktisera djupandning (4-7-8 teknik)",
-        "en": "Practice deep breathing (4-7-8 technique)",
-        "es": "Practicar respiración profunda (técnica 4-7-8)",
-        "no": "Øv på dyp pusting (4-7-8 teknikk)",
-        "da": "Øv dyb vejrtrækning (4-7-8 teknik)",
-        "fi": "Harjoittele syvää hengitystä (4-7-8 tekniikka)"
+        "sv": "Praktisera djupandning och lugnande affirmationer",
+        "en": "Practice deep breathing and calming affirmations",
+        "es": "Practicar respiración profunda y afirmaciones calmantes",
+        "no": "Øv på dyp pusting og beroligende bekreftelser",
+        "da": "Øv dyb vejrtrækning og beroligende bekræftelser",
+        "fi": "Harjoittele syvää hengitystä ja rauhoittavia vakuutteluja"
       },
       "hints": {
-        "sv": ["Andas in genom näsan i 4 sekunder", "Håll andan i 7 sekunder", "Andas ut genom munnen i 8 sekunder"],
-        "en": ["Breathe in through nose for 4 seconds", "Hold breath for 7 seconds", "Breathe out through mouth for 8 seconds"],
-        "es": ["Respira por la nariz durante 4 segundos", "Mantén la respiración por 7 segundos", "Exhala por la boca durante 8 segundos"],
-        "no": ["Pust inn gjennom nesen i 4 sekunder", "Hold pusten i 7 sekunder", "Pust ut gjennom munnen i 8 sekunder"],
-        "da": ["Træk vejret ind gennem næsen i 4 sekunder", "Hold vejret i 7 sekunder", "Ånd ud gennem munden i 8 sekunder"],
-        "fi": ["Hengitä sisään nenän kautta 4 sekuntia", "Pidätä hengitystä 7 sekuntia", "Hengitä ulos suun kautta 8 sekuntia"]
+        "sv": ["Andas in 4 sek", "Håll 4 sek", "Andas ut 6 sek"],
+        "en": ["Breathe in 4 sec", "Hold 4 sec", "Breathe out 6 sec"],
+        "es": ["Inhala 4 seg", "Mantén 4 seg", "Exhala 6 seg"],
+        "no": ["Pust inn 4 sek", "Hold 4 sek", "Pust ut 6 sek"],
+        "da": ["Indånd 4 sek", "Hold 4 sek", "Udånd 6 sek"],
+        "fi": ["Hengitä sisään 4 sek", "Pidä 4 sek", "Hengitä ulos 6 sek"]
       },
-      "rubric": "Score 0-5 based on: understanding of technique (1-2), willingness to try (1-2), reporting of effects/feelings (1-2). Higher scores for multiple cycles and positive effects."
-    },
-    {
-      "id": 4,
-      "goal": {
-        "sv": "Använd positiva bekräftelser och självmedkänsla",
-        "en": "Use positive affirmations and self-compassion",
-        "es": "Usar afirmaciones positivas y autocompasión",
-        "no": "Bruk positive bekreftelser og selvmedfølelse",
-        "da": "Brug positive bekræftelser og selvmedfølelse",
-        "fi": "Käytä positiivisia vahvistuksia ja itsemyötätuntoa"
-      },
-      "hints": {
-        "sv": ["Säg något snällt till dig själv", "Påminn dig om att panik är tillfällig", "Erkänn din styrka att hantera detta"],
-        "en": ["Say something kind to yourself", "Remind yourself panic is temporary", "Acknowledge your strength in handling this"],
-        "es": ["Di algo amable a ti mismo", "Recuérdate que el pánico es temporal", "Reconoce tu fortaleza al manejar esto"],
-        "no": ["Si noe snilt til deg selv", "Påminn deg om at panikk er midlertidig", "Erkjenn din styrke i å håndtere dette"],
-        "da": ["Sig noget venligt til dig selv", "Påmind dig om at panik er midlertidig", "Anerkend din styrke i at håndtere dette"],
-        "fi": ["Sano jotain ystävällistä itsellesi", "Muistuta itseäsi että paniikki on väliaikaista", "Tunnusta vahvuutesi selvitä tästä"]
-      },
-      "rubric": "Score 0-5 based on: self-kindness (1-2), recognition of temporary nature (1-2), self-empowerment statements (1-2). Higher scores for genuine self-compassion."
-    },
-    {
-      "id": 5,
-      "goal": {
-        "sv": "Planera uppföljning och förebyggande strategier",
-        "en": "Plan follow-up and prevention strategies",
-        "es": "Planificar seguimiento y estrategias de prevención",
-        "no": "Planlegg oppfølging og forebyggende strategier",
-        "da": "Planlæg opfølgning og forebyggende strategier",
-        "fi": "Suunnittele seuranta ja ennaltaehkäisystrategiat"
-      },
-      "hints": {
-        "sv": ["Vad kommer du göra nästa gång?", "Vilka tidiga varningssignaler märker du?", "Vem kan du kontakta för stöd?"],
-        "en": ["What will you do next time?", "What early warning signs do you notice?", "Who can you contact for support?"],
-        "es": ["¿Qué harás la próxima vez?", "¿Qué señales de alerta temprana notas?", "¿A quién puedes contactar para apoyo?"],
-        "no": ["Hva vil du gjøre neste gang?", "Hvilke tidlige varseltegn legger du merke til?", "Hvem kan du kontakte for støtte?"],
-        "da": ["Hvad vil du gøre næste gang?", "Hvilke tidlige advarselstegn lægger du mærke til?", "Hvem kan du kontakte for støtte?"],
-        "fi": ["Mitä teet ensi kerralla?", "Mitä varhaisia varoitusmerkkejä huomaat?", "Kehen voit ottaa yhteyttä tuen saamiseksi?"]
-      },
-      "rubric": "Score 0-5 based on: future action plan (1-2), awareness of triggers/warning signs (1-2), support system identification (1-2). Higher scores for concrete, actionable plans."
+      "rubric": "Score 0-5 based on following breathing pattern and using self-soothing language."
     }
   ]
 }

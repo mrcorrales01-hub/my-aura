@@ -16,5 +16,6 @@
   "hideHint": "Hide Hint",
   "complete": "Complete!",
   "wellDone": "Well done!",
-  "tryAgain": "Try Again"
+  "tryAgain": "Try Again",
+  "noScripts": "No scenarios found"
 }
