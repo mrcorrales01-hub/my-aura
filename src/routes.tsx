@@ -7,7 +7,8 @@ import Settings from '@/pages/Settings';
 import NotFound from '@/pages/NotFound';
 import Onboarding from '@/pages/Onboarding';
 import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
-import Health from '@/pages/Health';
+import PlanPage from '@/pages/PlanPage';
+import Pricing from '@/pages/Pricing';
 import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/pages/Roleplay';
 import RoleplayRun from '@/pages/RoleplayRun';
@@ -19,7 +20,8 @@ export const router = createBrowserRouter([
   { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },
-  { path: '/health', element: <Health /> },
+  { path: '/plan', element: <ErrorBoundaryWrapper><PlanPage /></ErrorBoundaryWrapper> },
+  { path: '/pricing', element: <ErrorBoundaryWrapper><Pricing /></ErrorBoundaryWrapper> },
   { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },
   { path: '/settings', element: <ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper> },
   { path: '/exercises/:slug', element: <ErrorBoundaryWrapper><ExercisePlayer /></ErrorBoundaryWrapper> },
