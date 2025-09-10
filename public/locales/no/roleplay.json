@@ -1,21 +1,13 @@
 {
-  "title": "Rollespillscenarioer",
+  "title": "Rollespill",
+  "subtitle": "Trygge, guidede øvelser",
   "selectScenario": "Velg scenario",
+  "noScripts": "Ingen scenarier funnet",
   "start": "Start",
   "next": "Neste",
-  "finish": "Fullfør",
-  "score": "Poeng",
+  "finish": "Fullfør", 
   "hint": "Tips",
-  "coachNote": "Trenerens notat",
-  "language": "Språk",
-  "reset": "Tilbakestill",
   "step": "Steg {{current}} av {{total}}",
-  "finalScore": "Sluttpoeng: {{score}}/5",
-  "exportTranscript": "Eksporter transkripsjon",
   "showHint": "Vis tips",
-  "hideHint": "Skjul tips",
-  "complete": "Fullført!",
-  "wellDone": "Godt gjort!",
-  "tryAgain": "Prøv igjen",
-  "noScripts": "Ingen scenarier funnet"
+  "hideHint": "Skjul tips"
 }

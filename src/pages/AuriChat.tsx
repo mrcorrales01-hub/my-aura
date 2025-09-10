@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -14,6 +14,14 @@ const AuriChat = () => {
   const { t } = useTranslation(['auri', 'common']);
   const [inputMessage, setInputMessage] = useState('');
   const { messages, isTyping, sendMessage, isLoading } = useAuriChat();
+  
+  // Auto-scroll to bottom when messages change
+  React.useEffect(() => {
+    const messagesArea = document.getElementById('chat-messages');
+    if (messagesArea) {
+      messagesArea.scrollTop = messagesArea.scrollHeight;
+    }
+  }, [messages, isTyping]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,7 +39,7 @@ const AuriChat = () => {
   };
 
   const handleSuggestionClick = (prompt: string) => {
-    setInputMessage(prompt);
+    setInputMessage('');
     sendMessage(prompt);
   };
 
@@ -57,7 +65,7 @@ const AuriChat = () => {
         
         <CardContent className="flex-1 flex flex-col p-0">
           {/* Messages Area */}
-          <ScrollArea className="flex-1 p-4">
+          <ScrollArea className="flex-1 p-4" id="chat-messages">
             {isLoading ? (
               <div className="flex items-center justify-center py-8">
                 <LoadingSpinner />
@@ -141,7 +149,7 @@ const AuriChat = () => {
               <Input
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
-                placeholder={t('auri:placeholder')}
+                placeholder={t('auri:inputPlaceholder')}
                 className="flex-1"
                 disabled={isTyping}
               />

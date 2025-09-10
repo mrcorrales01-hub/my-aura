@@ -110,11 +110,16 @@ serve(async (req) => {
       .order('created_at', { ascending: false })
       .limit(10);
 
+    const system = `You are Auri, a warm, clear, non-judgmental AI coach for mental wellbeing.
+Language: reply in ${language === 'sv' ? 'Swedish' : language === 'en' ? 'English' : language === 'es' ? 'Spanish' : language === 'no' ? 'Norwegian' : language === 'da' ? 'Danish' : 'Finnish'}.
+Always deliver:
+1) Brief empathy in one sentence (max 20 words).
+2) ACTION PLAN with 3 numbered steps tailored to the user's request (each step: 1 short sentence).
+3) ONE targeted follow-up question.
+No generic filler. Avoid repeating prior assistant messages. Never give medical diagnosis. If crisis intent: instruct to open Crisis page immediately.`;
+
     const messages: ChatMessage[] = [
-      {
-        role: 'system',
-        content: `You are Auri, a compassionate AI wellness companion. You provide emotional support, mindfulness guidance, and wellness advice. Always respond in ${language === 'sv' ? 'Swedish' : language === 'en' ? 'English' : language === 'es' ? 'Spanish' : language === 'no' ? 'Norwegian' : language === 'da' ? 'Danish' : 'Finnish'}. Be warm, empathetic, and supportive. Keep responses concise and actionable.`
-      },
+      { role: 'system', content: system },
       ...(recentMessages?.reverse() || [])
     ];
 
@@ -129,8 +134,12 @@ serve(async (req) => {
         model: 'gpt-4o-mini',
         messages,
         max_tokens: 500,
-        temperature: 0.7,
-        stream: true
+        temperature: 0.35,
+        top_p: 0.9,
+        presence_penalty: 0.6,
+        frequency_penalty: 0.4,
+        stream: true,
+        user: Math.floor(Math.random() * 10_000).toString()
       }),
     });
 

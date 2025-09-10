@@ -3,21 +3,13 @@
   "subtitle": "Chat med din personlige AI-coach for mental helse",
   "welcome": "Hei! Jeg er Auri, din personlige AI-coach. Hvordan har du det i dag?",
   "inputPlaceholder": "Skriv meldingen din her...",
-  "placeholder": "Skriv meldingen din her...",
   "send": "Send",
-  "typing": "Auri skriver...",
   "thinking": "Auri tenker...",
-  "costWarning": "Denne samtalen kan medføre kostnader. Fortsette?",
-  "systemNotice": "Systemmelding",
-  "demoMode": "Demo-modus: OpenAI API-nøkkel mangler",
-  "newChat": "Ny chat",
-  "exportChat": "Eksporter chat",
-  "disclaimer": "Auri er ikke en erstatning for profesjonell medisinsk rådgivning. I nødstilfeller, kontakt helsetjenestene.",
   "suggestions": {
-    "mood": "Snakke om stemningen min",
-    "stress": "Redusere stress",
-    "anxiety": "Håndtere angst",
-    "sleep": "Sove i kveld",
-    "general": "Rask velvære-rutine"
+    "mood": "Snakk om humøret mitt",
+    "stress": "Reduser stress",
+    "anxiety": "Håndter angst", 
+    "sleep": "Sove i natt",
+    "general": "Rask wellness-rutine"
   }
 }

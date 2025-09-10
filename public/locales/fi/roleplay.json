@@ -1,21 +1,13 @@
 {
-  "title": "Roolipeli-skenaariot",
+  "title": "Roolipeli",
+  "subtitle": "Turvalliset, ohjatut harjoitukset",
   "selectScenario": "Valitse skenaario",
+  "noScripts": "Skenaarioita ei löytynyt",
   "start": "Aloita",
-  "next": "Seuraava",
+  "next": "Seuraava", 
   "finish": "Lopeta",
-  "score": "Pisteet",
   "hint": "Vihje",
-  "coachNote": "Valmentajan huomautus",
-  "language": "Kieli",
-  "reset": "Nollaa",
-  "step": "Vaihe {{current}}/{{total}}",
-  "finalScore": "Lopullinen pistemäärä: {{score}}/5",
-  "exportTranscript": "Vie käsikirjoitus",
+  "step": "Vaihe {{current}} / {{total}}",
   "showHint": "Näytä vihje",
-  "hideHint": "Piilota vihje",
-  "complete": "Valmis!",
-  "wellDone": "Hyvin tehty!",
-  "tryAgain": "Yritä uudelleen",
-  "noScripts": "Skenaarioita ei löytynyt"
+  "hideHint": "Piilota vihje"
 }

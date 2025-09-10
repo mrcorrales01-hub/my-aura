@@ -9,14 +9,16 @@ import Onboarding from '@/pages/Onboarding';
 import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
 import Health from '@/pages/Health';
 import ExercisePlayer from '@/pages/ExercisePlayer';
-import RoleplayPage from '@/features/auri/roleplays/RoleplayPage';
+import SimpleRoleplay from '@/pages/SimpleRoleplay';
+import RoleplayRun from '@/pages/RoleplayRun';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
   { path: '/auth', element: <Auth /> },
   { path: '/onboarding', element: <Onboarding /> },
   { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
-  { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
+  { path: '/roleplay', element: <ErrorBoundaryWrapper><SimpleRoleplay /></ErrorBoundaryWrapper> },
+  { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },
   { path: '/health', element: <Health /> },
   { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },
   { path: '/settings', element: <ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper> },
