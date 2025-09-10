@@ -1,9 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { Navbar } from '@/components/Navbar';
-import { Footer } from '@/components/Footer';
-import { streamAuriChat } from '@/services/auri';
+import { streamAuriResponse } from '@/features/auri/getAuriResponse';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
@@ -12,10 +10,8 @@ import { Loader2, Send, AlertCircle, RefreshCw } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 interface Message {
-  id: string;
   role: 'user' | 'assistant';
   content: string;
-  timestamp: Date;
 }
 
 const Chat = () => {
@@ -23,71 +19,63 @@ const Chat = () => {
   const { user } = useAuthContext();
   const { toast } = useToast();
   
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [msgs, setMsgs] = useState<Message[]>([]);
   const [input, setInput] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isDemoMode, setIsDemoMode] = useState(false);
-  const [sessionId] = useState(() => crypto.randomUUID());
+  const [streaming, setStreaming] = useState(false);
+  const [streamContent, setStreamContent] = useState('');
   const [error, setError] = useState<string | null>(null);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  }, [msgs, streamContent]);
 
-  const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
-
-    const userMessage: Message = {
-      id: crypto.randomUUID(),
-      role: 'user',
-      content: input,
-      timestamp: new Date()
-    };
-
-    setMessages(prev => [...prev, userMessage]);
+  const send = async (text: string) => {
+    const lang = i18n.language;
+    const next = [...msgs, { role: 'user' as const, content: text }];
+    setMsgs(next);
     setInput('');
-    setIsLoading(true);
     setError(null);
-
+    
+    let acc = '';
+    setStreaming(true);
+    setStreamContent('');
+    
     try {
-      const { stream, isDemoMode: demoMode } = await streamAuriChat({
-        message: input,
-        sessionId,
-        language: i18n.language
+      await streamAuriResponse({ messages: next, lang }, (tok) => {
+        acc += tok;
+        setStreamContent(acc);
       });
-
-      setIsDemoMode(demoMode);
-
-      const assistantMessage: Message = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content: '',
-        timestamp: new Date()
-      };
-
-      setMessages(prev => [...prev, assistantMessage]);
-
-      for await (const data of stream) {
-        if (data.content) {
-          setMessages(prev => 
-            prev.map(msg => 
-              msg.id === assistantMessage.id 
-                ? { ...msg, content: msg.content + data.content }
-                : msg
-            )
-          );
-        }
-
-        if (data.done) {
-          setIsLoading(false);
-          break;
-        }
+      
+      setStreaming(false);
+      
+      // Simple anti-repeat: if assistant same as last assistant -> append "variation"
+      const lastAssist = msgs.filter(m => m.role === 'assistant').at(-1)?.content || '';
+      const norm = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').slice(0, 140);
+      
+      if (norm(lastAssist) === norm(acc)) {
+        // retry once with higher temp message hint
+        const hint = [...next, { role: 'system' as const, content: 'Do not repeat phrasing. Provide completely new 3 steps.' }];
+        acc = '';
+        setStreaming(true);
+        setStreamContent('');
+        
+        await streamAuriResponse({ messages: hint, lang }, (tok) => {
+          acc += tok;
+          setStreamContent(acc);
+        });
+        
+        setStreaming(false);
       }
+      
+      setMsgs([...next, { role: 'assistant', content: acc }]);
+      setStreamContent('');
+      
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred');
-      setIsLoading(false);
+      setStreaming(false);
+      setStreamContent('');
       toast({
         title: t('common.error'),
         description: error instanceof Error ? error.message : 'An error occurred',
@@ -96,52 +84,86 @@ const Chat = () => {
     }
   };
 
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || streaming) return;
+    send(input.trim());
+  };
+
+  const handleSuggestionClick = (prompt: string) => {
+    setInput('');
+    send(prompt);
+  };
+
   const retry = () => {
     setError(null);
-    sendMessage();
+    if (msgs.length > 0 && msgs[msgs.length - 1].role === 'user') {
+      send(msgs[msgs.length - 1].content);
+    }
   };
 
   if (!user) {
     return (
       <div className="min-h-screen">
-        <Navbar />
         <div className="container mx-auto px-4 py-8 text-center">
           <h1 className="text-2xl font-bold mb-4">{t('common.pleaseSignIn')}</h1>
         </div>
-        <Footer />
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Navbar />
-      
       <main className="flex-1 container mx-auto px-4 py-8 flex flex-col">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold">{t('auri.chatWithAuri', 'Chat with Auri')}</h1>
-            <p className="text-muted-foreground mt-2">{t('auri.aiCompanion', 'Your AI wellness companion')}</p>
+            <h1 className="text-3xl font-bold">Auri</h1>
+            <p className="text-muted-foreground mt-2">{t('auri:welcome', 'Välkommen')}</p>
           </div>
-          {isDemoMode && (
-            <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">
-              {t('auri.demoMode', 'Demo Mode')}
-            </Badge>
-          )}
         </div>
 
         <Card className="flex-1 flex flex-col p-4 max-w-4xl mx-auto w-full">
           {/* Messages */}
           <div className="flex-1 space-y-4 mb-4 overflow-y-auto max-h-96">
-            {messages.length === 0 && (
+            {msgs.length === 0 && !streaming && (
               <div className="text-center text-muted-foreground py-8">
-                <p>{t('auri.startConversation', 'Start a conversation with Auri')}</p>
+                <p>{t('auri:welcome', 'Välkommen')}</p>
+                <div className="grid grid-cols-2 gap-2 mt-4 max-w-md mx-auto">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => handleSuggestionClick(t('auri:suggestions.mood', 'Prata om mitt mående'))}
+                  >
+                    {t('auri:suggestions.mood', 'Mood')}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => handleSuggestionClick(t('auri:suggestions.stress', 'Minska stress'))}
+                  >
+                    {t('auri:suggestions.stress', 'Stress')}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => handleSuggestionClick(t('auri:suggestions.anxiety', 'Hantera oro'))}
+                  >
+                    {t('auri:suggestions.anxiety', 'Anxiety')}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={() => handleSuggestionClick(t('auri:suggestions.general', 'Snabb välmåenderutin'))}
+                  >
+                    {t('auri:suggestions.general', 'General')}
+                  </Button>
+                </div>
               </div>
             )}
             
-            {messages.map((message) => (
+            {msgs.map((message, idx) => (
               <div
-                key={message.id}
+                key={idx}
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
@@ -151,21 +173,22 @@ const Chat = () => {
                       : 'bg-muted text-foreground'
                   }`}
                 >
-                  <p className="text-sm">{message.content}</p>
-                  <p className="text-xs opacity-70 mt-1">
-                    {message.timestamp.toLocaleTimeString()}
-                  </p>
+                  <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                 </div>
               </div>
             ))}
             
-            {isLoading && (
+            {streaming && (
               <div className="flex justify-start">
                 <div className="bg-muted text-foreground max-w-xs lg:max-w-md px-4 py-2 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    <span className="text-sm">{t('auri.thinking', 'Auri is thinking...')}</span>
-                  </div>
+                  {streamContent ? (
+                    <p className="text-sm whitespace-pre-wrap">{streamContent}</p>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      <span className="text-sm">Auri skriver...</span>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -192,31 +215,28 @@ const Chat = () => {
           )}
 
           {/* Input */}
-          <div className="flex space-x-2">
+          <form onSubmit={handleSendMessage} className="flex space-x-2">
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-              placeholder={t('auri.typeMessage', 'Type your message...')}
-              disabled={isLoading}
+              placeholder={t('auri:inputPlaceholder', 'Skriv ditt meddelande här...')}
+              disabled={streaming}
               className="flex-1"
             />
             <Button
-              onClick={sendMessage}
-              disabled={!input.trim() || isLoading}
+              type="submit"
+              disabled={!input.trim() || streaming}
               className="px-4"
             >
-              {isLoading ? (
+              {streaming ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (
                 <Send className="h-4 w-4" />
               )}
             </Button>
-          </div>
+          </form>
         </Card>
       </main>
-      
-      <Footer />
     </div>
   );
 };

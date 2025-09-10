@@ -1,13 +1,9 @@
 {
-  "title": "Auri - AI-valmentajasi",
-  "subtitle": "Keskustele henkilökohtaisen AI-valmentajasi kanssa",
-  "welcome": "Hei! Olen Auri, henkilökohtainen AI-valmentajasi. Miten voit tänään?",
+  "welcome": "Tervetuloa",
   "inputPlaceholder": "Kirjoita viestisi tähän...",
-  "send": "Lähetä",
-  "thinking": "Auri miettii...",
   "suggestions": {
     "mood": "Keskustele mielialastani",
-    "stress": "Vähennä stressiä", 
+    "stress": "Vähennä stressiä",
     "anxiety": "Hallitse ahdistusta",
     "sleep": "Nukkua tänä yönä",
     "general": "Nopea hyvinvointirutiini"

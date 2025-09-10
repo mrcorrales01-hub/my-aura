@@ -1,35 +1,9 @@
 {
   "title": "Rollspel",
   "subtitle": "Säkra, guidande övningar",
-  "selectScenario": "Välj scenario",
-  "chooseScenario": "Välj ett scenario...",
-  "setupSession": "Sätt upp session",
-  "startSession": "Starta session",
-  "start": "Starta",
+  "selectScript": "Välj scenario",
+  "noScripts": "Inga scenarier hittades",
   "next": "Nästa",
   "finish": "Avsluta",
-  "score": "Poäng",
-  "hint": "Tips",
-  "hints": "Tips",
-  "coachNote": "Coach-anteckning",
-  "language": "Språk",
-  "reset": "Återställ",
-  "send": "Skicka",
-  "step": "Steg",
-  "progress": "Framsteg",
-  "stepScore": "Stegpoäng",
-  "finalScore": "Slutpoäng",
-  "sessionComplete": "Session slutförd!",
-  "exportTranscript": "Exportera transkript",
-  "progressOverview": "Framstegöversikt",
-  "welcomeMessage": "Välkommen till {{scenario}}! Låt oss börja öva tillsammans.",
-  "noScripts": "Inga scenarier hittades",
-  "languages": {
-    "sv": "Svenska",
-    "en": "English", 
-    "es": "Español",
-    "no": "Norsk",
-    "da": "Dansk",
-    "fi": "Suomi"
-  }
+  "hint": "Tips"
 }

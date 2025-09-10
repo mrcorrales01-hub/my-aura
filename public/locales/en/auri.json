@@ -1,28 +1,10 @@
 {
-  "title": "Auri - Your AI Coach",
-  "subtitle": "Chat with your personal AI coach for mental health",
-  "welcome": "Hi! I'm Auri, your personal AI coach. How are you feeling today?",
+  "welcome": "Welcome",
   "inputPlaceholder": "Type your message here...",
-  "placeholder": "Type your message here...",
-  "send": "Send",
-  "typing": "Auri is typing...",
-  "thinking": "Auri is thinking...",
-  "costWarning": "This conversation may incur costs. Continue?",
-  "systemNotice": "System Notice",
-  "demoMode": "Demo Mode: OpenAI API key missing",
-  "newChat": "New Chat",
-  "exportChat": "Export Chat",
-  "disclaimer": "Auri is not a substitute for professional medical advice. In emergencies, contact healthcare services.",
-  "quickActions": {
-    "breathing": "1-min breathing",
-    "grounding": "Grounding 5-4-3-2-1", 
-    "journal": "New journal entry",
-    "tasks": "Open today's tasks"
-  },
   "suggestions": {
     "mood": "Talk about my mood",
     "stress": "Reduce stress",
-    "anxiety": "Manage anxiety",
+    "anxiety": "Handle anxiety",
     "sleep": "Sleep tonight",
     "general": "Quick wellness routine"
   }

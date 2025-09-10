@@ -1,13 +1,9 @@
 {
   "title": "Rollespill",
   "subtitle": "Trygge, guidede øvelser",
-  "selectScenario": "Velg scenario",
+  "selectScript": "Velg scenario",
   "noScripts": "Ingen scenarier funnet",
-  "start": "Start",
   "next": "Neste",
-  "finish": "Fullfør", 
-  "hint": "Tips",
-  "step": "Steg {{current}} av {{total}}",
-  "showHint": "Vis tips",
-  "hideHint": "Skjul tips"
+  "finish": "Fullfør",
+  "hint": "Tips"
 }

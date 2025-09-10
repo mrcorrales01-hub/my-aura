@@ -29,7 +29,7 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    supportedLngs: supportedLanguages,
+    supportedLngs: ['sv', 'en', 'es', 'no', 'da', 'fi'],
     fallbackLng: ['en', 'sv'],
     defaultNS: 'common',
     ns: ['common', 'nav', 'home', 'auth', 'health', 'exercises', 'mood', 'roleplay', 'journal', 'plan', 'settings', 'auri'],

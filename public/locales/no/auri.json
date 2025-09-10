@@ -1,14 +1,10 @@
 {
-  "title": "Auri - Din AI-coach",
-  "subtitle": "Chat med din personlige AI-coach for mental helse",
-  "welcome": "Hei! Jeg er Auri, din personlige AI-coach. Hvordan har du det i dag?",
+  "welcome": "Velkommen",
   "inputPlaceholder": "Skriv meldingen din her...",
-  "send": "Send",
-  "thinking": "Auri tenker...",
   "suggestions": {
     "mood": "Snakk om humøret mitt",
     "stress": "Reduser stress",
-    "anxiety": "Håndter angst", 
+    "anxiety": "Håndter angst",
     "sleep": "Sove i natt",
     "general": "Rask wellness-rutine"
   }

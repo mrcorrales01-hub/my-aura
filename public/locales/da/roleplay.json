@@ -1,21 +1,9 @@
 {
-  "title": "Rollespilsscenarier",
-  "selectScenario": "Vælg scenario",
-  "start": "Start",
+  "title": "Rollespil",
+  "subtitle": "Sikre, guidede øvelser",
+  "selectScript": "Vælg scenario",
+  "noScripts": "Ingen scenarier fundet",
   "next": "Næste",
   "finish": "Afslut",
-  "score": "Score",
-  "hint": "Tip",
-  "coachNote": "Trænerns note",
-  "language": "Sprog",
-  "reset": "Nulstil",
-  "step": "Trin {{current}} af {{total}}",
-  "finalScore": "Slutscore: {{score}}/5",
-  "exportTranscript": "Eksporter transskript",
-  "showHint": "Vis tip",
-  "hideHint": "Skjul tip",
-  "complete": "Færdig!",
-  "wellDone": "Godt klaret!",
-  "tryAgain": "Prøv igen",
-  "noScripts": "Ingen scenarier fundet"
+  "hint": "Tip"
 }

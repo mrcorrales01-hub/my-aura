@@ -1,13 +1,9 @@
 {
   "title": "Roolipeli",
   "subtitle": "Turvalliset, ohjatut harjoitukset",
-  "selectScenario": "Valitse skenaario",
+  "selectScript": "Valitse skenaario",
   "noScripts": "Skenaarioita ei löytynyt",
-  "start": "Aloita",
-  "next": "Seuraava", 
+  "next": "Seuraava",
   "finish": "Lopeta",
-  "hint": "Vihje",
-  "step": "Vaihe {{current}} / {{total}}",
-  "showHint": "Näytä vihje",
-  "hideHint": "Piilota vihje"
+  "hint": "Vihje"
 }

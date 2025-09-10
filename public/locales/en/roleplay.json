@@ -1,21 +1,9 @@
 {
-  "title": "Roleplay Scenarios",
-  "selectScenario": "Select Scenario",
-  "start": "Start",
+  "title": "Roleplay",
+  "subtitle": "Safe, guided exercises",
+  "selectScript": "Select scenario",
+  "noScripts": "No scenarios found",
   "next": "Next",
   "finish": "Finish",
-  "score": "Score",
-  "hint": "Hint",
-  "coachNote": "Coach Note",
-  "language": "Language",
-  "reset": "Reset",
-  "step": "Step {{current}} of {{total}}",
-  "finalScore": "Final Score: {{score}}/5",
-  "exportTranscript": "Export Transcript",
-  "showHint": "Show Hint",
-  "hideHint": "Hide Hint",
-  "complete": "Complete!",
-  "wellDone": "Well done!",
-  "tryAgain": "Try Again",
-  "noScripts": "No scenarios found"
+  "hint": "Hint"
 }

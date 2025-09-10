@@ -28,9 +28,7 @@ export const MoodButton = ({ value }: MoodButtonProps) => {
         .from('mood_entries')
         .insert({ 
           user_id: session.user.id,
-          mood_id: crypto.randomUUID(),
-          mood_value: value,
-          notes: `Quick mood rating: ${value}/10`
+          mood_value: value
         });
 
       if (error) {
