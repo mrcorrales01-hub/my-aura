@@ -3379,6 +3379,10 @@ export type Database = {
         Args: { p_session_id: string; p_user_id: string }
         Returns: boolean
       }
+      is_owner: {
+        Args: { uid: string }
+        Returns: boolean
+      }
       is_system_admin: {
         Args: Record<PropertyKey, never>
         Returns: boolean
