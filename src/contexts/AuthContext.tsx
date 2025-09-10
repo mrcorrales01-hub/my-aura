@@ -2,12 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-
-// Type for content moderation result
-interface ModerationResult {
-  flagged: boolean;
-  reasons: string[];
-}
+import { validateContent, sanitizeInput, logSecurityEvent, checkRateLimit, checkPasswordLeak } from '@/utils/security';
 
 /**
  * Defines the shape of the authentication context exposed by the AuthProvider.
@@ -67,109 +62,147 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => subscription.unsubscribe();
   }, []);
 
-  // Helper function to check rate limits
-  const checkRateLimit = async (email: string, attemptType: 'login' | 'signup' | 'password_reset') => {
+  // Enhanced authentication event logging
+  const logAuthEvent = async (eventType: string, success: boolean, details: any = {}) => {
+    await logSecurityEvent(
+      eventType,
+      success ? 'low' : 'medium',
+      {
+        success,
+        timestamp: new Date().toISOString(),
+        ...details
+      }
+    );
+  };
+
+  // Enhanced authentication helpers with comprehensive security
+  const signUp = async (email: string, password: string, metadata?: any) => {
     try {
-      const { data, error } = await supabase.functions.invoke('rate-limiter', {
-        body: { email, attemptType }
+      // Enhanced rate limiting
+      const rateLimited = checkRateLimit('signup');
+      if (!rateLimited) {
+        await logAuthEvent('signup_rate_limited', false, { email });
+        toast.error('Too many signup attempts. Please try again later.');
+        return { error: { message: 'Rate limited' } };
+      }
+
+      // Password leak detection
+      const { isLeaked } = await checkPasswordLeak(password);
+      if (isLeaked) {
+        await logAuthEvent('signup_leaked_password', false, { email });
+        toast.error('This password has been found in data breaches. Please choose a different password.');
+        return { error: { message: 'Compromised password' } };
+      }
+
+      // Enhanced content validation for metadata
+      if (metadata?.full_name) {
+        const sanitizedName = sanitizeInput(metadata.full_name);
+        const validation = await validateContent(sanitizedName, 'profile');
+        
+        if (!validation.isValid || validation.crisisDetected) {
+          await logAuthEvent('signup_invalid_content', false, { email, issues: validation.issues });
+          toast.error('Name contains inappropriate content. Please use a different name.');
+          return { error: { message: 'Content validation failed' } };
+        }
+        metadata.full_name = sanitizedName;
+      }
+
+      const redirectUrl = `${window.location.origin}/`;
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { emailRedirectTo: redirectUrl, data: metadata },
       });
 
       if (error) {
-        console.error('Rate limiter error:', error);
-        return { allowed: true }; // Fail open for availability
+        await logAuthEvent('signup_failed', false, { email, error: error.message });
+        toast.error(error.message);
+      } else {
+        await logAuthEvent('signup_success', true, { email });
       }
 
-      return data;
+      return { error };
     } catch (error) {
-      console.error('Rate limiter connection error:', error);
-      return { allowed: true }; // Fail open for availability
+      await logAuthEvent('signup_error', false, { email, error: error.message });
+      console.error('Signup error:', error);
+      return { error };
     }
-  };
-
-  // Authentication helpers with rate limiting and content moderation
-  const signUp = async (email: string, password: string, metadata?: any) => {
-    // Check rate limit first
-    const rateLimitCheck = await checkRateLimit(email, 'signup');
-    if (!rateLimitCheck.allowed) {
-      const errorMessage = rateLimitCheck.reason === 'Rate limited' 
-        ? 'Too many signup attempts. Please try again later.'
-        : 'Account creation temporarily blocked due to too many attempts.';
-      
-      toast.error(errorMessage);
-      return { error: { message: errorMessage } };
-    }
-
-    // Moderate user-provided content
-    if (metadata?.full_name) {
-      try {
-        const { data: moderationResult } = await supabase.rpc('moderate_content', {
-          content_text: metadata.full_name
-        });
-        
-        const result = moderationResult as unknown as ModerationResult;
-        if (result?.flagged) {
-          toast.error('Name contains inappropriate content. Please use a different name.');
-          return { error: { message: 'Content moderation failed' } };
-        }
-      } catch (error) {
-        console.error('Content moderation error:', error);
-        // Continue with signup if moderation fails
-      }
-    }
-
-    const redirectUrl = `${window.location.origin}/`;
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: { emailRedirectTo: redirectUrl, data: metadata },
-    });
-
-    if (error) {
-      toast.error(error.message);
-    }
-
-    return { error };
   };
 
   const signIn = async (email: string, password: string) => {
-    // Check rate limit first
-    const rateLimitCheck = await checkRateLimit(email, 'login');
-    if (!rateLimitCheck.allowed) {
-      const errorMessage = rateLimitCheck.reason === 'Rate limited'
-        ? 'Too many login attempts. Please try again later.'
-        : 'Account temporarily locked due to too many failed attempts.';
+    try {
+      // Enhanced rate limiting
+      const rateLimited = checkRateLimit('login');
+      if (!rateLimited) {
+        await logAuthEvent('signin_rate_limited', false, { email });
+        toast.error('Too many login attempts. Please try again later.');
+        return { error: { message: 'Rate limited' } };
+      }
+
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       
-      toast.error(errorMessage);
-      return { error: { message: errorMessage } };
-    }
+      if (error) {
+        await logAuthEvent('signin_failed', false, { email, error: error.message });
+        toast.error(error.message);
+      } else {
+        await logAuthEvent('signin_success', true, { email });
+      }
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    
-    if (error) {
-      toast.error(error.message);
+      return { error };
+    } catch (error) {
+      await logAuthEvent('signin_error', false, { email, error: error.message });
+      console.error('Signin error:', error);
+      return { error };
     }
-
-    return { error };
   };
 
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/` },
-    });
-    return { error };
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: `${window.location.origin}/` },
+      });
+      
+      if (error) {
+        await logAuthEvent('oauth_signin_failed', false, { provider: 'google', error: error.message });
+      } else {
+        await logAuthEvent('oauth_signin_success', true, { provider: 'google' });
+      }
+      
+      return { error };
+    } catch (error) {
+      await logAuthEvent('oauth_signin_error', false, { provider: 'google', error: error.message });
+      return { error };
+    }
   };
 
   const signInWithApple = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'apple',
-      options: { redirectTo: `${window.location.origin}/` },
-    });
-    return { error };
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'apple',
+        options: { redirectTo: `${window.location.origin}/` },
+      });
+      
+      if (error) {
+        await logAuthEvent('oauth_signin_failed', false, { provider: 'apple', error: error.message });
+      } else {
+        await logAuthEvent('oauth_signin_success', true, { provider: 'apple' });
+      }
+      
+      return { error };
+    } catch (error) {
+      await logAuthEvent('oauth_signin_error', false, { provider: 'apple', error: error.message });
+      return { error };
+    }
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      await supabase.auth.signOut();
+      await logAuthEvent('signout_success', true, {});
+    } catch (error) {
+      await logAuthEvent('signout_error', false, { error: error.message });
+    }
   };
 
   return (
