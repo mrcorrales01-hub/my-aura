@@ -1,4 +1,4 @@
-export type Step = { goal: Record<string, string>; hints?: Record<string, string> }
+export type Step = { goal: Record<string, string> }
 export type Scenario = { id: string; title: Record<string, string>; steps: Step[] }
 
 export const SCENARIOS: Scenario[] = [
@@ -16,7 +16,7 @@ export const SCENARIOS: Scenario[] = [
     title: { sv: 'Oro → Grounding 5-4-3-2-1', en: 'Anxiety → Grounding' },
     steps: [
       { goal: { sv: 'Andas långsamt in/ut (2 varv).', en: 'Slow inhale/exhale twice.' } },
-      { goal: { sv: '5-4-3-2-1: notera sinnesintryck.', en: '5-4-3-2-1 senses check.' } }
+      { goal: { sv: '5-4-3-2-1: notera sinnen.', en: '5-4-3-2-1 senses check.' } }
     ]
   },
   {
@@ -28,10 +28,4 @@ export const SCENARIOS: Scenario[] = [
       { goal: { sv: 'Föreslå gemensam lösning.', en: 'Propose a joint next step.' } }
     ]
   }
-]
-
-export const listFor = (lng: string) => SCENARIOS.map(s => ({ 
-  id: s.id, 
-  title: s.title[lng] || s.title.en || s.id,
-  scenario: s
-}))
+];
