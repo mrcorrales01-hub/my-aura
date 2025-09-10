@@ -1,5 +1,3 @@
-// deno
-import 'jsr:@supabase/functions-js/edge-runtime'
 import OpenAI from 'https://esm.sh/openai@4.55.3'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.53.0'
 
