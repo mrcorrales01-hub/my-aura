@@ -1,8 +1,4 @@
 {
-  "happy": "Iloinen",
-  "calm": "Rauhallinen",
-  "anxious": "Ahdistunut",
-  "sad": "Surullinen",
-  "stressed": "Stressaantunut",
-  "confused": "Hämmentynyt"
+  "saved": "Tallennettu!",
+  "errorSave": "Ei voitu tallentaa"
 }

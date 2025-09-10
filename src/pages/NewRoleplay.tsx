@@ -4,13 +4,13 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { EmptyState } from "@/components/EmptyState";
 import { MessageSquare, Play, AlertCircle } from "lucide-react";
-import { getScenarioList } from "@/features/auri/roleplays/loadScenarios";
+import { listFor } from "@/features/auri/roleplays/loadScenarios";
 
 const NewRoleplay = () => {
   const { t, i18n } = useTranslation(['roleplay']);
   const [selectedScenario, setSelectedScenario] = useState<string | null>(null);
   
-  const scenarios = getScenarioList(i18n.language);
+  const scenarios = listFor(i18n.language);
 
   if (!scenarios.length) {
     return <EmptyState 

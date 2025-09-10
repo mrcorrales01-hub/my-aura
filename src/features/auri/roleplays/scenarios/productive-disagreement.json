@@ -16,11 +16,8 @@
     "da": "Lær at navigere uenigheder konstruktivt",
     "fi": "Opi navigoimaan erimielisyyksiä rakentavasti"
   },
-  "persona": "You are Auri, a communication coach specializing in emotional regulation and constructive dialogue.",
-  "languageStyle": "Clear, supportive, example-driven. Focus on actionable communication techniques.",
   "steps": [
     {
-      "id": 1,
       "goal": {
         "sv": "Lyssna aktivt och validera den andres perspektiv",
         "en": "Listen actively and validate the other person's perspective",
@@ -28,19 +25,9 @@
         "no": "Lytt aktivt og valider den andre personens perspektiv",
         "da": "Lyt aktivt og valider den anden persons perspektiv",
         "fi": "Kuuntele aktiivisesti ja tunnusta toisen henkilön näkökulma"
-      },
-      "hints": {
-        "sv": ["Jag förstår att du känner...", "Det låter som att du menar..."],
-        "en": ["I understand that you feel...", "It sounds like you mean..."],
-        "es": ["Entiendo que sientes...", "Parece que quieres decir..."],
-        "no": ["Jeg forstår at du føler...", "Det høres ut som du mener..."],
-        "da": ["Jeg forstår at du føler...", "Det lyder som om du mener..."],
-        "fi": ["Ymmärrän, että tunnet...", "Kuulostaa siltä, että tarkoitat..."]
-      },
-      "rubric": "Score 0-5 based on empathetic responses, paraphrasing, and acknowledgment without agreement."
+      }
     },
     {
-      "id": 2,
       "goal": {
         "sv": "Uttryck din synpunkt med 'jag'-meddelanden och utan anklagelser",
         "en": "Express your viewpoint using 'I' statements without accusations",
@@ -48,19 +35,9 @@
         "no": "Uttrykk ditt synspunkt ved å bruke 'jeg'-utsagn uten anklager",
         "da": "Udtryk dit synspunkt ved hjælp af 'jeg'-udsagn uden anklager",
         "fi": "Ilmaise näkökulmasi käyttämällä 'minä'-lauseita ilman syytöksiä"
-      },
-      "hints": {
-        "sv": ["Jag upplever det annorlunda...", "Från mitt perspektiv..."],
-        "en": ["I experience it differently...", "From my perspective..."],
-        "es": ["Lo experimento de manera diferente...", "Desde mi perspectiva..."],
-        "no": ["Jeg opplever det annerledes...", "Fra mitt perspektiv..."],
-        "da": ["Jeg oplever det anderledes...", "Fra mit perspektiv..."],
-        "fi": ["Koen sen eri tavalla...", "Omasta näkökulmastani..."]
-      },
-      "rubric": "Score 0-5 based on non-defensive language, ownership of feelings, and respectful disagreement."
+      }
     },
     {
-      "id": 3,
       "goal": {
         "sv": "Hitta gemensam grund och föreslå nästa steg framåt",
         "en": "Find common ground and suggest next steps forward",
@@ -68,16 +45,12 @@
         "no": "Finn felles grunnlag og foreslå neste steg fremover",
         "da": "Find fælles grund og foreslå næste skridt fremad",
         "fi": "Löydä yhteistä pohjaa ja ehdota seuraavia askeleita"
-      },
-      "hints": {
-        "sv": ["Vi är båda överens om att...", "Kanske kan vi..."],
-        "en": ["We both agree that...", "Perhaps we could..."],
-        "es": ["Ambos estamos de acuerdo en que...", "Tal vez podríamos..."],
-        "no": ["Vi er begge enige om at...", "Kanskje vi kunne..."],
-        "da": ["Vi er begge enige om at...", "Måske kunne vi..."],
-        "fi": ["Olemme molemmat samaa mieltä siitä, että...", "Ehkä voisimme..."]
-      },
-      "rubric": "Score 0-5 based on collaborative language, solution-oriented thinking, and mutual respect."
+      }
     }
-  ]
+  ],
+  "rubric": {
+    "empathy": 0.4,
+    "clarity": 0.4,
+    "solution": 0.2
+  }
 }

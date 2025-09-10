@@ -1,8 +1,4 @@
 {
-  "happy": "Glad",
-  "calm": "Rolig",
-  "anxious": "Bekymret",
-  "sad": "Trist",
-  "stressed": "Stresset",
-  "confused": "Forvirret"
+  "saved": "Gemt!",
+  "errorSave": "Kunne ikke gemme"
 }

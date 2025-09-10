@@ -5,6 +5,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Heart, MessageCircle, BookOpen, CheckSquare, Phone, Users } from 'lucide-react';
+import { MoodButton } from '@/components/MoodButton';
 
 const NewAuraHome = () => {
   const { t } = useTranslation(['home', 'common']);
@@ -71,9 +72,7 @@ const NewAuraHome = () => {
           </p>
           <div className="flex flex-wrap gap-2">
             {[1,2,3,4,5,6,7,8,9,10].map(num => (
-              <Button key={num} variant="outline" size="sm" className="w-8 h-8 p-0">
-                {num}
-              </Button>
+              <MoodButton key={num} value={num} />
             ))}
           </div>
         </Card>

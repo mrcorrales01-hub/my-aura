@@ -16,11 +16,8 @@
     "da": "Lær at sætte sunde grænser i relationer",
     "fi": "Opi asettamaan terveitä rajoja ihmissuhteissa"
   },
-  "persona": "You are Auri, a supportive wellness coach helping someone practice boundary-setting.",
-  "languageStyle": "Simple, warm, short sentences. Ask open-ended questions.",
   "steps": [
     {
-      "id": 1,
       "goal": {
         "sv": "Identifiera situationer där du behöver sätta gränser",
         "en": "Identify situations where you need to set boundaries",
@@ -28,19 +25,9 @@
         "no": "Identifiser situasjoner der du trenger å sette grenser",
         "da": "Identificer situationer hvor du har brug for at sætte grænser",
         "fi": "Tunnista tilanteet, joissa sinun on asetettava rajoja"
-      },
-      "hints": {
-        "sv": ["Tänk på när du känner dig obekväm", "När säger du ja fast du vill säga nej?"],
-        "en": ["Think about when you feel uncomfortable", "When do you say yes but want to say no?"],
-        "es": ["Piensa en cuándo te sientes incómodo", "¿Cuándo dices sí pero quieres decir no?"],
-        "no": ["Tenk på når du føler deg ukomfortabel", "Når sier du ja men vil si nei?"],
-        "da": ["Tænk på hvornår du føler dig utilpas", "Hvornår siger du ja, men vil sige nej?"],
-        "fi": ["Ajattele, milloin tunnet olosi epämukavaksi", "Milloin sanot kyllä mutta haluat sanoa ei?"]
-      },
-      "rubric": "Score 0-5 based on self-awareness and ability to identify boundary needs."
+      }
     },
     {
-      "id": 2,
       "goal": {
         "sv": "Formulera tydliga gränser med 'jag'-meddelanden",
         "en": "Formulate clear boundaries using 'I' statements",
@@ -48,16 +35,12 @@
         "no": "Formuler tydelige grenser ved hjelp av 'jeg'-utsagn",
         "da": "Formuler tydelige grænser ved hjælp af 'jeg'-udsagn",
         "fi": "Muotoile selkeät rajat käyttämällä 'minä'-lauseita"
-      },
-      "hints": {
-        "sv": ["Börja med 'Jag känner...'", "Var specifik om vad du behöver"],
-        "en": ["Start with 'I feel...'", "Be specific about what you need"],
-        "es": ["Comienza con 'Yo siento...'", "Sé específico sobre lo que necesitas"],
-        "no": ["Begynn med 'Jeg føler...'", "Vær spesifikk om hva du trenger"],
-        "da": ["Begynd med 'Jeg føler...'", "Vær specifik om, hvad du har brug for"],
-        "fi": ["Aloita sanoilla 'Minä tunnen...'", "Ole täsmällinen siitä, mitä tarvitset"]
-      },
-      "rubric": "Score 0-5 based on clarity, assertiveness without aggression, and use of 'I' statements."
+      }
     }
-  ]
+  ],
+  "rubric": {
+    "clarity": 0.4,
+    "empathy": 0.3,
+    "assertiveness": 0.3
+  }
 }

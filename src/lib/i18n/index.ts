@@ -48,9 +48,9 @@ i18n
     },
     
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
-      lookupLocalStorage: 'aura-lang',
+      order: ['localStorage', 'htmlTag', 'navigator'],
       caches: ['localStorage'],
+      lookupLocalStorage: 'aura.lang',
     },
   });
 

@@ -46,7 +46,7 @@ export default function AuthLanguageSync() {
       const current = localStorage.getItem(LANG_KEY) || i18n.language || 'sv'
       const profileLang = prof?.language_preference
 
-      // If profile missing → upsert with current
+      // If profile missing → update with current
       if (!profileLang) {
         await supabase.from('profiles').update({ language_preference: current }).eq('id', user.id)
       } else if (profileLang !== current) {

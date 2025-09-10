@@ -1,8 +1,4 @@
 {
-  "happy": "Feliz",
-  "calm": "Tranquilo",
-  "anxious": "Ansioso",
-  "sad": "Triste",
-  "stressed": "Estresado",
-  "confused": "Confundido"
+  "saved": "¡Guardado!",
+  "errorSave": "No se pudo guardar"
 }

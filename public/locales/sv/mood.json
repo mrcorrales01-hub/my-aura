@@ -1,8 +1,4 @@
 {
-  "happy": "Glad",
-  "calm": "Lugn",
-  "anxious": "Orolig",
-  "sad": "Ledsen",
-  "stressed": "Stressad",
-  "confused": "Förvirrad"
+  "saved": "Sparat!",
+  "errorSave": "Kunde inte spara"
 }

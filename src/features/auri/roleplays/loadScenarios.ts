@@ -19,3 +19,5 @@ export const getScenarioList = (lng: string) =>
     title: s.title?.[lng] || s.title?.en || s.id,
     description: s.description?.[lng] || s.description?.en || ''
   }));
+
+export const listFor = (lng: string) => getScenarioList(lng);

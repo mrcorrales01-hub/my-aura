@@ -16,11 +16,8 @@
     "da": "Lær grundingsteknikker til panikangst",
     "fi": "Opi maadoitustekniikoita paniikkikohtauksia varten"
   },
-  "persona": "You are Auri, a calm mental health coach specializing in panic and anxiety.",
-  "languageStyle": "Calm, reassuring, short responses. Focus on actionable steps.",
   "steps": [
     {
-      "id": 1,
       "goal": {
         "sv": "Identifiera panikkänslor och symptom",
         "en": "Identify panic feelings and symptoms",
@@ -28,19 +25,9 @@
         "no": "Identifiser panikktanker og symptomer",
         "da": "Identificer panikfølelser og symptomer",
         "fi": "Tunnista paniikkitunteet ja oireet"
-      },
-      "hints": {
-        "sv": ["Hjärtklappning", "Andningssvårigheter", "Känslor av fara"],
-        "en": ["Racing heart", "Breathing difficulty", "Feelings of danger"],
-        "es": ["Corazón acelerado", "Dificultad para respirar", "Sensación de peligro"],
-        "no": ["Hjertebank", "Pusteproblemer", "Følelse av fare"],
-        "da": ["Hjertebanken", "Vejrtrækningsbesvær", "Følelse af fare"],
-        "fi": ["Sydämen tykytys", "Hengitysvaikeudet", "Vaarantunne"]
-      },
-      "rubric": "Score 0-5 based on recognition of physical and emotional panic symptoms."
+      }
     },
     {
-      "id": 2,
       "goal": {
         "sv": "Använd 5-4-3-2-1 grundningsteknik",
         "en": "Use 5-4-3-2-1 grounding technique",
@@ -48,36 +35,12 @@
         "no": "Bruk 5-4-3-2-1 grunningsteknikk",
         "da": "Brug 5-4-3-2-1 grundingsteknik",
         "fi": "Käytä 5-4-3-2-1 maadoitustekniikkaa"
-      },
-      "hints": {
-        "sv": ["5 saker du ser", "4 saker du kan röra", "3 ljud du hör"],
-        "en": ["5 things you see", "4 things you can touch", "3 sounds you hear"],
-        "es": ["5 cosas que ves", "4 cosas que puedes tocar", "3 sonidos que escuchas"],
-        "no": ["5 ting du ser", "4 ting du kan berøre", "3 lyder du hører"],
-        "da": ["5 ting du ser", "4 ting du kan røre", "3 lyde du hører"],
-        "fi": ["5 asiaa, jotka näet", "4 asiaa, joihin voit koskea", "3 ääntä, jotka kuulet"]
-      },
-      "rubric": "Score 0-5 based on engagement with sensory grounding and present-moment awareness."
-    },
-    {
-      "id": 3,
-      "goal": {
-        "sv": "Praktisera djupandning och lugnande affirmationer",
-        "en": "Practice deep breathing and calming affirmations",
-        "es": "Practicar respiración profunda y afirmaciones calmantes",
-        "no": "Øv på dyp pusting og beroligende bekreftelser",
-        "da": "Øv dyb vejrtrækning og beroligende bekræftelser",
-        "fi": "Harjoittele syvää hengitystä ja rauhoittavia vakuutteluja"
-      },
-      "hints": {
-        "sv": ["Andas in 4 sek", "Håll 4 sek", "Andas ut 6 sek"],
-        "en": ["Breathe in 4 sec", "Hold 4 sec", "Breathe out 6 sec"],
-        "es": ["Inhala 4 seg", "Mantén 4 seg", "Exhala 6 seg"],
-        "no": ["Pust inn 4 sek", "Hold 4 sek", "Pust ut 6 sek"],
-        "da": ["Indånd 4 sek", "Hold 4 sek", "Udånd 6 sek"],
-        "fi": ["Hengitä sisään 4 sek", "Pidä 4 sek", "Hengitä ulos 6 sek"]
-      },
-      "rubric": "Score 0-5 based on following breathing pattern and using self-soothing language."
+      }
     }
-  ]
+  ],
+  "rubric": {
+    "presence": 0.5,
+    "clarity": 0.3,
+    "self-kindness": 0.2
+  }
 }

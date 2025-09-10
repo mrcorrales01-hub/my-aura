@@ -1,8 +1,4 @@
 {
-  "happy": "Happy",
-  "calm": "Calm",
-  "anxious": "Anxious",
-  "sad": "Sad",
-  "stressed": "Stressed",
-  "confused": "Confused"
+  "saved": "Saved!",
+  "errorSave": "Could not save"
 }
