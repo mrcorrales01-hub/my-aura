@@ -639,6 +639,33 @@ export type Database = {
         }
         Relationships: []
       }
+      content_access_limits: {
+        Row: {
+          access_count: number | null
+          created_at: string | null
+          id: string
+          table_name: string
+          user_id: string | null
+          window_start: string | null
+        }
+        Insert: {
+          access_count?: number | null
+          created_at?: string | null
+          id?: string
+          table_name: string
+          user_id?: string | null
+          window_start?: string | null
+        }
+        Update: {
+          access_count?: number | null
+          created_at?: string | null
+          id?: string
+          table_name?: string
+          user_id?: string | null
+          window_start?: string | null
+        }
+        Relationships: []
+      }
       conversations: {
         Row: {
           ai_tone: string | null
@@ -3096,6 +3123,14 @@ export type Database = {
         Args: { appointment_id: string }
         Returns: boolean
       }
+      check_content_access_rate_limit: {
+        Args: {
+          p_max_requests?: number
+          p_table_name: string
+          p_window_minutes?: number
+        }
+        Returns: boolean
+      }
       cleanup_old_conversations: {
         Args: Record<PropertyKey, never>
         Returns: undefined
@@ -3325,6 +3360,15 @@ export type Database = {
           p_user_id: string
         }
         Returns: string
+      }
+      log_content_access_attempt: {
+        Args: {
+          p_access_type: string
+          p_context?: string
+          p_table_name: string
+          p_user_authenticated?: boolean
+        }
+        Returns: undefined
       }
       log_profile_data_access: {
         Args: {
