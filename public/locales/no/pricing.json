@@ -1,0 +1,20 @@
+{
+  "title": "Medlemskap",
+  "free": "Gratis",
+  "plus": "Plus",
+  "pro": "Pro",
+  "currentPlan": "Nåværende plan",
+  "upgrade": "Oppgrader",
+  "includesVisitPack": "Inkluderer Legebesøk-pakke",
+  "mockNotice": "(Demo – ingen betaling)",
+  "visitPackFeatures": "Legebesøk-funksjoner",
+  "symptomTracking": "Symptomsporing",
+  "questionGeneration": "AI-genererte spørsmål",
+  "sbarReports": "SBAR-rapporter",
+  "visitPractice": "Besøksøvelse",
+  "actionPlanning": "Handlingsplanlegging",
+  "unlimitedVisits": "Ubegrensede besøk",
+  "monthlyPrice": "kr/måned",
+  "getStarted": "Kom i gang",
+  "choosePlan": "Velg plan"
+}

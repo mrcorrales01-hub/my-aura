@@ -43,8 +43,22 @@ const TIER_LIMITS = {
   },
 };
 
+// New mocked subscription system
+export const getPlan = (): SubscriptionTier => {
+  const plan = localStorage.getItem('aura.plan');
+  return (plan === 'plus' || plan === 'pro') ? plan as SubscriptionTier : 'free';
+};
+
+export const hasVisitPack = (): boolean => {
+  const plan = getPlan();
+  return ['plus', 'pro'].includes(plan);
+};
+
+export const requireSub = import.meta.env.VITE_REQUIRE_SUBSCRIPTION === 'true';
+
+// Backward compatibility with existing subscription system
 export async function getSubscription(): Promise<SubscriptionStatus> {
-  // Dev override
+  // Mock version using localStorage
   if (import.meta.env.VITE_REQUIRE_SUBSCRIPTION === 'false') {
     return {
       tier: 'pro',
@@ -56,58 +70,17 @@ export async function getSubscription(): Promise<SubscriptionStatus> {
     };
   }
 
-  try {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
-      return {
-        tier: 'free',
-        active: false,
-        limits: {
-          ...TIER_LIMITS.free,
-          auriUsed: 0,
-        },
-      };
-    }
+  const tier = getPlan();
+  const active = tier !== 'free';
 
-    const { data: subscriber } = await supabase
-      .from('subscribers')
-      .select('subscribed, subscription_tier')
-      .eq('email', session.user.email)
-      .maybeSingle();
-
-    const tier = (subscriber?.subscription_tier || 'free') as SubscriptionTier;
-    const active = subscriber?.subscribed || false;
-
-    // Get usage for current week (Auri messages)
-    const weekStart = new Date();
-    weekStart.setDate(weekStart.getDate() - weekStart.getDay());
-    weekStart.setHours(0, 0, 0, 0);
-
-    const { count: auriUsed } = await supabase
-      .from('conversations')
-      .select('*', { count: 'exact', head: true })
-      .eq('user_id', session.user.id)
-      .gte('created_at', weekStart.toISOString());
-
-    return {
-      tier,
-      active: active && tier !== 'free',
-      limits: {
-        ...TIER_LIMITS[tier],
-        auriUsed: auriUsed || 0,
-      },
-    };
-  } catch (error) {
-    console.error('Error getting subscription:', error);
-    return {
-      tier: 'free',
-      active: false,
-      limits: {
-        ...TIER_LIMITS.free,
-        auriUsed: 0,
-      },
-    };
-  }
+  return {
+    tier,
+    active,
+    limits: {
+      ...TIER_LIMITS[tier],
+      auriUsed: 0, // Mock usage
+    },
+  };
 }
 
 export function canUseFeature(
@@ -131,14 +104,5 @@ export function canUseFeature(
 }
 
 export async function updateSubscription(tier: SubscriptionTier): Promise<void> {
-  const { data: { session } } = await supabase.auth.getSession();
-  if (!session) throw new Error('Not authenticated');
-
-  await supabase
-    .from('subscribers')
-    .upsert({
-      email: session.user.email || '',
-      subscribed: tier !== 'free',
-      subscription_tier: tier,
-    }, { onConflict: 'email' });
+  localStorage.setItem('aura.plan', tier);
 }

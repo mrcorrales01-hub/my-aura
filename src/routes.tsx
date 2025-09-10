@@ -13,11 +13,10 @@ import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/pages/Roleplay';
 import RoleplayRun from '@/pages/RoleplayRun';
 
-import VisitHub from '@/pages/VisitHub';
-import VisitPrepare from '@/pages/VisitPrepare';
-import VisitPdf from '@/pages/VisitPdf';
-import VisitPractice from '@/pages/VisitPractice';
-import VisitAfter from '@/pages/VisitAfter';
+import VisitHub from '@/pages/visit/VisitHub';
+import VisitPrepare from '@/pages/visit/VisitPrepare';
+import VisitPractice from '@/pages/visit/VisitPractice';
+import VisitAfter from '@/pages/visit/VisitAfter';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
@@ -26,7 +25,7 @@ export const router = createBrowserRouter([
   { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
   { path: '/visit', element: <ErrorBoundaryWrapper><VisitHub /></ErrorBoundaryWrapper> },
   { path: '/visit/prepare', element: <ErrorBoundaryWrapper><VisitPrepare /></ErrorBoundaryWrapper> },
-  { path: '/visit/pdf', element: <ErrorBoundaryWrapper><VisitPdf /></ErrorBoundaryWrapper> },
+  
   { path: '/visit/practice', element: <ErrorBoundaryWrapper><VisitPractice /></ErrorBoundaryWrapper> },
   { path: '/visit/after', element: <ErrorBoundaryWrapper><VisitAfter /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },

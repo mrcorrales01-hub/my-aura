@@ -1,0 +1,20 @@
+{
+  "title": "Membership",
+  "free": "Free",
+  "plus": "Plus",
+  "pro": "Pro", 
+  "currentPlan": "Current plan",
+  "upgrade": "Upgrade",
+  "includesVisitPack": "Includes Doctor Visit pack",
+  "mockNotice": "(Demo – no payment)",
+  "visitPackFeatures": "Doctor Visit features",
+  "symptomTracking": "Symptom tracking",
+  "questionGeneration": "AI-generated questions",
+  "sbarReports": "SBAR reports",
+  "visitPractice": "Visit practice",
+  "actionPlanning": "Action planning",
+  "unlimitedVisits": "Unlimited visits",
+  "monthlyPrice": "/month",
+  "getStarted": "Get started",
+  "choosePlan": "Choose plan"
+}

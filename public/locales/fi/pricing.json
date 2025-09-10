@@ -1,0 +1,20 @@
+{
+  "title": "Jäsenyys",
+  "free": "Ilmainen",
+  "plus": "Plus",
+  "pro": "Pro",
+  "currentPlan": "Nykyinen suunnitelma",
+  "upgrade": "Päivitä",
+  "includesVisitPack": "Sisältää Lääkärikäynti-paketin",
+  "mockNotice": "(Demo – ei maksua)",
+  "visitPackFeatures": "Lääkärikäynti-ominaisuudet",
+  "symptomTracking": "Oireiden seuranta",
+  "questionGeneration": "AI:n luomat kysymykset",
+  "sbarReports": "SBAR-raportit",
+  "visitPractice": "Käyntien harjoittelu",
+  "actionPlanning": "Toimintasuunnittelu",
+  "unlimitedVisits": "Rajattomat käynnit",
+  "monthlyPrice": "€/kuukausi",
+  "getStarted": "Aloita",
+  "choosePlan": "Valitse suunnitelma"
+}

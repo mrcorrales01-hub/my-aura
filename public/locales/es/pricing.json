@@ -1,0 +1,20 @@
+{
+  "title": "Membresía",
+  "free": "Gratis",
+  "plus": "Plus",
+  "pro": "Pro",
+  "currentPlan": "Plan actual",
+  "upgrade": "Actualizar",
+  "includesVisitPack": "Incluye paquete de Visita Médica",
+  "mockNotice": "(Demo – sin pago)",
+  "visitPackFeatures": "Funciones de Visita Médica",
+  "symptomTracking": "Seguimiento de síntomas",
+  "questionGeneration": "Preguntas generadas por IA",
+  "sbarReports": "Informes SBAR",
+  "visitPractice": "Práctica de visitas",
+  "actionPlanning": "Planificación de acciones",
+  "unlimitedVisits": "Visitas ilimitadas",
+  "monthlyPrice": "/mes",
+  "getStarted": "Comenzar",
+  "choosePlan": "Elegir plan"
+}
