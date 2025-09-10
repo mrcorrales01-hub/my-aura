@@ -304,6 +304,39 @@ export type Database = {
         }
         Relationships: []
       }
+      auth_attempt_tracking: {
+        Row: {
+          attempt_type: string
+          blocked_until: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          ip_address: unknown
+          success: boolean | null
+          user_agent: string | null
+        }
+        Insert: {
+          attempt_type: string
+          blocked_until?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          ip_address: unknown
+          success?: boolean | null
+          user_agent?: string | null
+        }
+        Update: {
+          attempt_type?: string
+          blocked_until?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          ip_address?: unknown
+          success?: boolean | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
       auth_rate_limits: {
         Row: {
           attempt_count: number | null
@@ -3361,6 +3394,15 @@ export type Database = {
         }
         Returns: string
       }
+      log_auth_attempt: {
+        Args: {
+          p_attempt_type: string
+          p_email: string
+          p_success?: boolean
+          p_user_agent?: string
+        }
+        Returns: boolean
+      }
       log_content_access_attempt: {
         Args: {
           p_access_type: string
@@ -3424,6 +3466,10 @@ export type Database = {
       moderate_content: {
         Args: { content_text: string }
         Returns: Json
+      }
+      monitor_high_risk_security_events: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
       }
       validate_password_strength: {
         Args: { password_text: string }

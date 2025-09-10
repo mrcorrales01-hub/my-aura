@@ -2,6 +2,7 @@ import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import AuthLanguageSync from './providers/AuthLanguageSync';
+import { SecurityAlertSystem } from '@/components/security/SecurityAlertSystem';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +21,7 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthLanguageSync />
+      <SecurityAlertSystem />
       {children}
       <Toaster />
     </QueryClientProvider>

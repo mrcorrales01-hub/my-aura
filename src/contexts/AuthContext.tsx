@@ -131,6 +131,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signIn = async (email: string, password: string) => {
     try {
+      // Enhanced security checks with new auth tracking
+      const { data: authCheckResult } = await supabase.rpc('log_auth_attempt', {
+        p_email: email,
+        p_attempt_type: 'login',
+        p_success: false,
+        p_user_agent: navigator.userAgent
+      });
+
+      if (!authCheckResult) {
+        await logAuthEvent('signin_blocked_rate_limit', false, { email });
+        toast.error('Too many login attempts. Please try again later.');
+        return { error: { message: 'Too many login attempts. Please try again later.' } };
+      }
+
       // Enhanced rate limiting
       const rateLimited = checkRateLimit('login');
       if (!rateLimited) {
@@ -145,6 +159,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await logAuthEvent('signin_failed', false, { email, error: error.message });
         toast.error(error.message);
       } else {
+        // Log successful auth attempt
+        await supabase.rpc('log_auth_attempt', {
+          p_email: email,
+          p_attempt_type: 'login',
+          p_success: true,
+          p_user_agent: navigator.userAgent
+        });
         await logAuthEvent('signin_success', true, { email });
       }
 
