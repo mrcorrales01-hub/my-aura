@@ -178,7 +178,14 @@ const PlanPage = () => {
       ));
 
       if (completed) {
-        // Confetti effect would go here
+        // Celebrate task completion with confetti
+        const { celebrateWithConfetti } = await import('@/lib/confetti');
+        celebrateWithConfetti({
+          particleCount: 30,
+          spread: 60,
+          origin: { x: 0.5, y: 0.7 }
+        });
+        
         toast({
           title: '🎉 Task completed!',
           description: 'Great job staying on track!'

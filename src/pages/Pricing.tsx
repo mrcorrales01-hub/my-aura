@@ -2,16 +2,27 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Check, Crown, Heart, Zap, Shield, Users } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import { useSubscription } from '@/contexts/SubscriptionContext';
-import { useGlobalLanguage } from '@/hooks/useGlobalLanguage';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { getSubscription } from '@/lib/subscription';
+import { useState, useEffect } from 'react';
 
 const Pricing = () => {
-  const { user } = useAuth();
-  const { subscribed, tier, createCheckoutSession, openCustomerPortal, loading } = useSubscription();
-  const { t } = useGlobalLanguage();
+  const { user } = useAuthContext();
+  const { t } = useTranslation(['common']);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [subscription, setSubscription] = useState<any>(null);
+
+  useEffect(() => {
+    const loadSubscription = async () => {
+      const sub = await getSubscription();
+      setSubscription(sub);
+    };
+    loadSubscription();
+  }, []);
 
   const plans = [
     {
@@ -21,53 +32,49 @@ const Pricing = () => {
       period: '/month',
       description: 'Perfect for getting started with mental wellness',
       features: [
-        '3 AI coaching sessions per month',
+        '50 AI coaching messages per week',
         'Basic mood tracking',
-        'Daily wellness tips',
-        'Community access (read-only)',
-        'Email support'
+        '1 roleplay scenario',
+        '2 wellness goals',
+        'Community access (read-only)'
       ],
       icon: Heart,
-      current: !subscribed
+      current: subscription?.tier === 'free'
     },
     {
       id: 'premium',
-      name: 'Premium',
-      price: '$19.99',
+      name: 'Plus',
+      price: '$9.99',
       period: '/month',
       description: 'Everything you need for comprehensive mental health support',
       features: [
-        'Unlimited AI coaching sessions',
+        '500 AI coaching messages per week',
         'Advanced mood analytics & insights',
-        'Personalized wellness plans',
-        'Full community participation',
-        'Priority chat support',
-        'Meditation & breathing exercises',
+        'All 3 roleplay scenarios',
+        'Unlimited wellness goals',
         'Weekly progress reports',
-        'Goal setting & tracking'
+        'Full community participation'
       ],
       icon: Crown,
       popular: true,
-      current: tier === 'premium_monthly'
+      current: subscription?.tier === 'plus'
     },
     {
-      id: 'enterprise',
-      name: 'Enterprise',
-      price: '$49.99',
+      id: 'pro',
+      name: 'Pro',
+      price: '$19.99',
       period: '/month',
-      description: 'Advanced features for organizations and teams',
+      description: 'Advanced features for power users',
       features: [
-        'Everything in Premium',
-        'Team dashboard & analytics',
+        'Unlimited AI coaching (fair use)',
+        'Advanced roleplay scoring',
+        'Data export capabilities',
+        'Priority support',
         'Custom AI coaching personas',
-        'Advanced reporting & insights',
-        'API access',
-        'Dedicated account manager',
-        'Custom integrations',
-        'HIPAA compliance tools'
+        'Advanced reporting & insights'
       ],
       icon: Shield,
-      current: tier === 'enterprise'
+      current: subscription?.tier === 'pro'
     }
   ];
 
@@ -81,19 +88,33 @@ const Pricing = () => {
       return; // Already on free plan
     }
 
-    await createCheckoutSession({ 
-      planType: planId as any,
-      paymentMethods: ['card', 'paypal'],
-      countryCode: 'US'
-    });
+    // Mock checkout - simulate subscription activation
+    setLoading(true)
+    try {
+      const { error } = await supabase
+        .from('subscribers')
+        .upsert({
+          user_id: user.id,
+          email: user.email || '',
+          subscribed: true,
+          subscription_tier: planId === 'premium' ? 'plus' : 'pro',
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'user_id' })
+
+      if (error) throw error
+
+      // Simulate delay for better UX
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      
+      navigate('/')
+      window.location.reload() // Refresh to update subscription state
+    } catch (error) {
+      console.error('Mock checkout error:', error)
+    } finally {
+      setLoading(false)
+    }
   };
 
-  const getCurrentPlanId = () => {
-    if (!subscribed) return 'free';
-    if (tier === 'premium_monthly') return 'premium';
-    if (tier === 'enterprise') return 'enterprise';
-    return 'free';
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-aura-primary/5">
@@ -180,24 +201,23 @@ const Pricing = () => {
         </div>
 
         {/* Manage Subscription */}
-        {user && subscribed && (
+        {user && subscription?.active && (
           <div className="text-center">
             <Card className="max-w-md mx-auto bg-card/50 backdrop-blur-sm border-aura-primary/20">
               <CardContent className="p-6 text-center">
                 <Users className="w-12 h-12 text-aura-primary mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-foreground mb-2">
-                  Manage Your Subscription
+                  Mock Subscription Active
                 </h3>
                 <p className="text-foreground/70 mb-4">
-                  Update payment methods, change plans, or cancel anytime.
+                  Your {subscription.tier} plan is active. In production, this would link to Stripe customer portal.
                 </p>
                 <Button 
                   variant="outline" 
-                  onClick={openCustomerPortal}
-                  disabled={loading}
+                  disabled
                   className="border-aura-primary text-aura-primary hover:bg-aura-primary/10"
                 >
-                  {loading ? 'Loading...' : 'Manage Subscription'}
+                  Manage Subscription (Demo)
                 </Button>
               </CardContent>
             </Card>
