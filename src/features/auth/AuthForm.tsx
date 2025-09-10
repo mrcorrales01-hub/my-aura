@@ -37,6 +37,7 @@ export function AuthForm() {
       setError(error.message);
     } finally {
       setLoading(false);
+      setPassword(''); // Clear password after submit
     }
   };
 
@@ -48,6 +49,8 @@ export function AuthForm() {
     if (password !== confirmPassword) {
       setError('Passwords do not match');
       setLoading(false);
+      setPassword('');
+      setConfirmPassword('');
       return;
     }
 
@@ -68,6 +71,8 @@ export function AuthForm() {
       setError(error.message);
     } finally {
       setLoading(false);
+      setPassword(''); // Clear passwords after submit
+      setConfirmPassword('');
     }
   };
 
@@ -94,6 +99,7 @@ export function AuthForm() {
                   <Input
                     id="email"
                     type="email"
+                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -104,6 +110,7 @@ export function AuthForm() {
                   <Input
                     id="password"
                     type="password"
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -123,6 +130,7 @@ export function AuthForm() {
                   <Input
                     id="signup-email"
                     type="email"
+                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -133,6 +141,7 @@ export function AuthForm() {
                   <Input
                     id="signup-password"
                     type="password"
+                    autoComplete="new-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -143,6 +152,7 @@ export function AuthForm() {
                   <Input
                     id="confirm-password"
                     type="password"
+                    autoComplete="new-password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required

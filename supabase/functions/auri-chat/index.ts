@@ -3,9 +3,16 @@ import 'jsr:@supabase/functions-js/edge-runtime'
 import OpenAI from 'https://esm.sh/openai@4.55.3'
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.53.0'
 
-const cors = { 
-  'Access-Control-Allow-Origin': '*', 
-  'Access-Control-Allow-Headers': 'authorization, apikey, content-type' 
+const ALLOWED = ['https://my-aura.lovable.app', 'https://lovable.dev'];
+
+function getCorsHeaders(req: Request) {
+  const origin = req.headers.get('origin') ?? '';
+  return {
+    'Access-Control-Allow-Origin': ALLOWED.includes(origin) ? origin : 'https://my-aura.lovable.app',
+    'Vary': 'Origin',
+    'Access-Control-Allow-Headers': 'authorization,apikey,content-type',
+    'Access-Control-Allow-Methods': 'POST,OPTIONS'
+  };
 }
 
 const openai = new OpenAI({
@@ -92,19 +99,27 @@ function executeTool(name: string, args: any) {
 }
 
 Deno.serve(async (req) => {
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: cors })
+  const corsHeaders = getCorsHeaders(req);
+  
+  if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders });
+  
+  // Verify JWT authorization
+  const auth = req.headers.get('authorization') ?? '';
+  if (!auth.startsWith('Bearer ')) {
+    return new Response(null, { status: 401, headers: corsHeaders });
+  }
   
   const url = new URL(req.url)
   if (url.searchParams.get('mode') === 'health') {
     return new Response(JSON.stringify({ ok: true, openai: !!Deno.env.get('OPENAI_API_KEY') }), {
-      headers: { ...cors, 'content-type': 'application/json' }
+      headers: { ...corsHeaders, 'content-type': 'application/json' }
     })
   }
 
   const apikey = Deno.env.get('OPENAI_API_KEY')
   if (!apikey) {
-    return new Response(JSON.stringify({ error: 'no-openai-key' }), { 
-      status: 500, headers: cors 
+    return new Response(null, { 
+      status: 500, headers: corsHeaders 
     })
   }
 
@@ -197,13 +212,13 @@ Deno.serve(async (req) => {
     })
 
     return new Response(rs, {
-      headers: { ...cors, 'content-type': 'text/plain; charset=utf-8' }
+      headers: { ...corsHeaders, 'content-type': 'text/plain; charset=utf-8' }
     })
   } catch (error) {
     console.error('Auri chat error:', error)
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(null, {
       status: 500,
-      headers: { ...cors, 'content-type': 'application/json' }
+      headers: corsHeaders
     })
   }
 })
