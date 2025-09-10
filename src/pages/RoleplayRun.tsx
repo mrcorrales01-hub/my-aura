@@ -8,7 +8,7 @@ import { Slider } from '@/components/ui/slider'
 import { motion } from 'framer-motion'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
-import { streamAuriResponse } from '@/features/auri/getAuriResponse'
+import { streamAuri } from '@/features/auri/getAuriResponse'
 import { Brain, Star } from 'lucide-react'
 
 export default function RoleplayRun() {
@@ -31,7 +31,7 @@ export default function RoleplayRun() {
     const context = `Roleplay scenario: ${getLocalizedText(scenario.title)}. Current step: ${getLocalizedText(currentStep.goal)}`
     
     try {
-      await streamAuriResponse({
+      await streamAuri({
         messages: [{ role: 'user', content: `Help me with this roleplay step: ${context}` }],
         lang: i18n.language
       }, (token) => {

@@ -1,11 +1,1 @@
-{
-  "welcome": "Velkommen",
-  "inputPlaceholder": "Skriv din besked her...",
-  "suggestions": {
-    "mood": "Tal om mit humør",
-    "stress": "Reducer stress",
-    "anxiety": "Håndter angst",
-    "sleep": "Sove i nat",
-    "general": "Hurtig wellness-rutine"
-  }
-}
+{ "title":"Auri – Your AI coach", "inputPlaceholder":"Type your message...", "thinking":"Thinking..." }

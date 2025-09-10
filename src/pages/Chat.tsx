@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { streamAuriResponse } from '@/features/auri/getAuriResponse';
+import { streamAuri } from '@/features/auri/getAuriResponse';
 import { SuggestionButtons } from '@/features/auri/components/SuggestionButtons';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -64,10 +64,9 @@ const Chat = () => {
     setStreamContent('');
     
     try {
-      await streamAuriResponse({ 
+      await streamAuri({ 
         messages: next, 
-        lang,
-        user_id: user.id
+        lang
       }, (tok) => {
         acc += tok;
         setStreamContent(acc);
@@ -88,7 +87,7 @@ const Chat = () => {
         setStreaming(true);
         setStreamContent('');
         
-        await streamAuriResponse({ messages: hint, lang }, (tok) => {
+        await streamAuri({ messages: hint, lang }, (tok) => {
           acc += tok;
           setStreamContent(acc);
         });

@@ -1,52 +1,35 @@
-import { supabase } from '@/integrations/supabase/client';
+import { supabase } from '@/integrations/supabase/client'
 
-export async function streamAuriResponse(
-  payload: { messages: any[], lang: string, user_id?: string },
-  onToken: (t: string) => void
-) {
-  const { data: { session } } = await supabase.auth.getSession();
-  const ctrl = new AbortController();
-  const timeout = setTimeout(() => ctrl.abort(), 30_000);
+const base = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1`
 
-  const baseUrl = 'https://rggohnwmajmrvxgfmimk.supabase.co/functions/v1';
+export async function streamAuri(payload: { messages: any[], lang: string }, onTok: (t: string) => void) {
+  const { data: { session } } = await supabase.auth.getSession()
+  const ctrl = new AbortController()
+  const timer = setTimeout(() => ctrl.abort(), 30000)
   
   try {
-    const res = await fetch(`${baseUrl}/auri-chat`, {
+    const res = await fetch(`${base}/auri-chat`, {
       method: 'POST',
+      signal: ctrl.signal,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${session?.access_token ?? ''}`,
-        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnZ29obndtYWptcnZ4Z2ZtaW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyOTU2ODUsImV4cCI6MjA2OTg3MTY4NX0.NXYFVDpcnbcCZSRI8sJHU90Hsw4CMIZIoN6GYj0N2q0'
+        'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY
       },
-      body: JSON.stringify({
-        ...payload,
-        user_id: session?.user?.id
-      }),
-      signal: ctrl.signal
-    });
-
-    if (!res.ok) {
-      throw new Error(`auri-chat ${res.status}`);
-    }
+      body: JSON.stringify(payload)
+    })
     
-    const reader = res.body!.getReader();
-    const decoder = new TextDecoder();
+    if (!res.ok) throw new Error(`auri ${res.status}`)
+    
+    const reader = res.body!.getReader()
+    const dec = new TextDecoder()
     
     while (true) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      
-      if (value) {
-        const chunk = decoder.decode(value);
-        onToken(chunk);
-      }
+      const { value, done } = await reader.read()
+      if (done) break
+      if (value) onTok(dec.decode(value))
     }
-  } catch (error) {
-    if (error.name === 'AbortError') {
-      throw new Error('Request timeout - please try again');
-    }
-    throw error;
   } finally {
-    clearTimeout(timeout);
+    clearTimeout(timer)
   }
 }

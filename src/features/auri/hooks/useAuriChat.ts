@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { streamAuriResponse } from '../getAuriResponse';
+import { streamAuri } from '../getAuriResponse';
 
 interface Message {
   id: string;
@@ -40,7 +40,7 @@ export const useAuriChat = () => {
       setMessages(prev => [...prev, aiMessage]);
 
       // Stream response
-      await streamAuriResponse(
+      await streamAuri(
         { 
           messages: [...messages, userMessage].map(m => ({ role: m.role, content: m.content })),
           lang: i18n.language 

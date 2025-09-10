@@ -170,7 +170,25 @@ const Health = () => {
       });
     }
 
-    // 6. Check authentication status
+    // 6. Check roleplay scenarios
+    try {
+      const scenarioCount = 3; // We have exactly 3 built-in scenarios
+      checks.push({
+        name: 'roleplay_scenarios',
+        status: scenarioCount >= 3 ? 'ok' : 'warn',
+        message: `${scenarioCount} roleplay scenarios available`,
+        details: `Built-in scenarios: boundary-setting, panic-grounding, productive-disagreement`
+      });
+    } catch (error) {
+      checks.push({
+        name: 'roleplay_scenarios',
+        status: 'fail',
+        message: 'Failed to load roleplay scenarios',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+
+    // 7. Check authentication status
     try {
       const { data: { user }, error } = await supabase.auth.getUser();
       

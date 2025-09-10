@@ -3,18 +3,6 @@ import { initReactI18next } from 'react-i18next';
 import HttpBackend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// Get supported languages from env or fallback to these six
-const getSupportedLanguages = (): string[] => {
-  const envLangs = import.meta.env.VITE_SUPPORTED_LANGS;
-  if (envLangs) {
-    return envLangs.split(',').map((lang: string) => lang.trim());
-  }
-  return ['sv', 'en', 'es', 'no', 'da', 'fi'];
-};
-
-export const supportedLanguages = getSupportedLanguages();
-export type SupportedLanguage = 'sv' | 'en' | 'es' | 'no' | 'da' | 'fi';
-
 export const SUPPORTED_LANGUAGES = [
   { code: 'sv', name: 'Svenska' },
   { code: 'en', name: 'English' },
@@ -32,7 +20,7 @@ i18n
     supportedLngs: ['sv', 'en', 'es', 'no', 'da', 'fi'],
     fallbackLng: ['en', 'sv'],
     defaultNS: 'common',
-    ns: ['common', 'nav', 'home', 'auth', 'health', 'exercises', 'mood', 'roleplay', 'journal', 'plan', 'settings', 'auri'],
+    ns: ['common', 'auth', 'home', 'auri', 'roleplay', 'profile'],
     debug: import.meta.env.DEV,
     
     backend: {
@@ -40,7 +28,7 @@ i18n
     },
     
     react: {
-      useSuspense: true,
+      useSuspense: false,
     },
     
     interpolation: {

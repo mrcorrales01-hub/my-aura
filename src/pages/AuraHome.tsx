@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { MoodQuickCheck } from '@/components/MoodQuickCheck';
 import { HomeHeader } from '@/features/home/components/HomeHeader';
 import { QuickActions } from '@/features/home/components/QuickActions';
 import { MoodMiniChart } from '@/features/home/components/MoodMiniChart';
@@ -39,6 +40,11 @@ const AuraHome = () => {
         {/* Header */}
         <div data-testid="home-header">
           <HomeHeader />
+        </div>
+
+        {/* Quick Mood Check */}
+        <div className="mb-6" data-testid="mood-quick-check">
+          <MoodQuickCheck />
         </div>
 
         {/* Quick Actions */}

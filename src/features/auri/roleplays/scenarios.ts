@@ -28,4 +28,4 @@ export const SCENARIOS: Scenario[] = [
       { goal: { sv: 'Föreslå gemensam lösning.', en: 'Propose a joint next step.' } }
     ]
   }
-];
+]

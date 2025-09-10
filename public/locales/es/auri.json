@@ -1,11 +1,1 @@
-{
-  "welcome": "Bienvenido",
-  "inputPlaceholder": "Escribe tu mensaje aquí...",
-  "suggestions": {
-    "mood": "Hablar de mi estado de ánimo",
-    "stress": "Reducir estrés",
-    "anxiety": "Manejar ansiedad",
-    "sleep": "Dormir esta noche",
-    "general": "Rutina rápida de bienestar"
-  }
-}
+{ "title":"Auri – Your AI coach", "inputPlaceholder":"Type your message...", "thinking":"Thinking..." }
