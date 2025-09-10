@@ -6,5 +6,37 @@
   "next": "Nästa",
   "finish": "Avsluta",
   "hint": "Tips",
-  "prev": "Tillbaka"
+  "prev": "Tillbaka",
+  "sayHardThing": "Säga det svåra",
+  "adjustMedication": "Be om medicinändring",
+  "makeMostOf12Min": "Få ut det mesta av 12 minuter",
+  "scenarios": {
+    "sayHardThing": {
+      "title": "Säga det svåra",
+      "description": "Öva att kommunicera svåra känslor eller symtom till din läkare",
+      "steps": [
+        { "goal": "Beskriv situationen lugnt och konkret" },
+        { "goal": "Förklara hur det påverkar ditt dagliga liv" }, 
+        { "goal": "Be om hjälp eller råd för nästa steg" }
+      ]
+    },
+    "adjustMedication": {
+      "title": "Be om medicinändring", 
+      "description": "Diskutera läkemedelsförändringar med din vårdgivare",
+      "steps": [
+        { "goal": "Beskriv aktuella biverkningar eller effekter" },
+        { "goal": "Förklara vad du hoppas uppnå med ändringen" },
+        { "goal": "Fråga om alternativ och nästa steg" }
+      ]
+    },
+    "makeMostOf12Min": {
+      "title": "Få ut det mesta av 12 minuter",
+      "description": "Maximera tiden i ett kort läkarbesök",
+      "steps": [
+        { "goal": "Prioritera dina tre viktigaste frågor" },
+        { "goal": "Var konkret och förbered exempel" }, 
+        { "goal": "Sammanfatta och bekräfta nästa steg" }
+      ]
+    }
+  }
 }

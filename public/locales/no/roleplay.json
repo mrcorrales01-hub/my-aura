@@ -6,5 +6,8 @@
   "next": "Neste",
   "finish": "Fullfør",
   "hint": "Tips",
-  "prev": "Forrige"
+  "prev": "Forrige",
+  "sayHardThing": "Si det vanskelige",
+  "adjustMedication": "Be om medisinendring",
+  "makeMostOf12Min": "Få mest mulig ut av 12 minutter"
 }

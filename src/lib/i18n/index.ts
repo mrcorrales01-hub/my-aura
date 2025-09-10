@@ -20,7 +20,7 @@ i18n
     supportedLngs: ['sv', 'en', 'es', 'no', 'da', 'fi'],
     fallbackLng: ['en', 'sv'],
     defaultNS: 'common',
-    ns: ['common', 'auth', 'home', 'auri', 'roleplay', 'profile'],
+    ns: ['common', 'auth', 'home', 'auri', 'roleplay', 'profile', 'visit'],
     debug: import.meta.env.DEV,
     
     backend: {

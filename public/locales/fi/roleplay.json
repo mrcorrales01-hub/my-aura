@@ -6,5 +6,8 @@
   "next": "Seuraava",
   "finish": "Lopeta",
   "hint": "Vihje",
-  "prev": "Edellinen"
+  "prev": "Edellinen",
+  "sayHardThing": "Sano vaikea asia",
+  "adjustMedication": "Pyydä lääkityksen muutosta",
+  "makeMostOf12Min": "Hyödynnä 12 minuuttia täysimääräisesti"
 }

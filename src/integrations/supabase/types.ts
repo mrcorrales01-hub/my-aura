@@ -2435,6 +2435,33 @@ export type Database = {
         }
         Relationships: []
       }
+      symptom_logs: {
+        Row: {
+          created_at: string | null
+          id: string
+          intensity: number | null
+          note: string | null
+          tags: string[] | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          intensity?: number | null
+          note?: string | null
+          tags?: string[] | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          intensity?: number | null
+          note?: string | null
+          tags?: string[] | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       therapist_reviews: {
         Row: {
           appointment_id: string
@@ -3024,6 +3051,60 @@ export type Database = {
           title?: string
           updated_at?: string
           video_url?: string
+        }
+        Relationships: []
+      }
+      visit_actions: {
+        Row: {
+          created_at: string | null
+          done: boolean | null
+          due_date: string | null
+          id: string
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          done?: boolean | null
+          due_date?: string | null
+          id?: string
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          done?: boolean | null
+          due_date?: string | null
+          id?: string
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      visit_preps: {
+        Row: {
+          concerns: string | null
+          created_at: string | null
+          id: string
+          sbar: Json | null
+          top_questions: string[] | null
+          user_id: string
+        }
+        Insert: {
+          concerns?: string | null
+          created_at?: string | null
+          id?: string
+          sbar?: Json | null
+          top_questions?: string[] | null
+          user_id: string
+        }
+        Update: {
+          concerns?: string | null
+          created_at?: string | null
+          id?: string
+          sbar?: Json | null
+          top_questions?: string[] | null
+          user_id?: string
         }
         Relationships: []
       }

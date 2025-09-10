@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Home, MessageSquare, Users, LifeBuoy, User } from 'lucide-react'
+import { Home, MessageSquare, Users, LifeBuoy, User, Stethoscope } from 'lucide-react'
 
 const Item = ({ to, icon: Icon, label }: { to: string, icon: any, label: string }) => (
   <NavLink
@@ -29,8 +29,8 @@ export default function BottomTabBar({ t }: { t: (k: string) => string }) {
       <div className="mx-auto grid max-w-md grid-cols-5 py-1">
         <Item to="/" icon={Home} label={t('nav:home')} />
         <Item to="/chat" icon={MessageSquare} label="Auri" />
+        <Item to="/visit" icon={Stethoscope} label="Besök" />
         <Item to="/roleplay" icon={Users} label={t('nav:roleplay')} />
-        <Item to="/crisis" icon={LifeBuoy} label={t('nav:crisis')} />
         <Item to="/profile" icon={User} label={t('nav:profile')} />
       </div>
     </nav>

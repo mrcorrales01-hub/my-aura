@@ -6,5 +6,37 @@
   "next": "Next",
   "finish": "Finish",
   "hint": "Hint",
-  "prev": "Previous"
+  "prev": "Previous",
+  "sayHardThing": "Say the hard thing",
+  "adjustMedication": "Ask to adjust medication", 
+  "makeMostOf12Min": "Make the most of 12 minutes",
+  "scenarios": {
+    "sayHardThing": {
+      "title": "Say the hard thing",
+      "description": "Practice communicating difficult feelings or symptoms to your doctor",
+      "steps": [
+        { "goal": "Describe the situation calmly and specifically" },
+        { "goal": "Explain how it affects your daily life" },
+        { "goal": "Ask for help or advice on next steps" }
+      ]
+    },
+    "adjustMedication": { 
+      "title": "Ask to adjust medication",
+      "description": "Discuss medication changes with your healthcare provider", 
+      "steps": [
+        { "goal": "Describe current side effects or effectiveness" },
+        { "goal": "Explain what you hope to achieve with the change" },
+        { "goal": "Ask about alternatives and next steps" }
+      ]
+    },
+    "makeMostOf12Min": {
+      "title": "Make the most of 12 minutes",
+      "description": "Maximize your time in a short doctor visit",
+      "steps": [
+        { "goal": "Prioritize your three most important questions" },
+        { "goal": "Be specific and prepare examples" },
+        { "goal": "Summarize and confirm next steps" }
+      ]
+    }
+  }
 }

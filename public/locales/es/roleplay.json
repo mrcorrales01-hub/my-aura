@@ -6,5 +6,8 @@
   "next": "Siguiente",
   "finish": "Terminar",
   "hint": "Pista",
-  "prev": "Anterior"
+  "prev": "Anterior",
+  "sayHardThing": "Decir lo difícil",
+  "adjustMedication": "Pedir ajuste de medicación",
+  "makeMostOf12Min": "Aprovechar al máximo 12 minutos"
 }
