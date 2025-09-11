@@ -12,13 +12,27 @@ export const SUPPORTED_LANGUAGES = [
   { code: 'fi', name: 'Suomi' }
 ];
 
+// Safe translation helper that provides fallbacks
+export const safeT = (t: any) => (key: string, defaultValue: string) => 
+  t(key, { defaultValue });
+
+// Initialize language from localStorage on startup
+const initLang = () => {
+  const stored = localStorage.getItem('aura.lang');
+  if (stored && ['sv', 'en', 'es', 'no', 'da', 'fi'].includes(stored)) {
+    i18n.changeLanguage(stored);
+  } else {
+    i18n.changeLanguage('sv');
+  }
+};
+
 i18n
   .use(HttpBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     supportedLngs: ['sv', 'en', 'es', 'no', 'da', 'fi'],
-    fallbackLng: ['en', 'sv'],
+    fallbackLng: ['sv', 'en'],
     defaultNS: 'common',
     ns: ['common', 'auth', 'home', 'auri', 'roleplay', 'profile', 'visit', 'pricing'],
     debug: import.meta.env.DEV,
@@ -40,6 +54,13 @@ i18n
       caches: ['localStorage'],
       lookupLocalStorage: 'aura.lang',
     },
+  })
+  .then(() => {
+    // Apply language to HTML element
+    document.documentElement.lang = i18n.language || 'sv';
   });
+
+// Initialize language on startup
+initLang();
 
 export default i18n;

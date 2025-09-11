@@ -39,16 +39,31 @@
     "title": "Rollespil"
   },
   "common": {
+    "name": "Navn",
+    "loading": "Indlæser...",
+    "tryNow": "Prøv nu",
     "new": "Ny",
     "error": "Der opstod en fejl",
     "retry": "Prøv igen",
     "cancel": "Annuller",
     "save": "Gem",
+    "delete": "Slet",
+    "edit": "Rediger",
+    "share": "Del",
+    "copy": "Kopier",
+    "close": "Luk",
+    "back": "Tilbage",
+    "next": "Næste",
+    "previous": "Forrige",
+    "submit": "Send",
+    "confirm": "Bekræft",
+    "success": "Succes",
+    "warning": "Advarsel",
+    "info": "Information",
     "required": "Dette felt er påkrævet",
     "language": "Sprog",
     "healthOk": "Alle systemer OK",
-    "healthError": "Noget kræver opmærksomhed",
-    "loading": "Indlæser…"
+    "healthError": "Noget kræver opmærksomhed"
   },
   "langSwitcher": {
     "title": "Vælg sprog",

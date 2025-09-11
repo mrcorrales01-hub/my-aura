@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { safeT } from '@/lib/i18n/index';
 import { TrustBadge } from '@/components/TrustBadge';
 import { QuickActions } from '@/features/auri/components/QuickActions';
 import { BreathingRing } from '@/features/exercises/components/BreathingRing';
@@ -52,6 +53,7 @@ const AuriChat = () => {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const { user } = useAuth();
   const { t, i18n } = useTranslation();
+  const st = safeT(t);
   const { toast } = useToast();
 
   // Load sessions on mount
@@ -399,7 +401,7 @@ const AuriChat = () => {
             <Input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={t('auri:placeholder') || 'Type your message...'}
+              placeholder={st('auri:placeholder', 'Skriv ditt meddelande här...')}
               className="focus:ring-primary focus:border-primary"
               disabled={isLoading}
             />

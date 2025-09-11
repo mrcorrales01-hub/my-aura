@@ -6,6 +6,7 @@ import Mood from '@/pages/Mood';
 import Settings from '@/pages/Settings';
 import NotFound from '@/pages/NotFound';
 import Onboarding from '@/pages/Onboarding';
+import Health from '@/pages/Health';
 import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
 import PlanPage from '@/pages/PlanPage';
 import Pricing from '@/pages/Pricing';
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
   { path: '/auth', element: <Auth /> },
   { path: '/onboarding', element: <Onboarding /> },
+  { path: '/health', element: <ErrorBoundaryWrapper><Health /></ErrorBoundaryWrapper> },
   { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
   { path: '/visit', element: <ErrorBoundaryWrapper><VisitHub /></ErrorBoundaryWrapper> },
   { path: '/visit/prepare', element: <ErrorBoundaryWrapper><VisitPrepare /></ErrorBoundaryWrapper> },

@@ -39,16 +39,31 @@
     "title": "Roolipeli"
   },
   "common": {
+    "name": "Nimi",
+    "loading": "Ladataan...",
+    "tryNow": "Kokeile nyt",
     "new": "Uusi", 
     "error": "Tapahtui virhe",
     "retry": "Yritä uudelleen",
     "cancel": "Peruuta",
     "save": "Tallenna",
+    "delete": "Poista",
+    "edit": "Muokkaa",
+    "share": "Jaa",
+    "copy": "Kopioi",
+    "close": "Sulje",
+    "back": "Takaisin",
+    "next": "Seuraava",
+    "previous": "Edellinen",
+    "submit": "Lähetä",
+    "confirm": "Vahvista",
+    "success": "Onnistui",
+    "warning": "Varoitus",
+    "info": "Tieto",
     "required": "Tämä kenttä on pakollinen",
     "language": "Kieli",
     "healthOk": "Kaikki järjestelmät OK",
-    "healthError": "Jokin vaatii huomiota",
-    "loading": "Ladataan…"
+    "healthError": "Jokin vaatii huomiota"
   },
   "langSwitcher": {
     "title": "Valitse kieli",

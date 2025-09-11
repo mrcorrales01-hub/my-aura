@@ -1,1 +1,11 @@
-{ "title":"Auri – Your AI coach", "inputPlaceholder":"Type your message...", "thinking":"Thinking..." }
+{
+  "welcome": "¿De qué quieres hablar hoy?",
+  "inputPlaceholder": "Escribe tu mensaje aquí...",
+  "title": "Auri",
+  "subtitle": "Tu coach de bienestar de IA",
+  "thinking": "Auri está pensando...",
+  "newChat": "Nuevo chat",
+  "exportChat": "Exportar",
+  "placeholder": "Escribe tu mensaje aquí...",
+  "disclaimer": "Las respuestas de IA son solo para información"
+}

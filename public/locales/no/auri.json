@@ -1,6 +1,13 @@
 {
-  "welcome": "Velkommen",
+  "welcome": "Hva vil du snakke om i dag?",
   "inputPlaceholder": "Skriv meldingen din her...",
+  "title": "Auri",
+  "subtitle": "Din AI-velvære coach",
+  "thinking": "Auri tenker...",
+  "newChat": "Ny chat",
+  "exportChat": "Eksporter",
+  "placeholder": "Skriv meldingen din her...",
+  "disclaimer": "AI-svar er kun for informasjonsformål",
   "suggestions": {
     "mood": "Snakk om humøret mitt",
     "stress": "Reduser stress",

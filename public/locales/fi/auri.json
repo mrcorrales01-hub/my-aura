@@ -1,6 +1,13 @@
 {
-  "welcome": "Tervetuloa",
+  "welcome": "Mistä haluaisit puhua tänään?",
   "inputPlaceholder": "Kirjoita viestisi tähän...",
+  "title": "Auri",
+  "subtitle": "Sinun AI-hyvinvointi valmentajasi",
+  "thinking": "Auri miettii...",
+  "newChat": "Uusi keskustelu",
+  "exportChat": "Vie",
+  "placeholder": "Kirjoita viestisi tähän...",
+  "disclaimer": "AI-vastaukset ovat vain tiedoksi",
   "suggestions": {
     "mood": "Keskustele mielialastani",
     "stress": "Vähennä stressiä",

@@ -39,16 +39,31 @@
     "title": "Juego de Roles"
   },
   "common": {
+    "name": "Nombre",
+    "loading": "Cargando...",
+    "tryNow": "Prueba ahora",
     "new": "Nuevo",
     "error": "Ocurrió un error",
     "retry": "Intentar Otra Vez",
     "cancel": "Cancelar",
     "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "share": "Compartir",
+    "copy": "Copiar",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "confirm": "Confirmar",
+    "success": "Éxito",
+    "warning": "Advertencia",
+    "info": "Información",
     "required": "Este campo es obligatorio",
     "language": "Idioma",
     "healthOk": "Todos los sistemas OK",
-    "healthError": "Algo necesita atención",
-    "loading": "Cargando…"
+    "healthError": "Algo necesita atención"
   },
   "langSwitcher": {
     "title": "Seleccionar Idioma",

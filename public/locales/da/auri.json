@@ -1,1 +1,11 @@
-{ "title":"Auri – Your AI coach", "inputPlaceholder":"Type your message...", "thinking":"Thinking..." }
+{
+  "welcome": "Hvad vil du tale om i dag?",
+  "inputPlaceholder": "Skriv din besked her...",
+  "title": "Auri",
+  "subtitle": "Din AI-velvære coach",
+  "thinking": "Auri tænker...",
+  "newChat": "Ny chat",
+  "exportChat": "Eksporter",
+  "placeholder": "Skriv din besked her...",
+  "disclaimer": "AI-svar er kun til informationsformål"
+}

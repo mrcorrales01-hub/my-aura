@@ -39,16 +39,31 @@
     "title": "Rollespill"
   },
   "common": {
+    "name": "Navn",
+    "loading": "Laster...",
+    "tryNow": "Prøv nå",
     "new": "Ny",
     "error": "En feil oppstod",
     "retry": "Prøv igjen",
     "cancel": "Avbryt",
     "save": "Lagre",
+    "delete": "Slett",
+    "edit": "Rediger",
+    "share": "Del",
+    "copy": "Kopier",
+    "close": "Lukk",
+    "back": "Tilbake",
+    "next": "Neste",
+    "previous": "Forrige",
+    "submit": "Send",
+    "confirm": "Bekreft",
+    "success": "Suksess",
+    "warning": "Advarsel",
+    "info": "Informasjon",
     "required": "Dette feltet er påkrevd",
     "language": "Språk",
     "healthOk": "Alle systemer OK",
-    "healthError": "Noe trenger oppmerksomhet",
-    "loading": "Laster…"
+    "healthError": "Noe trenger oppmerksomhet"
   },
   "langSwitcher": {
     "title": "Velg språk",
