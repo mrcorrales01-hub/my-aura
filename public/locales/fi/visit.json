@@ -1,34 +1,22 @@
 {
-  "title": "Lääkärikäynti", 
-  "prepare": "Valmistele",
-  "practice": "Harjoittele Käynti",
-  "after": "Käynnin Jälkeen",
-  "symptomLog": "Oireloki",
-  "intensity": "Intensiteetti",
-  "tags": "Tunnisteet",
-  "note": "Muistiinpano", 
-  "generateQuestions": "Luo Kysymyksiä",
-  "yourQuestions": "Sinun Kysymyksesi",
-  "tests": "Pikatestit",
-  "phq9": "PHQ-9 (Masennus)",
-  "gad7": "GAD-7 (Ahdistus)",
-  "previewPdf": "Esikatsele PDF", 
-  "exportPdf": "Vie PDF",
-  "actions": "Toimet",
-  "save": "Tallenna",
-  "concerns": "Päähuolet",
-  "logSymptom": "Kirjaa Oire",
-  "recentSymptoms": "Viimeaikaiset Oireet",
-  "insights": "Oivallukset", 
-  "noSymptoms": "Ei vielä kirjattuja oireita",
-  "visitHub": "Käyntikeskus", 
-  "prepareVisit": "Valmistele Käynti",
-  "practiceVisit": "Harjoittele Käynti",
-  "afterVisit": "Käynnin Jälkeen",
-  "pain": "kipu", 
-  "sleep": "uni",
-  "anxiety": "ahdistus",
-  "mood": "mieliala",
-  "focus": "keskittyminen",
-  "other": "muu"
+  "title": "Ennen lääkärikäyntiä",
+  "subtitle": "Valmistaudu tehokkaaseen lääkärikäyntiin",
+  "questions": {
+    "title": "3 tärkeintä kysymystä",
+    "placeholder": "Kirjoita tärkeimmät kysymyksesi lääkärille..."
+  },
+  "symptoms": {
+    "title": "Oireet viimeiset 7 päivää", 
+    "placeholder": "Kuvaile oireita, voimakkuutta ja milloin ne esiintyvät..."
+  },
+  "medications": {
+    "title": "Lääkkeet & sivuvaikutukset (valinnainen)",
+    "placeholder": "Nykyiset lääkkeet ja mahdolliset sivuvaikutukset..."
+  },
+  "createSummary": "Luo yhteenveto",
+  "summary": {
+    "title": "Yhteenvetosi",
+    "empty": "Täytä yllä olevat tiedot luodaksesi yhteenvedon.",
+    "note": "Ota tämä yhteenveto mukaan lääkärikäyntiin."
+  }
 }

@@ -474,8 +474,19 @@ button,a,[role="button"],input,select,textarea{pointer-events:auto}
 }
 
 :root{--tabbar-h:72px;}
-.main-shell{padding-bottom:var(--tabbar-h);}
+.main-shell{padding-bottom:max(var(--tabbar-h), env(safe-area-inset-bottom));}
 .app-banner,.app-overlay,.page-overlay,.glass-overlay{pointer-events:none;}
 .app-banner *{pointer-events:auto;}
 button,a,[role="button"]{pointer-events:auto;}
 main,#root{position:relative;z-index:0;}
+
+/* Safe area support */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

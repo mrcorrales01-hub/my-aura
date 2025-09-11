@@ -1,34 +1,22 @@
 {
-  "title": "Visita Médica",
-  "prepare": "Preparar",
-  "practice": "Practicar Visita", 
-  "after": "Después de la Visita",
-  "symptomLog": "Registro de Síntomas",
-  "intensity": "Intensidad",
-  "tags": "Etiquetas", 
-  "note": "Nota",
-  "generateQuestions": "Generar Preguntas",
-  "yourQuestions": "Tus Preguntas",
-  "tests": "Pruebas Rápidas",
-  "phq9": "PHQ-9 (Depresión)",
-  "gad7": "GAD-7 (Ansiedad)",
-  "previewPdf": "Vista Previa PDF",
-  "exportPdf": "Exportar PDF",
-  "actions": "Acciones",
-  "save": "Guardar", 
-  "concerns": "Preocupaciones Principales",
-  "logSymptom": "Registrar Síntoma", 
-  "recentSymptoms": "Síntomas Recientes",
-  "insights": "Perspectivas",
-  "noSymptoms": "No hay síntomas registrados aún",
-  "visitHub": "Centro de Visitas",
-  "prepareVisit": "Preparar Visita",
-  "practiceVisit": "Practicar Visita",
-  "afterVisit": "Después de la Visita", 
-  "pain": "dolor",
-  "sleep": "sueño",
-  "anxiety": "ansiedad",
-  "mood": "estado de ánimo", 
-  "focus": "concentración",
-  "other": "otro"
+  "title": "Antes de la visita médica",
+  "subtitle": "Prepárate para una visita médica efectiva",
+  "questions": {
+    "title": "Tus 3 preguntas principales",
+    "placeholder": "Escribe tus preguntas más importantes para el médico..."
+  },
+  "symptoms": {
+    "title": "Síntomas últimos 7 días", 
+    "placeholder": "Describe síntomas, intensidad y cuándo ocurren..."
+  },
+  "medications": {
+    "title": "Medicamentos y efectos secundarios (opcional)",
+    "placeholder": "Medicamentos actuales y posibles efectos secundarios..."
+  },
+  "createSummary": "Crear resumen",
+  "summary": {
+    "title": "Tu resumen",
+    "empty": "Completa la información anterior para crear un resumen.",
+    "note": "Lleva este resumen a tu cita médica."
+  }
 }

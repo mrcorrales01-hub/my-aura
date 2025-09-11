@@ -1,13 +1,6 @@
 {
-  "title": "Juego de roles",
-  "subtitle": "Ejercicios seguros y guiados",
-  "selectScript": "Seleccionar escenario",
-  "noScripts": "No se encontraron escenarios",
-  "next": "Siguiente",
-  "finish": "Terminar",
-  "hint": "Pista",
-  "prev": "Anterior",
-  "sayHardThing": "Decir lo difícil",
-  "adjustMedication": "Pedir ajuste de medicación",
-  "makeMostOf12Min": "Aprovechar al máximo 12 minutos"
+  "title": "Roleplay",
+  "subtitle": "Practica de forma segura antes de que suceda",
+  "selectScript": "Selecciona un guión",
+  "noScripts": "No hay guiones todavía"
 }

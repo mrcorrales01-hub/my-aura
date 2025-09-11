@@ -1,7 +1,8 @@
 {
   "home": "Inicio",
-  "auri": "Auri",
-  "roleplay": "Juego de rol",
-  "crisis": "Apoyo de crisis",
-  "profile": "Perfil"
+  "chat": "Auri", 
+  "roleplay": "Roleplay",
+  "crisis": "Crisis",
+  "profile": "Perfil",
+  "visit": "Visita"
 }

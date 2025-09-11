@@ -1,34 +1,22 @@
 {
-  "title": "Legebesøk",
-  "prepare": "Forbered",
-  "practice": "Øv Besøk",
-  "after": "Etter Besøk", 
-  "symptomLog": "Symptomlogg",
-  "intensity": "Intensitet",
-  "tags": "Tagger",
-  "note": "Notat",
-  "generateQuestions": "Generer Spørsmål",
-  "yourQuestions": "Dine Spørsmål",
-  "tests": "Hurtigtester",
-  "phq9": "PHQ-9 (Depresjon)",
-  "gad7": "GAD-7 (Angst)",
-  "previewPdf": "Forhåndsvis PDF",
-  "exportPdf": "Eksporter PDF",
-  "actions": "Handlinger",
-  "save": "Lagre",
-  "concerns": "Hovedbekymringer",
-  "logSymptom": "Logg Symptom", 
-  "recentSymptoms": "Nylige Symptomer",
-  "insights": "Innsikter",
-  "noSymptoms": "Ingen symptomer logget ennå",
-  "visitHub": "Besøkssenter",
-  "prepareVisit": "Forbered Besøk",
-  "practiceVisit": "Øv Besøk",
-  "afterVisit": "Etter Besøk",
-  "pain": "smerte",
-  "sleep": "søvn",
-  "anxiety": "angst",
-  "mood": "humør", 
-  "focus": "konsentrasjon",
-  "other": "annet"
+  "title": "Før legebesøket",
+  "subtitle": "Forbered deg for et effektivt legebesøk",
+  "questions": {
+    "title": "Dine topp 3 spørsmål",
+    "placeholder": "Skriv dine viktigste spørsmål til legen..."
+  },
+  "symptoms": {
+    "title": "Symptomer siste 7 dager", 
+    "placeholder": "Beskriv symptomer, intensitet og når de oppstår..."
+  },
+  "medications": {
+    "title": "Medisiner & bivirkninger (valgfritt)",
+    "placeholder": "Nåværende medisiner og eventuelle bivirkninger..."
+  },
+  "createSummary": "Lag sammendrag",
+  "summary": {
+    "title": "Ditt sammendrag",
+    "empty": "Fyll ut informasjonen over for å lage et sammendrag.",
+    "note": "Ta med dette sammendraget til legebesøket ditt."
+  }
 }

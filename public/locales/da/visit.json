@@ -1,34 +1,22 @@
 {
-  "title": "Lægebesøg",
-  "prepare": "Forbered",
-  "practice": "Øv Besøg", 
-  "after": "Efter Besøg",
-  "symptomLog": "Symptomlog",
-  "intensity": "Intensitet",
-  "tags": "Tags",
-  "note": "Note",
-  "generateQuestions": "Generer Spørgsmål",
-  "yourQuestions": "Dine Spørgsmål", 
-  "tests": "Hurtige Tests",
-  "phq9": "PHQ-9 (Depression)",
-  "gad7": "GAD-7 (Angst)",
-  "previewPdf": "Forhåndsvis PDF",
-  "exportPdf": "Eksporter PDF",
-  "actions": "Handlinger",
-  "save": "Gem",
-  "concerns": "Hovedbekymringer", 
-  "logSymptom": "Log Symptom",
-  "recentSymptoms": "Nylige Symptomer",
-  "insights": "Indsigter",
-  "noSymptoms": "Ingen symptomer logget endnu",
-  "visitHub": "Besøgscenter",
-  "prepareVisit": "Forbered Besøg", 
-  "practiceVisit": "Øv Besøg",
-  "afterVisit": "Efter Besøg",
-  "pain": "smerte",
-  "sleep": "søvn",
-  "anxiety": "angst",
-  "mood": "humør",
-  "focus": "koncentration",
-  "other": "andet"
+  "title": "Før lægebesøget",
+  "subtitle": "Forbered dig til et effektivt lægebesøg",
+  "questions": {
+    "title": "Dine top 3 spørgsmål",
+    "placeholder": "Skriv dine vigtigste spørgsmål til lægen..."
+  },
+  "symptoms": {
+    "title": "Symptomer sidste 7 dage", 
+    "placeholder": "Beskriv symptomer, intensitet og hvornår de opstår..."
+  },
+  "medications": {
+    "title": "Medicin & bivirkninger (valgfrit)",
+    "placeholder": "Nuværende medicin og eventuelle bivirkninger..."
+  },
+  "createSummary": "Lav resumé",
+  "summary": {
+    "title": "Dit resumé",
+    "empty": "Udfyld informationen ovenfor for at lave et resumé.",
+    "note": "Tag dette resumé med til dit lægebesøg."
+  }
 }

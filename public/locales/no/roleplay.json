@@ -1,13 +1,6 @@
 {
   "title": "Rollespill",
-  "subtitle": "Trygge, guidede øvelser",
-  "selectScript": "Velg scenario",
-  "noScripts": "Ingen scenarier funnet",
-  "next": "Neste",
-  "finish": "Fullfør",
-  "hint": "Tips",
-  "prev": "Forrige",
-  "sayHardThing": "Si det vanskelige",
-  "adjustMedication": "Be om medisinendring",
-  "makeMostOf12Min": "Få mest mulig ut av 12 minutter"
+  "subtitle": "Øv trygt før det skjer",
+  "selectScript": "Velg et manus",
+  "noScripts": "Ingen manus ennå"
 }

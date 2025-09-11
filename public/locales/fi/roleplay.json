@@ -1,13 +1,6 @@
 {
-  "title": "Roolipeli",
-  "subtitle": "Turvalliset, ohjatut harjoitukset",
-  "selectScript": "Valitse skenaario",
-  "noScripts": "Skenaarioita ei löytynyt",
-  "next": "Seuraava",
-  "finish": "Lopeta",
-  "hint": "Vihje",
-  "prev": "Edellinen",
-  "sayHardThing": "Sano vaikea asia",
-  "adjustMedication": "Pyydä lääkityksen muutosta",
-  "makeMostOf12Min": "Hyödynnä 12 minuuttia täysimääräisesti"
+  "title": "Roolileikki",
+  "subtitle": "Harjoittele turvallisesti ennen kuin se tapahtuu",
+  "selectScript": "Valitse käsikirjoitus",
+  "noScripts": "Ei käsikirjoituksia vielä"
 }

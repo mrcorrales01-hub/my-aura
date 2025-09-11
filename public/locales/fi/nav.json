@@ -1,7 +1,8 @@
 {
   "home": "Koti",
-  "auri": "Auri",
-  "roleplay": "Roolipeli",
+  "chat": "Auri", 
+  "roleplay": "Roolileikki",
   "crisis": "Kriisituki",
-  "profile": "Profiili"
+  "profile": "Profiili",
+  "visit": "Käynti"
 }

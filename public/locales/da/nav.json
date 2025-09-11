@@ -1,7 +1,8 @@
 {
   "home": "Hjem",
-  "auri": "Auri",
+  "chat": "Auri", 
   "roleplay": "Rollespil",
   "crisis": "Krisestøtte",
-  "profile": "Profil"
+  "profile": "Profil",
+  "visit": "Besøg"
 }

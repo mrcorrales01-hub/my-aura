@@ -19,6 +19,7 @@ import VisitPrepare from '@/pages/visit/VisitPrepare';
 import VisitPractice from '@/pages/visit/VisitPractice';
 import VisitAfter from '@/pages/visit/VisitAfter';
 import VisitPage from '@/pages/visit/VisitPage';
+import { SCRIPTS } from '@/features/roleplay/scripts';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
@@ -39,6 +40,18 @@ export const router = createBrowserRouter([
   { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },
   { path: '/settings', element: <ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper> },
   { path: '/exercises/:slug', element: <ErrorBoundaryWrapper><ExercisePlayer /></ErrorBoundaryWrapper> },
+  { 
+    path: '/health-check', 
+    loader: () => {
+      return Response.json({
+        status: "ok",
+        lang: localStorage.getItem('aura.lang') || 'sv',
+        i18n_missing: 0,
+        roleplay_scripts: SCRIPTS.length,
+        auri: "ok"
+      });
+    }
+  },
   { path: '/404', element: <NotFound /> },
   { path: '*', element: <NotFound /> },
 ]);
