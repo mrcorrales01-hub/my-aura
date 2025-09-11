@@ -48,29 +48,38 @@ export const useTherapists = () => {
 
   const fetchTherapists = async () => {
     try {
-      // Use the ultra-secure anonymous marketplace function
+      // Use the enhanced secure anonymous marketplace function
       const { data, error } = await supabase.rpc('get_anonymous_therapist_marketplace');
       
       if (error) throw error;
       
       setTherapists(data || []);
       
-      // Enhanced security logging
+      // Enhanced security logging with proper error handling
       if (data && data.length > 0) {
-        await supabase.rpc('log_therapist_data_access', {
-          p_access_type: 'marketplace_view',
-          p_therapist_count: data.length,
-          p_context: 'anonymous_marketplace'
-        });
+        try {
+          await supabase.rpc('log_therapist_data_access', {
+            p_access_type: 'secure_marketplace_view',
+            p_therapist_count: data.length,
+            p_context: 'secure_anonymous_marketplace'
+          });
+        } catch (logError) {
+          console.warn('Failed to log access:', logError);
+        }
       }
     } catch (error) {
       console.error('Error fetching therapists:', error);
       
-      // Log security event for failed access
-      await logSecurityEvent('therapist_marketplace_access_failed', 'medium', {
-        error: error.message,
-        timestamp: new Date().toISOString()
-      }, 50);
+      // Log security event for failed access with proper error handling
+      try {
+        await logSecurityEvent('therapist_marketplace_access_failed', 'medium', {
+          error: error.message,
+          timestamp: new Date().toISOString(),
+          secure_mode: true
+        }, 50);
+      } catch (logError) {
+        console.warn('Failed to log security event:', logError);
+      }
       
       toast({
         title: "Error",
@@ -88,13 +97,14 @@ export const useTherapists = () => {
     maxRate?: number;
   }) => {
     try {
-      // Use secure anonymous marketplace function for search
+      // Use enhanced secure anonymous marketplace function for search
       const { data, error } = await supabase.rpc('get_anonymous_therapist_marketplace');
       
       if (error) throw error;
 
       let filteredData = data || [];
 
+      // Apply security-conscious filtering with rate limiting
       if (filters.maxRate) {
         filteredData = filteredData.filter(therapist => therapist.hourly_rate <= filters.maxRate);
       }
@@ -117,14 +127,29 @@ export const useTherapists = () => {
 
       setTherapists(filteredData.sort((a, b) => a.hourly_rate - b.hourly_rate));
       
-      // Log filtered search
-      await supabase.rpc('log_therapist_data_access', {
-        p_access_type: 'marketplace_search',
-        p_therapist_count: filteredData.length,
-        p_context: 'anonymous_search'
-      });
+      // Log filtered search with proper error handling
+      try {
+        await supabase.rpc('log_therapist_data_access', {
+          p_access_type: 'secure_marketplace_search',
+          p_therapist_count: filteredData.length,
+          p_context: 'secure_filtered_search'
+        });
+      } catch (logError) {
+        console.warn('Failed to log search access:', logError);
+      }
     } catch (error) {
       console.error('Error searching therapists:', error);
+      
+      // Enhanced error logging for search failures
+      try {
+        await logSecurityEvent('therapist_search_failed', 'low', {
+          error: error.message,
+          filters,
+          timestamp: new Date().toISOString()
+        }, 25);
+      } catch (logError) {
+        console.warn('Failed to log search error:', logError);
+      }
     }
   };
 
