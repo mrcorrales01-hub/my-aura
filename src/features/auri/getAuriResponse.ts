@@ -1,7 +1,40 @@
 import { supabase } from '@/integrations/supabase/client'
-import { AURI_SYSTEM, localFallback } from './systemPrompt'
+import { AURI_SYSTEM } from './systemPrompt'
+import { openers } from './openers'
 
 const base = `https://rggohnwmajmrvxgfmimk.supabase.co/functions/v1`
+
+let lastOpener = '';
+
+export const localFallback = (text: string, lang: string): string => {
+  // Detect intent
+  const lowerText = text.toLowerCase();
+  let intent = 'generic';
+  if (lowerText.includes('stress') || lowerText.includes('orolig')) intent = 'stress';
+  else if (lowerText.includes('sömn') || lowerText.includes('sleep')) intent = 'sleep';
+  else if (lowerText.includes('motivation') || lowerText.includes('orka')) intent = 'motivation';
+  else if (lowerText.includes('sorg') || lowerText.includes('grief')) intent = 'grief';
+
+  // Pick opener that's different from last
+  const availableOpeners = openers[intent] || openers.generic;
+  let opener = availableOpeners[Math.floor(Math.random() * availableOpeners.length)];
+  if (opener === lastOpener && availableOpeners.length > 1) {
+    opener = availableOpeners.find(o => o !== lastOpener) || opener;
+  }
+  lastOpener = opener;
+
+  // Generate varied steps
+  const verbs = ['Testa', 'Pröva', 'Byt', 'Gör', 'Notera', 'Försök'];
+  const steps = [
+    `• ${verbs[0]} att ta tre djupa andetag nu`,
+    `• ${verbs[1]} att identifiera en konkret sak du kan göra idag`,
+    `• ${verbs[2]} ut till någon du litar på för stöd`
+  ];
+
+  const question = 'Vad känns som det första steget för dig?';
+  
+  return [opener, ...steps, question].join('\n');
+};
 
 export async function streamAuri(payload: { messages: any[], lang: string }, onTok: (t: string) => void) {
   const { data } = await supabase.auth.getSession()
@@ -27,7 +60,7 @@ export async function streamAuri(payload: { messages: any[], lang: string }, onT
     })
     
     if (!res.ok) {
-      // If failed, use local fallback
+      console.warn('Auri API failed:', res.status, res.statusText);
       const userText = payload.messages[payload.messages.length - 1]?.content || ''
       const fallbackResponse = localFallback(userText, payload.lang)
       onTok(fallbackResponse)
@@ -43,7 +76,6 @@ export async function streamAuri(payload: { messages: any[], lang: string }, onT
       if (value) onTok(dec.decode(value))
     }
   } catch (error) {
-    // Fallback on any error
     console.error('Auri error:', error)
     const userText = payload.messages[payload.messages.length - 1]?.content || ''
     const fallbackResponse = localFallback(userText, payload.lang)

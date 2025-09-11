@@ -21,11 +21,14 @@ import {
 import { useAuth } from '@/contexts/AuthContext';
 import { useGlobalLanguage } from '@/hooks/useGlobalLanguage';
 import { useNavigate } from 'react-router-dom';
+import { getDisplayName } from '@/lib/profileName';
+import { useTranslation } from 'react-i18next';
 import AICoach from './AICoach';
 
 const Dashboard = () => {
   const { user } = useAuth();
   const { t } = useGlobalLanguage();
+  const { t: tHome } = useTranslation('home');
   const navigate = useNavigate();
   const [currentStreak, setCurrentStreak] = useState(7);
   const [weeklyGoal, setWeeklyGoal] = useState(75);
@@ -115,7 +118,7 @@ const Dashboard = () => {
         {/* Welcome Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-foreground mb-2">
-            Welcome back, {user?.user_metadata?.full_name || 'Friend'}!
+            {tHome('greeting', { name: getDisplayName(user?.user_metadata) })}
           </h1>
           <p className="text-foreground/70 text-lg">
             Your AI-powered mental wellness journey continues today. How can Auri support you?

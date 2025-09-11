@@ -1,34 +1,22 @@
 {
-  "title": "Doctor Visit",
-  "prepare": "Prepare", 
-  "practice": "Practice Visit",
-  "after": "After Visit",
-  "symptomLog": "Symptom Log",
-  "intensity": "Intensity",
-  "tags": "Tags",
-  "note": "Note",
-  "generateQuestions": "Generate Questions",
-  "yourQuestions": "Your Questions", 
-  "tests": "Quick Tests",
-  "phq9": "PHQ-9 (Depression)",
-  "gad7": "GAD-7 (Anxiety)",
-  "previewPdf": "Preview PDF",
-  "exportPdf": "Export PDF",
-  "actions": "Actions", 
-  "save": "Save",
-  "concerns": "Main Concerns",
-  "logSymptom": "Log Symptom",
-  "recentSymptoms": "Recent Symptoms",
-  "insights": "Insights",
-  "noSymptoms": "No symptoms logged yet",
-  "visitHub": "Visit Hub",
-  "prepareVisit": "Prepare Visit",
-  "practiceVisit": "Practice Visit", 
-  "afterVisit": "After Visit",
-  "pain": "pain",
-  "sleep": "sleep",
-  "anxiety": "anxiety", 
-  "mood": "mood",
-  "focus": "focus",
-  "other": "other"
+  "title": "Before Your Doctor Visit",
+  "subtitle": "Prepare for an effective doctor visit",
+  "questions": {
+    "title": "Your Top 3 Questions",
+    "placeholder": "Write your most important questions for the doctor..."
+  },
+  "symptoms": {
+    "title": "Symptoms Past 7 Days", 
+    "placeholder": "Describe symptoms, intensity and when they occur..."
+  },
+  "medications": {
+    "title": "Medications & Side Effects (optional)",
+    "placeholder": "Current medications and any side effects..."
+  },
+  "createSummary": "Create Summary",
+  "summary": {
+    "title": "Your Summary",
+    "empty": "Fill in the information above to create a summary.",
+    "note": "Bring this summary to your doctor visit."
+  }
 }

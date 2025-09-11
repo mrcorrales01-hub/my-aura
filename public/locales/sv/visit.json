@@ -1,34 +1,22 @@
 {
-  "title": "Läkarbesök",
-  "prepare": "Förbered",
-  "practice": "Öva besöket", 
-  "after": "Efter besöket",
-  "symptomLog": "Symptomlogg",
-  "intensity": "Intensitet",
-  "tags": "Taggar",
-  "note": "Anteckning",
-  "generateQuestions": "Skapa frågor",
-  "yourQuestions": "Dina frågor",
-  "tests": "Snabbtest",
-  "phq9": "PHQ-9 (nedstämdhet)",
-  "gad7": "GAD-7 (ångest)",
-  "previewPdf": "Förhandsgranska PDF",
-  "exportPdf": "Exportera PDF", 
-  "actions": "Åtgärder",
-  "save": "Spara",
-  "concerns": "Huvudsakliga bekymmer",
-  "logSymptom": "Logga symptom",
-  "recentSymptoms": "Senaste symptomlistan",
-  "insights": "Insikter",
-  "noSymptoms": "Inga symptom loggade än",
-  "visitHub": "Besökscentral",
-  "prepareVisit": "Förbered besök",
-  "practiceVisit": "Öva besök",
-  "afterVisit": "Efter besök",
-  "pain": "smärta",
-  "sleep": "sömn", 
-  "anxiety": "ångest",
-  "mood": "humör",
-  "focus": "koncentration",
-  "other": "övrigt"
+  "title": "Inför läkarbesöket",
+  "subtitle": "Förbered dig för ett effektivt läkarbesök",
+  "questions": {
+    "title": "Dina topp 3 frågor",
+    "placeholder": "Skriv dina viktigaste frågor till läkaren..."
+  },
+  "symptoms": {
+    "title": "Symtom senaste 7 dagar", 
+    "placeholder": "Beskriv symtom, intensitet och när de uppstår..."
+  },
+  "medications": {
+    "title": "Läkemedel & biverkningar (valfritt)",
+    "placeholder": "Aktuella mediciner och eventuella biverkningar..."
+  },
+  "createSummary": "Skapa sammanfattning",
+  "summary": {
+    "title": "Din sammanfattning",
+    "empty": "Fyll i informationen ovan för att skapa en sammanfattning.",
+    "note": "Ta med denna sammanfattning till ditt läkarbesök."
+  }
 }

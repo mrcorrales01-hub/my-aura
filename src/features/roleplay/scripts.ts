@@ -15,18 +15,18 @@ export const SCRIPTS: Scenario[] = [
     id: 'adjust-medication',
     title: { sv: 'Be om medicinändring', en: 'Ask to adjust medication' },
     steps: [
-      { sv: 'Effekt/biverkningar, konkret.', en: 'Effect/side effects, be specific.' },
+      { sv: 'Beskriv effekt/biverkningar kort.', en: 'Describe effect/side effects briefly.' },
       { sv: 'När märks det mest?', en: 'When most noticeable?' },
-      { sv: 'Vad vill du testa: dos/tid/byte?', en: 'Try: dose/timing/switch?' }
+      { sv: 'Föreslå dos/tid/byte.', en: 'Propose dose/timing/switch.' }
     ]
   },
   {
     id: 'make-most-12',
     title: { sv: 'Få ut mest av 12 min', en: 'Make the most of 12 minutes' },
     steps: [
-      { sv: 'Top 3 frågor: visa listan.', en: 'Top 3 questions: show list.' },
-      { sv: 'Visa kort symtomtrend.', en: 'Show brief symptom trend.' },
-      { sv: 'Bekräfta plan och uppföljning.', en: 'Confirm plan & follow-up.' }
+      { sv: 'Lista dina topp 3 frågor.', en: 'List your top 3 questions.' },
+      { sv: 'Visa symtomtrend i en mening.', en: 'Show a one-line symptom trend.' },
+      { sv: 'Kom överens om uppföljning.', en: 'Agree on follow-up.' }
     ]
   }
 ];

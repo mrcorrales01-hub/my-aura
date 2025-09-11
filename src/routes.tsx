@@ -18,6 +18,7 @@ import VisitHub from '@/pages/visit/VisitHub';
 import VisitPrepare from '@/pages/visit/VisitPrepare';
 import VisitPractice from '@/pages/visit/VisitPractice';
 import VisitAfter from '@/pages/visit/VisitAfter';
+import VisitPage from '@/pages/visit/VisitPage';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
   { path: '/health', element: <ErrorBoundaryWrapper><Health /></ErrorBoundaryWrapper> },
   { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
   { path: '/visit', element: <ErrorBoundaryWrapper><VisitHub /></ErrorBoundaryWrapper> },
+  { path: '/visit-prep', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/visit/prepare', element: <ErrorBoundaryWrapper><VisitPrepare /></ErrorBoundaryWrapper> },
   
   { path: '/visit/practice', element: <ErrorBoundaryWrapper><VisitPractice /></ErrorBoundaryWrapper> },
