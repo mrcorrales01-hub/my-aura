@@ -1,0 +1,9 @@
+{
+  "title": "Symtom över tid",
+  "last30": "Senaste 30 dagarna",
+  "legend": "Högre = mer symtom",
+  "min": "Min",
+  "max": "Max", 
+  "avg": "Medel",
+  "recentResults": "Senaste resultat"
+}

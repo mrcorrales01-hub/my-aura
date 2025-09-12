@@ -40,6 +40,10 @@
   "crisisHelp": "Need support now?",
   "openCrisis": "Open crisis support",
   "startRoleplay": "Start roleplay",
+  "screeners": "Self-Assessments",
+  "open": "Open", 
+  "timeline": "Symptoms over time",
+  "smartPlan": "Weekly plan - 3 focus goals",
   "journal": {
     "recent": "Recent Journal",
     "noEntries": "No journal entries yet",

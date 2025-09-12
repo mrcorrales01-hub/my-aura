@@ -1,0 +1,18 @@
+{
+  "title": "Selvvurderinger",
+  "phq9": "PHQ-9 (depresjon)",
+  "gad7": "GAD-7 (angst)",
+  "start": "Start",
+  "submit": "Beregn Resultat",
+  "yourScore": "Din Score",
+  "severity": "Alvorlighetsgrad",
+  "save": "Lagre",
+  "exportPdf": "Eksporter PDF",
+  "disclaimer": "Dette erstatter ikke medisinsk vurdering. Søk behandling når nødvendig.",
+  "notAtAll": "Ikke i det hele tatt",
+  "severalDays": "Flere dager",
+  "moreThanHalf": "Mer enn halvparten",
+  "nearlyEvery": "Nesten hver dag",
+  "safetyWarning": "Hvis du har tanker om å skade deg selv, søk hjelp umiddelbart.",
+  "getCrisisHelp": "Få Krisehjelp"
+}

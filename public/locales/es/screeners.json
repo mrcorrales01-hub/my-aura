@@ -1,0 +1,18 @@
+{
+  "title": "Autoevaluaciones",
+  "phq9": "PHQ-9 (depresión)",
+  "gad7": "GAD-7 (ansiedad)",
+  "start": "Comenzar",
+  "submit": "Calcular Resultado",
+  "yourScore": "Tu Puntuación",
+  "severity": "Severidad",
+  "save": "Guardar",
+  "exportPdf": "Exportar PDF",
+  "disclaimer": "Esto no reemplaza la evaluación médica. Busca atención cuando sea necesario.",
+  "notAtAll": "Para nada",
+  "severalDays": "Varios días",
+  "moreThanHalf": "Más de la mitad",
+  "nearlyEvery": "Casi todos los días",
+  "safetyWarning": "Si tienes pensamientos de hacerte daño, busca ayuda inmediatamente.",
+  "getCrisisHelp": "Obtener Ayuda de Crisis"
+}

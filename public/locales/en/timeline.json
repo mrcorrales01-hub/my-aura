@@ -1,0 +1,9 @@
+{
+  "title": "Symptoms Over Time",
+  "last30": "Last 30 Days",
+  "legend": "Higher = More Symptoms",
+  "min": "Min",
+  "max": "Max",
+  "avg": "Avg", 
+  "recentResults": "Recent Results"
+}

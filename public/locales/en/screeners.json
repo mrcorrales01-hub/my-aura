@@ -1,0 +1,18 @@
+{
+  "title": "Self-Assessments",
+  "phq9": "PHQ-9 (depression)",
+  "gad7": "GAD-7 (anxiety)",
+  "start": "Start",
+  "submit": "Calculate Result",
+  "yourScore": "Your Score",
+  "severity": "Severity",
+  "save": "Save",
+  "exportPdf": "Export PDF",
+  "disclaimer": "This does not replace medical evaluation. Seek care when needed.",
+  "notAtAll": "Not at all",
+  "severalDays": "Several days",
+  "moreThanHalf": "More than half",
+  "nearlyEvery": "Nearly every day",
+  "safetyWarning": "If you have thoughts of harming yourself, seek help immediately.",
+  "getCrisisHelp": "Get Crisis Help"
+}

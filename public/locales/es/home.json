@@ -39,5 +39,9 @@
   "todaysTasks": "Tareas de hoy", 
   "crisisHelp": "¿Necesitas apoyo ahora?",
   "openCrisis": "Abrir apoyo de crisis",
-  "startRoleplay": "Iniciar juego de rol"
+  "startRoleplay": "Iniciar juego de rol",
+  "screeners": "Autoevaluaciones",
+  "open": "Abrir",
+  "timeline": "Síntomas a lo largo del tiempo", 
+  "smartPlan": "Plan semanal - 3 objetivos principales"
 }

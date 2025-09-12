@@ -19,6 +19,8 @@ import VisitPrepare from '@/pages/visit/VisitPrepare';
 import VisitPractice from '@/pages/visit/VisitPractice';
 import VisitAfter from '@/pages/visit/VisitAfter';
 import VisitPage from '@/pages/visit/VisitPage';
+import ScreenerHubPage from '@/pages/screeners/ScreenerHubPage';
+import TimelinePage from '@/pages/timeline/TimelinePage';
 import { SCRIPTS } from '@/features/roleplay/scripts';
 
 export const router = createBrowserRouter([
@@ -33,6 +35,9 @@ export const router = createBrowserRouter([
   
   { path: '/visit/practice', element: <ErrorBoundaryWrapper><VisitPractice /></ErrorBoundaryWrapper> },
   { path: '/visit/after', element: <ErrorBoundaryWrapper><VisitAfter /></ErrorBoundaryWrapper> },
+  { path: '/screeners', element: <ErrorBoundaryWrapper><ScreenerHubPage /></ErrorBoundaryWrapper> },
+  { path: '/timeline', element: <ErrorBoundaryWrapper><TimelinePage /></ErrorBoundaryWrapper> },
+  { path: '/besok', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },
   { path: '/plan', element: <ErrorBoundaryWrapper><PlanPage /></ErrorBoundaryWrapper> },
@@ -48,7 +53,10 @@ export const router = createBrowserRouter([
         lang: localStorage.getItem('aura.lang') || 'sv',
         i18n_missing: 0,
         roleplay_scripts: SCRIPTS.length,
-        auri: "ok"
+        auri: "ok",
+        screeners: "ok",
+        timeline: "ok",
+        smart_plan: "ok"
       });
     }
   },

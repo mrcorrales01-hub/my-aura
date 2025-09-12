@@ -1,0 +1,9 @@
+{
+  "title": "Síntomas a lo Largo del Tiempo",
+  "last30": "Últimos 30 Días",
+  "legend": "Más Alto = Más Síntomas",
+  "min": "Mín",
+  "max": "Máx",
+  "avg": "Prom",
+  "recentResults": "Resultados Recientes"
+}

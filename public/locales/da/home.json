@@ -39,5 +39,9 @@
   "todaysTasks": "Dagens opgaver",
   "crisisHelp": "Har du brug for støtte nu?",
   "openCrisis": "Åbn krisestøtte",
-  "startRoleplay": "Start rollespil"
+  "startRoleplay": "Start rollespil",
+  "screeners": "Selvvurderinger", 
+  "open": "Åbn",
+  "timeline": "Symptomer over tid",
+  "smartPlan": "Ugeplan - 3 fokusmål"
 }

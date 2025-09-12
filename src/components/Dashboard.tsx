@@ -71,6 +71,33 @@ const Dashboard = () => {
       progress: 100,
       action: () => navigate('/checkin'),
       featured: true
+    },
+    {
+      icon: Target,
+      title: tHome('screeners'),
+      description: 'PHQ-9 & GAD-7 self-assessments',
+      status: 'Available Now',
+      progress: 100,
+      action: () => navigate('/screeners'),
+      featured: true
+    },
+    {
+      icon: TrendingUp,
+      title: tHome('timeline'),
+      description: 'Track symptoms over time with visual insights',
+      status: 'Available Now',
+      progress: 100,
+      action: () => navigate('/timeline'),
+      featured: true
+    },
+    {
+      icon: Calendar,
+      title: tHome('smartPlan'),
+      description: 'AI-generated weekly focus goals',
+      status: 'Available Now',
+      progress: 100,
+      action: () => navigate('/plan'),
+      featured: true
     }
   ];
 
@@ -164,8 +191,8 @@ const Dashboard = () => {
         {/* Primary AI Features */}
         <div className="mb-8">
           <h2 className="text-2xl font-semibold text-foreground mb-4">AI-Powered Wellness</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {primaryFeatures.map((feature, index) => (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {primaryFeatures.map((feature, index) => (
               <Card 
                 key={index} 
                 className={`bg-card/50 backdrop-blur-sm transition-all duration-300 hover:shadow-lg cursor-pointer ${

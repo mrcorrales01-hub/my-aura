@@ -1,0 +1,18 @@
+{
+  "title": "Itsearvioinnit",
+  "phq9": "PHQ-9 (masennus)",
+  "gad7": "GAD-7 (ahdistus)",
+  "start": "Aloita",
+  "submit": "Laske Tulos",
+  "yourScore": "Sinun Pisteesi",
+  "severity": "Vakavuus",
+  "save": "Tallenna",
+  "exportPdf": "Vie PDF",
+  "disclaimer": "Tämä ei korvaa lääketieteellistä arviointia. Hae hoitoa tarvittaessa.",
+  "notAtAll": "Ei ollenkaan",
+  "severalDays": "Useita päiviä",
+  "moreThanHalf": "Enemmän kuin puolet",
+  "nearlyEvery": "Lähes joka päivä",
+  "safetyWarning": "Jos sinulla on ajatuksia itsesi vahingoittamisesta, hae apua välittömästi.",
+  "getCrisisHelp": "Hanki Kriisiapua"
+}

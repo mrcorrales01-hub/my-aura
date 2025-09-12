@@ -1,0 +1,9 @@
+{
+  "title": "Oireet Ajan Kuluessa",
+  "last30": "Viimeiset 30 Päivää",
+  "legend": "Korkeampi = Enemmän Oireita",
+  "min": "Min",
+  "max": "Maks",
+  "avg": "Kesk",
+  "recentResults": "Viimeaikaiset Tulokset"
+}

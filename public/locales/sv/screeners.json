@@ -1,0 +1,18 @@
+{
+  "title": "Självskattningar",
+  "phq9": "PHQ-9 (depression)",
+  "gad7": "GAD-7 (ångest)",
+  "start": "Starta",
+  "submit": "Beräkna resultat",
+  "yourScore": "Ditt resultat",
+  "severity": "Svårighetsgrad",
+  "save": "Spara",
+  "exportPdf": "Exportera PDF",
+  "disclaimer": "Detta ersätter inte medicinsk bedömning. Sök vård vid behov.",
+  "notAtAll": "Inte alls",
+  "severalDays": "Flera dagar", 
+  "moreThanHalf": "Mer än halva dagar",
+  "nearlyEvery": "Nästan varje dag",
+  "safetyWarning": "Om du har tankar om att skada dig själv, sök hjälp omedelbart.",
+  "getCrisisHelp": "Få krisstöd"
+}
