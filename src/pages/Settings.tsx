@@ -1,13 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { LanguageSwitcher } from '@/features/settings/LanguageSwitcher';
+import { LanguageSelector } from '@/components/ui/LanguageSelector';
 import { TTSSettings } from '@/features/settings/components/TTSSettings';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { DemoControls } from '@/components/DemoControls';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Download, Loader2 } from 'lucide-react';
+import { Download, Loader2, Globe } from 'lucide-react';
 import { useDataExport } from '@/hooks/useDataExport';
 
 const Settings = () => {
@@ -30,7 +30,18 @@ const Settings = () => {
         <h1 className="text-3xl font-bold mb-8">{t('settings.title')}</h1>
         
         <div className="max-w-2xl space-y-6">
-          <LanguageSwitcher />
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Globe className="h-5 w-5" />
+                Language / Språk
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <LanguageSelector />
+            </CardContent>
+          </Card>
+          
           <TTSSettings enabled={ttsEnabled} onEnabledChange={handleTTSChange} />
           <DemoControls />
           

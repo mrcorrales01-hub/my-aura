@@ -150,8 +150,24 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
   });
 
   // I) Click overlay guard (CSS sanity)
-  const cssOk = !!document.querySelector('style[data-health-safe-area]') || !!document.querySelector('.main-shell');
+  const cssOk = !!document.querySelector(':root[data-health-safe-area]') || !!document.querySelector('.main-shell');
   checks.push({ name: 'click_overlay_guard', status: cssOk ? 'ok' : 'warn', message: cssOk ? 'Safe-area present' : 'Add bottom padding & disable overlays' });
+
+  // J) Language auto-detection info
+  const langReason = localStorage.getItem('aura.lang') ? "stored" :
+                     (navigator.languages?.some(l => l.toLowerCase().startsWith('sv')) ? "navigator" :
+                      (Intl.DateTimeFormat().resolvedOptions().timeZone || "").includes('Stockholm') ? "timezone" : "default");
+  
+  checks.push({
+    name: 'lang_auto',
+    status: 'ok',
+    message: `Language: ${language} (${langReason})`,
+    details: {
+      selected: language,
+      reason: langReason,
+      supported: ["sv", "en", "es", "no", "da", "fi"]
+    }
+  });
 
   return {
     timestamp: new Date().toISOString(),

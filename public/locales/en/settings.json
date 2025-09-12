@@ -1,5 +1,6 @@
 {
   "title": "Settings",
+  "language": "Language",
   "dataExport": "Export My Data",
   "dataExportDescription": "Download all your personal data in JSON format including moods, journal entries, tasks, exercises, and messages.",
   "exportButton": "Download My Data",

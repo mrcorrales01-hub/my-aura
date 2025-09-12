@@ -1,5 +1,6 @@
 {
   "title": "Inställningar",
+  "language": "Språk",
   "dataExport": "Exportera Min Data",
   "dataExportDescription": "Ladda ner all din personliga data i JSON-format inklusive humör, dagboksinlägg, uppgifter, övningar och meddelanden.",
   "exportButton": "Ladda Ner Min Data",

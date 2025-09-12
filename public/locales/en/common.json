@@ -42,6 +42,13 @@
     "title": "Roleplay"
   },
   "common": {
+    "name": "Name",
+    "save": "Save", 
+    "cancel": "Cancel",
+    "ok": "OK",
+    "friend": "friend",
+    "email": "Email",
+    "loading": "Loading...",
     "new": "New",
     "error": "An error occurred",
     "success": "Success",

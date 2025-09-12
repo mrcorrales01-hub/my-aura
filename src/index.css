@@ -491,9 +491,8 @@ main,#root{position:relative;z-index:0;}
   }
 }
 
-/* Health Safe Area & Overlay Guard */
-<style data-health-safe-area>
-:root { 
+/* Health Safe Area & Overlay Guard - CSS marker for health detection */
+:root[data-health-safe-area] { 
   --tabbar-h: 72px; 
 }
 
@@ -515,4 +514,3 @@ select,
 textarea { 
   pointer-events: auto; 
 }
-</style>

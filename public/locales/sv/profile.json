@@ -1,1 +1,7 @@
-{ "name":"Namn", "email":"E-post", "save":"Spara" }
+{
+  "name": "Namn",
+  "email": "E-post", 
+  "save": "Spara",
+  "profile": "Profil",
+  "settings": "Inställningar"
+}
