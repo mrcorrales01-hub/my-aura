@@ -24,7 +24,12 @@ import TimelinePage from '@/pages/timeline/TimelinePage';
 import CoachHubPage from '@/pages/coach/CoachHubPage';
 import VisitHubPage from '@/pages/visit/VisitHubPage';
 import SleepForm from '@/components/visit/SleepForm';
+import CrisisHubPage from '@/pages/crisis/CrisisHubPage';
+import CrisisTriagePage from '@/pages/crisis/CrisisTriagePage';
+import CrisisResourcesPage from '@/pages/crisis/CrisisResourcesPage';
+import SafetyPlanPage from '@/pages/crisis/SafetyPlanPage';
 import { SCRIPTS } from '@/features/roleplay/scripts';
+import { detectCountry } from '@/features/crisis/resources';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
@@ -42,6 +47,10 @@ export const router = createBrowserRouter([
   { path: '/screeners', element: <ErrorBoundaryWrapper><ScreenerHubPage /></ErrorBoundaryWrapper> },
   { path: '/timeline', element: <ErrorBoundaryWrapper><TimelinePage /></ErrorBoundaryWrapper> },
   { path: '/coach', element: <ErrorBoundaryWrapper><CoachHubPage /></ErrorBoundaryWrapper> },
+  { path: '/crisis', element: <ErrorBoundaryWrapper><CrisisHubPage /></ErrorBoundaryWrapper> },
+  { path: '/crisis/triage', element: <ErrorBoundaryWrapper><CrisisTriagePage /></ErrorBoundaryWrapper> },
+  { path: '/crisis/plan', element: <ErrorBoundaryWrapper><SafetyPlanPage /></ErrorBoundaryWrapper> },
+  { path: '/crisis/help', element: <ErrorBoundaryWrapper><CrisisResourcesPage /></ErrorBoundaryWrapper> },
   { path: '/besok', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },
@@ -53,6 +62,7 @@ export const router = createBrowserRouter([
   { 
     path: '/health-check', 
     loader: () => {
+      const country = detectCountry();
       return Response.json({
         status: "ok",
         lang: localStorage.getItem('aura.lang') || 'sv',
