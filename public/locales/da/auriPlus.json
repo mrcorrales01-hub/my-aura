@@ -1,0 +1,20 @@
+{
+  "speak": "Tal",
+  "stop": "Stop",
+  "mic": "Stemmeinput",
+  "listening": "Lytter…",
+  "send": "Send",
+  "actions": "Forslag",
+  "openCoach": "Åbn Mini-coach",
+  "openRoleplay": "Start rollespil",
+  "addPlan": "Tilføj til ugeplan",
+  "logJournal": "Gem i dagbog",
+  "startExercise": "Start øvelse",
+  "gotoVisit": "Til Besøg",
+  "addedPlan": "Tilføjet til ugeplanen",
+  "logged": "Gemt i dagbogen",
+  "noAction": "Ingen forslag endnu",
+  "agenda": "Dagsorden",
+  "pin": "Fastgør",
+  "unpin": "Løsne"
+}

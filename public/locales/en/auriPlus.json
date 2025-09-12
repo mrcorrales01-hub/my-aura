@@ -1,0 +1,20 @@
+{
+  "speak": "Speak",
+  "stop": "Stop",
+  "mic": "Voice input",
+  "listening": "Listening…",
+  "send": "Send",
+  "actions": "Suggestions",
+  "openCoach": "Open Mini-coach",
+  "openRoleplay": "Start roleplay",
+  "addPlan": "Add to weekly plan",
+  "logJournal": "Save to journal",
+  "startExercise": "Start exercise",
+  "gotoVisit": "Go to Visit",
+  "addedPlan": "Added to weekly plan",
+  "logged": "Saved to journal",
+  "noAction": "No suggestions yet",
+  "agenda": "Agenda",
+  "pin": "Pin",
+  "unpin": "Unpin"
+}

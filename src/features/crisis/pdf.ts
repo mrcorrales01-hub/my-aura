@@ -30,8 +30,8 @@ export function createSafetyPlanPdf(plan: SafetyPlan): void {
     
     doc.setFontSize(10);
     items.forEach((item) => {
-      let text = typeof item === 'string' ? item : `${item.name}`;
-      if (typeof item === 'object' && (item.phone || item.email)) {
+      let text = typeof item === 'string' ? item : item?.name || 'Unknown';
+      if (typeof item === 'object' && item && (item.phone || item.email)) {
         if (item.phone) text += ` (tel: ${item.phone})`;
         if (item.email) text += ` (${item.email})`;
       }

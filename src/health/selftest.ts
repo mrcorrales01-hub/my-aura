@@ -129,14 +129,20 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
   } catch { }
   checks.push({ name: 'roleplay_scripts', status: scriptsCount >= 3 ? 'ok' : 'warn', message: `count=${scriptsCount}` });
 
-  // H) Packs presence
+  // H) Packs presence (including WOW Pack v8)
   const packs: Record<string, 'ok' | 'warn'> = {};
   for (const [name, path] of Object.entries({
     visit_pack: '@/pages/visit/VisitHubPage',
     coach_pack: '@/pages/coach/CoachHubPage',
     screeners: '@/pages/screeners/ScreenerHubPage',
     timeline: '@/pages/timeline/TimelinePage',
-    crisis: '@/pages/crisis/CrisisHubPage'
+    crisis: '@/pages/crisis/CrisisHubPage',
+    auri_action_engine: '@/features/auri/actions',
+    voice: '@/features/voice/voice',
+    panic_mode: '@/pages/PanicPage',
+    roleplay_studio: '@/pages/RoleplayStudioPage',
+    memory: '@/features/memory/userMemory',
+    live_agenda: '@/features/auri/agenda'
   })) {
     try { 
       await import(path as any); 

@@ -1,0 +1,12 @@
+{
+  "title": "Scenario Studio",
+  "new": "New script",
+  "name": "Name",
+  "addStep": "Add step",
+  "save": "Save",
+  "export": "Export",
+  "import": "Import",
+  "run": "Run",
+  "shareLink": "Copy link",
+  "empty": "No scripts yet"
+}

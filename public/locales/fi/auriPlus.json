@@ -1,0 +1,20 @@
+{
+  "speak": "Puhu",
+  "stop": "Lopeta",
+  "mic": "Äänisyöte",
+  "listening": "Kuuntelee…",
+  "send": "Lähetä",
+  "actions": "Ehdotukset",
+  "openCoach": "Avaa Mini-coach",
+  "openRoleplay": "Aloita roolipeli",
+  "addPlan": "Lisää viikkosuunnitelmaan",
+  "logJournal": "Tallenna päiväkirjaan",
+  "startExercise": "Aloita harjoitus",
+  "gotoVisit": "Käyntiin",
+  "addedPlan": "Lisätty viikkosuunnitelmaan",
+  "logged": "Tallennettu päiväkirjaan",
+  "noAction": "Ei ehdotuksia vielä",
+  "agenda": "Agenda",
+  "pin": "Kiinnitä",
+  "unpin": "Irrota"
+}

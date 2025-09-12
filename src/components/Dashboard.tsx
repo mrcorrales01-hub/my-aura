@@ -130,6 +130,12 @@ const Dashboard = () => {
 
   const quickActions = [
     {
+      icon: AlertTriangle,
+      title: 'Panikläget', 
+      description: 'Snabb hjälp i akuta situationer',
+      action: () => navigate('/panic')
+    },
+    {
       icon: MessageCircle,
       title: 'Chat with AI Coach',
       description: 'Get personalized guidance and support',

@@ -13,6 +13,8 @@ import Pricing from '@/pages/Pricing';
 import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/pages/Roleplay';
 import RoleplayRun from '@/pages/RoleplayRun';
+import RoleplayStudioPage from '@/pages/RoleplayStudioPage';
+import PanicPage from '@/pages/PanicPage';
 
 import VisitHub from '@/pages/visit/VisitHub';
 import VisitPrepare from '@/pages/visit/VisitPrepare';
@@ -66,6 +68,8 @@ export const router = createBrowserRouter([
   { path: '/besok', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },
+  { path: '/roleplay/studio', element: <ErrorBoundaryWrapper><RoleplayStudioPage /></ErrorBoundaryWrapper> },
+  { path: '/panic', element: <ErrorBoundaryWrapper><PanicPage /></ErrorBoundaryWrapper> },
   { path: '/plan', element: <ErrorBoundaryWrapper><PlanPage /></ErrorBoundaryWrapper> },
   { path: '/pricing', element: <ErrorBoundaryWrapper><Pricing /></ErrorBoundaryWrapper> },
   { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },

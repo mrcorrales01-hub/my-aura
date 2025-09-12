@@ -1,0 +1,20 @@
+{
+  "speak": "Hablar",
+  "stop": "Parar",
+  "mic": "Entrada de voz",
+  "listening": "Escuchando…",
+  "send": "Enviar",
+  "actions": "Sugerencias",
+  "openCoach": "Abrir Mini-coach",
+  "openRoleplay": "Iniciar roleplay",
+  "addPlan": "Añadir al plan semanal",
+  "logJournal": "Guardar en diario",
+  "startExercise": "Iniciar ejercicio",
+  "gotoVisit": "Ir a Visita",
+  "addedPlan": "Añadido al plan semanal",
+  "logged": "Guardado en diario",
+  "noAction": "Sin sugerencias aún",
+  "agenda": "Agenda",
+  "pin": "Fijar",
+  "unpin": "Soltar"
+}

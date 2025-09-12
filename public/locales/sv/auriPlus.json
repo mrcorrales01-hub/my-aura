@@ -1,0 +1,20 @@
+{
+  "speak": "Tala",
+  "stop": "Stoppa",
+  "mic": "Röstinmatning",
+  "listening": "Lyssnar…",
+  "send": "Skicka",
+  "actions": "Förslag",
+  "openCoach": "Öppna Mini-coach",
+  "openRoleplay": "Starta rollspel",
+  "addPlan": "Lägg till i veckoplan",
+  "logJournal": "Spara i dagboken",
+  "startExercise": "Starta övning",
+  "gotoVisit": "Till Besök",
+  "addedPlan": "Tillagt i veckoplanen",
+  "logged": "Sparat i dagboken",
+  "noAction": "Inga förslag ännu",
+  "agenda": "Agenda",
+  "pin": "Fäst",
+  "unpin": "Lossa"
+}

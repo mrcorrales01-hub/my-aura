@@ -1,0 +1,20 @@
+{
+  "speak": "Snakke",
+  "stop": "Stopp",
+  "mic": "Taleinndata",
+  "listening": "Lytter…",
+  "send": "Send",
+  "actions": "Forslag",
+  "openCoach": "Åpne Mini-coach",
+  "openRoleplay": "Start rollespill",
+  "addPlan": "Legg til i ukesplan",
+  "logJournal": "Lagre i dagbok",
+  "startExercise": "Start øvelse",
+  "gotoVisit": "Til Besøk",
+  "addedPlan": "Lagt til i ukesplanen",
+  "logged": "Lagret i dagboken",
+  "noAction": "Ingen forslag ennå",
+  "agenda": "Agenda",
+  "pin": "Fest",
+  "unpin": "Løsne"
+}

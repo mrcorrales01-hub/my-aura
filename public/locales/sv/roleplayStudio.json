@@ -1,0 +1,12 @@
+{
+  "title": "Scenario-studio",
+  "new": "Nytt manus",
+  "name": "Namn",
+  "addStep": "Lägg till steg",
+  "save": "Spara",
+  "export": "Exportera",
+  "import": "Importera",
+  "run": "Kör",
+  "shareLink": "Kopiera länk",
+  "empty": "Inga manus ännu"
+}

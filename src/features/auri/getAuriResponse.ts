@@ -2,6 +2,7 @@ import { supabase } from '@/integrations/supabase/client'
 import { AURI_SYSTEM } from './systemPrompt'
 import { openers } from './openers'
 import { needsDiversify, createDiversityPrompt } from './antiRepeat'
+import { planFromText, type AuriPlan } from './actions'
 
 const base = `https://rggohnwmajmrvxgfmimk.supabase.co/functions/v1`
 
@@ -38,7 +39,7 @@ export const localFallback = (text: string, lang: string): string => {
   return [opener, ...steps, question].join('\n');
 };
 
-export async function streamAuri(payload: { messages: any[], lang: string, activeFlow?: string, currentStep?: string }, onTok: (t: string) => void) {
+export async function streamAuri(payload: { messages: any[], lang: string, activeFlow?: string, currentStep?: string }, onTok: (t: string) => void, onPlan?: (plan: AuriPlan) => void) {
   const { data } = await supabase.auth.getSession()
   const jwt = data.session?.access_token
   
@@ -145,6 +146,13 @@ export async function streamAuri(payload: { messages: any[], lang: string, activ
       }
     }
     
+    // Generate action plan from response
+    if (accumulatedResponse && onPlan) {
+      const userText = payload.messages[payload.messages.length - 1]?.content || ''
+      const plan = planFromText(accumulatedResponse, userText)
+      onPlan(plan)
+    }
+    
     // Store for next comparison
     lastAssistantMessage = accumulatedResponse;
     
@@ -153,6 +161,13 @@ export async function streamAuri(payload: { messages: any[], lang: string, activ
     const userText = payload.messages[payload.messages.length - 1]?.content || ''
     const fallbackResponse = localFallback(userText, payload.lang)
     onTok(fallbackResponse)
+    
+    // Generate plan for fallback too
+    if (onPlan) {
+      const plan = planFromText(fallbackResponse, userText)
+      onPlan(plan)
+    }
+    
     lastAssistantMessage = fallbackResponse;
   } finally {
     clearTimeout(timer)
