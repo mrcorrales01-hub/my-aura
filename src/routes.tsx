@@ -21,6 +21,7 @@ import VisitAfter from '@/pages/visit/VisitAfter';
 import VisitPage from '@/pages/visit/VisitPage';
 import ScreenerHubPage from '@/pages/screeners/ScreenerHubPage';
 import TimelinePage from '@/pages/timeline/TimelinePage';
+import CoachHubPage from '@/pages/coach/CoachHubPage';
 import { SCRIPTS } from '@/features/roleplay/scripts';
 
 export const router = createBrowserRouter([
@@ -37,6 +38,7 @@ export const router = createBrowserRouter([
   { path: '/visit/after', element: <ErrorBoundaryWrapper><VisitAfter /></ErrorBoundaryWrapper> },
   { path: '/screeners', element: <ErrorBoundaryWrapper><ScreenerHubPage /></ErrorBoundaryWrapper> },
   { path: '/timeline', element: <ErrorBoundaryWrapper><TimelinePage /></ErrorBoundaryWrapper> },
+  { path: '/coach', element: <ErrorBoundaryWrapper><CoachHubPage /></ErrorBoundaryWrapper> },
   { path: '/besok', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },
@@ -56,7 +58,8 @@ export const router = createBrowserRouter([
         auri: "ok",
         screeners: "ok",
         timeline: "ok",
-        smart_plan: "ok"
+        smart_plan: "ok",
+        mini_coach: "ok"
       });
     }
   },

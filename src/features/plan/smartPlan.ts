@@ -99,3 +99,26 @@ export function updateGoal(goalId: string, done: boolean) {
     } catch {}
   }
 }
+
+export function addGoalToSmartPlan(goalTitle: string) {
+  const plan = getSmartPlan();
+  const newGoal: SmartGoal = {
+    id: `goal-${Date.now()}`,
+    title: goalTitle,
+    done: false
+  };
+  
+  // Replace the last goal or add if less than 3
+  if (plan.goals.length >= 3) {
+    plan.goals[2] = newGoal;
+  } else {
+    plan.goals.push(newGoal);
+  }
+  
+  const storageKey = `aura.smartPlan.${plan.week}`;
+  try {
+    localStorage.setItem(storageKey, JSON.stringify(plan));
+  } catch {}
+  
+  return plan;
+}

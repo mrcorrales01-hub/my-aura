@@ -44,6 +44,9 @@
   "open": "Open", 
   "timeline": "Symptoms over time",
   "smartPlan": "Weekly plan - 3 focus goals",
+  "coach": "Mini-coach",
+  "coachDesc": "Guided 3-5 minute micro-programs.",
+  "open": "Open",
   "journal": {
     "recent": "Recent Journal",
     "noEntries": "No journal entries yet",

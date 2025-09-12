@@ -43,5 +43,7 @@
   "screeners": "Itsearvioinnit",
   "open": "Avaa",
   "timeline": "Oireet ajan kuluessa",
-  "smartPlan": "Viikkosuunnitelma - 3 tavoitetta"
+  "smartPlan": "Viikkosuunnitelma - 3 tavoitetta",
+  "coach": "Mini-valmentaja",
+  "coachDesc": "Ohjatut 3-5 minuutin mikro-ohjelmat."
 }

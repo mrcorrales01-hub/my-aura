@@ -1,0 +1,19 @@
+{
+  "title": "Mini-coach",
+  "subtitle": "Flujos guiados rápidos para necesidades urgentes o rutinas nocturnas.",
+  "start": "Empezar",
+  "resume": "Continuar",
+  "done": "Hecho",
+  "addToPlan": "Añadir al plan",
+  "logToJournal": "Guardar en diario",
+  "exportPdf": "Exportar como PDF",
+  "step": "Paso {{n}} de {{t}}",
+  "sleepTonight": "Duerme bien esta noche",
+  "panicReset": "Reset de pánico",
+  "motivationBooster": "Impulso de motivación",
+  "timer": "Temporizador",
+  "complete": "¡Completado!",
+  "addedToPlan": "Meta añadida a tu plan semanal.",
+  "logged": "Guardado en tu diario.",
+  "disclaimer": "No reemplaza la evaluación médica. Busca atención cuando sea necesario."
+}

@@ -43,5 +43,7 @@
   "screeners": "Autoevaluaciones",
   "open": "Abrir",
   "timeline": "Síntomas a lo largo del tiempo", 
-  "smartPlan": "Plan semanal - 3 objetivos principales"
+  "smartPlan": "Plan semanal - 3 objetivos principales",
+  "coach": "Mini-coach",
+  "coachDesc": "Programas guiados de 3-5 minutos."
 }

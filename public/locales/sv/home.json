@@ -46,5 +46,8 @@
   "screeners": "Självskattningar",
   "open": "Öppna",
   "timeline": "Symtom över tid",
-  "smartPlan": "Veckoplan – 3 fokusmål"
+  "smartPlan": "Veckoplan – 3 fokusmål",
+  "coach": "Mini-coach",
+  "coachDesc": "Guidade 3–5 minuters mikroprogram.",
+  "open": "Öppna"
 }

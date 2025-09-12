@@ -43,5 +43,7 @@
   "screeners": "Selvvurderinger",
   "open": "Åpne",
   "timeline": "Symptomer over tid",
-  "smartPlan": "Ukesplan - 3 fokusmål"
+  "smartPlan": "Ukesplan - 3 fokusmål",
+  "coach": "Mini-coach",
+  "coachDesc": "Guidede 3-5 minutts mikroprogrammer."
 }

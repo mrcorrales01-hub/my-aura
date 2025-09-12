@@ -64,6 +64,15 @@ const Dashboard = () => {
       featured: true
     },
     {
+      icon: Zap,
+      title: tHome('coach'),
+      description: tHome('coachDesc'),
+      status: 'Available Now',
+      progress: 100,
+      action: () => navigate('/coach'),
+      featured: true
+    },
+    {
       icon: Heart,
       title: 'Daily Check-in',
       description: 'Quick emotional wellness check with AI insights',
@@ -124,6 +133,12 @@ const Dashboard = () => {
       title: 'Chat with AI Coach',
       description: 'Get personalized guidance and support',
       action: () => setShowAICoach(true)
+    },
+    {
+      icon: Zap,
+      title: 'Mini-Coach Sessions',
+      description: 'Quick guided flows for specific needs',
+      action: () => navigate('/coach')
     },
     {
       icon: CheckCircle,
