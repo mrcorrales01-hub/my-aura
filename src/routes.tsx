@@ -22,6 +22,8 @@ import VisitPage from '@/pages/visit/VisitPage';
 import ScreenerHubPage from '@/pages/screeners/ScreenerHubPage';
 import TimelinePage from '@/pages/timeline/TimelinePage';
 import CoachHubPage from '@/pages/coach/CoachHubPage';
+import VisitHubPage from '@/pages/visit/VisitHubPage';
+import SleepForm from '@/components/visit/SleepForm';
 import { SCRIPTS } from '@/features/roleplay/scripts';
 
 export const router = createBrowserRouter([
@@ -30,7 +32,8 @@ export const router = createBrowserRouter([
   { path: '/onboarding', element: <Onboarding /> },
   { path: '/health', element: <ErrorBoundaryWrapper><Health /></ErrorBoundaryWrapper> },
   { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
-  { path: '/visit', element: <ErrorBoundaryWrapper><VisitHub /></ErrorBoundaryWrapper> },
+  { path: '/visit', element: <ErrorBoundaryWrapper><VisitHubPage /></ErrorBoundaryWrapper> },
+  { path: '/visit/sleep', element: <ErrorBoundaryWrapper><SleepForm /></ErrorBoundaryWrapper> },
   { path: '/visit-prep', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/visit/prepare', element: <ErrorBoundaryWrapper><VisitPrepare /></ErrorBoundaryWrapper> },
   
@@ -59,7 +62,8 @@ export const router = createBrowserRouter([
         screeners: "ok",
         timeline: "ok",
         smart_plan: "ok",
-        mini_coach: "ok"
+        visit_bundle: "ok",
+        share: "ok"
       });
     }
   },
