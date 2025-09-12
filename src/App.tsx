@@ -13,6 +13,7 @@ import SkipLink from "@/components/SkipLink";
 import ScrollToTop from "@/components/ScrollToTop";
 import AuraNavigation from "@/components/AuraNavigation";
 import { PWAInstallPrompt } from "@/components/PWAInstallPrompt";
+import FloatingSOS from "@/components/ui/FloatingSOS";
 
 // Aura App Pages
 import AuraHome from "@/pages/AuraHome";
@@ -126,6 +127,7 @@ const App = () => (
                     <PWAInstallPrompt />
                   </BrowserRouter>
                 </TooltipProvider>
+                <FloatingSOS />
             </UserPreferencesProvider>
           </SubscriptionProvider>
         </ThemeProvider>

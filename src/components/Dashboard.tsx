@@ -16,7 +16,8 @@ import {
   BookOpen,
   Award,
   Zap,
-  CheckCircle
+  CheckCircle,
+  AlertTriangle
 } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useGlobalLanguage } from '@/hooks/useGlobalLanguage';
@@ -145,6 +146,12 @@ const Dashboard = () => {
       title: 'Daily Check-in',
       description: 'Track your mood and get AI insights',
       action: () => navigate('/checkin')
+    },
+    {
+      icon: Shield,
+      title: 'Crisis Support',
+      description: 'Safety plan, resources, and immediate help',
+      action: () => navigate('/crisis')
     },
     {
       icon: Target,
