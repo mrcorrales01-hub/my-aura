@@ -34,7 +34,7 @@ i18n
     supportedLngs: ['sv', 'en', 'es', 'no', 'da', 'fi'],
     fallbackLng: ['sv', 'en'],
     defaultNS: 'common',
-    ns: ['common', 'auth', 'home', 'auri', 'roleplay', 'profile', 'visit', 'pricing'],
+    ns: ['common', 'auth', 'home', 'auri', 'roleplay', 'profile', 'visit', 'pricing', 'coach', 'screeners', 'timeline', 'crisis', 'nav'],
     debug: import.meta.env.DEV,
     
     backend: {
@@ -62,5 +62,16 @@ i18n
 
 // Initialize language on startup
 initLang();
+
+// Track used keys for health checks
+const used = new Set<string>();
+const origT = i18n.t.bind(i18n);
+// @ts-ignore
+i18n.t = ((key: any, opt?: any) => { 
+  if (typeof key === 'string') used.add(key); 
+  return origT(key, opt); 
+}) as any;
+// @ts-ignore
+(window as any).__i18nKeysUsed = used;
 
 export default i18n;

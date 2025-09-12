@@ -9,6 +9,7 @@ import { ThemeProvider } from "@/contexts/ThemeContext";
 import { UserPreferencesProvider } from "@/providers/UserPreferencesProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Layout } from "@/app/Layout";
+import DebugPanel from "@/health/DebugPanel";
 
 // Pages
 import NewAuraHome from "@/components/NewAuraHome";
@@ -51,6 +52,7 @@ const NewApp = () => (
                     } />
                   </Routes>
                 </BrowserRouter>
+                <DebugPanel />
               </TooltipProvider>
             </UserPreferencesProvider>
           </SubscriptionProvider>

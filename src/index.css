@@ -490,3 +490,29 @@ main,#root{position:relative;z-index:0;}
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
+
+/* Health Safe Area & Overlay Guard */
+<style data-health-safe-area>
+:root { 
+  --tabbar-h: 72px; 
+}
+
+.main-shell { 
+  padding-bottom: var(--tabbar-h); 
+}
+
+.app-overlay, 
+.page-overlay, 
+.glass-overlay { 
+  pointer-events: none; 
+}
+
+button, 
+a, 
+[role="button"], 
+input, 
+select, 
+textarea { 
+  pointer-events: auto; 
+}
+</style>
