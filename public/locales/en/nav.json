@@ -1,7 +1,9 @@
 {
   "home": "Home",
   "auri": "Auri",
-  "roleplay": "Roleplay",
+  "roleplay": "Roleplay", 
   "crisis": "Crisis Support",
-  "profile": "Profile"
+  "profile": "Profile",
+  "pricing": "Membership",
+  "subscription": "Subscription"
 }

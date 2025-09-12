@@ -21,8 +21,8 @@ export function createSafetyPlanPdf(plan: SafetyPlan): void {
   yPos += 15;
 
   // Helper function to add section
-  const addSection = (title: string, items: string[] | any[]) => {
-    if (items.length === 0) return;
+  const addSection = (title: string, items: (string | any)[]) => {
+    if (!items || items.length === 0) return;
     
     doc.setFontSize(12);
     doc.text(title.toUpperCase(), 20, yPos);
@@ -30,10 +30,10 @@ export function createSafetyPlanPdf(plan: SafetyPlan): void {
     
     doc.setFontSize(10);
     items.forEach((item) => {
-      let text = typeof item === 'string' ? item : item?.name || 'Unknown';
-      if (typeof item === 'object' && item && (item.phone || item.email)) {
-        if (item.phone) text += ` (tel: ${item.phone})`;
-        if (item.email) text += ` (${item.email})`;
+      let text = typeof item === 'string' ? item : (item?.name || 'Unknown');
+      if (typeof item === 'object' && item && (item?.phone || item?.email)) {
+        if (item?.phone) text += ` (tel: ${item.phone})`;
+        if (item?.email) text += ` (${item.email})`;
       }
       
       const lines = doc.splitTextToSize(`• ${text}`, pageWidth - 30);

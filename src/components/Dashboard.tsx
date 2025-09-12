@@ -160,11 +160,11 @@ const Dashboard = () => {
       action: () => navigate('/crisis')
     },
     {
-      icon: Target,
-      title: 'Set Goals',
-      description: 'Define your wellness objectives',
-      action: () => console.log('Set goals')
-    }
+      icon: Brain,
+      title: 'Medlemskap',
+      description: 'Hantera din plan och användning',
+      action: () => navigate('/pricing')
+    },
   ];
 
   return (

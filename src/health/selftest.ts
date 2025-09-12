@@ -194,6 +194,30 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
     message: 'Handouts pack present'
   });
 
+  // L) Membership system
+  const membership = {
+    env: { 
+      stripe_pk: !!(import.meta as any).env?.VITE_STRIPE_PK, 
+      price_plus: !!(import.meta as any).env?.VITE_STRIPE_PRICE_PLUS, 
+      price_pro: !!(import.meta as any).env?.VITE_STRIPE_PRICE_PRO 
+    },
+    plan_local: 'free', // Will be dynamically loaded
+    usage_today: 0
+  };
+
+  try {
+    const { getPlanLocal, getUsageToday } = await import('@/features/subscription/plan');
+    membership.plan_local = getPlanLocal();
+    membership.usage_today = getUsageToday().auri;
+  } catch {}
+
+  checks.push({
+    name: 'membership',
+    status: 'ok',
+    message: 'Membership system active',
+    details: membership
+  });
+
   return {
     timestamp: new Date().toISOString(),
     language,

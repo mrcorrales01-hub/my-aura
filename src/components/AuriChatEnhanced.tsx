@@ -61,6 +61,14 @@ export default function AuriChatEnhanced() {
     const messageText = text || input
     if (!messageText.trim() || isLoading) return
 
+    // Import and use Auri gate for usage limits
+    try {
+      const { useAuriGate } = await import('@/features/subscription/gate')
+      const gate = useAuriGate()
+      const result = gate.beforeSend()
+      if (!result.allowed) return // Show paywall modal, handled by gate
+    } catch {}
+
     const userMessage: Message = {
       id: crypto.randomUUID(),
       role: 'user',

@@ -9,7 +9,8 @@ import Onboarding from '@/pages/Onboarding';
 import Health from '@/pages/Health';
 import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
 import PlanPage from '@/pages/PlanPage';
-import Pricing from '@/pages/Pricing';
+import PricingPage from '@/pages/pricing/PricingPage';
+import SubscriptionSettingsPage from '@/pages/settings/SubscriptionSettingsPage';
 import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/pages/Roleplay';
 import RoleplayRun from '@/pages/RoleplayRun';
@@ -71,7 +72,8 @@ export const router = createBrowserRouter([
   { path: '/roleplay/studio', element: <ErrorBoundaryWrapper><RoleplayStudioPage /></ErrorBoundaryWrapper> },
   { path: '/panic', element: <ErrorBoundaryWrapper><PanicPage /></ErrorBoundaryWrapper> },
   { path: '/plan', element: <ErrorBoundaryWrapper><PlanPage /></ErrorBoundaryWrapper> },
-  { path: '/pricing', element: <ErrorBoundaryWrapper><Pricing /></ErrorBoundaryWrapper> },
+  { path: '/pricing', element: <ErrorBoundaryWrapper><PricingPage /></ErrorBoundaryWrapper> },
+  { path: '/settings/subscription', element: <ErrorBoundaryWrapper><SubscriptionSettingsPage /></ErrorBoundaryWrapper> },
   { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },
   { path: '/settings', element: <ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper> },
   { path: '/exercises/:slug', element: <ErrorBoundaryWrapper><ExercisePlayer /></ErrorBoundaryWrapper> },
