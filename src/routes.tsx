@@ -28,6 +28,12 @@ import CrisisHubPage from '@/pages/crisis/CrisisHubPage';
 import CrisisTriagePage from '@/pages/crisis/CrisisTriagePage';
 import CrisisResourcesPage from '@/pages/crisis/CrisisResourcesPage';
 import SafetyPlanPage from '@/pages/crisis/SafetyPlanPage';
+import ExposureHubPage from '@/pages/exposure/ExposureHubPage';
+import ExposureNewPage from '@/pages/exposure/ExposureNewPage';
+import ExposureRunPage from '@/pages/exposure/ExposureRunPage';
+import CoachCardsPage from '@/pages/cards/CoachCardsPage';
+import HandoutsHubPage from '@/pages/handouts/HandoutsHubPage';
+import HandoutBuilderPage from '@/pages/handouts/HandoutBuilderPage';
 import { SCRIPTS } from '@/features/roleplay/scripts';
 import { detectCountry } from '@/features/crisis/resources';
 
@@ -51,6 +57,12 @@ export const router = createBrowserRouter([
   { path: '/crisis/triage', element: <ErrorBoundaryWrapper><CrisisTriagePage /></ErrorBoundaryWrapper> },
   { path: '/crisis/plan', element: <ErrorBoundaryWrapper><SafetyPlanPage /></ErrorBoundaryWrapper> },
   { path: '/crisis/help', element: <ErrorBoundaryWrapper><CrisisResourcesPage /></ErrorBoundaryWrapper> },
+  { path: '/exposure', element: <ErrorBoundaryWrapper><ExposureHubPage /></ErrorBoundaryWrapper> },
+  { path: '/exposure/new', element: <ErrorBoundaryWrapper><ExposureNewPage /></ErrorBoundaryWrapper> },
+  { path: '/exposure/run/:id', element: <ErrorBoundaryWrapper><ExposureRunPage /></ErrorBoundaryWrapper> },
+  { path: '/cards', element: <ErrorBoundaryWrapper><CoachCardsPage /></ErrorBoundaryWrapper> },
+  { path: '/handouts', element: <ErrorBoundaryWrapper><HandoutsHubPage /></ErrorBoundaryWrapper> },
+  { path: '/handouts/:slug', element: <ErrorBoundaryWrapper><HandoutBuilderPage /></ErrorBoundaryWrapper> },
   { path: '/besok', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },

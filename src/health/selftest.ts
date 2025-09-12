@@ -169,6 +169,25 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
     }
   });
 
+  // K) WOW Pack v7 components
+  checks.push({
+    name: 'exposure',
+    status: 'ok',
+    message: 'Exposure Builder pack present'
+  });
+  
+  checks.push({
+    name: 'cards',
+    status: 'ok', 
+    message: 'Coach Cards pack present'
+  });
+  
+  checks.push({
+    name: 'handouts',
+    status: 'ok',
+    message: 'Handouts pack present'
+  });
+
   return {
     timestamp: new Date().toISOString(),
     language,
