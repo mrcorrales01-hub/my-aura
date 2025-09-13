@@ -92,6 +92,17 @@ const SubscriptionSettingsPage = () => {
         Tillbaka till inställningar
       </Button>
 
+      {/* Show real payment status */}
+      {import.meta.env.VITE_STRIPE_PK && 
+       import.meta.env.VITE_STRIPE_PRICE_PLUS && 
+       import.meta.env.VITE_STRIPE_PRICE_PRO && (
+        <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-md">
+          <p className="text-sm text-green-700">
+            ✓ Riktig betalning aktiv (Stripe konfigurerad)
+          </p>
+        </div>
+      )}
+
       <div className="space-y-6">
         <Card>
           <CardHeader>

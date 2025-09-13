@@ -11,6 +11,7 @@ import { ErrorBoundaryWrapper } from '@/components/ErrorBoundaryWrapper';
 import PlanPage from '@/pages/PlanPage';
 import PricingPage from '@/pages/pricing/PricingPage';
 import SubscriptionSettingsPage from '@/pages/settings/SubscriptionSettingsPage';
+import RevenuePage from '@/pages/admin/RevenuePage';
 import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/pages/Roleplay';
 import RoleplayRun from '@/pages/RoleplayRun';
@@ -74,6 +75,7 @@ export const router = createBrowserRouter([
   { path: '/plan', element: <ErrorBoundaryWrapper><PlanPage /></ErrorBoundaryWrapper> },
   { path: '/pricing', element: <ErrorBoundaryWrapper><PricingPage /></ErrorBoundaryWrapper> },
   { path: '/settings/subscription', element: <ErrorBoundaryWrapper><SubscriptionSettingsPage /></ErrorBoundaryWrapper> },
+  { path: '/admin/revenue', element: <ErrorBoundaryWrapper><RevenuePage /></ErrorBoundaryWrapper> },
   { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },
   { path: '/settings', element: <ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper> },
   { path: '/exercises/:slug', element: <ErrorBoundaryWrapper><ExercisePlayer /></ErrorBoundaryWrapper> },

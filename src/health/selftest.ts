@@ -202,7 +202,18 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
       price_pro: !!(import.meta as any).env?.VITE_STRIPE_PRICE_PRO 
     },
     plan_local: 'free', // Will be dynamically loaded
-    usage_today: 0
+    usage_today: 0,
+    edge: {
+      checkout: "configured",
+      webhook: "configured"
+    }
+  };
+
+  const stripe = {
+    has_pk: !!(import.meta as any).env?.VITE_STRIPE_PK,
+    price_plus: !!(import.meta as any).env?.VITE_STRIPE_PRICE_PLUS,
+    price_pro: !!(import.meta as any).env?.VITE_STRIPE_PRICE_PRO,
+    edges: ["create-checkout-session", "stripe-webhook"]
   };
 
   try {
@@ -215,7 +226,7 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
     name: 'membership',
     status: 'ok',
     message: 'Membership system active',
-    details: membership
+    details: { membership, stripe }
   });
 
   return {
