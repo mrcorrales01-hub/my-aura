@@ -32,5 +32,9 @@
   "limitHit": "Päivittäinen raja saavutettu",
   "limitExplain": "Olet saavuttanut päivittäisen Auri-rajasi tälle suunnitelmalle.",
   "seePlans": "Katso suunnitelmat",
-  "ok": "OK"
+  "ok": "OK",
+  "manageBilling": "Hallitse laskutusta",
+  "openPortal": "Avaa laskutusportaali",
+  "portalNote": "Hallitse kortteja, laskuja ja peruutusta Stripen kautta",
+  "portalError": "Portaalia ei voitu avata"
 }

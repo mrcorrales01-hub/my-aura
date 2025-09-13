@@ -9,6 +9,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import { getPlanDb, setPlanDb } from '@/features/subscription/db'
 import { PlanId, getUsageToday } from '@/features/subscription/plan'
 import { useToast } from '@/hooks/use-toast'
+import { startPortal } from '@/features/subscription/portal'
 
 const SubscriptionSettingsPage = () => {
   const { t } = useTranslation('pricing')
@@ -80,6 +81,7 @@ const SubscriptionSettingsPage = () => {
   }
 
   const config = planConfig[currentPlan]
+  const hasStripe = !!import.meta.env.VITE_STRIPE_PK || true // Can still open via Edge if secrets set
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
@@ -145,6 +147,19 @@ const SubscriptionSettingsPage = () => {
                 </Button>
               )}
             </div>
+
+            {hasStripe && (
+              <div className="mt-4 rounded-xl border p-3 space-y-2">
+                <div className="text-sm opacity-70">{t('portalNote')}</div>
+                <Button
+                  onClick={() => startPortal()}
+                  variant="outline"
+                  className="w-full"
+                >
+                  {t('openPortal')}
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
 

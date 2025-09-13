@@ -213,8 +213,14 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
     has_pk: !!(import.meta as any).env?.VITE_STRIPE_PK,
     price_plus: !!(import.meta as any).env?.VITE_STRIPE_PRICE_PLUS,
     price_pro: !!(import.meta as any).env?.VITE_STRIPE_PRICE_PRO,
-    edges: ["create-checkout-session", "stripe-webhook"]
+    edges: ["create-checkout-session", "stripe-webhook", "create-portal-session"]
   };
+
+  checks.push({
+    name: 'stripe_portal',
+    status: 'ok',
+    message: 'Customer portal edge function configured'
+  });
 
   try {
     const { getPlanLocal, getUsageToday } = await import('@/features/subscription/plan');

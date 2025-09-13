@@ -32,5 +32,9 @@
   "limitHit": "Daily limit reached",
   "limitExplain": "You've reached your daily Auri limit for this plan.",
   "seePlans": "See plans",
-  "ok": "OK"
+  "ok": "OK",
+  "manageBilling": "Manage billing",
+  "openPortal": "Open billing portal",
+  "portalNote": "Manage cards, invoices and cancellation via Stripe",
+  "portalError": "Couldn't open the portal"
 }

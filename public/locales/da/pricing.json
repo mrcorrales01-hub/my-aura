@@ -32,5 +32,9 @@
   "limitHit": "Daglig grænse nået",
   "limitExplain": "Du har nået din daglige Auri-grænse for denne plan.",
   "seePlans": "Se planer",
-  "ok": "OK"
+  "ok": "OK",
+  "manageBilling": "Administrer fakturering",
+  "openPortal": "Åbn faktureringsportal",
+  "portalNote": "Administrer kort, fakturaer og opsigelse via Stripe",
+  "portalError": "Kunne ikke åbne portalen"
 }
