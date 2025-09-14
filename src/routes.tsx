@@ -12,6 +12,9 @@ import PlanPage from '@/pages/PlanPage';
 import PricingPage from '@/pages/pricing/PricingPage';
 import SubscriptionSettingsPage from '@/pages/settings/SubscriptionSettingsPage';
 import RevenuePage from '@/pages/admin/RevenuePage';
+import SignInPage from '@/pages/auth/SignInPage';
+import OAuthCallbackPage from '@/pages/auth/OAuthCallbackPage';
+import { Protected } from '@/app/auth/Protected';
 import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/pages/Roleplay';
 import RoleplayRun from '@/pages/RoleplayRun';
@@ -44,9 +47,11 @@ import { detectCountry } from '@/features/crisis/resources';
 export const router = createBrowserRouter([
   { path: '/', element: <Index /> },
   { path: '/auth', element: <Auth /> },
+  { path: '/auth/signin', element: <SignInPage /> },
+  { path: '/auth/callback', element: <OAuthCallbackPage /> },
   { path: '/onboarding', element: <Onboarding /> },
   { path: '/health', element: <ErrorBoundaryWrapper><Health /></ErrorBoundaryWrapper> },
-  { path: '/chat', element: <ErrorBoundaryWrapper><Chat /></ErrorBoundaryWrapper> },
+  { path: '/chat', element: <ErrorBoundaryWrapper><Protected><Chat /></Protected></ErrorBoundaryWrapper> },
   { path: '/visit', element: <ErrorBoundaryWrapper><VisitHubPage /></ErrorBoundaryWrapper> },
   { path: '/visit/sleep', element: <ErrorBoundaryWrapper><SleepForm /></ErrorBoundaryWrapper> },
   { path: '/visit-prep', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },

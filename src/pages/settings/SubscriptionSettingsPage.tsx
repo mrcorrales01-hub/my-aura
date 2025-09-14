@@ -10,9 +10,10 @@ import { getPlanDb, setPlanDb } from '@/features/subscription/db'
 import { PlanId, getUsageToday } from '@/features/subscription/plan'
 import { useToast } from '@/hooks/use-toast'
 import { startPortal } from '@/features/subscription/portal'
+import { supabase } from '@/integrations/supabase/client'
 
 const SubscriptionSettingsPage = () => {
-  const { t } = useTranslation('pricing')
+  const { t } = useTranslation(['pricing', 'auth'])
   const { user } = useAuth()
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -160,6 +161,23 @@ const SubscriptionSettingsPage = () => {
                 </Button>
               </div>
             )}
+
+            <div className="mt-4 pt-4 border-t">
+              <h3 className="font-semibold mb-2">Konto</h3>
+              <div className="text-sm text-muted-foreground mb-3">
+                {t('auth:signedInAs')} {user.email}
+              </div>
+              <Button
+                variant="outline"
+                onClick={async () => {
+                  await supabase.auth.signOut()
+                  window.location.href = '/'
+                }}
+                size="sm"
+              >
+                {t('auth:signOut')}
+              </Button>
+            </div>
           </CardContent>
         </Card>
 

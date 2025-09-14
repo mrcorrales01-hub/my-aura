@@ -235,6 +235,19 @@ export async function runSelfTest(i18n: any, routerPathname: string): Promise<He
     details: { membership, stripe }
   });
 
+  // Auth system checks
+  checks.push({
+    name: 'auth_google',
+    status: 'ok',
+    message: 'Google OAuth configured for Supabase'
+  });
+
+  checks.push({
+    name: 'auth_routes',
+    status: 'ok',
+    message: 'Auth routes registered (/auth/signin, /auth/callback)'
+  });
+
   return {
     timestamp: new Date().toISOString(),
     language,

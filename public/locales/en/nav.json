@@ -5,5 +5,7 @@
   "crisis": "Crisis Support",
   "profile": "Profile",
   "pricing": "Membership",
-  "subscription": "Subscription"
+  "subscription": "Subscription",
+  "signin":"Sign in", 
+  "signout":"Sign out"
 }

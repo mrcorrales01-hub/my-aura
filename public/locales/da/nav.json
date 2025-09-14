@@ -4,5 +4,9 @@
   "roleplay": "Rollespil",
   "crisis": "Krisestøtte",
   "profile": "Profil",
-  "visit": "Besøg"
+  "visit": "Besøg",
+  "pricing": "Medlemskab",
+  "subscription": "Abonnement",
+  "signin": "Log ind",
+  "signout": "Log ud"
 }

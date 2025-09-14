@@ -4,5 +4,9 @@
   "roleplay": "Roleplay",
   "crisis": "Crisis",
   "profile": "Perfil",
-  "visit": "Visita"
+  "visit": "Visita",
+  "pricing": "Membresía",
+  "subscription": "Suscripción",
+  "signin": "Iniciar sesión",
+  "signout": "Cerrar sesión"
 }

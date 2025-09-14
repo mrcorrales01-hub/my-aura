@@ -7,5 +7,7 @@
   "profile": "Profil",
   "visit": "Besök",
   "pricing": "Medlemskap",
-  "subscription": "Abonnemang"
+  "subscription": "Abonnemang",
+  "signin": "Logga in",
+  "signout": "Logga ut"
 }

@@ -1,8 +1,12 @@
 {
   "home": "Koti",
   "chat": "Auri", 
-  "roleplay": "Roolileikki",
+  "roleplay": "Roolipeli",
   "crisis": "Kriisituki",
   "profile": "Profiili",
-  "visit": "Käynti"
+  "visit": "Vierailu",
+  "pricing": "Jäsenyys",
+  "subscription": "Tilaus",
+  "signin": "Kirjaudu sisään",
+  "signout": "Kirjaudu ulos"
 }
