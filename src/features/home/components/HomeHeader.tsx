@@ -10,14 +10,18 @@ export const HomeHeader = () => {
 
   const greeting = useMemo(() => {
     const hour = new Date().getHours();
-    const name = user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
+    // Get display name from user metadata or profile data
+    const displayName = user?.user_metadata?.full_name || 
+                       user?.user_metadata?.display_name || 
+                       user?.email?.split('@')[0] || 
+                       'vän';
     
     if (hour < 12) {
-      return t('home:greetingMorning', { name });
+      return t('home:greetingMorning', { name: displayName });
     } else if (hour < 17) {
-      return t('home:greetingAfternoon', { name });
+      return t('home:greetingAfternoon', { name: displayName });
     } else {
-      return t('home:greetingEvening', { name });
+      return t('home:greetingEvening', { name: displayName });
     }
   }, [t, user]);
 

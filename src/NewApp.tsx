@@ -11,15 +11,17 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Layout } from "@/app/Layout";
 import DebugPanel from "@/health/DebugPanel";
 
-// Pages
 import NewAuraHome from "@/components/NewAuraHome";
 import AuriChat from "@/pages/AuriChat";
 import Auth from "@/pages/Auth";
 import Settings from "@/pages/Settings";
 import NotFound from "@/pages/NotFound";
 import Health from "@/pages/Health";
+import BesokPage from "@/pages/BesokPage";
 import CrisisPage from "@/pages/CrisisPage";
 import Roleplay from "@/components/Roleplay";
+import SignInPage from "@/pages/auth/SignInPage";
+import OAuthCallbackPage from "@/pages/auth/OAuthCallbackPage";
 
 const queryClient = new QueryClient();
 
@@ -36,17 +38,20 @@ const NewApp = () => (
                 <BrowserRouter>
                   <Routes>
                     <Route path="/auth" element={<Auth />} />
+                    <Route path="/auth/signin" element={<SignInPage />} />
+                    <Route path="/auth/callback" element={<OAuthCallbackPage />} />
                     <Route path="*" element={
                       <Layout>
                         <Routes>
-                          <Route path="/" element={<NewAuraHome />} />
-                          <Route path="/chat" element={<AuriChat />} />
-                          <Route path="/roleplay" element={<Roleplay />} />
-                          <Route path="/crisis" element={<CrisisPage />} />
-                          <Route path="/settings" element={<Settings />} />
-                          <Route path="/health" element={<Health />} />
-                          <Route path="/profile" element={<div className="p-6 text-center">Profile page coming soon</div>} />
-                          <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<NewAuraHome />} />
+            <Route path="/chat" element={<AuriChat />} />
+            <Route path="/roleplay" element={<Roleplay />} />
+            <Route path="/besok" element={<BesokPage />} />
+            <Route path="/crisis" element={<CrisisPage />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/health" element={<Health />} />
+            <Route path="/profile" element={<div className="p-6 text-center">Profile page coming soon</div>} />
+            <Route path="*" element={<NotFound />} />
                         </Routes>
                       </Layout>
                     } />

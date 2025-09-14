@@ -24,9 +24,10 @@ const AuraNavigation = () => {
 
   const navItems = [
     { name: t('nav.home'), path: '/', icon: MessageCircle, color: 'text-aura-primary' },
-    { name: t('auri.title', 'Auri'), path: '/auri', icon: Sparkles, color: 'text-aura-secondary' },
-    { name: t('roleplay.title', 'Roleplay'), path: '/roleplay', icon: Users, color: 'text-aura-growth' },
-    { name: t('nav.community'), path: '/community', icon: Users, color: 'text-aura-growth' },
+    { name: t('nav.auri'), path: '/chat', icon: Sparkles, color: 'text-aura-secondary' },
+    { name: t('nav.visit'), path: '/besok', icon: Calendar, color: 'text-aura-growth' },
+    { name: t('nav.roleplay'), path: '/roleplay', icon: Users, color: 'text-aura-growth' },
+    { name: t('nav.crisis'), path: '/crisis', icon: Shield, color: 'text-aura-warm' },
     { name: t('nav.profile'), path: '/profile', icon: User, color: 'text-aura-warm' }
   ];
 
@@ -41,7 +42,7 @@ const AuraNavigation = () => {
             <div className="w-8 h-8 rounded-full bg-aura-gradient flex items-center justify-center aura-glow">
               <Heart className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl font-semibold text-aura-primary">Aura</span>
+            <span className="text-xl font-semibold text-aura-primary">{import.meta.env.VITE_APP_NAME || 'My Aura'}</span>
             <Badge variant="secondary" className="text-xs bg-aura-secondary/20 text-aura-secondary border-0">
               {t('nav.aiCoach')}
             </Badge>
@@ -91,7 +92,7 @@ const AuraNavigation = () => {
             <div className="w-8 h-8 rounded-full bg-aura-gradient flex items-center justify-center aura-glow">
               <Heart className="w-4 h-4 text-white" />
             </div>
-            <span className="text-xl font-semibold text-aura-primary">Aura</span>
+            <span className="text-xl font-semibold text-aura-primary">{import.meta.env.VITE_APP_NAME || 'My Aura'}</span>
           </div>
 
           <Button

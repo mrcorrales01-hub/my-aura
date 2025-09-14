@@ -53,6 +53,15 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       return;
     }
 
+    // In development, bypass subscription checks if VITE_SUBS_REQUIRED is not true
+    if (import.meta.env.VITE_SUBS_REQUIRED !== 'true') {
+      setSubscribed(false);
+      setTier('free');
+      setEndDate(null);
+      setLoading(false);
+      return;
+    }
+
     try {
       setLoading(true);
       const { data, error } = await supabase.functions.invoke('check-subscription', {
@@ -62,12 +71,10 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       });
 
       if (error) {
-        console.error('Error checking subscription:', error);
-        toast({
-          title: "Error",
-          description: "Failed to check subscription status",
-          variant: "destructive",
-        });
+        console.warn('Subscription check failed, defaulting to free tier in dev:', error);
+        setSubscribed(false);
+        setTier('free');
+        setEndDate(null);
         return;
       }
 
@@ -75,12 +82,10 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       setTier(data.subscription_tier || 'free');
       setEndDate(data.subscription_end || null);
     } catch (error) {
-      console.error('Error checking subscription:', error);
-      toast({
-        title: "Error",
-        description: "Failed to check subscription status",
-        variant: "destructive",
-      });
+      console.warn('Subscription check error, defaulting to free tier in dev:', error);
+      setSubscribed(false);
+      setTier('free');
+      setEndDate(null);
     } finally {
       setLoading(false);
     }

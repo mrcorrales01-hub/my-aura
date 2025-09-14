@@ -14,7 +14,7 @@ export const QuickActions = () => {
   const actions = [
     {
       key: 'startAuri',
-      label: t('quick.startAuri'),
+      label: t('home:tryNow'),
       icon: MessageCircle,
       onClick: () => navigate('/chat'),
       className: 'bg-primary hover:bg-primary/90 text-primary-foreground',
