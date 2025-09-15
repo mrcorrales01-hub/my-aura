@@ -3370,6 +3370,21 @@ export type Database = {
           years_experience: number
         }[]
       }
+      get_secure_therapist_listing: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          average_rating: number
+          bio_preview: string
+          display_name: string
+          hourly_rate: number
+          id: string
+          languages: string[]
+          review_count: number
+          specializations: string[]
+          timezone: string
+          years_experience: number
+        }[]
+      }
       get_secure_therapist_marketplace: {
         Args: Record<PropertyKey, never>
         Returns: {
