@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { CheckCircle, XCircle, AlertTriangle, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
+import { checkSecurityCompliance } from '@/utils/securityAlerts';
 
 type HealthStatus = 'ok' | 'warn' | 'fail';
 
@@ -96,6 +97,24 @@ const Health = () => {
       message: subsRequired ? 'Subscription checks active' : 'Bypassed in dev (VITE_SUBS_REQUIRED=false)',
       details: `Development mode: ${!subsRequired ? 'enabled' : 'disabled'}`
     });
+
+    // Check security compliance
+    try {
+      const securityCheck = await checkSecurityCompliance();
+      results.push({
+        name: 'Security compliance',
+        status: securityCheck.score >= 80 ? 'ok' : securityCheck.score >= 60 ? 'warn' : 'fail',
+        message: `Security Score: ${securityCheck.score}/100`,
+        details: securityCheck.issues.length > 0 ? `Issues: ${securityCheck.issues.join(', ')}` : 'All security checks passed'
+      });
+    } catch (error: any) {
+      results.push({
+        name: 'Security compliance',
+        status: 'fail',
+        message: 'Security check failed',
+        details: error.message
+      });
+    }
 
     setChecks(results);
     setLoading(false);

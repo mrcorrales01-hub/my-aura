@@ -3245,6 +3245,10 @@ export type Database = {
         }
         Returns: boolean
       }
+      check_password_security_config: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
       cleanup_old_conversations: {
         Args: Record<PropertyKey, never>
         Returns: undefined
