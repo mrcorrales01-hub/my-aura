@@ -71,7 +71,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       });
 
       if (error) {
-        console.warn('Subscription check failed, defaulting to free tier in dev:', error);
+        console.warn('Subscription check failed, silently defaulting to free tier:', error);
         setSubscribed(false);
         setTier('free');
         setEndDate(null);
@@ -82,7 +82,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
       setTier(data.subscription_tier || 'free');
       setEndDate(data.subscription_end || null);
     } catch (error) {
-      console.warn('Subscription check error, defaulting to free tier in dev:', error);
+      console.warn('Subscription check error, silently defaulting to free tier:', error);
       setSubscribed(false);
       setTier('free');
       setEndDate(null);

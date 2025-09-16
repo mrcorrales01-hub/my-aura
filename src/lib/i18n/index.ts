@@ -79,13 +79,36 @@ export async function setupI18n(){
   // @ts-ignore
   i18n.safeT = (t:any)=> (key:string, def:string)=> t(key, { defaultValue: def })
 
-  // Dev-only missing key detection
+  // Dev-only missing key detection with CI-style logging
   if (import.meta.env.DEV) {
-    const missing: any[] = []
+    const missing: string[] = []
     const exists = (k: string) => i18n.exists(k) || i18n.exists(`sv:${k}`) || i18n.exists(`en:${k}`)
     const scan = (keys: string[]) => keys.forEach(k => { if (!exists(k)) missing.push(k) })
-    // Example usage: scan(['nav:home','home:greeting','profile:name'])
-    if (missing.length) console.warn('[i18n missing]', missing)
+    
+    // Core keys to check
+    const coreKeys = [
+      'nav:home', 'nav:chat', 'nav:auri', 'nav:roleplay', 'nav:crisis',
+      'home:greetingMorning', 'home:greetingAfternoon', 'home:greetingEvening',
+      'home:today', 'home:tryNow', 'home:checkin', 'home:recommended',
+      'auri:suggestions.mood', 'auri:suggestions.stress', 'auri:suggestions.anxiety',
+      'auth:signin', 'auth:signup', 'auth:email', 'auth:password'
+    ]
+    scan(coreKeys)
+    
+    if (missing.length) {
+      console.warn('🌍 [i18n] Missing translations:', missing)
+      console.warn('🌍 [i18n] Current language:', i18n.language)
+    } else {
+      console.log('✅ [i18n] All core keys found for language:', i18n.language)
+    }
+    
+    // Global missing key handler
+    // @ts-ignore
+    i18n.checkMissing = (key: string) => {
+      if (!exists(key)) {
+        console.warn(`🌍 [i18n] Runtime missing key: ${key}`)
+      }
+    }
   }
 
   return i18n

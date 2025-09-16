@@ -6,10 +6,11 @@ import { SuggestionButtons } from '@/features/auri/components/SuggestionButtons'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { Loader2, Send, AlertCircle, RefreshCw } from 'lucide-react';
+import { Loader2, Send, AlertCircle, RefreshCw, Mic, MicOff, Volume2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getSubscription, canUseFeature } from '@/lib/subscription';
+import { useVoiceMode } from '@/hooks/useVoiceMode';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -27,8 +28,22 @@ const Chat = () => {
   const [streamContent, setStreamContent] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [subscription, setSubscription] = useState<any>(null);
+  const [needsCrisis, setNeedsCrisis] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  
+  // Voice Mode
+  const {
+    isRecording,
+    isPlaying,
+    voiceModeEnabled,
+    startRecording,
+    stopRecording,
+    playText,
+    stopPlaying,
+    toggleVoiceMode,
+    isSupported: isVoiceSupported
+  } = useVoiceMode();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -70,6 +85,12 @@ const Chat = () => {
       }, (tok) => {
         acc += tok;
         setStreamContent(acc);
+        
+        // Check for crisis keywords in accumulated content
+        const crisisWords = ['självmord', 'ta mitt liv', 'inte klarar', 'hopplös'];
+        if (crisisWords.some(word => acc.toLowerCase().includes(word))) {
+          setNeedsCrisis(true);
+        }
       });
       
       setStreaming(false);
@@ -98,6 +119,11 @@ const Chat = () => {
       setMsgs([...next, { role: 'assistant', content: acc }]);
       setStreamContent('');
       
+      // Auto-play if voice mode enabled
+      if (voiceModeEnabled && acc) {
+        playText(acc);
+      }
+      
       // Refresh subscription after use
       if (subscription) {
         getSubscription().then(setSubscription);
@@ -119,6 +145,27 @@ const Chat = () => {
   const handleSuggestionClick = (prompt: string) => {
     setInput('');
     send(prompt);
+  };
+
+  const handleVoiceInput = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording((transcript) => {
+        if (transcript.trim()) {
+          send(transcript.trim());
+        }
+      });
+    }
+  };
+
+  const handlePlayLastResponse = () => {
+    const lastAssistantMessage = msgs.filter(m => m.role === 'assistant').at(-1);
+    if (lastAssistantMessage && !isPlaying) {
+      playText(lastAssistantMessage.content);
+    } else if (isPlaying) {
+      stopPlaying();
+    }
   };
 
   const retry = () => {
@@ -156,18 +203,29 @@ const Chat = () => {
           <h1 className="text-3xl font-bold">Auri</h1>
           <p className="text-muted-foreground mt-2">{t('auri:welcome', 'Välkommen')}</p>
         </div>
-        {subscription && (
-          <div className="text-right text-sm">
-            <div className="text-xs text-muted-foreground capitalize">
-              {subscription.tier} {subscription.tier !== 'free' && '✨'}
-            </div>
-            {subscription.limits.auriMessages > 0 && (
-              <div className="text-xs text-muted-foreground">
-                {subscription.limits.auriUsed}/{subscription.limits.auriMessages} this week
+        <div className="flex items-center gap-2">
+          {isVoiceSupported && (
+            <Button
+              onClick={toggleVoiceMode}
+              variant={voiceModeEnabled ? "default" : "outline"}
+              size="sm"
+            >
+              {voiceModeEnabled ? "🎙️ På" : "🎙️ Av"}
+            </Button>
+          )}
+          {subscription && (
+            <div className="text-right text-sm">
+              <div className="text-xs text-muted-foreground capitalize">
+                {subscription.tier} {subscription.tier !== 'free' && '✨'}
               </div>
-            )}
-          </div>
-        )}
+              {subscription.limits.auriMessages > 0 && (
+                <div className="text-xs text-muted-foreground">
+                  {subscription.limits.auriUsed}/{subscription.limits.auriMessages} this week
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </motion.div>
 
       <Card className="flex-1 flex flex-col p-4">
@@ -200,6 +258,19 @@ const Chat = () => {
                   }`}
                 >
                   <p className="text-sm whitespace-pre-wrap">{message.content}</p>
+                  {message.role === 'assistant' && (
+                    <div className="flex gap-2 mt-2 pt-2 border-t border-border/30">
+                      <Button size="sm" variant="ghost" className="text-xs h-6 px-2">
+                        💾 Spara som mål
+                      </Button>
+                      <Button size="sm" variant="ghost" className="text-xs h-6 px-2">
+                        ⏰ Påminnelse
+                      </Button>
+                      <Button size="sm" variant="ghost" className="text-xs h-6 px-2">
+                        🎯 Övning
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
@@ -247,6 +318,56 @@ const Chat = () => {
             </Button>
           </motion.div>
         )}
+        
+        {needsCrisis && (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="mb-4 p-4 bg-orange-50 border border-orange-200 rounded-lg"
+          >
+            <div className="flex items-center space-x-2 mb-2">
+              <span className="text-orange-600 font-medium">🆘 Behöver du omedelbart stöd?</span>
+            </div>
+            <p className="text-sm text-orange-700 mb-3">
+              Jag upptäckte att du kanske behöver professionell hjälp just nu.
+            </p>
+            <Button 
+              size="sm" 
+              onClick={() => window.open('/crisis', '_blank')}
+              className="bg-orange-600 hover:bg-orange-700"
+            >
+              Öppna Krisstöd →
+            </Button>
+          </motion.div>
+        )}
+
+        <div className="flex gap-2 mb-4">
+          {isVoiceSupported && (
+            <>
+              <Button
+                onClick={handleVoiceInput}
+                variant={isRecording ? "destructive" : "outline"}
+                size="sm"
+                disabled={streaming}
+                className="flex items-center gap-2"
+              >
+                {isRecording ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
+                {isRecording ? 'Stoppa inspelning' : '🎙️ Spela in'}
+              </Button>
+              
+              <Button
+                onClick={handlePlayLastResponse}
+                variant="outline"
+                size="sm"
+                disabled={msgs.length === 0 || !msgs.some(m => m.role === 'assistant')}
+                className="flex items-center gap-2"
+              >
+                <Volume2 className="h-4 w-4" />
+                {isPlaying ? 'Stoppa' : '🔊 Lyssna'}
+              </Button>
+            </>
+          )}
+        </div>
 
         <form onSubmit={handleSendMessage} className="flex space-x-2">
           <Input

@@ -5,7 +5,8 @@ import { Link, useLocation } from 'react-router-dom'
 
 export default function SignInPage(){
   const { t, i18n } = useTranslation('auth')
-  const [googleReady,setGoogleReady]=useState(true)
+  const [googleReady, setGoogleReady] = useState(true)
+  const [appleReady, setAppleReady] = useState(true)
   const loc = useLocation()
 
   useEffect(()=>{
@@ -13,12 +14,41 @@ export default function SignInPage(){
     try{ 
       new URL("https://rggohnwmajmrvxgfmimk.supabase.co") 
       const anonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnZ29obndtYWptcnZ4Z2ZtaW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyOTU2ODUsImV4cCI6MjA2OTg3MTY4NX0.NXYFVDpcnbcCZSRI8sJHU90Hsw4CMIZIoN6GYj0N2q0"
-      if(!anonKey) setGoogleReady(false) 
-    }catch{ setGoogleReady(false) }
+      if(!anonKey) {
+        setGoogleReady(false)
+        setAppleReady(false)
+      }
+    } catch { 
+      setGoogleReady(false)
+      setAppleReady(false)
+    }
   },[])
 
-  const go = async ()=>{
+  // Apple Sign-In Logic
+  const handleAppleSignIn = async () => {
+    try {
+      sessionStorage.setItem('aura.returnTo', '/');
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'apple',
+        options: { 
+          redirectTo: `${window.location.origin}/auth/callback` 
+        }
+      });
+      
+      if (error) {
+        console.error('Apple sign-in error:', error);
+        setAppleReady(false);
+      }
+    } catch (error) {
+      console.error('Apple sign-in failed:', error);
+      setAppleReady(false);
+    }
+  };
+
+  // Google Sign-In Logic
+  const handleGoogleSignIn = async ()=>{
     try{
+      sessionStorage.setItem('aura.returnTo', '/');
       const redirectTo = `${location.origin}/auth/callback`
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -38,8 +68,20 @@ export default function SignInPage(){
         </div>
 
         <div className="space-y-3">
+          {/* Apple Sign-In Button */}
           <button
-            onClick={go}
+            onClick={handleAppleSignIn}
+            disabled={!appleReady}
+            className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border transition-colors ${appleReady?'bg-background hover:bg-muted/50 border-border':'bg-muted text-muted-foreground cursor-not-allowed border-muted'}`}
+            aria-disabled={!appleReady}
+          >
+            🍎
+            <span className="font-medium">{appleReady ? t('continueApple') : t('appleUnavailable')}</span>
+          </button>
+
+          {/* Google Sign-In Button */}
+          <button
+            onClick={handleGoogleSignIn}
             disabled={!googleReady}
             className={`w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl border transition-colors ${googleReady?'bg-background hover:bg-muted/50 border-border':'bg-muted text-muted-foreground cursor-not-allowed border-muted'}`}
             aria-disabled={!googleReady}
@@ -53,11 +95,12 @@ export default function SignInPage(){
             <span className="font-medium">{googleReady ? t('continueGoogle') : t('providerMissing')}</span>
           </button>
 
+          {/* Email Sign-In Button */}
           <Link 
             to="/auth" 
             className="block w-full text-center px-4 py-3 rounded-xl border bg-background hover:bg-muted/50 transition-colors font-medium"
           >
-            {t('continueEmail')}
+            ✉️ {t('continueEmail')}
           </Link>
         </div>
 

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import { TrustBadge } from '@/components/TrustBadge';
+import { getDisplayName } from '@/lib/displayName';
 
 export const HomeHeader = () => {
   const { t, i18n } = useTranslation(['home', 'common']);
@@ -10,11 +11,7 @@ export const HomeHeader = () => {
 
   const greeting = useMemo(() => {
     const hour = new Date().getHours();
-    // Get display name from user metadata or profile data
-    const displayName = user?.user_metadata?.full_name || 
-                       user?.user_metadata?.display_name || 
-                       user?.email?.split('@')[0] || 
-                       'vän';
+    const displayName = getDisplayName(user);
     
     if (hour < 12) {
       return t('home:greetingMorning', { name: displayName });
