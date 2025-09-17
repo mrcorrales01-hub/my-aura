@@ -42,6 +42,10 @@
     "title": "Rollspel"
   },
   "common": {
+    "tryNow": "Prova nu",
+    "minutes": "minuter", 
+    "thinking": "Tänker…",
+    "start": "Starta",
     "name": "Namn",
     "save": "Spara", 
     "cancel": "Avbryt",
@@ -51,8 +55,6 @@
     "loading": "Laddar...",
     "error": "Ett fel uppstod",
     "retry": "Försök igen", 
-    "cancel": "Avbryt",
-    "save": "Spara",
     "delete": "Ta bort",
     "edit": "Redigera",
     "share": "Dela",

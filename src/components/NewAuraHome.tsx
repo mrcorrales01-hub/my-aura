@@ -6,11 +6,27 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { Heart, MessageCircle, BookOpen, CheckSquare, Phone, Users } from 'lucide-react';
 import { MoodButton } from '@/components/MoodButton';
+import { tSafe } from '@/lib/i18nSafe';
+import { getDisplayName } from '@/lib/userDisplayName';
+import { useMemo } from 'react';
 
 const NewAuraHome = () => {
   const { t } = useTranslation(['home', 'common']);
   const { user, loading } = useAuthContext();
   const navigate = useNavigate();
+
+  const greeting = useMemo(() => {
+    const currentHour = new Date().getHours();
+    const displayName = getDisplayName(user);
+
+    if (currentHour < 12) {
+      return t('home:greetingMorning', { name: displayName });
+    } else if (currentHour < 17) {
+      return t('home:greetingAfternoon', { name: displayName });
+    } else {
+      return t('home:greetingEvening', { name: displayName });
+    }
+  }, [t, user]);
 
   if (loading) {
     return (
@@ -29,7 +45,7 @@ const NewAuraHome = () => {
       {/* Greeting */}
       <div className="text-center space-y-2">
         <h1 className="text-2xl md:text-3xl font-bold text-foreground">
-          {t('home:greeting')}
+          {greeting || `Hej ${getDisplayName(user)}!`}
         </h1>
         <p className="text-muted-foreground">
           {new Date().toLocaleDateString()}
@@ -44,7 +60,7 @@ const NewAuraHome = () => {
               <h3 className="text-lg font-semibold">{t('home:chatWithAuri')}</h3>
               <p className="text-sm text-muted-foreground">AI coach i realtid</p>
             </div>
-            <Button onClick={() => navigate('/chat')}>{t('home:tryNow')}</Button>
+            <Button onClick={() => navigate('/chat')}>{t('common:tryNow') || 'Prova nu'}</Button>
           </div>
         </Card>
 
@@ -54,7 +70,7 @@ const NewAuraHome = () => {
               <h3 className="text-lg font-semibold">{t('home:startRoleplay')}</h3>
               <p className="text-sm text-muted-foreground">Öva svåra samtal – stegvis</p>
             </div>
-            <Button onClick={() => navigate('/roleplay')}>{t('home:tryNow')}</Button>
+            <Button onClick={() => navigate('/roleplay')}>{t('common:tryNow') || 'Prova nu'}</Button>
           </div>
         </Card>
       </div>
