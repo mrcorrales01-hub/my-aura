@@ -213,10 +213,15 @@ const Chat = () => {
               {voiceModeEnabled ? "🎙️ På" : "🎙️ Av"}
             </Button>
           )}
-          {subscription && (
+          {subscription && subscription.tier === 'free' && (
+            <div className="px-2 py-1 bg-muted rounded-md">
+              <span className="text-xs text-muted-foreground">Gratisläge</span>
+            </div>
+          )}
+          {subscription && subscription.tier !== 'free' && (
             <div className="text-right text-sm">
               <div className="text-xs text-muted-foreground capitalize">
-                {subscription.tier} {subscription.tier !== 'free' && '✨'}
+                {subscription.tier} ✨
               </div>
               {subscription.limits.auriMessages > 0 && (
                 <div className="text-xs text-muted-foreground">

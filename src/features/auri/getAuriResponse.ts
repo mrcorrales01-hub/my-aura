@@ -1,6 +1,6 @@
 import { supabase } from '@/integrations/supabase/client'
-import { AURI_SYSTEM } from './systemPrompt'
-import { openers } from './openers'
+import { auriSystemPrompt } from '@/ai/auriPrompt'
+import { openingVariation } from '@/ai/variations'
 import { needsDiversify, createDiversityPrompt } from './antiRepeat'
 import { planFromText, type AuriPlan } from './actions'
 
@@ -10,31 +10,23 @@ let lastOpener = '';
 let lastAssistantMessage = '';
 
 export const localFallback = (text: string, lang: string): string => {
-  // Detect intent
-  const lowerText = text.toLowerCase();
-  let intent = 'generic';
-  if (lowerText.includes('stress') || lowerText.includes('orolig')) intent = 'stress';
-  else if (lowerText.includes('sömn') || lowerText.includes('sleep')) intent = 'sleep';
-  else if (lowerText.includes('motivation') || lowerText.includes('orka')) intent = 'motivation';
-  else if (lowerText.includes('sorg') || lowerText.includes('grief')) intent = 'grief';
+  // Use variation helper for opener
+  const opener = openingVariation(lang);
 
-  // Pick opener that's different from last
-  const availableOpeners = openers[intent] || openers.generic;
-  let opener = availableOpeners[Math.floor(Math.random() * availableOpeners.length)];
-  if (opener === lastOpener && availableOpeners.length > 1) {
-    opener = availableOpeners.find(o => o !== lastOpener) || opener;
-  }
-  lastOpener = opener;
-
-  // Generate varied steps
-  const verbs = ['Testa', 'Pröva', 'Byt', 'Gör', 'Notera', 'Försök'];
-  const steps = [
-    `• ${verbs[0]} att ta tre djupa andetag nu`,
-    `• ${verbs[1]} att identifiera en konkret sak du kan göra idag`,
-    `• ${verbs[2]} ut till någon du litar på för stöd`
+  // Generate varied steps based on language
+  const steps = lang === 'sv' ? [
+    `• Ta tre djupa andetag för att centrera dig`,
+    `• Identifiera en konkret sak du kan göra idag`,
+    `• Nå ut till någon du litar på för stöd`
+  ] : [
+    `• Take three deep breaths to center yourself`,
+    `• Identify one concrete thing you can do today`,
+    `• Reach out to someone you trust for support`
   ];
 
-  const question = 'Vad känns som det första steget för dig?';
+  const question = lang === 'sv' ? 
+    'Vad känns som det första steget för dig?' : 
+    'What feels like the first step for you?';
   
   return [opener, ...steps, question].join('\n');
 };
@@ -50,7 +42,7 @@ export async function streamAuri(payload: { messages: any[], lang: string, activ
   
   try {
     // Prepare messages with system prompt and optional coach context
-    const systemMessage = { role: 'system', content: AURI_SYSTEM(payload.lang) }
+    const systemMessage = { role: 'system', content: auriSystemPrompt(payload.lang) }
     const messagesWithSystem = [systemMessage, ...payload.messages]
     
     // Add coach context if provided
@@ -108,7 +100,7 @@ export async function streamAuri(payload: { messages: any[], lang: string, activ
         const diversityPayload = {
           ...payload,
           messages: [
-            { role: 'system', content: AURI_SYSTEM(payload.lang) },
+            { role: 'system', content: auriSystemPrompt(payload.lang) },
             { role: 'user', content: diversityPrompt }
           ]
         };
