@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getSubscription, canUseFeature } from '@/lib/subscription';
 import { useVoiceMode } from '@/hooks/useVoiceMode';
+import AuriMeter from '@/features/subscription/Meter';
 
 interface Message {
   role: 'user' | 'assistant' | 'system';
@@ -375,13 +376,15 @@ const Chat = () => {
         </div>
 
         <form onSubmit={handleSendMessage} className="flex space-x-2">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder={t('auri:inputPlaceholder', 'Skriv ditt meddelande här...')}
-            disabled={streaming}
-            className="flex-1"
-          />
+          <div className="flex-1">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder={t('auri:inputPlaceholder', 'Skriv ditt meddelande här...')}
+              disabled={streaming}
+            />
+            {user && <AuriMeter />}
+          </div>
           <motion.div whileTap={{ scale: 0.98 }}>
             <Button
               type="submit"

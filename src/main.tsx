@@ -12,12 +12,20 @@ import { runSelfTest } from '@/health/selftest';
 async function init() {
   const i18n = await setupI18n();
   
+  // Initialize observability
+  const { initObs } = await import('@/lib/obs');
+  initObs();
+  
   // Register service worker for PWA
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker.register("/sw.js").catch(() => {});
     });
   }
+  
+  // Check reminders on app load
+  const { checkPendingReminders } = await import('@/features/reminders/scheduler');
+  checkPendingReminders();
   
   // Run health check after i18n is ready
   runSelfTest(i18n, location.pathname).then(r => {

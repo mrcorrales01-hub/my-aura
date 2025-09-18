@@ -2103,6 +2103,39 @@ export type Database = {
         }
         Relationships: []
       }
+      reminders: {
+        Row: {
+          created_at: string | null
+          enabled: boolean
+          id: string
+          local_time: string
+          type: string
+          tz: string
+          user_id: string
+          weekdays: number[]
+        }
+        Insert: {
+          created_at?: string | null
+          enabled?: boolean
+          id?: string
+          local_time: string
+          type: string
+          tz?: string
+          user_id: string
+          weekdays?: number[]
+        }
+        Update: {
+          created_at?: string | null
+          enabled?: boolean
+          id?: string
+          local_time?: string
+          type?: string
+          tz?: string
+          user_id?: string
+          weekdays?: number[]
+        }
+        Relationships: []
+      }
       research_contributions: {
         Row: {
           anonymized_data: Json

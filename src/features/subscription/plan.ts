@@ -36,8 +36,14 @@ export function incAuriUse(){
   return v.auri
 }
 
-export function canUseAuri(plan:PlanId){
-  const used = getUsageToday().auri||0
-  const limit = PLAN_LIMITS[plan].auriDaily
-  return used < limit
+export function usageLeft() { 
+  const d = getUsageToday(); 
+  const p = getPlanLocal(); 
+  return Math.max(0, PLAN_LIMITS[p].auriDaily - (d.auri||0));
+}
+
+export function canUseAuri(plan: PlanId) {
+  const used = getUsageToday().auri || 0;
+  const limit = PLAN_LIMITS[plan].auriDaily;
+  return used < limit;
 }
