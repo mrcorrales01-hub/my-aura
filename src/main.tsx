@@ -12,6 +12,13 @@ import { runSelfTest } from '@/health/selftest';
 async function init() {
   const i18n = await setupI18n();
   
+  // Register service worker for PWA
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    });
+  }
+  
   // Run health check after i18n is ready
   runSelfTest(i18n, location.pathname).then(r => {
     const fails = r.checks.filter(c => c.status === 'fail').length;
