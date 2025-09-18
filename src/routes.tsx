@@ -17,7 +17,7 @@ import OAuthCallbackPage from '@/pages/auth/OAuthCallbackPage';
 import { Protected } from '@/app/auth/Protected';
 import ExercisePlayer from '@/pages/ExercisePlayer';
 import RoleplayPage from '@/pages/Roleplay';
-import RoleplayRun from '@/pages/RoleplayRun';
+import RoleplayRunner from '@/pages/RoleplayRunner';
 import RoleplayStudioPage from '@/pages/RoleplayStudioPage';
 import PanicPage from '@/pages/PanicPage';
 
@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
   { path: '/handouts/:slug', element: <ErrorBoundaryWrapper><HandoutBuilderPage /></ErrorBoundaryWrapper> },
   { path: '/besok', element: <ErrorBoundaryWrapper><VisitPage /></ErrorBoundaryWrapper> },
   { path: '/roleplay', element: <ErrorBoundaryWrapper><RoleplayPage /></ErrorBoundaryWrapper> },
-  { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRun /></ErrorBoundaryWrapper> },
+  { path: '/roleplay/:id', element: <ErrorBoundaryWrapper><RoleplayRunner /></ErrorBoundaryWrapper> },
   { path: '/roleplay/studio', element: <ErrorBoundaryWrapper><RoleplayStudioPage /></ErrorBoundaryWrapper> },
   { path: '/panic', element: <ErrorBoundaryWrapper><PanicPage /></ErrorBoundaryWrapper> },
   { path: '/plan', element: <ErrorBoundaryWrapper><PlanPage /></ErrorBoundaryWrapper> },

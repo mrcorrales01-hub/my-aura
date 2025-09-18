@@ -1,9 +1,15 @@
 {
-  "title": "Inför läkarbesöket",
+  "title": "Besök",
   "subtitle": "Förbered dig för ett effektivt läkarbesök",
+  "prep": "Förbered besök",
+  "review": "Visa senaste sammanfattning", 
+  "exportPdf": "Exportera som PDF",
   "questions": {
     "title": "Dina topp 3 frågor",
-    "placeholder": "Skriv dina viktigaste frågor till läkaren..."
+    "placeholder": "Skriv dina viktigaste frågor till läkaren...",
+    "mainConcern": "Viktigaste problemet",
+    "goals": "Mål med besöket",
+    "questions": "Frågor till vården"
   },
   "symptoms": {
     "title": "Symtom senaste 7 dagar", 

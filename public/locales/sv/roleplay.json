@@ -1,15 +1,12 @@
 {
   "title": "Rollspel",
-  "subtitle": "Säkra, guidande övningar",
+  "subtitle": "Öva svåra samtal – stegvis",
   "selectScript": "Välj scenario",
-  "noScripts": "Inga scenarier hittades",
+  "noScripts": "Inga manus ännu",
+  "start": "Starta",
   "next": "Nästa",
+  "back": "Tillbaka",
   "finish": "Avsluta",
-  "hint": "Tips",
-  "prev": "Tillbaka",
-  "sayHardThing": "Säga det svåra",
-  "adjustMedication": "Be om medicinändring",
-  "makeMostOf12Min": "Få ut det mesta av 12 minuter",
   "scenarios": {
     "sayHardThing": {
       "title": "Säga det svåra",

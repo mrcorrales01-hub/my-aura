@@ -74,8 +74,10 @@
     "healthOk": "Alla system OK",
     "healthError": "Något behöver uppmärksamhet"
   },
+  "badges": {
+    "free": "Gratisläge"
+  },
   "langSwitcher": {
-    "title": "Välj språk",
     "swedish": "Svenska",
     "english": "English",
     "spanish": "Español",
