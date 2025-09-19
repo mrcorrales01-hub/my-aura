@@ -11,5 +11,9 @@
   "envMissing": "Add these environment variables in your build environment:",
   "demoMode": "Demo mode active (OPENAI_API_KEY missing in Supabase Secrets)",
   "fixEnv": "Add environment variables",
-  "openLogin": "Sign in"
+  "openLogin": "Sign in",
+  "pwa": "PWA",
+  "reminders": "Reminders",
+  "analytics": "Analytics",
+  "auriMeter": "Auri Meter"
 }

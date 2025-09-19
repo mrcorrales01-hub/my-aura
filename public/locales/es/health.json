@@ -11,5 +11,9 @@
   "envMissing": "Agregar estas variables de entorno en tu entorno de construcción:",
   "demoMode": "Modo demo activo (OPENAI_API_KEY falta en Supabase Secrets)",
   "fixEnv": "Agregar variables de entorno",
-  "openLogin": "Iniciar sesión"
+  "openLogin": "Iniciar sesión",
+  "pwa": "PWA",
+  "reminders": "Recordatorios",
+  "analytics": "Analíticas",
+  "auriMeter": "Medidor Auri"
 }

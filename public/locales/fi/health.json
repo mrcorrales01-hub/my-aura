@@ -11,5 +11,9 @@
   "envMissing": "Lisää nämä ympäristömuuttujat rakennusympäristöösi:",
   "demoMode": "Demo-tila aktiivinen (OPENAI_API_KEY puuttuu Supabase Secretsista)",
   "fixEnv": "Lisää ympäristömuuttujat",
-  "openLogin": "Kirjaudu sisään"
+  "openLogin": "Kirjaudu sisään",
+  "pwa": "PWA",
+  "reminders": "Muistutukset",
+  "analytics": "Analytiikka",
+  "auriMeter": "Auri-mittari"
 }

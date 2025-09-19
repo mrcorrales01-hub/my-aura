@@ -6,5 +6,8 @@
   "time": "Aika",
   "days": "Päivät",
   "enable": "Ota käyttöön",
-  "saved": "Tallennettu"
+  "saved": "Tallennettu",
+  "meter": {
+    "auri": "Auri: {{used}}/{{max}} • jäljellä {{left}}"
+  }
 }

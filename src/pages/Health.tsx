@@ -6,6 +6,7 @@ import { CheckCircle, XCircle, AlertTriangle, RefreshCw } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { checkSecurityCompliance } from '@/utils/securityAlerts';
+import { getPlanLocal, getUsageToday } from '@/features/subscription/plan';
 
 type HealthStatus = 'ok' | 'warn' | 'fail';
 
@@ -97,6 +98,56 @@ const Health = () => {
       message: subsRequired ? 'Subscription checks active' : 'Bypassed in dev (VITE_SUBS_REQUIRED=false)',
       details: `Development mode: ${!subsRequired ? 'enabled' : 'disabled'}`
     });
+
+    // Check PWA
+    const hasSW = !!navigator.serviceWorker;
+    const hasManifest = document.querySelector('link[rel="manifest"]');
+    results.push({
+      name: 'PWA',
+      status: hasSW && hasManifest ? 'ok' : 'warn',
+      message: hasSW && hasManifest ? 'PWA ready' : 'PWA partially configured',
+      details: `Service Worker: ${hasSW ? '✓' : '✗'}, Manifest: ${hasManifest ? '✓' : '✗'}`
+    });
+
+    // Check reminders
+    const hasNotifications = 'Notification' in window;
+    const notifPermission = hasNotifications ? Notification.permission : 'unsupported';
+    results.push({
+      name: 'Reminders',
+      status: hasNotifications && notifPermission === 'granted' ? 'ok' : hasNotifications ? 'warn' : 'fail',
+      message: hasNotifications ? `Notifications ${notifPermission}` : 'Notifications unsupported',
+      details: `Permission: ${notifPermission}`
+    });
+
+    // Check analytics
+    const analyticsEnabled = import.meta.env.VITE_ANALYTICS_ENABLED === 'true';
+    const hasPostHog = !!import.meta.env.VITE_POSTHOG_KEY;
+    const hasSentry = !!import.meta.env.VITE_SENTRY_DSN;
+    results.push({
+      name: 'Analytics',
+      status: analyticsEnabled ? (hasPostHog || hasSentry ? 'ok' : 'warn') : 'ok',
+      message: analyticsEnabled ? 'Analytics enabled' : 'Analytics disabled',
+      details: `PostHog: ${hasPostHog ? '✓' : '✗'}, Sentry: ${hasSentry ? '✓' : '✗'}`
+    });
+
+    // Check Auri meter
+    try {
+      const plan = getPlanLocal();
+      const used = getUsageToday().auri || 0;
+      results.push({
+        name: 'Auri Meter',
+        status: 'ok',
+        message: `Plan: ${plan}`,
+        details: `Usage today: ${used}`
+      });
+    } catch (error: any) {
+      results.push({
+        name: 'Auri Meter',
+        status: 'warn',
+        message: 'Usage tracking unavailable',
+        details: error.message
+      });
+    }
 
     // Check security compliance
     try {

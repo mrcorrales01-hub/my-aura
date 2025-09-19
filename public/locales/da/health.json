@@ -11,5 +11,9 @@
   "envMissing": "Tilføj disse miljøvariabler i dit byggemiljø:",
   "demoMode": "Demo-tilstand aktiv (OPENAI_API_KEY mangler i Supabase Secrets)",
   "fixEnv": "Tilføj miljøvariabler",
-  "openLogin": "Log ind"
+  "openLogin": "Log ind",
+  "pwa": "PWA",
+  "reminders": "Påmindelser",
+  "analytics": "Analyse",
+  "auriMeter": "Auri-måler"
 }
