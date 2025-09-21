@@ -182,6 +182,23 @@ const Health = () => {
       details: 'Displays in header when user is logged in'
     });
 
+    // Check admin system
+    const adminEmails = import.meta.env.VITE_ADMIN_EMAILS;
+    results.push({
+      name: 'Admin System',
+      status: adminEmails ? 'ok' : 'warn',
+      message: adminEmails ? 'Admin allowlist configured' : 'No admin emails configured',
+      details: `Edge function: admin-users, Client allowlist: ${adminEmails ? 'configured' : 'missing'}`
+    });
+
+    // Check self-export
+    results.push({
+      name: 'Self Export',
+      status: 'ok',
+      message: 'User data export available',
+      details: 'Page: /settings/export - JSON/ZIP download'
+    });
+
     // Check security compliance
     try {
       const securityCheck = await checkSecurityCompliance();

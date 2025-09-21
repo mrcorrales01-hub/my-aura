@@ -1,0 +1,10 @@
+{
+  "title": "Lataa tietoni",
+  "explain": "Vie JSON-tiedosto tiedoillasi sovelluksesta.",
+  "download": "Lataa JSON",
+  "downloading": "Valmistellaan…",
+  "done": "Vienti valmis",
+  "what": "Sisältö: profiili, mieliala, päiväkirja, tavoitteet/tehtävät, harjoitukset, Auri-viestit (jos sallittu).",
+  "zip": "Pakkaa ZIP:ksi (valinnainen)",
+  "delete": "Poista tili (ota yhteyttä tukeen)"
+}

@@ -19,5 +19,18 @@
   "currency": "Moneda",
   "updated": "Actualizado",
   "copy": "Copiar", 
-  "download": "Descargar"
+  "download": "Descargar",
+  "users": "Usuarios",
+  "stats": "Resumen",
+  "search": "Buscar",
+  "plan": "Plan",
+  "lastActive": "Último activo",
+  "created": "Creado",
+  "msgs7": "Msgs (7d)",
+  "moods7": "Estado (7d)",
+  "rp7": "Juego rol (7d)",
+  "copyId": "Copiar ID",
+  "notAuthorized": "No autorizado (admin)",
+  "loadError": "No se pudieron cargar datos admin",
+  "mask": "ID enmascarado"
 }

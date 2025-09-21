@@ -1,0 +1,10 @@
+{
+  "title": "Last ned mine data",
+  "explain": "Eksporter JSON-fil med dine data fra appen.",
+  "download": "Last ned JSON",
+  "downloading": "Forbereder…",
+  "done": "Eksport ferdig",
+  "what": "Innhold: profil, humør, dagbok, mål/oppgaver, øvelser, Auri-meldinger (hvis tillatt).",
+  "zip": "Pakk som ZIP (valgfritt)",
+  "delete": "Slett konto (kontakt support)"
+}

@@ -19,5 +19,18 @@
   "currency": "Valuta",
   "updated": "Opdateret",
   "copy": "Kopier",
-  "download": "Download"
+  "download": "Download",
+  "users": "Brugere",
+  "stats": "Oversigt",
+  "search": "Søg",
+  "plan": "Plan",
+  "lastActive": "Sidst aktiv",
+  "created": "Oprettet",
+  "msgs7": "Beskeder (7d)",
+  "moods7": "Humør (7d)",
+  "rp7": "Rollespil (7d)",
+  "copyId": "Kopier ID",
+  "notAuthorized": "Ikke autoriseret (admin)",
+  "loadError": "Kunne ikke indlæse admin data",
+  "mask": "Maskeret ID"
 }

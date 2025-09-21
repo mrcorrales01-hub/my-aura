@@ -1,0 +1,10 @@
+{
+  "title": "Descargar mis datos",
+  "explain": "Exportar archivo JSON con tus datos de la app.",
+  "download": "Descargar JSON",
+  "downloading": "Preparando…",
+  "done": "Exportación completa",
+  "what": "Contenido: perfil, estado ánimo, diario, metas/tareas, ejercicios, mensajes Auri (si permitido).",
+  "zip": "Empaquetar como ZIP (opcional)",
+  "delete": "Eliminar cuenta (contactar soporte)"
+}

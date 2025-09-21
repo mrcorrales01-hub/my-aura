@@ -19,5 +19,18 @@
   "currency": "Currency",
   "updated": "Updated",
   "copy": "Copy",
-  "download": "Download"
+  "download": "Download",
+  "users": "Users",
+  "stats": "Overview",
+  "search": "Search",
+  "plan": "Plan",
+  "lastActive": "Last active",
+  "created": "Created",
+  "msgs7": "Msgs (7d)",
+  "moods7": "Moods (7d)",
+  "rp7": "Roleplay (7d)",
+  "copyId": "Copy ID",
+  "notAuthorized": "Not authorized (admin)",
+  "loadError": "Could not load admin data",
+  "mask": "Masked ID"
 }

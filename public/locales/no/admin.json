@@ -19,5 +19,18 @@
   "currency": "Valuta",
   "updated": "Oppdatert",
   "copy": "Kopier",
-  "download": "Last ned"
+  "download": "Last ned",
+  "users": "Brukere",
+  "stats": "Oversikt",
+  "search": "Søk",
+  "plan": "Plan",
+  "lastActive": "Sist aktiv",
+  "created": "Opprettet",
+  "msgs7": "Meldinger (7d)",
+  "moods7": "Humør (7d)",
+  "rp7": "Rollespill (7d)",
+  "copyId": "Kopier ID",
+  "notAuthorized": "Ikke autorisert (admin)",
+  "loadError": "Kunne ikke laste admin data",
+  "mask": "Maskert ID"
 }

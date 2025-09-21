@@ -19,5 +19,18 @@
   "currency": "Valuta",
   "updated": "Uppdaterad",
   "copy": "Kopiera",
-  "download": "Ladda ner"
+  "download": "Ladda ner",
+  "users": "Användare",
+  "stats": "Översikt",
+  "search": "Sök",
+  "plan": "Plan",
+  "lastActive": "Senast aktiv",
+  "created": "Skapad",
+  "msgs7": "Medd. (7d)",
+  "moods7": "Humör (7d)",
+  "rp7": "Rollspel (7d)",
+  "copyId": "Kopiera ID",
+  "notAuthorized": "Inte behörig (admin)",
+  "loadError": "Kunde inte ladda admin-data",
+  "mask": "Maskerat ID"
 }

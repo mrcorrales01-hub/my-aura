@@ -19,5 +19,18 @@
   "currency": "Valuutta",
   "updated": "Päivitetty",
   "copy": "Kopioi",
-  "download": "Lataa"
+  "download": "Lataa",
+  "users": "Käyttäjät",
+  "stats": "Yleiskatsaus",
+  "search": "Haku",
+  "plan": "Suunnitelma",
+  "lastActive": "Viimeksi aktiivinen",
+  "created": "Luotu",
+  "msgs7": "Viestit (7pv)",
+  "moods7": "Mielialat (7pv)",
+  "rp7": "Roolipeli (7pv)",
+  "copyId": "Kopioi ID",
+  "notAuthorized": "Ei valtuutettu (admin)",
+  "loadError": "Admin-tietoja ei voitu ladata",
+  "mask": "Peitetty ID"
 }

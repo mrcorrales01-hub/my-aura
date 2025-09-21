@@ -1,0 +1,10 @@
+{
+  "title": "Ladda ner mina data",
+  "explain": "Exportera en JSON-fil med dina uppgifter från appen.",
+  "download": "Ladda ner JSON",
+  "downloading": "Förbereder…",
+  "done": "Export klar",
+  "what": "Innehåll: profil, humör, dagbok, mål/uppgifter, övningar, Auri-meddelanden (om tillåtna).",
+  "zip": "Packa som ZIP (valfritt)",
+  "delete": "Radera konto (kontakta support)"
+}
