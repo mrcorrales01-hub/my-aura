@@ -1,0 +1,23 @@
+{
+  "revenue": "Revenue",
+  "mrr": "MRR",
+  "arr": "ARR", 
+  "active": "Active",
+  "plus": "Plus",
+  "pro": "Pro",
+  "free": "Free",
+  "new7": "New (7d)",
+  "churn7": "Churn (7d)",
+  "new28": "New (28d)",
+  "churn28": "Churn (28d)",
+  "new90": "New (90d)",
+  "churn90": "Churn (90d)",
+  "rate": "Churn rate",
+  "cohorts": "Cohorts",
+  "exportCsv": "Export CSV",
+  "noPriceEnv": "Missing price env - showing counts only",
+  "currency": "Currency",
+  "updated": "Updated",
+  "copy": "Copy",
+  "download": "Download"
+}

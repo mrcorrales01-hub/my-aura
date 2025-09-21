@@ -1,0 +1,23 @@
+{
+  "revenue": "Indtægter",
+  "mrr": "MRR", 
+  "arr": "ARR",
+  "active": "Aktive",
+  "plus": "Plus",
+  "pro": "Pro",
+  "free": "Gratis",
+  "new7": "Nye (7d)",
+  "churn7": "Frafaldsrate (7d)",
+  "new28": "Nye (28d)",
+  "churn28": "Frafaldsrate (28d)",
+  "new90": "Nye (90d)",
+  "churn90": "Frafaldsrate (90d)",
+  "rate": "Frafaldsrate",
+  "cohorts": "Kohorter",
+  "exportCsv": "Eksporter CSV",
+  "noPriceEnv": "Mangler priskonfiguration - viser kun antal",
+  "currency": "Valuta",
+  "updated": "Opdateret",
+  "copy": "Kopier",
+  "download": "Download"
+}

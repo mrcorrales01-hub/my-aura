@@ -1,0 +1,23 @@
+{
+  "revenue": "Tulot",
+  "mrr": "MRR",
+  "arr": "ARR",
+  "active": "Aktiiviset",
+  "plus": "Plus",
+  "pro": "Pro",
+  "free": "Ilmainen",
+  "new7": "Uudet (7pv)",
+  "churn7": "Poistuma (7pv)",
+  "new28": "Uudet (28pv)",
+  "churn28": "Poistuma (28pv)",
+  "new90": "Uudet (90pv)",
+  "churn90": "Poistuma (90pv)", 
+  "rate": "Poistuma-aste",
+  "cohorts": "Kohorttit",
+  "exportCsv": "Vie CSV",
+  "noPriceEnv": "Puuttuu hintakonfiguraatio - näyttää vain määrät",
+  "currency": "Valuutta",
+  "updated": "Päivitetty",
+  "copy": "Kopioi",
+  "download": "Lataa"
+}

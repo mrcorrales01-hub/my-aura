@@ -1,0 +1,23 @@
+{
+  "revenue": "Ingresos",
+  "mrr": "MRR",
+  "arr": "ARR",
+  "active": "Activos",
+  "plus": "Plus",
+  "pro": "Pro", 
+  "free": "Gratis",
+  "new7": "Nuevos (7d)",
+  "churn7": "Abandono (7d)",
+  "new28": "Nuevos (28d)",
+  "churn28": "Abandono (28d)", 
+  "new90": "Nuevos (90d)",
+  "churn90": "Abandono (90d)",
+  "rate": "Tasa de abandono",
+  "cohorts": "Cohortes",
+  "exportCsv": "Exportar CSV",
+  "noPriceEnv": "Falta configuración de precios - solo mostrando conteos",
+  "currency": "Moneda",
+  "updated": "Actualizado",
+  "copy": "Copiar", 
+  "download": "Descargar"
+}

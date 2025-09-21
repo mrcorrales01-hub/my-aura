@@ -1,0 +1,23 @@
+{
+  "revenue": "Intäkter",
+  "mrr": "MRR",
+  "arr": "ARR",
+  "active": "Aktiva",
+  "plus": "Plus", 
+  "pro": "Pro",
+  "free": "Gratis",
+  "new7": "Nya (7 d)",
+  "churn7": "Churn (7 d)",
+  "new28": "Nya (28 d)",
+  "churn28": "Churn (28 d)",
+  "new90": "Nya (90 d)",
+  "churn90": "Churn (90 d)",
+  "rate": "Churn-rate",
+  "cohorts": "Cohorts",
+  "exportCsv": "Exportera CSV",
+  "noPriceEnv": "Saknar pris-env – visar endast antal",
+  "currency": "Valuta",
+  "updated": "Uppdaterad",
+  "copy": "Kopiera",
+  "download": "Ladda ner"
+}

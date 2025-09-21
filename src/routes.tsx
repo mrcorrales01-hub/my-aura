@@ -13,6 +13,7 @@ import PricingPage from '@/pages/pricing/PricingPage';
 import SubscriptionSettingsPage from '@/pages/settings/SubscriptionSettingsPage';
 import RemindersPage from '@/pages/settings/RemindersPage';
 import RevenuePage from '@/pages/admin/RevenuePage';
+import RevenueV2Page from '@/pages/admin/RevenueV2Page';
 import SignInPage from '@/pages/auth/SignInPage';
 import OAuthCallbackPage from '@/pages/auth/OAuthCallbackPage';
 import { Protected } from '@/app/auth/Protected';
@@ -83,6 +84,7 @@ export const router = createBrowserRouter([
   { path: '/settings/subscription', element: <ErrorBoundaryWrapper><SubscriptionSettingsPage /></ErrorBoundaryWrapper> },
   { path: '/settings/reminders', element: <ErrorBoundaryWrapper><RemindersPage /></ErrorBoundaryWrapper> },
   { path: '/admin/revenue', element: <ErrorBoundaryWrapper><RevenuePage /></ErrorBoundaryWrapper> },
+  { path: '/admin/revenue-v2', element: <ErrorBoundaryWrapper><RevenueV2Page /></ErrorBoundaryWrapper> },
   { path: '/mood', element: <ErrorBoundaryWrapper><Mood /></ErrorBoundaryWrapper> },
   { path: '/settings', element: <ErrorBoundaryWrapper><Settings /></ErrorBoundaryWrapper> },
   { path: '/exercises/:slug', element: <ErrorBoundaryWrapper><ExercisePlayer /></ErrorBoundaryWrapper> },

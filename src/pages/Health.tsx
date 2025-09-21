@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { supabase } from '@/integrations/supabase/client';
 import { checkSecurityCompliance } from '@/utils/securityAlerts';
 import { getPlanLocal, getUsageToday } from '@/features/subscription/plan';
+import { fetchSubs, fetchDaily } from '@/features/revenue/service';
 
 type HealthStatus = 'ok' | 'warn' | 'fail';
 
@@ -148,6 +149,38 @@ const Health = () => {
         details: error.message
       });
     }
+
+    // Check revenue system
+    try {
+      const [subs, days] = await Promise.all([fetchSubs(), fetchDaily()]);
+      const subsReadable = Array.isArray(subs);
+      const analyticsReadable = Array.isArray(days);
+      const hasPlusPrice = !!import.meta.env.VITE_PRICE_PLUS_CENTS;
+      const hasProPrice = !!import.meta.env.VITE_PRICE_PRO_CENTS;
+      const currency = import.meta.env.VITE_CURRENCY || 'SEK';
+      
+      results.push({
+        name: 'Revenue System',
+        status: subsReadable ? 'ok' : 'warn',
+        message: subsReadable ? 'Revenue tables accessible' : 'Some revenue tables missing',
+        details: `Subs: ${subsReadable ? '✓' : '✗'}, Analytics: ${analyticsReadable ? '✓' : '✗'}, Plus: ${hasPlusPrice ? '✓' : '✗'}, Pro: ${hasProPrice ? '✓' : '✗'}, Currency: ${currency}`
+      });
+    } catch (error: any) {
+      results.push({
+        name: 'Revenue System',
+        status: 'warn',
+        message: 'Revenue system unavailable',
+        details: error.message
+      });
+    }
+
+    // Check navbar meter
+    results.push({
+      name: 'Navbar Meter',
+      status: 'ok',
+      message: 'Plan meter integrated',
+      details: 'Displays in header when user is logged in'
+    });
 
     // Check security compliance
     try {

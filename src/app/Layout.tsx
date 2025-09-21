@@ -8,6 +8,7 @@ import { HeaderNav } from '@/components/HeaderNav';
 import { HeaderAuthStatus } from '@/components/HeaderAuthStatus';
 import AppBrand from '@/components/AppBrand';
 import BottomTabBar from '@/components/BottomTabBar';
+import NavbarMeter from '@/features/subscription/NavbarMeter';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -49,6 +50,7 @@ export const Layout = ({ children }: LayoutProps) => {
 
             {/* Right side */}
             <div className="flex items-center gap-2">
+              {user && <NavbarMeter />}
               <LanguageSwitcher />
               <HeaderAuthStatus />
               
