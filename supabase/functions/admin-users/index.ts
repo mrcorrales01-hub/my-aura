@@ -1,4 +1,4 @@
-import "https://esm.sh/@supabase/functions-js@2/edge-runtime.d.ts";
+/// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const ADMIN_ALLOWLIST = (Deno.env.get("ADMIN_ALLOWLIST")||"").split(",").map(s=>s.trim().toLowerCase());
