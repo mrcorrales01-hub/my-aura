@@ -1,0 +1,38 @@
+{
+  "title": "Selvvurderinger",
+  "subtitle": "PHQ-9 (depresjon) og GAD-7 (angst). Resultatene er ikke en diagnose.",
+  "phq9": "PHQ-9 (depresjon)",
+  "gad7": "GAD-7 (angst)",
+  "start": "Start",
+  "retake": "Ta på nytt",
+  "score": "Poeng",
+  "severity": "Alvorlighet",
+  "today": "I dag",
+  "history": "Historie",
+  "exportPdf": "Eksporter PDF",
+  "reminder": "Månedlig påminnelse",
+  "setReminder": "Sett påminnelse",
+  "off": "Av",
+  "on": "På",
+  "disclaimer": "Dette erstatter ikke medisinsk vurdering. Søk behandling når det trengs.",
+  "phqScale": {
+    "none": "Ingen/minimal",
+    "mild": "Mild",
+    "moderate": "Moderat",
+    "moderately_severe": "Moderat alvorlig",
+    "severe": "Alvorlig"
+  },
+  "gadScale": {
+    "none": "Ingen/minimal",
+    "mild": "Mild",
+    "moderate": "Moderat",
+    "severe": "Alvorlig"
+  },
+  "questions": {
+    "freqHelp": "Hvor ofte de siste 2 ukene?",
+    "opt0": "Ikke i det hele tatt (0)",
+    "opt1": "Flere dager (1)",
+    "opt2": "Mer enn halvparten av tiden (2)",
+    "opt3": "Nesten hver dag (3)"
+  }
+}

@@ -9,6 +9,7 @@ import { RecentJournal } from '@/features/home/components/RecentJournal';
 import { TodayTasks } from '@/features/home/components/TodayTasks';
 import { ExerciseCard } from '@/features/home/components/ExerciseCard';
 import { CrisisCard } from '@/features/home/components/CrisisCard';
+import { AssessmentCard } from '@/features/home/components/AssessmentCard';
 import { StreakHeatmap } from '@/features/mood/components/StreakHeatmap';
 import RecommendedExercises from '@/features/reco/RecommendedExercises';
 
@@ -79,6 +80,11 @@ const AuraHome = () => {
             {/* Recommended Exercises */}
             <div className="lg:col-span-1">
               <RecommendedExercises />
+            </div>
+
+            {/* Assessment Card */}
+            <div className="lg:col-span-1">
+              <AssessmentCard />
             </div>
           </div>
 

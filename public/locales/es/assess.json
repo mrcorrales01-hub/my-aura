@@ -1,0 +1,38 @@
+{
+  "title": "Autoevaluaciones",
+  "subtitle": "PHQ-9 (depresión) y GAD-7 (ansiedad). Los resultados no son un diagnóstico.",
+  "phq9": "PHQ-9 (depresión)",
+  "gad7": "GAD-7 (ansiedad)",
+  "start": "Comenzar",
+  "retake": "Repetir",
+  "score": "Puntuación",
+  "severity": "Severidad",
+  "today": "Hoy",
+  "history": "Historial",
+  "exportPdf": "Exportar PDF",
+  "reminder": "Recordatorio mensual",
+  "setReminder": "Configurar recordatorio",
+  "off": "Desactivado",
+  "on": "Activado",
+  "disclaimer": "Esto no reemplaza la evaluación médica. Busque atención cuando sea necesario.",
+  "phqScale": {
+    "none": "Ninguna/mínima",
+    "mild": "Leve",
+    "moderate": "Moderada",
+    "moderately_severe": "Moderadamente severa",
+    "severe": "Severa"
+  },
+  "gadScale": {
+    "none": "Ninguna/mínima",
+    "mild": "Leve",
+    "moderate": "Moderada",
+    "severe": "Severa"
+  },
+  "questions": {
+    "freqHelp": "¿Con qué frecuencia en las últimas 2 semanas?",
+    "opt0": "Para nada (0)",
+    "opt1": "Varios días (1)",
+    "opt2": "Más de la mitad del tiempo (2)",
+    "opt3": "Casi todos los días (3)"
+  }
+}

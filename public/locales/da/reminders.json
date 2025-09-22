@@ -1,8 +1,9 @@
 {
-  "title": "Påmindelser", 
+  "title": "Påminnelser", 
   "dailyCheckin": "Daglig check-in",
   "exercise": "Øvelse",
   "visit": "Besøgsforberedelse",
+  "assessment": "Selvvurderinger",
   "time": "Tid",
   "days": "Dage",
   "enable": "Aktiver",

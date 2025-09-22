@@ -51,6 +51,9 @@ import TherapistMarketplace from "@/components/TherapistMarketplace";
 import CrisisHotline from "@/components/CrisisHotline";
 import MarketingDashboard from "@/components/MarketingDashboard";
 import Index from "@/pages/Index";
+import AssessHomePage from "@/pages/assess/AssessHomePage";
+import PHQ9Page from "@/pages/assess/PHQ9Page";
+import GAD7Page from "@/pages/assess/GAD7Page";
 
 const queryClient = new QueryClient();
 
@@ -98,6 +101,11 @@ const App = () => (
                             <Route path="/profile" element={
                               <GamificationStats />
                             } />
+                            
+                            {/* Assessment Routes */}
+                            <Route path="/assess" element={<AssessHomePage />} />
+                            <Route path="/assess/phq9" element={<PHQ9Page />} />
+                            <Route path="/assess/gad7" element={<GAD7Page />} />
 
                             {/* Legacy Routes for Backwards Compatibility */}
                             <Route path="/auth" element={<Auth />} />

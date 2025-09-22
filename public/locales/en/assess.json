@@ -1,0 +1,38 @@
+{
+  "title": "Self-Assessments",
+  "subtitle": "PHQ-9 (depression) and GAD-7 (anxiety). Results are not a diagnosis.",
+  "phq9": "PHQ-9 (depression)",
+  "gad7": "GAD-7 (anxiety)",
+  "start": "Start",
+  "retake": "Retake",
+  "score": "Score",
+  "severity": "Severity",
+  "today": "Today",
+  "history": "History",
+  "exportPdf": "Export PDF",
+  "reminder": "Monthly reminder",
+  "setReminder": "Set reminder",
+  "off": "Off",
+  "on": "On",
+  "disclaimer": "This does not replace medical evaluation. Seek care when needed.",
+  "phqScale": {
+    "none": "None/minimal",
+    "mild": "Mild",
+    "moderate": "Moderate",
+    "moderately_severe": "Moderately severe",
+    "severe": "Severe"
+  },
+  "gadScale": {
+    "none": "None/minimal",
+    "mild": "Mild",
+    "moderate": "Moderate",
+    "severe": "Severe"
+  },
+  "questions": {
+    "freqHelp": "How often in the last 2 weeks?",
+    "opt0": "Not at all (0)",
+    "opt1": "Several days (1)",
+    "opt2": "More than half the time (2)",
+    "opt3": "Nearly every day (3)"
+  }
+}

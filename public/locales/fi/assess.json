@@ -1,0 +1,38 @@
+{
+  "title": "Itsearvioinnit",
+  "subtitle": "PHQ-9 (masennus) ja GAD-7 (ahdistus). Tulokset eivät ole diagnoosi.",
+  "phq9": "PHQ-9 (masennus)",
+  "gad7": "GAD-7 (ahdistus)",
+  "start": "Aloita",
+  "retake": "Tee uudelleen",
+  "score": "Pisteet",
+  "severity": "Vakavuus",
+  "today": "Tänään",
+  "history": "Historia",
+  "exportPdf": "Vie PDF",
+  "reminder": "Kuukausittainen muistutus",
+  "setReminder": "Aseta muistutus",
+  "off": "Pois",
+  "on": "Päällä",
+  "disclaimer": "Tämä ei korvaa lääketieteellistä arviointia. Hae hoitoa tarvittaessa.",
+  "phqScale": {
+    "none": "Ei lainkaan/minimaalinen",
+    "mild": "Lievä",
+    "moderate": "Kohtalainen",
+    "moderately_severe": "Keskivaikea",
+    "severe": "Vaikea"
+  },
+  "gadScale": {
+    "none": "Ei lainkaan/minimaalinen",
+    "mild": "Lievä",
+    "moderate": "Kohtalainen",
+    "severe": "Vaikea"
+  },
+  "questions": {
+    "freqHelp": "Kuinka usein viimeisen 2 viikon aikana?",
+    "opt0": "Ei ollenkaan (0)",
+    "opt1": "Useita päiviä (1)",
+    "opt2": "Enemmän kuin puolet ajasta (2)",
+    "opt3": "Lähes joka päivä (3)"
+  }
+}

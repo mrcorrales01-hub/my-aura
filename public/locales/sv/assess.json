@@ -1,0 +1,38 @@
+{
+  "title": "Självskattningar",
+  "subtitle": "PHQ-9 (nedstämdhet) och GAD-7 (oro/ångest). Resultaten är inte en diagnos.",
+  "phq9": "PHQ-9 (depression)",
+  "gad7": "GAD-7 (ångest)",
+  "start": "Starta",
+  "retake": "Gör igen",
+  "score": "Poäng",
+  "severity": "Nivå",
+  "today": "Idag",
+  "history": "Historik",
+  "exportPdf": "Exportera PDF",
+  "reminder": "Månads-påminnelse",
+  "setReminder": "Sätt påminnelse",
+  "off": "Av",
+  "on": "På",
+  "disclaimer": "Detta ersätter inte medicinsk bedömning. Kontakta vården vid behov.",
+  "phqScale": {
+    "none": "Ingen/minimal",
+    "mild": "Lindrig",
+    "moderate": "Måttlig",
+    "moderately_severe": "Ganska svår",
+    "severe": "Svår"
+  },
+  "gadScale": {
+    "none": "Ingen/minimal",
+    "mild": "Lindrig",
+    "moderate": "Måttlig",
+    "severe": "Svår"
+  },
+  "questions": {
+    "freqHelp": "Hur ofta senaste 2 veckor?",
+    "opt0": "Inte alls (0)",
+    "opt1": "Flera dagar (1)",
+    "opt2": "Mer än halva tiden (2)",
+    "opt3": "Nästan varje dag (3)"
+  }
+}

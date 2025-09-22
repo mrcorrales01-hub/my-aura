@@ -10,10 +10,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { requestPermission } from '@/features/reminders/scheduler';
 
 interface Reminder {
-  type: 'checkin' | 'exercise' | 'visit';
+  type: 'checkin' | 'exercise' | 'visit' | 'assessment';
   enabled: boolean;
   localTime: string;
   weekdays: number[];
+  monthly?: boolean;
 }
 
 const WEEKDAYS = [1, 2, 3, 4, 5, 6, 7]; // Monday = 1, Sunday = 7
@@ -24,7 +25,8 @@ export default function RemindersPage() {
   const [reminders, setReminders] = useState<Reminder[]>([
     { type: 'checkin', enabled: false, localTime: '09:00', weekdays: [1,2,3,4,5] },
     { type: 'exercise', enabled: false, localTime: '18:00', weekdays: [1,2,3,4,5,6,7] },
-    { type: 'visit', enabled: false, localTime: '10:00', weekdays: [1,2,3,4,5] }
+    { type: 'visit', enabled: false, localTime: '10:00', weekdays: [1,2,3,4,5] },
+    { type: 'assessment', enabled: false, localTime: '10:00', weekdays: [1], monthly: true }
   ]);
   const [hasPermission, setHasPermission] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -117,7 +119,8 @@ export default function RemindersPage() {
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle className="text-lg">
-                {t(`reminders:${reminder.type === 'checkin' ? 'dailyCheckin' : reminder.type}`)}
+                {t(`reminders:${reminder.type === 'checkin' ? 'dailyCheckin' : 
+                  reminder.type === 'assessment' ? 'assessment' : reminder.type}`)}
               </CardTitle>
               <Switch
                 checked={reminder.enabled && hasPermission}
@@ -139,21 +142,29 @@ export default function RemindersPage() {
                 />
               </div>
 
-              <div>
-                <Label className="mb-2 block">{t('reminders:days')}</Label>
-                <div className="flex gap-1">
-                  {WEEKDAYS.map((day, i) => (
-                    <Badge
-                      key={day}
-                      variant={reminder.weekdays.includes(day) ? "default" : "outline"}
-                      className="cursor-pointer px-2 py-1"
-                      onClick={() => toggleWeekday(index, day)}
-                    >
-                      {WEEKDAY_LABELS[i]}
-                    </Badge>
-                  ))}
+              {!reminder.monthly && (
+                <div>
+                  <Label className="mb-2 block">{t('reminders:days')}</Label>
+                  <div className="flex gap-1">
+                    {WEEKDAYS.map((day, i) => (
+                      <Badge
+                        key={day}
+                        variant={reminder.weekdays.includes(day) ? "default" : "outline"}
+                        className="cursor-pointer px-2 py-1"
+                        onClick={() => toggleWeekday(index, day)}
+                      >
+                        {WEEKDAY_LABELS[i]}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
+              
+              {reminder.monthly && (
+                <div className="text-sm text-muted-foreground">
+                  Monthly reminder on the same day each month
+                </div>
+              )}
             </CardContent>
           )}
         </Card>
