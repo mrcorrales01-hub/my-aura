@@ -3600,6 +3600,14 @@ export type Database = {
         }
         Returns: undefined
       }
+      log_therapist_data_access_enhanced: {
+        Args: {
+          p_access_type: string
+          p_context?: string
+          p_therapist_count?: number
+        }
+        Returns: undefined
+      }
       moderate_content: {
         Args: { content_text: string }
         Returns: Json
@@ -3611,6 +3619,10 @@ export type Database = {
       validate_password_strength: {
         Args: { password_text: string }
         Returns: Json
+      }
+      validate_premium_content_access: {
+        Args: { p_content_type: string; p_user_plan?: string }
+        Returns: boolean
       }
     }
     Enums: {
