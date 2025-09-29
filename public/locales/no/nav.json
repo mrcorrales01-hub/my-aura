@@ -1,12 +1,17 @@
 {
   "home": "Hjem",
-  "chat": "Auri", 
+  "chat": "Chat",
+  "auri": "Auri", 
   "roleplay": "Rollespill",
+  "assess": "Vurdering",
+  "exercises": "Øvelser",
+  "journal": "Dagbok",
   "crisis": "Krisestøtte",
   "profile": "Profil",
   "visit": "Besøk",
   "pricing": "Medlemskap",
   "subscription": "Abonnement",
+  "settings": "Innstillinger",
   "signin": "Logg inn",
   "signout": "Logg ut"
 }

@@ -3,11 +3,15 @@
   "chat": "Auri",
   "auri": "Auri",
   "roleplay": "Rollspel",
+  "assess": "Självskattning",
+  "exercises": "Övningar",
+  "journal": "Dagbok",
   "crisis": "Krisstöd",
   "profile": "Profil",
   "visit": "Besök",
   "pricing": "Medlemskap",
   "subscription": "Abonnemang",
+  "settings": "Inställningar",
   "signin": "Logga in",
   "signout": "Logga ut"
 }

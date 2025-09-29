@@ -1,5 +1,6 @@
 import i18n from 'i18next'
 import { initReactI18next } from 'react-i18next'
+import { setupI18nMissing } from '../i18nMissing'
 
 const SUPPORTED = ['sv','en','es','no','da','fi'] as const
 type Lng = typeof SUPPORTED[number]
@@ -46,7 +47,10 @@ export async function setupI18n(){
       screeners: await loadNs(lng,'screeners').catch(()=>({})),
       timeline: await loadNs(lng,'timeline').catch(()=>({})),
       crisis: await loadNs(lng,'crisis').catch(()=>({})),
-      profile: await loadNs(lng,'profile').catch(()=>({}))
+      profile: await loadNs(lng,'profile').catch(()=>({})),
+      assess: await loadNs(lng,'assess').catch(()=>({})),
+      reminders: await loadNs(lng,'reminders').catch(()=>({})),
+      pricing: await loadNs(lng,'pricing').catch(()=>({}))
     }
   }
 
@@ -57,7 +61,7 @@ export async function setupI18n(){
       lng: initial,
       supportedLngs: SUPPORTED as unknown as string[],
       fallbackLng: ['sv','en'],
-      ns: ['common','nav','auth','home','auri','roleplay','visit','coach','screeners','timeline','crisis','profile'],
+      ns: ['common','nav','auth','home','auri','roleplay','visit','coach','screeners','timeline','crisis','profile','assess','reminders','pricing'],
       defaultNS: 'common',
       interpolation: { escapeValue:false },
       returnNull: false,
@@ -78,6 +82,9 @@ export async function setupI18n(){
   // Usage: const st = safeT(t); st('profile:name','Namn')
   // @ts-ignore
   i18n.safeT = (t:any)=> (key:string, def:string)=> t(key, { defaultValue: def })
+
+  // Setup missing key logging
+  setupI18nMissing(i18n)
 
   // Dev-only missing key detection with CI-style logging
   if (import.meta.env.DEV) {

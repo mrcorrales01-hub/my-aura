@@ -1,11 +1,17 @@
 {
   "home": "Home",
+  "chat": "Chat",
   "auri": "Auri",
-  "roleplay": "Roleplay", 
+  "roleplay": "Roleplay",
+  "assess": "Assessment",
+  "exercises": "Exercises",
+  "journal": "Journal",
   "crisis": "Crisis Support",
   "profile": "Profile",
+  "visit": "Visit",
   "pricing": "Membership",
   "subscription": "Subscription",
+  "settings": "Settings",
   "signin":"Sign in", 
   "signout":"Sign out"
 }

@@ -1,12 +1,17 @@
 {
   "home": "Koti",
-  "chat": "Auri", 
+  "chat": "Chat",
+  "auri": "Auri", 
   "roleplay": "Roolipeli",
+  "assess": "Arviointi",
+  "exercises": "Harjoitukset",
+  "journal": "Päiväkirja",
   "crisis": "Kriisituki",
   "profile": "Profiili",
   "visit": "Vierailu",
   "pricing": "Jäsenyys",
   "subscription": "Tilaus",
+  "settings": "Asetukset",
   "signin": "Kirjaudu sisään",
   "signout": "Kirjaudu ulos"
 }

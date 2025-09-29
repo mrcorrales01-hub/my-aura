@@ -1,12 +1,17 @@
 {
   "home": "Inicio",
-  "chat": "Auri", 
-  "roleplay": "Roleplay",
+  "chat": "Chat",
+  "auri": "Auri", 
+  "roleplay": "Juego de rol",
+  "assess": "Evaluación",
+  "exercises": "Ejercicios",
+  "journal": "Diario",
   "crisis": "Crisis",
   "profile": "Perfil",
   "visit": "Visita",
   "pricing": "Membresía",
   "subscription": "Suscripción",
+  "settings": "Configuración",
   "signin": "Iniciar sesión",
   "signout": "Cerrar sesión"
 }
