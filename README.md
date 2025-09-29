@@ -1,73 +1,149 @@
-# Welcome to your Lovable project
+# My Aura
 
-## Project info
+**AI-driven mental health and wellness platform with multilingual support**
 
-**URL**: https://lovable.dev/projects/ad75c518-0b07-43a9-ab8c-a632301b859c
+My Aura är en modern mental hälsoplattform byggd med React, TypeScript och Supabase. Appen erbjuder AI-driven coaching, självskattningar, krisstöd och personliga välmåendeplaner på 6 språk.
 
-## How can I edit this code?
+## ✨ Funktioner
 
-There are several ways of editing your application.
+- 🤖 **Auri AI Coach** - 24/7 AI-support för mental hälsa
+- 📊 **Självskattningar** - PHQ-9 och GAD-7 med PDF-export
+- 🎭 **Rollspel** - Träna sociala situationer med AI
+- 🚨 **Krisstöd** - Omedelbar hjälp och säkerhetsplaner
+- 🌍 **6 språk** - Svenska, engelska, spanska, norska, danska, finska
+- 💳 **Stripe-integration** - Flexibla prenumerationsplaner
+- 📱 **PWA** - Fungerar som native app
 
-**Use Lovable**
+## 🚀 Utveckling
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ad75c518-0b07-43a9-ab8c-a632301b859c) and start prompting.
+### Snabbstart
 
-Changes made via Lovable will be committed automatically to this repo.
+```bash
+# 1. Installera paket
+npm install
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 2. Kör lokalt
 npm run dev
+
+# 3. Öppna i webbläsare
+# http://localhost:5173
 ```
 
-**Edit a file directly in GitHub**
+### Miljövariabler (.env)
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Kopiera `.env.example` till `.env` och fyll i dina värden:
 
-**Use GitHub Codespaces**
+```bash
+# Supabase (krävs)
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_ANON_KEY=your-anon-key
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Stripe (för betalningar)
+STRIPE_PUBLIC_KEY=pk_test_XXXX
+STRIPE_SECRET_KEY=sk_test_XXXX
+STRIPE_PRICE_BASIC=price_XXXX
+STRIPE_PRICE_PREMIUM=price_YYYY
 
-## What technologies are used for this project?
+# Observability (valfritt)
+SENTRY_DSN=https://examplePublicKey@o0.ingest.sentry.io/0
+```
 
-This project is built with:
+## 📚 Dokumentation
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+- **[PROJECT_PLAN.md](./PROJECT_PLAN.md)** - Komplett roadmap och utvecklingsplan
+- **[Lovable Project](https://lovable.dev/projects/ad75c518-0b07-43a9-ab8c-a632301b859c)** - Live-redigering och deployment
 
-## How can I deploy this project?
+## 🏗️ Teknisk Stack
 
-Simply open [Lovable](https://lovable.dev/projects/ad75c518-0b07-43a9-ab8c-a632301b859c) and click on Share -> Publish.
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Backend**: Supabase (PostgreSQL + Edge Functions)
+- **Auth**: Supabase Auth med Google OAuth
+- **Betalningar**: Stripe Checkout + Portal
+- **i18n**: react-i18next med 6 språkstöd
+- **PWA**: Service Worker + Manifest
 
-## Can I connect a custom domain to my Lovable project?
+## 🔧 Kommandon
 
-Yes, you can!
+```bash
+# Utveckling
+npm run dev              # Starta dev-server
+npm run build            # Bygg för produktion
+npm run preview          # Förhandsgranska build
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+# Kvalitet
+npm run lint             # ESLint kontroll
+npm run type-check       # TypeScript validering
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+# Tester
+npm run test             # Kör enhets-tester
+npm run test:e2e         # Kör e2e-tester (Playwright)
+
+# Supabase
+npx supabase start       # Starta lokal Supabase
+npx supabase db reset    # Återställ databas
+npx supabase gen types   # Generera TypeScript-typer
+```
+
+## 📁 Projektstruktur
+
+```
+src/
+├── app/                 # App-konfiguration och routing
+├── components/          # Återanvändbara UI-komponenter
+├── features/           # Funktions-specifika moduler
+│   ├── assess/         # Självskattningar (PHQ-9, GAD-7)
+│   ├── subscription/   # Prenumerationslogik
+│   └── auth/           # Autentisering
+├── hooks/              # Custom React hooks
+├── lib/                # Verktyg och konfiguration
+├── pages/              # Sidor och routes
+└── integrations/       # Externa API:er (Supabase)
+
+public/
+└── locales/            # i18n översättningar
+    ├── sv/             # Svenska
+    ├── en/             # Engelska
+    └── ...             # 4 andra språk
+```
+
+## 🌍 Internationalisering
+
+Appen stöder 6 språk med automatisk språkdetektering:
+
+- 🇸🇪 **Svenska** (standard)
+- 🇺🇸 **English**
+- 🇪🇸 **Español**
+- 🇳🇴 **Norsk**
+- 🇩🇰 **Dansk**
+- 🇫🇮 **Suomi**
+
+Översättningar finns i `public/locales/[lang]/` och hanteras av react-i18next.
+
+## 🚀 Deployment
+
+**Via Lovable (rekommenderat):**
+1. Öppna [Lovable Project](https://lovable.dev/projects/ad75c518-0b07-43a9-ab8c-a632301b859c)
+2. Klicka Share → Publish
+
+**Manuellt:**
+```bash
+npm run build
+# Ladda upp dist/ till din hosting-provider
+```
+
+## 🤝 Bidrag
+
+1. Forka repot
+2. Skapa en feature-branch: `git checkout -b feature/amazing-feature`
+3. Committa dina ändringar: `git commit -m 'Add amazing feature'`
+4. Pusha till branchen: `git push origin feature/amazing-feature`
+5. Öppna en Pull Request
+
+## 📄 Licens
+
+Detta projekt är licensierat under MIT License - se [LICENSE](LICENSE) för detaljer.
+
+---
+
+**Utvecklat med ❤️ för mental hälsa och välmående**
