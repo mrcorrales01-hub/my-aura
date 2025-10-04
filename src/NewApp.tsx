@@ -11,6 +11,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Layout } from "@/app/Layout";
 import DebugPanel from "@/health/DebugPanel";
 import { LanguageSetup } from "@/components/LanguageSetup";
+import { FirstStartLanguageModal } from "@/components/FirstStartLanguageModal";
 
 import NewAuraHome from "@/components/NewAuraHome";
 import AuriChat from "@/pages/AuriChat";
@@ -34,6 +35,7 @@ const NewApp = () => (
           <SubscriptionProvider>
             <UserPreferencesProvider>
               <TooltipProvider>
+                <FirstStartLanguageModal />
                 <LanguageSetup />
                 <Toaster />
                 <Sonner />

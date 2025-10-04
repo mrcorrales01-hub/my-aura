@@ -142,5 +142,11 @@
     "loggedOut": "Kirjautuminen vaaditaan",
     "loggedIn": "Kirjautunut sisään"
   },
-  "appName": "My Aura"
+  "appName": "My Aura",
+  "firstStart": {
+    "title": "Valitse kielesi",
+    "subtitle": "Voit muuttaa tämän milloin tahansa asetuksista",
+    "followSystem": "Seuraa järjestelmän kieltä automaattisesti",
+    "continue": "Jatka"
+  }
 }

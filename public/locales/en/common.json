@@ -141,5 +141,11 @@
     "title": "Your Privacy Matters",
     "description": "Your data is protected with row-level security and encryption.", 
     "actions": "Click to view settings and export data."
+  },
+  "firstStart": {
+    "title": "Choose your language",
+    "subtitle": "You can change this anytime in settings",
+    "followSystem": "Follow system language automatically",
+    "continue": "Continue"
   }
 }

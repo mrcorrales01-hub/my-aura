@@ -142,5 +142,11 @@
     "loggedOut": "Inicio de sesión requerido",
     "loggedIn": "Conectado"
   },
-  "appName": "My Aura"
+  "appName": "My Aura",
+  "firstStart": {
+    "title": "Elige tu idioma",
+    "subtitle": "Puedes cambiar esto en cualquier momento en la configuración",
+    "followSystem": "Seguir idioma del sistema automáticamente",
+    "continue": "Continuar"
+  }
 }

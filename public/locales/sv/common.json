@@ -148,5 +148,11 @@
     "seedItem2": "5 humörloggar spridda över de senaste 7 dagarna",
     "seedItem3": "2 journalanteckningar med exempelinnehåll",
     "seedItem4": "3 övningar (om tabellen är tom)"
+  },
+  "firstStart": {
+    "title": "Välj ditt språk",
+    "subtitle": "Du kan ändra detta när som helst i inställningarna",
+    "followSystem": "Följ systemspråk automatiskt",
+    "continue": "Fortsätt"
   }
 }

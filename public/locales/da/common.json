@@ -142,5 +142,11 @@
     "loggedOut": "Login påkrævet",
     "loggedIn": "Logget ind"
   },
-  "appName": "My Aura"
+  "appName": "My Aura",
+  "firstStart": {
+    "title": "Vælg dit sprog",
+    "subtitle": "Du kan ændre dette når som helst i indstillingerne",
+    "followSystem": "Følg systemsprog automatisk",
+    "continue": "Fortsæt"
+  }
 }
