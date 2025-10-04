@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   Activity, 
   Cpu, 
@@ -41,11 +42,32 @@ const PerformanceMonitor: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only show performance monitor in development or for admin users
-    const isDev = process.env.NODE_ENV === 'development';
-    const isAdmin = localStorage.getItem('admin_mode') === 'true';
-    setIsVisible(isDev || isAdmin);
+    // Check admin status server-side using proper authentication
+    const checkAdminStatus = async () => {
+      const isDev = process.env.NODE_ENV === 'development';
+      
+      // Check if user has admin role from database
+      const { data: { user } } = await supabase.auth.getUser();
+      let isAdmin = false;
+      
+      if (user) {
+        const { data } = await supabase
+          .from('user_roles')
+          .select('role')
+          .eq('user_id', user.id)
+          .eq('role', 'admin')
+          .maybeSingle();
+        
+        isAdmin = !!data;
+      }
+      
+      setIsVisible(isDev || isAdmin);
+    };
 
+    checkAdminStatus();
+  }, []);
+
+  useEffect(() => {
     if (!isVisible) return;
 
     const collectMetrics = () => {

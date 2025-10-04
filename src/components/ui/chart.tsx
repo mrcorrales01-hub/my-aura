@@ -74,20 +74,35 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
     return null
   }
 
+  // Sanitize ID to prevent XSS - only allow alphanumeric, dash, and underscore
+  const sanitizedId = id.replace(/[^a-zA-Z0-9-_]/g, '');
+  
+  // Sanitize color values to prevent CSS injection
+  const sanitizeColor = (color: string | undefined): string | null => {
+    if (!color) return null;
+    // Allow hex colors, rgb(a), hsl(a), and CSS color names
+    const colorRegex = /^(#[0-9A-Fa-f]{3,8}|rgba?\([^)]+\)|hsla?\([^)]+\)|[a-z]+)$/i;
+    return colorRegex.test(color) ? color : null;
+  };
+
   return (
     <style
       dangerouslySetInnerHTML={{
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart=${sanitizedId}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
-    const color =
+    const rawColor =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
-      itemConfig.color
-    return color ? `  --color-${key}: ${color};` : null
+      itemConfig.color;
+    const color = sanitizeColor(rawColor);
+    // Sanitize key to prevent CSS injection
+    const sanitizedKey = key.replace(/[^a-zA-Z0-9-_]/g, '');
+    return color ? `  --color-${sanitizedKey}: ${color};` : null
   })
+  .filter(Boolean)
   .join("\n")}
 }
 `
