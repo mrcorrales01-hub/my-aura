@@ -5,6 +5,7 @@ import { needsDiversify, createDiversityPrompt } from './antiRepeat'
 import { planFromText, type AuriPlan } from './actions'
 
 const base = `https://rggohnwmajmrvxgfmimk.supabase.co/functions/v1`
+const ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnZ29obndtYWptcnZ4Z2ZtaW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyOTU2ODUsImV4cCI6MjA2OTg3MTY4NX0.NXYFVDpcnbcCZSRI8sJHU90Hsw4CMIZIoN6GYj0N2q0'
 
 let lastOpener = '';
 let lastAssistantMessage = '';
@@ -60,8 +61,8 @@ export async function streamAuri(payload: { messages: any[], lang: string, activ
       signal: ctrl.signal,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${jwt || ''}`,
-        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnZ29obndtYWptcnZ4Z2ZtaW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyOTU2ODUsImV4cCI6MjA2OTg3MTY4NX0.NXYFVDpcnbcCZSRI8sJHU90Hsw4CMIZIoN6GYj0N2q0'
+        ...(jwt ? { 'Authorization': `Bearer ${jwt}` } : {}),
+        'apikey': ANON_KEY
       },
       body: JSON.stringify(enhancedPayload)
     })
@@ -109,8 +110,8 @@ export async function streamAuri(payload: { messages: any[], lang: string, activ
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${jwt || ''}`,
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJnZ29obndtYWptcnZ4Z2ZtaW1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQyOTU2ODUsImV4cCI6MjA2OTg3MTY4NX0.NXYFVDpcnbcCZSRI8sJHU90Hsw4CMIZIoN6GYj0N2q0'
+            ...(jwt ? { 'Authorization': `Bearer ${jwt}` } : {}),
+            'apikey': ANON_KEY
           },
           body: JSON.stringify(diversityPayload)
         });

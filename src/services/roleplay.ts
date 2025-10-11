@@ -43,17 +43,15 @@ export class RoleplayService {
 
   async startRoleplay(scriptSlug: string, lang: string = 'sv'): Promise<RoleplayResponse> {
     const { data: { session }, error: authError } = await supabase.auth.getSession();
-    if (authError || !session?.access_token) {
-      throw new Error('Not authenticated');
-    }
+    const token = session?.access_token;
 
     const response = await fetch(
       `https://rggohnwmajmrvxgfmimk.supabase.co/functions/v1/auri-roleplay`,
       {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
         },
         body: JSON.stringify({
           script_slug: scriptSlug,
@@ -63,7 +61,7 @@ export class RoleplayService {
     );
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.error || 'Failed to start roleplay');
     }
 
@@ -77,17 +75,15 @@ export class RoleplayService {
     lang: string = 'sv'
   ): Promise<RoleplayResponse> {
     const { data: { session }, error: authError } = await supabase.auth.getSession();
-    if (authError || !session?.access_token) {
-      throw new Error('Not authenticated');
-    }
+    const token = session?.access_token;
 
     const response = await fetch(
       `https://rggohnwmajmrvxgfmimk.supabase.co/functions/v1/auri-roleplay`,
       {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${session.access_token}`,
           'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
         },
         body: JSON.stringify({
           script_slug: scriptSlug,
@@ -99,7 +95,7 @@ export class RoleplayService {
     );
 
     if (!response.ok) {
-      const errorData = await response.json();
+      const errorData = await response.json().catch(() => ({}));
       throw new Error(errorData.error || 'Failed to continue roleplay');
     }
 

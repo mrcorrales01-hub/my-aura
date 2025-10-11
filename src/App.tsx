@@ -26,6 +26,10 @@ import RoleplaySimulator from "@/components/RoleplaySimulator";
 import DailyCheckin from "@/components/DailyCheckin";
 import CrisisSupport from "@/components/CrisisSupport";
 
+// Dev Pages
+import ResetPage from "@/pages/dev/ResetPage";
+import HealthPage from "@/pages/dev/HealthPage";
+
 // Legacy Pages (for compatibility)
 import Auth from "@/pages/Auth";
 import Dashboard from "@/pages/Dashboard";
@@ -126,6 +130,11 @@ const App = () => (
                             <Route path="/cancel" element={<PaymentCancel />} />
                             <Route path="/therapist" element={<TherapistDashboard />} />
                             <Route path="/advanced" element={<AdvancedFeatures />} />
+                            
+                            {/* Dev Routes */}
+                            <Route path="/dev/reset" element={<ResetPage />} />
+                            <Route path="/dev/health" element={<HealthPage />} />
+                            
                             <Route path="*" element={<NotFound />} />
                           </Routes>
                         </div>
