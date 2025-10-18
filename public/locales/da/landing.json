@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "signin": "Log ind",
+    "clinic": "For klinikker",
+    "press": "Presse"
+  },
+  "hero": {
+    "title": "Din daglige coach til trivsel.",
+    "subtitle": "Auri (AI-coach), sikkerhedsplan, rollespil og besøgs-PDF i én app.",
+    "disclaimer": "Ikke medicinsk rådgivning. Ved akut fare: ring 112 / 1177.",
+    "video": "Video-demo (udskift med mp4)"
+  },
+  "cta": {
+    "tryWeb": "Prøv på web",
+    "waitlist": "Tilmeld venteliste",
+    "getStarted": "Kom i gang"
+  },
+  "demo": {
+    "prompt": "Sådan fungerer My Aura:",
+    "m1": "Jeg sover dårligt – hvad kan jeg gøre i aften?",
+    "m2": "Jeg har lægebesøg i morgen – hvordan forbereder jeg mig?",
+    "m3": "Hvordan sætter jeg en venlig grænse på jobbet?",
+    "preview": "Auri giver 2-4 konkrete trin og et opfølgende spørgsmål. Prøv fuld chat i appen."
+  },
+  "feat": {
+    "auri": {
+      "title": "Auri (AI-coach)",
+      "desc": "Hurtige, empatiske råd."
+    },
+    "safety": {
+      "title": "Sikkerhedsplan",
+      "desc": "Personlig plan + låseskærm-PDF."
+    },
+    "visit": {
+      "title": "Besøgs-PDF",
+      "desc": "14-dages sammenfatning til læge."
+    },
+    "roleplay": {
+      "title": "Rollespil",
+      "desc": "Øv svære samtaler."
+    }
+  },
+  "proof": {
+    "quote": "Auri hjalp mig med at handle med det samme – mindre bekymring allerede første uge.",
+    "person": "Beta-bruger"
+  },
+  "pricing": {
+    "title": "Priser",
+    "free": {
+      "name": "Gratis",
+      "price": "0 kr/måned",
+      "points": [
+        "Auri 20 svar/dag",
+        "Humør og dagbog",
+        "Besøgs-PDF"
+      ]
+    },
+    "plus": {
+      "name": "Plus",
+      "price": "99 kr/måned",
+      "points": [
+        "Auri 200 svar/dag",
+        "Rollespil og påmindelser",
+        "Sikkerhedsplan PDF"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "199 kr/måned",
+      "points": [
+        "Ubegrænset Auri",
+        "Avancerede scripts",
+        "Prioriteret support"
+      ]
+    }
+  },
+  "wait": {
+    "title": "Få tidlig adgang",
+    "name": "Navn",
+    "join": "Tilmeld",
+    "thanks": "Tak! Vi kontakter dig snart.",
+    "privacy": "Vi bruger kun din e-mail til My Aura-opdateringer."
+  },
+  "clinic": {
+    "title": "For sundhedscentre og psykologklinikker",
+    "subtitle": "Selvpleje mellem besøg, besøgs-PDF og rollespil.",
+    "org": "Organisation",
+    "name": "Kontaktperson",
+    "phone": "Telefon",
+    "msg": "Beskriv behov eller spørgsmål",
+    "send": "Send interesse",
+    "thanks": "Tak! Vi kontakter dig.",
+    "privacy": "Vi gemmer kun dine oplysninger til kontakt om My Aura."
+  }
+}

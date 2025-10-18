@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "signin": "Sign in",
+    "clinic": "For clinics",
+    "press": "Press"
+  },
+  "hero": {
+    "title": "Your everyday coach for wellbeing.",
+    "subtitle": "Auri (AI coach), safety plan, role-play and visit PDF in one app.",
+    "disclaimer": "Not medical advice. In case of emergency: call 112 / 1177.",
+    "video": "Video demo (replace with mp4)"
+  },
+  "cta": {
+    "tryWeb": "Try on web",
+    "waitlist": "Join waitlist",
+    "getStarted": "Get started"
+  },
+  "demo": {
+    "prompt": "How My Aura works:",
+    "m1": "I can't sleep – what can I do tonight?",
+    "m2": "I have a doctor's appointment tomorrow – how do I prepare?",
+    "m3": "How do I set a friendly boundary at work?",
+    "preview": "Auri gives 2–4 concrete steps and a follow-up question. Try the full chat in the app."
+  },
+  "feat": {
+    "auri": {
+      "title": "Auri (AI coach)",
+      "desc": "Quick, empathetic advice."
+    },
+    "safety": {
+      "title": "Safety plan",
+      "desc": "Personal plan + lock-screen PDF."
+    },
+    "visit": {
+      "title": "Visit PDF",
+      "desc": "14-day summary for doctor."
+    },
+    "roleplay": {
+      "title": "Role-play",
+      "desc": "Practice difficult conversations."
+    }
+  },
+  "proof": {
+    "quote": "Auri helped me take action immediately – less worry in the first week.",
+    "person": "Beta user"
+  },
+  "pricing": {
+    "title": "Pricing",
+    "free": {
+      "name": "Free",
+      "price": "$0/month",
+      "points": [
+        "Auri 20 responses/day",
+        "Mood & journal",
+        "Visit PDF"
+      ]
+    },
+    "plus": {
+      "name": "Plus",
+      "price": "$9/month",
+      "points": [
+        "Auri 200 responses/day",
+        "Role-play & reminders",
+        "Safety plan PDF"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "$19/month",
+      "points": [
+        "Unlimited Auri",
+        "Advanced scripts",
+        "Priority support"
+      ]
+    }
+  },
+  "wait": {
+    "title": "Get early access",
+    "name": "Name",
+    "join": "Join",
+    "thanks": "Thanks! We'll be in touch soon.",
+    "privacy": "We only use your email for My Aura updates."
+  },
+  "clinic": {
+    "title": "For health centers and psychology clinics",
+    "subtitle": "Self-care between visits, visit PDF and role-play.",
+    "org": "Organization",
+    "name": "Contact person",
+    "phone": "Phone",
+    "msg": "Describe needs or questions",
+    "send": "Send interest",
+    "thanks": "Thanks! We'll be in touch.",
+    "privacy": "We only store your details for My Aura contact."
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "signin": "Logga in",
+    "clinic": "För kliniker",
+    "press": "Press"
+  },
+  "hero": {
+    "title": "Din vardags-coach för välmående – på svenska.",
+    "subtitle": "Auri (AI-coach), säkerhetsplan, rollspel och besöks-PDF i en app.",
+    "disclaimer": "Ej medicinsk rådgivning. Vid akut fara: ring 112 / 1177.",
+    "video": "Video-demo (ersätt med mp4)"
+  },
+  "cta": {
+    "tryWeb": "Prova i webben",
+    "waitlist": "Gå med i väntelistan",
+    "getStarted": "Kom igång"
+  },
+  "demo": {
+    "prompt": "Så funkar My Aura i korthet:",
+    "m1": "Jag sover dåligt – vad kan jag göra ikväll?",
+    "m2": "Jag har läkarbesök imorgon – hur förbereder jag mig?",
+    "m3": "Hur sätter jag en vänlig gräns på jobbet?",
+    "preview": "Auri ger 2–4 konkreta steg och en följdfråga. Prova full chat i appen."
+  },
+  "feat": {
+    "auri": {
+      "title": "Auri (AI-coach)",
+      "desc": "Snabba, empatiska råd på svenska."
+    },
+    "safety": {
+      "title": "Säkerhetsplan",
+      "desc": "Personlig plan + låsskärms-PDF."
+    },
+    "visit": {
+      "title": "Besöks-PDF",
+      "desc": "14-dagars sammanfattning till läkare."
+    },
+    "roleplay": {
+      "title": "Rollspel",
+      "desc": "Öva svåra samtal – vård, jobb, familj."
+    }
+  },
+  "proof": {
+    "quote": "Auri fick mig att agera direkt – mindre oro redan första veckan.",
+    "person": "Beta-användare"
+  },
+  "pricing": {
+    "title": "Priser",
+    "free": {
+      "name": "Free",
+      "price": "0 kr/mån",
+      "points": [
+        "Auri 20 svar/dag",
+        "Humör & journal",
+        "Besöks-PDF"
+      ]
+    },
+    "plus": {
+      "name": "Plus",
+      "price": "99 kr/mån",
+      "points": [
+        "Auri 200 svar/dag",
+        "Rollspel & påminnelser",
+        "Säkerhetsplan PDF"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "199 kr/mån",
+      "points": [
+        "Oändlig Auri",
+        "Avancerade manus",
+        "Prioriterad support"
+      ]
+    }
+  },
+  "wait": {
+    "title": "Få tidig tillgång",
+    "name": "Namn",
+    "join": "Gå med",
+    "thanks": "Tack! Vi hör av oss snart.",
+    "privacy": "Vi använder e-posten enbart för uppdateringar om My Aura."
+  },
+  "clinic": {
+    "title": "För vårdcentraler och psykologmottagningar",
+    "subtitle": "Egenvård mellan besök, besöks-PDF och rollspel – svenskan först.",
+    "org": "Organisation",
+    "name": "Kontaktperson",
+    "phone": "Telefon",
+    "msg": "Beskriv behov eller frågor",
+    "send": "Skicka intresse",
+    "thanks": "Tack! Vi hör av oss.",
+    "privacy": "Vi sparar uppgifterna endast för kontakt gällande My Aura."
+  }
+}

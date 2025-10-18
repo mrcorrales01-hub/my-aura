@@ -59,6 +59,15 @@ import AssessHomePage from "@/pages/assess/AssessHomePage";
 import PHQ9Page from "@/pages/assess/PHQ9Page";
 import GAD7Page from "@/pages/assess/GAD7Page";
 
+// Marketing Pages
+import LoggedOutSwitch from "@/pages/marketing/LoggedOutSwitch";
+import LandingPage from "@/pages/marketing/LandingPage";
+import ClinicPage from "@/pages/marketing/ClinicPage";
+import PrivacyPage from "@/pages/marketing/PrivacyPage";
+import TermsPage from "@/pages/marketing/TermsPage";
+import ContactPage from "@/pages/marketing/ContactPage";
+import PressPage from "@/pages/marketing/PressPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -79,7 +88,15 @@ const App = () => (
                         <div id="site-main">
                           <Routes>
                             {/* Aura Mental Health App Routes */}
-                            <Route path="/" element={<AuraHome />} />
+                            <Route path="/" element={<LoggedOutSwitch app={<AuraHome />} />} />
+                            
+                            {/* Marketing Pages */}
+                            <Route path="/welcome" element={<LandingPage />} />
+                            <Route path="/clinic" element={<ClinicPage />} />
+                            <Route path="/privacy" element={<PrivacyPage />} />
+                            <Route path="/terms" element={<TermsPage />} />
+                            <Route path="/contact" element={<ContactPage />} />
+                            <Route path="/press" element={<PressPage />} />
                             <Route path="/auri" element={<AuriChat />} />
                             <Route path="/chat" element={<AuriChat />} />
                             <Route path="/plan" element={<MyPlan />} />

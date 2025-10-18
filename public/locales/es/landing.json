@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "signin": "Iniciar sesión",
+    "clinic": "Para clínicas",
+    "press": "Prensa"
+  },
+  "hero": {
+    "title": "Tu entrenador diario para el bienestar.",
+    "subtitle": "Auri (coach IA), plan de seguridad, juego de roles y PDF de visita en una app.",
+    "disclaimer": "No es consejo médico. En caso de emergencia: llama al 112 / 1177.",
+    "video": "Demo en video (reemplazar con mp4)"
+  },
+  "cta": {
+    "tryWeb": "Prueba en la web",
+    "waitlist": "Únete a la lista de espera",
+    "getStarted": "Comenzar"
+  },
+  "demo": {
+    "prompt": "Cómo funciona My Aura:",
+    "m1": "No puedo dormir – ¿qué puedo hacer esta noche?",
+    "m2": "Tengo cita médica mañana – ¿cómo me preparo?",
+    "m3": "¿Cómo establezco un límite amable en el trabajo?",
+    "preview": "Auri da 2-4 pasos concretos y una pregunta de seguimiento. Prueba el chat completo en la app."
+  },
+  "feat": {
+    "auri": {
+      "title": "Auri (coach IA)",
+      "desc": "Consejos rápidos y empáticos."
+    },
+    "safety": {
+      "title": "Plan de seguridad",
+      "desc": "Plan personal + PDF para pantalla de bloqueo."
+    },
+    "visit": {
+      "title": "PDF de visita",
+      "desc": "Resumen de 14 días para el médico."
+    },
+    "roleplay": {
+      "title": "Juego de roles",
+      "desc": "Practica conversaciones difíciles."
+    }
+  },
+  "proof": {
+    "quote": "Auri me ayudó a actuar de inmediato – menos preocupación en la primera semana.",
+    "person": "Usuario beta"
+  },
+  "pricing": {
+    "title": "Precios",
+    "free": {
+      "name": "Gratis",
+      "price": "$0/mes",
+      "points": [
+        "Auri 20 respuestas/día",
+        "Estado de ánimo y diario",
+        "PDF de visita"
+      ]
+    },
+    "plus": {
+      "name": "Plus",
+      "price": "$9/mes",
+      "points": [
+        "Auri 200 respuestas/día",
+        "Juego de roles y recordatorios",
+        "PDF del plan de seguridad"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "$19/mes",
+      "points": [
+        "Auri ilimitado",
+        "Scripts avanzados",
+        "Soporte prioritario"
+      ]
+    }
+  },
+  "wait": {
+    "title": "Obtén acceso anticipado",
+    "name": "Nombre",
+    "join": "Unirse",
+    "thanks": "¡Gracias! Nos pondremos en contacto pronto.",
+    "privacy": "Solo usamos tu correo para actualizaciones de My Aura."
+  },
+  "clinic": {
+    "title": "Para centros de salud y clínicas de psicología",
+    "subtitle": "Autocuidado entre visitas, PDF de visita y juego de roles.",
+    "org": "Organización",
+    "name": "Persona de contacto",
+    "phone": "Teléfono",
+    "msg": "Describe necesidades o preguntas",
+    "send": "Enviar interés",
+    "thanks": "¡Gracias! Nos pondremos en contacto.",
+    "privacy": "Solo guardamos tus datos para contacto sobre My Aura."
+  }
+}

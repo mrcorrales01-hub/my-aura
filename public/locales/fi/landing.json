@@ -1,0 +1,95 @@
+{
+  "nav": {
+    "signin": "Kirjaudu sisään",
+    "clinic": "Klinikoille",
+    "press": "Lehdistö"
+  },
+  "hero": {
+    "title": "Arkipäivän valmentajasi hyvinvointiin.",
+    "subtitle": "Auri (AI-valmentaja), turvasuunnitelma, roolipeli ja käynti-PDF yhdessä sovelluksessa.",
+    "disclaimer": "Ei lääketieteellistä neuvontaa. Hätätapauksessa: soita 112.",
+    "video": "Video-demo (korvaa mp4:llä)"
+  },
+  "cta": {
+    "tryWeb": "Kokeile verkossa",
+    "waitlist": "Liity jonotuslistalle",
+    "getStarted": "Aloita"
+  },
+  "demo": {
+    "prompt": "Näin My Aura toimii:",
+    "m1": "En nuku hyvin – mitä voin tehdä tänä iltana?",
+    "m2": "Minulla on lääkärikäynti huomenna – miten valmistaudun?",
+    "m3": "Miten asetan ystävällisen rajan töissä?",
+    "preview": "Auri antaa 2-4 konkreettista askelta ja jatkokysymyksen. Kokeile täyttä chattia sovelluksessa."
+  },
+  "feat": {
+    "auri": {
+      "title": "Auri (AI-valmentaja)",
+      "desc": "Nopeita, empaattisia neuvoja."
+    },
+    "safety": {
+      "title": "Turvasuunnitelma",
+      "desc": "Henkilökohtainen suunnitelma + lukitusnäyttö-PDF."
+    },
+    "visit": {
+      "title": "Käynti-PDF",
+      "desc": "14 päivän yhteenveto lääkärille."
+    },
+    "roleplay": {
+      "title": "Roolipeli",
+      "desc": "Harjoittele vaikeita keskusteluja."
+    }
+  },
+  "proof": {
+    "quote": "Auri auttoi minua toimimaan heti – vähemmän huolta jo ensimmäisellä viikolla.",
+    "person": "Beta-käyttäjä"
+  },
+  "pricing": {
+    "title": "Hinnoittelu",
+    "free": {
+      "name": "Ilmainen",
+      "price": "0 €/kk",
+      "points": [
+        "Auri 20 vastausta/päivä",
+        "Mieliala ja päiväkirja",
+        "Käynti-PDF"
+      ]
+    },
+    "plus": {
+      "name": "Plus",
+      "price": "9 €/kk",
+      "points": [
+        "Auri 200 vastausta/päivä",
+        "Roolipeli ja muistutukset",
+        "Turvasuunnitelma PDF"
+      ]
+    },
+    "pro": {
+      "name": "Pro",
+      "price": "19 €/kk",
+      "points": [
+        "Rajaton Auri",
+        "Edistyneet skriptit",
+        "Ensisijainen tuki"
+      ]
+    }
+  },
+  "wait": {
+    "title": "Hanki varhainen pääsy",
+    "name": "Nimi",
+    "join": "Liity",
+    "thanks": "Kiitos! Olemme yhteydessä pian.",
+    "privacy": "Käytämme sähköpostiasi vain My Aura -päivityksiin."
+  },
+  "clinic": {
+    "title": "Terveyskeskuksille ja psykologian klinikoille",
+    "subtitle": "Omahoito käyntien välillä, käynti-PDF ja roolipeli.",
+    "org": "Organisaatio",
+    "name": "Yhteyshenkilö",
+    "phone": "Puhelin",
+    "msg": "Kuvaile tarpeet tai kysymykset",
+    "send": "Lähetä kiinnostus",
+    "thanks": "Kiitos! Olemme yhteydessä.",
+    "privacy": "Tallennamme tietosi vain My Aura -yhteydenottoa varten."
+  }
+}

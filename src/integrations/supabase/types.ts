@@ -1444,6 +1444,39 @@ export type Database = {
         }
         Relationships: []
       }
+      marketing_leads: {
+        Row: {
+          contact_name: string | null
+          created_at: string | null
+          email: string
+          id: string
+          message: string | null
+          org: string | null
+          phone: string | null
+          type: string
+        }
+        Insert: {
+          contact_name?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          message?: string | null
+          org?: string | null
+          phone?: string | null
+          type: string
+        }
+        Update: {
+          contact_name?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          message?: string | null
+          org?: string | null
+          phone?: string | null
+          type?: string
+        }
+        Relationships: []
+      }
       mental_health_coins: {
         Row: {
           amount: number
@@ -3210,6 +3243,30 @@ export type Database = {
           name?: string
           updated_at?: string
           world_data?: Json
+        }
+        Relationships: []
+      }
+      waitlist: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+          interest: string | null
+          name: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+          interest?: string | null
+          name?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+          interest?: string | null
+          name?: string | null
         }
         Relationships: []
       }
