@@ -2,7 +2,8 @@
   "nav": {
     "signin": "Kirjaudu sisään",
     "clinic": "Klinikoille",
-    "press": "Lehdistö"
+    "press": "Lehdistö",
+    "stories": "Artikkelit"
   },
   "hero": {
     "title": "Arkipäivän valmentajasi hyvinvointiin.",
@@ -95,5 +96,8 @@
     "send": "Lähetä kiinnostus",
     "thanks": "Kiitos! Olemme yhteydessä.",
     "privacy": "Tallennamme tietosi vain My Aura -yhteydenottoa varten."
+  },
+  "faq": {
+    "title": "Usein kysytyt kysymykset"
   }
 }

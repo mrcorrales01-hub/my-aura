@@ -2,7 +2,8 @@
   "nav": {
     "signin": "Sign in",
     "clinic": "For clinics",
-    "press": "Press"
+    "press": "Press",
+    "stories": "Stories"
   },
   "hero": {
     "title": "Your everyday coach for wellbeing.",
@@ -95,5 +96,8 @@
     "send": "Send interest",
     "thanks": "Thanks! We'll be in touch.",
     "privacy": "We only store your details for My Aura contact."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions"
   }
 }

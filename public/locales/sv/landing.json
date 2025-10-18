@@ -2,7 +2,8 @@
   "nav": {
     "signin": "Logga in",
     "clinic": "För kliniker",
-    "press": "Press"
+    "press": "Press",
+    "stories": "Artiklar"
   },
   "hero": {
     "title": "Din vardags-coach för välmående – på svenska.",
@@ -95,5 +96,8 @@
     "send": "Skicka intresse",
     "thanks": "Tack! Vi hör av oss.",
     "privacy": "Vi sparar uppgifterna endast för kontakt gällande My Aura."
+  },
+  "faq": {
+    "title": "Vanliga frågor"
   }
 }

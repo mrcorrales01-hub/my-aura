@@ -1,8 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import VideoLightbox from './VideoLightbox';
+import StickyCta from './StickyCta';
+
+const FAQ: { q: string; a: string }[] = [
+  { q: "Är Auri medicinsk rådgivning?", a: "Nej. Auri ger egenvårdsförslag och stöd. Vid akut fara: ring 112 / 1177." },
+  { q: "Hur behandlar ni integritet?", a: "GDPR, minimerad data, RLS i Supabase. Du kan exportera data i appen." },
+  { q: "Fungerar appen offline?", a: "Ja, kärnfunktioner fungerar som PWA. Synk sker när du är online." }
+];
 
 export default function LandingPage() {
   const { t, i18n } = useTranslation('landing');
@@ -10,6 +17,24 @@ export default function LandingPage() {
   const [name, setName] = useState('');
   const [sent, setSent] = useState(false);
   const [videoOpen, setVideoOpen] = useState(false);
+
+  useEffect(() => {
+    // Inject FAQ schema.org (FAQPage)
+    const el = document.createElement('script');
+    el.type = 'application/ld+json';
+    el.id = 'faq-schema';
+    el.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": FAQ.map(x => ({
+        "@type": "Question",
+        "name": x.q,
+        "acceptedAnswer": { "@type": "Answer", "text": x.a }
+      }))
+    });
+    document.head.appendChild(el);
+    return () => { document.getElementById('faq-schema')?.remove(); }
+  }, []);
 
   const videoUrl = import.meta.env.VITE_VIDEO_URL || '/demo.mp4';
   const videoPoster = import.meta.env.VITE_VIDEO_POSTER || '/og.jpg';
@@ -31,6 +56,9 @@ export default function LandingPage() {
         <nav className="flex items-center gap-4 text-sm">
           <Link to="/clinic" className="opacity-80 hover:opacity-100 transition-opacity">
             {t('nav.clinic')}
+          </Link>
+          <Link to="/stories" className="opacity-80 hover:opacity-100 transition-opacity">
+            {t('nav.stories')}
           </Link>
           <Link to="/auth" className="underline">
             {t('nav.signin')}
@@ -168,6 +196,19 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* FAQ */}
+      <section className="max-w-6xl mx-auto px-4 mt-10">
+        <h3 className="text-xl font-semibold mb-3">{t('faq.title')}</h3>
+        <div className="grid md:grid-cols-3 gap-3">
+          {FAQ.map((f, i) => (
+            <div key={i} className="rounded-2xl border border-border p-4 bg-muted/30">
+              <div className="font-medium text-sm">{f.q}</div>
+              <div className="text-sm opacity-80 mt-1">{f.a}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Waitlist */}
       <section id="waitlist" className="max-w-6xl mx-auto px-4 mt-10">
         <div className="rounded-2xl border border-border p-4 bg-muted/30">
@@ -209,6 +250,9 @@ export default function LandingPage() {
         <Link to="/contact" className="hover:opacity-100 transition-opacity">Kontakt</Link>
         <Link to="/press" className="ml-auto hover:opacity-100 transition-opacity">{t('nav.press')}</Link>
       </footer>
+
+      {/* Sticky CTA on mobile */}
+      <StickyCta />
     </div>
   );
 }

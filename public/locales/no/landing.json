@@ -2,7 +2,8 @@
   "nav": {
     "signin": "Logg inn",
     "clinic": "For klinikker",
-    "press": "Presse"
+    "press": "Presse",
+    "stories": "Artikler"
   },
   "hero": {
     "title": "Din hverdagscoach for velvære.",
@@ -95,5 +96,8 @@
     "send": "Send interesse",
     "thanks": "Takk! Vi hører fra oss.",
     "privacy": "Vi lagrer kun opplysningene for kontakt om My Aura."
+  },
+  "faq": {
+    "title": "Vanlige spørsmål"
   }
 }

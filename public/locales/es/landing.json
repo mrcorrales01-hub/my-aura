@@ -2,7 +2,8 @@
   "nav": {
     "signin": "Iniciar sesión",
     "clinic": "Para clínicas",
-    "press": "Prensa"
+    "press": "Prensa",
+    "stories": "Historias"
   },
   "hero": {
     "title": "Tu entrenador diario para el bienestar.",
@@ -95,5 +96,8 @@
     "send": "Enviar interés",
     "thanks": "¡Gracias! Nos pondremos en contacto.",
     "privacy": "Solo guardamos tus datos para contacto sobre My Aura."
+  },
+  "faq": {
+    "title": "Preguntas frecuentes"
   }
 }
