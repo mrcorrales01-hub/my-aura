@@ -10,6 +10,10 @@
     "disclaimer": "Ej medicinsk rådgivning. Vid akut fara: ring 112 / 1177.",
     "video": "Video-demo (ersätt med mp4)"
   },
+  "video": {
+    "play": "Spela upp demo",
+    "caption": "30 sek – Auri, säkerhetsplan och besöks-PDF."
+  },
   "cta": {
     "tryWeb": "Prova i webben",
     "waitlist": "Gå med i väntelistan",

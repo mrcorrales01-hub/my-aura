@@ -10,6 +10,10 @@
     "disclaimer": "Ei lääketieteellistä neuvontaa. Hätätapauksessa: soita 112.",
     "video": "Video-demo (korvaa mp4:llä)"
   },
+  "video": {
+    "play": "Toista demo",
+    "caption": "30 sek – Auri, turvasuunnitelma ja käynti-PDF."
+  },
   "cta": {
     "tryWeb": "Kokeile verkossa",
     "waitlist": "Liity jonotuslistalle",

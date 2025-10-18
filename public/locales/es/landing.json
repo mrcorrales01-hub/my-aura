@@ -10,6 +10,10 @@
     "disclaimer": "No es consejo médico. En caso de emergencia: llama al 112 / 1177.",
     "video": "Demo en video (reemplazar con mp4)"
   },
+  "video": {
+    "play": "Reproducir demo",
+    "caption": "30 seg – Auri, plan de seguridad y PDF de visita."
+  },
   "cta": {
     "tryWeb": "Prueba en la web",
     "waitlist": "Únete a la lista de espera",

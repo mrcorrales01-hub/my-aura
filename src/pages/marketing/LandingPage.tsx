@@ -2,12 +2,17 @@ import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import VideoLightbox from './VideoLightbox';
 
 export default function LandingPage() {
   const { t, i18n } = useTranslation('landing');
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [sent, setSent] = useState(false);
+  const [videoOpen, setVideoOpen] = useState(false);
+
+  const videoUrl = import.meta.env.VITE_VIDEO_URL || '/demo.mp4';
+  const videoPoster = import.meta.env.VITE_VIDEO_POSTER || '/og.jpg';
 
   async function join() {
     try {
@@ -68,9 +73,28 @@ export default function LandingPage() {
           <p className="mt-2 text-xs opacity-60">{t('hero.disclaimer')}</p>
         </div>
         <div className="rounded-2xl border border-border p-4 md:p-6">
-          <div className="aspect-video w-full rounded-xl border border-border bg-muted flex items-center justify-center">
-            <span className="text-sm opacity-60">{t('hero.video')}</span>
-          </div>
+          <button 
+            onClick={() => setVideoOpen(true)} 
+            className="group block w-full relative"
+            aria-label={t('video.play') || 'Play demo video'}
+          >
+            <div 
+              className="aspect-video w-full rounded-xl border border-border overflow-hidden bg-muted"
+              style={{
+                backgroundImage: `url(${videoPoster})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+              }}
+            >
+              <span className="absolute inset-0 flex items-center justify-center">
+                <span className="rounded-full border border-border bg-background/90 px-4 py-2 text-sm group-hover:scale-105 transition-transform shadow-lg">
+                  ▶ {t('video.play')}
+                </span>
+              </span>
+            </div>
+          </button>
+          <div className="text-xs opacity-60 mt-2">{t('video.caption')}</div>
+          
           <div className="mt-3">
             <p className="text-sm mb-2">{t('demo.prompt')}</p>
             <div className="flex flex-wrap gap-2">
@@ -88,6 +112,13 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+        
+        <VideoLightbox 
+          open={videoOpen} 
+          onClose={() => setVideoOpen(false)} 
+          src={videoUrl} 
+          poster={videoPoster}
+        />
       </section>
 
       {/* Features */}
