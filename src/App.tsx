@@ -67,6 +67,8 @@ import PrivacyPage from "@/pages/marketing/PrivacyPage";
 import TermsPage from "@/pages/marketing/TermsPage";
 import ContactPage from "@/pages/marketing/ContactPage";
 import PressPage from "@/pages/marketing/PressPage";
+import StoriesListPage from "@/pages/marketing/StoriesListPage";
+import StoryPage from "@/pages/marketing/StoryPage";
 
 const queryClient = new QueryClient();
 
@@ -97,6 +99,8 @@ const App = () => (
                             <Route path="/terms" element={<TermsPage />} />
                             <Route path="/contact" element={<ContactPage />} />
                             <Route path="/press" element={<PressPage />} />
+                            <Route path="/stories" element={<StoriesListPage />} />
+                            <Route path="/stories/:slug" element={<StoryPage />} />
                             <Route path="/auri" element={<AuriChat />} />
                             <Route path="/chat" element={<AuriChat />} />
                             <Route path="/plan" element={<MyPlan />} />
