@@ -270,7 +270,7 @@ export type Database = {
           action: string
           created_at: string | null
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           new_values: Json | null
           old_values: Json | null
           record_id: string | null
@@ -282,7 +282,7 @@ export type Database = {
           action: string
           created_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           record_id?: string | null
@@ -294,7 +294,7 @@ export type Database = {
           action?: string
           created_at?: string | null
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           new_values?: Json | null
           old_values?: Json | null
           record_id?: string | null
@@ -1853,7 +1853,7 @@ export type Database = {
           created_at: string | null
           event_type: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           user_agent: string | null
           user_id: string | null
         }
@@ -1861,7 +1861,7 @@ export type Database = {
           created_at?: string | null
           event_type: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
         }
@@ -1869,7 +1869,7 @@ export type Database = {
           created_at?: string | null
           event_type?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           user_agent?: string | null
           user_id?: string | null
         }
@@ -2366,7 +2366,7 @@ export type Database = {
           event_details: Json | null
           event_type: string
           id: string
-          ip_address: unknown | null
+          ip_address: unknown
           record_id: string | null
           risk_score: number | null
           session_id: string | null
@@ -2380,7 +2380,7 @@ export type Database = {
           event_details?: Json | null
           event_type: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           record_id?: string | null
           risk_score?: number | null
           session_id?: string | null
@@ -2394,7 +2394,7 @@ export type Database = {
           event_details?: Json | null
           event_type?: string
           id?: string
-          ip_address?: unknown | null
+          ip_address?: unknown
           record_id?: string | null
           risk_score?: number | null
           session_id?: string | null
@@ -3335,14 +3335,8 @@ export type Database = {
         }
         Returns: boolean
       }
-      check_password_security_config: {
-        Args: Record<PropertyKey, never>
-        Returns: Json
-      }
-      cleanup_old_conversations: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      check_password_security_config: { Args: never; Returns: Json }
+      cleanup_old_conversations: { Args: never; Returns: undefined }
       detect_suspicious_login: {
         Args: { p_email: string; p_ip: unknown; p_user_agent?: string }
         Returns: Json
@@ -3355,16 +3349,10 @@ export type Database = {
         Args: { content_text: string; context_type?: string }
         Returns: Json
       }
-      generate_invite_code: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
-      generate_receipt_number: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      generate_invite_code: { Args: never; Returns: string }
+      generate_receipt_number: { Args: never; Returns: string }
       get_all_therapists_public: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           availability: Json
           average_rating: number
@@ -3381,7 +3369,7 @@ export type Database = {
         }[]
       }
       get_anonymous_therapist_marketplace: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           anonymous_id: string
           average_rating: number
@@ -3397,10 +3385,7 @@ export type Database = {
           years_experience: number
         }[]
       }
-      get_current_user_therapist_id: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      get_current_user_therapist_id: { Args: never; Returns: string }
       get_emergency_contacts: {
         Args: { p_user_id?: string }
         Returns: {
@@ -3411,7 +3396,7 @@ export type Database = {
         }[]
       }
       get_full_profile_data: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           age_group: string
           avatar_url: string
@@ -3465,7 +3450,7 @@ export type Database = {
         }[]
       }
       get_secure_therapist_listing: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           average_rating: number
           bio_preview: string
@@ -3480,7 +3465,7 @@ export type Database = {
         }[]
       }
       get_secure_therapist_marketplace: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           average_rating: number
           bio: string
@@ -3495,7 +3480,7 @@ export type Database = {
         }[]
       }
       get_secure_therapist_marketplace_v2: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           availability: Json
           average_rating: number
@@ -3511,7 +3496,7 @@ export type Database = {
         }[]
       }
       get_therapist_marketplace_data: {
-        Args: Record<PropertyKey, never>
+        Args: never
         Returns: {
           availability: Json
           average_rating: number
@@ -3561,6 +3546,13 @@ export type Database = {
           group_id: string
         }[]
       }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       is_group_member: {
         Args: { p_group_id: string; p_user_id: string }
         Returns: boolean
@@ -3569,14 +3561,9 @@ export type Database = {
         Args: { p_session_id: string; p_user_id: string }
         Returns: boolean
       }
-      is_owner: {
-        Args: { uid: string }
-        Returns: boolean
-      }
-      is_system_admin: {
-        Args: Record<PropertyKey, never>
-        Returns: boolean
-      }
+      is_owner: { Args: { uid: string }; Returns: boolean }
+      is_system_admin: { Args: never; Returns: boolean }
+      is_user_admin: { Args: never; Returns: boolean }
       log_ai_interaction: {
         Args: {
           p_ai_tone?: string
@@ -3665,14 +3652,8 @@ export type Database = {
         }
         Returns: undefined
       }
-      moderate_content: {
-        Args: { content_text: string }
-        Returns: Json
-      }
-      monitor_high_risk_security_events: {
-        Args: Record<PropertyKey, never>
-        Returns: undefined
-      }
+      moderate_content: { Args: { content_text: string }; Returns: Json }
+      monitor_high_risk_security_events: { Args: never; Returns: undefined }
       validate_password_strength: {
         Args: { password_text: string }
         Returns: Json
@@ -3683,7 +3664,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user" | "therapist"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -3810,6 +3791,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user", "therapist"],
+    },
   },
 } as const
