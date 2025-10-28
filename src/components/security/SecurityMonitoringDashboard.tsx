@@ -48,12 +48,11 @@ export const SecurityMonitoringDashboard = () => {
     if (!user) return;
     
     try {
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', user.id)
-        .eq('role', 'admin')
-        .single();
+      // Use security definer function instead of direct table query
+      const { data, error } = await supabase.rpc('has_role', {
+        _user_id: user.id,
+        _role: 'admin'
+      });
         
       setIsAdmin(!!data && !error);
     } catch (error) {

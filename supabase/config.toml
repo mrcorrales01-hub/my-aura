@@ -33,6 +33,9 @@ port = 54329
 [functions.ai-coach]
 verify_jwt = true
 
+[functions.auri-chat]
+verify_jwt = true
+
 [functions.auri-roleplay]
 verify_jwt = true
 
@@ -49,4 +52,16 @@ verify_jwt = true
 verify_jwt = true
 
 [functions.video-ai-recommendations] 
+verify_jwt = true
+
+[functions.admin-analytics]
+verify_jwt = true
+
+[functions.admin-users]
+verify_jwt = true
+
+[functions.content-moderation]
+verify_jwt = true
+
+[functions.therapist-ai-summary]
 verify_jwt = true
