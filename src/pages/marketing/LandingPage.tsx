@@ -4,6 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import VideoLightbox from './VideoLightbox';
 import StickyCta from './StickyCta';
+import { z } from 'zod';
+
+const waitlistSchema = z.object({
+  email: z.string().email('Invalid email address').max(255, 'Email too long'),
+  name: z.string().trim().min(1, 'Name is required').max(100, 'Name too long'),
+  interest: z.enum(['user', 'clinic', 'employer'])
+});
 
 const FAQ: { q: string; a: string }[] = [
   { q: "Är Auri medicinsk rådgivning?", a: "Nej. Auri ger egenvårdsförslag och stöd. Vid akut fara: ring 112 / 1177." },
@@ -16,6 +23,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
   const [videoOpen, setVideoOpen] = useState(false);
 
   useEffect(() => {
@@ -40,11 +48,24 @@ export default function LandingPage() {
   const videoPoster = import.meta.env.VITE_VIDEO_POSTER || '/og.jpg';
 
   async function join() {
+    setError('');
+
+    const result = waitlistSchema.safeParse({ email, name, interest: 'user' });
+
+    if (!result.success) {
+      setError(result.error.issues[0].message);
+      return;
+    }
+
     try {
-      await supabase.from('waitlist').insert({ email, name, interest: 'user' });
+      const { error: insertError } = await supabase
+        .from('waitlist')
+        .insert([result.data as any]);
+      
+      if (insertError) throw insertError;
       setSent(true);
     } catch {
-      setSent(true);
+      setError('Failed to join. Please try again.');
     }
   }
 
@@ -218,7 +239,13 @@ export default function LandingPage() {
               {t('wait.thanks')}
             </div>
           ) : (
-            <div className="flex flex-col sm:flex-row gap-2 mt-2">
+            <>
+              {error && (
+                <div className="text-destructive p-2 rounded border border-destructive/30 bg-destructive/10 text-sm mt-2">
+                  {error}
+                </div>
+              )}
+              <div className="flex flex-col sm:flex-row gap-2 mt-2">
               <input 
                 className="border border-border rounded px-3 py-2 w-full bg-background" 
                 placeholder={t('wait.name') || 'Namn'} 
@@ -237,7 +264,8 @@ export default function LandingPage() {
               >
                 {t('wait.join')}
               </button>
-            </div>
+              </div>
+            </>
           )}
           <div className="text-xs opacity-60 mt-2">{t('wait.privacy')}</div>
         </div>

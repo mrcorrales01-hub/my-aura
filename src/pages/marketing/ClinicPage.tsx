@@ -2,6 +2,16 @@ import { useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { z } from 'zod';
+
+const marketingLeadSchema = z.object({
+  type: z.literal('clinic'),
+  org: z.string().trim().min(1, 'Organization name is required').max(200, 'Organization name too long'),
+  contact_name: z.string().trim().min(1, 'Name is required').max(100, 'Name too long'),
+  email: z.string().email('Invalid email address').max(255, 'Email too long'),
+  phone: z.string().trim().max(20, 'Phone number too long').regex(/^[\d\s\-\+\(\)]*$/, 'Invalid phone format').optional().or(z.literal('')),
+  message: z.string().trim().min(1, 'Message is required').max(2000, 'Message too long')
+});
 
 export default function ClinicPage() {
   const { t } = useTranslation('landing');
@@ -11,20 +21,34 @@ export default function ClinicPage() {
   const [phone, setPhone] = useState('');
   const [msg, setMsg] = useState('');
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState('');
 
   async function send() {
+    setError('');
+    
+    const result = marketingLeadSchema.safeParse({
+      type: 'clinic',
+      org,
+      contact_name: name,
+      email,
+      phone: phone || '',
+      message: msg
+    });
+
+    if (!result.success) {
+      setError(result.error.issues[0].message);
+      return;
+    }
+
     try {
-      await supabase.from('marketing_leads').insert({
-        type: 'clinic',
-        org,
-        contact_name: name,
-        email,
-        phone,
-        message: msg
-      });
+      const { error: insertError } = await supabase
+        .from('marketing_leads')
+        .insert([result.data as any]);
+      
+      if (insertError) throw insertError;
       setSent(true);
     } catch {
-      setSent(true);
+      setError('Failed to send. Please try again.');
     }
   }
 
@@ -44,6 +68,11 @@ export default function ClinicPage() {
           </div>
         ) : (
           <div className="space-y-2">
+            {error && (
+              <div className="text-destructive p-3 rounded border border-destructive/30 bg-destructive/10 text-sm">
+                {error}
+              </div>
+            )}
             <input 
               className="border border-border rounded px-3 py-2 w-full bg-background" 
               placeholder={t('clinic.org') || 'Organisation'} 
