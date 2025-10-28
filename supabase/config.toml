@@ -33,6 +33,18 @@ port = 54329
 [functions.ai-coach]
 verify_jwt = true
 
+[functions.auri-roleplay]
+verify_jwt = true
+
+[functions.save-plan]
+verify_jwt = true
+
+[functions.journal-entry]
+verify_jwt = true
+
+[functions.check-in]
+verify_jwt = true
+
 [functions.music-ai-recommendations]
 verify_jwt = true
 
