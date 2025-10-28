@@ -150,8 +150,8 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section className="max-w-6xl mx-auto px-4 grid md:grid-cols-4 gap-4">
-        {['auri', 'safety', 'visit', 'roleplay'].map(k => (
+      <section className="max-w-6xl mx-auto px-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {['auri', 'safety', 'visit', 'roleplay', 'mood', 'assessment'].map(k => (
           <div key={k} className="rounded-2xl border border-border p-4 hover:border-primary/50 transition-colors">
             <div className="font-medium">{t(`feat.${k}.title`)}</div>
             <div className="text-sm opacity-70 mt-1">{t(`feat.${k}.desc`)}</div>

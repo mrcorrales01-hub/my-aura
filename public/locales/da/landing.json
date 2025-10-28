@@ -43,6 +43,14 @@
     "roleplay": {
       "title": "Rollespil",
       "desc": "Øv svære samtaler."
+    },
+    "mood": {
+      "title": "Humør & dagbog",
+      "desc": "Spor dit humør og triggere. Eksporter som PDF til at dele med terapeut."
+    },
+    "assessment": {
+      "title": "Selvvurdering",
+      "desc": "PHQ-9 og GAD-7 med PDF-eksport. Følg din fremgang over tid."
     }
   },
   "proof": {

@@ -1,81 +1,89 @@
 {
   "nav": {
     "signin": "Logga in",
-    "clinic": "För kliniker",
+    "clinic": "Klinik",
     "press": "Press",
-    "stories": "Artiklar"
+    "stories": "Berättelser"
   },
   "hero": {
-    "title": "Din vardags-coach för välmående – på svenska.",
-    "subtitle": "Auri (AI-coach), säkerhetsplan, rollspel och besöks-PDF i en app.",
-    "disclaimer": "Ej medicinsk rådgivning. Vid akut fara: ring 112 / 1177.",
+    "title": "Ditt stöd för psyket – i fickan",
+    "subtitle": "Auri coachar dig, lugnar panik, förbereder dig inför vårdkontakter och hjälper dig följa hur du mår över tid.",
+    "disclaimer": "Ingen medicinsk rådgivning. Vid akut fara ring 112 eller 1177.",
     "video": "Video-demo (ersätt med mp4)"
   },
   "video": {
     "play": "Spela upp demo",
-    "caption": "30 sek – Auri, säkerhetsplan och besöks-PDF."
+    "caption": "Se hur Auri fungerar"
   },
   "cta": {
-    "tryWeb": "Prova i webben",
-    "waitlist": "Gå med i väntelistan",
+    "tryWeb": "Prova webben",
+    "waitlist": "Gå med på väntelistan",
     "getStarted": "Kom igång"
   },
   "demo": {
-    "prompt": "Så funkar My Aura i korthet:",
-    "m1": "Jag sover dåligt – vad kan jag göra ikväll?",
-    "m2": "Jag har läkarbesök imorgon – hur förbereder jag mig?",
-    "m3": "Hur sätter jag en vänlig gräns på jobbet?",
-    "preview": "Auri ger 2–4 konkreta steg och en följdfråga. Prova full chat i appen."
+    "prompt": "Du kan t.ex. fråga:",
+    "m1": ""Jag kan inte sova, vad gör jag?"",
+    "m2": ""Jag får panikattacker på jobbet"",
+    "m3": ""Hjälp mig lugna mig NU"",
+    "preview": "Auri svarar direkt, utan att döma."
   },
   "feat": {
     "auri": {
       "title": "Auri (AI-coach)",
-      "desc": "Snabba, empatiska råd på svenska."
+      "desc": "Prata direkt när ångesten slår till. Trygg, lugn, konkret vägledning."
     },
     "safety": {
-      "title": "Säkerhetsplan",
-      "desc": "Personlig plan + låsskärms-PDF."
+      "title": "Trygghetsstöd",
+      "desc": "Panikplan, andningsstöd och tydligt 'ring 112 / 1177' när det är akut."
     },
     "visit": {
-      "title": "Besöks-PDF",
-      "desc": "14-dagars sammanfattning till läkare."
+      "title": "Inför vårdbesök",
+      "desc": "Få hjälp att formulera dina symtom och frågor innan du träffar vården."
     },
     "roleplay": {
       "title": "Rollspel",
-      "desc": "Öva svåra samtal – vård, jobb, familj."
+      "desc": "Öva svåra samtal och gränser i trygg miljö innan du gör det på riktigt."
+    },
+    "mood": {
+      "title": "Humör & journal",
+      "desc": "Logga mående och triggers. Exportera som PDF om du vill dela med psykolog/läkare."
+    },
+    "assessment": {
+      "title": "Självskattning",
+      "desc": "PHQ-9 och GAD-7 med PDF-export. Följ din utveckling över tid."
     }
   },
   "proof": {
-    "quote": "Auri fick mig att agera direkt – mindre oro redan första veckan.",
-    "person": "Beta-användare"
+    "quote": "Jag fick hjälp mitt i paniken utan att behöva vänta.",
+    "person": "Användare"
   },
   "pricing": {
     "title": "Priser",
     "free": {
-      "name": "Free",
-      "price": "0 kr/mån",
+      "name": "Gratis",
+      "price": "0 kr",
       "points": [
-        "Auri 20 svar/dag",
-        "Humör & journal",
-        "Besöks-PDF"
+        "Daglig check-in",
+        "Auri basic",
+        "Journal"
       ]
     },
     "plus": {
       "name": "Plus",
       "price": "99 kr/mån",
       "points": [
-        "Auri 200 svar/dag",
-        "Rollspel & påminnelser",
-        "Säkerhetsplan PDF"
+        "Guidade övningar",
+        "Exponeringsövningar",
+        "Krisstöd"
       ]
     },
     "pro": {
       "name": "Pro",
       "price": "199 kr/mån",
       "points": [
-        "Oändlig Auri",
-        "Avancerade manus",
-        "Prioriterad support"
+        "Rollspel",
+        "Inför vårdbesök",
+        "PDF-export / rapporter"
       ]
     }
   },

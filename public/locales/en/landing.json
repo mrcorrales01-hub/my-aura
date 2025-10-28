@@ -43,6 +43,14 @@
     "roleplay": {
       "title": "Role-play",
       "desc": "Practice difficult conversations."
+    },
+    "mood": {
+      "title": "Mood & journal",
+      "desc": "Track your mood and triggers. Export as PDF to share with therapist."
+    },
+    "assessment": {
+      "title": "Self-assessment",
+      "desc": "PHQ-9 and GAD-7 with PDF export. Track your progress over time."
     }
   },
   "proof": {

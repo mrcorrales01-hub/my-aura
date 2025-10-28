@@ -43,6 +43,14 @@
     "roleplay": {
       "title": "Juego de roles",
       "desc": "Practica conversaciones difíciles."
+    },
+    "mood": {
+      "title": "Estado de ánimo y diario",
+      "desc": "Registra tu estado de ánimo y desencadenantes. Exporta como PDF para compartir con terapeuta."
+    },
+    "assessment": {
+      "title": "Autoevaluación",
+      "desc": "PHQ-9 y GAD-7 con exportación PDF. Sigue tu progreso con el tiempo."
     }
   },
   "proof": {

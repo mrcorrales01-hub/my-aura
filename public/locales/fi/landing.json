@@ -43,6 +43,14 @@
     "roleplay": {
       "title": "Roolipeli",
       "desc": "Harjoittele vaikeita keskusteluja."
+    },
+    "mood": {
+      "title": "Mieliala & päiväkirja",
+      "desc": "Seuraa mielialaasi ja laukaisimia. Vie PDF:nä jaettavaksi terapeutin kanssa."
+    },
+    "assessment": {
+      "title": "Itsearviointi",
+      "desc": "PHQ-9 ja GAD-7 PDF-viennillä. Seuraa edistymistäsi ajan mittaan."
     }
   },
   "proof": {
